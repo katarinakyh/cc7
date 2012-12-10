@@ -2,7 +2,6 @@
 *.pot
 *.pyc
 local_settings.py
-/cc7/cc7.komodoproject
-/cc7/.komodotools
+
 /env/*
 
