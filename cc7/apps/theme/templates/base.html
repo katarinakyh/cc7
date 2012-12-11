@@ -9,8 +9,6 @@
     <meta name="author" content="">
 
     <!-- The styles -->
-
-    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -38,7 +36,7 @@
               </li>
               <li class="">
             {% if user.is_authenticated %}
-          <a href="/ads/add/">Add ad</a>
+          <a href="/">home</a>
               </li>
               <li class="">
                     <a href="/accounts/signout/">Log out</a>
