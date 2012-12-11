@@ -3,12 +3,17 @@
 
 {% block title %}{% trans "Signin" %}{% endblock %}
 {% block extra_head %}
-    <link href="{{ STATIC_URL }}css/new2.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/new.css" rel="stylesheet">
+      <style>
+        body{
+          background: url('{{STATIC_URL}}img/gray_jean.png');
+        }
+        
+      </style>
 {% endblock %}
 
 {% block allcontent %}
-<div class="">
+<div id="login" class="">
   <form action="" method="post" class="form-horizontal block-form">
     {% csrf_token %}
     <fieldset>
@@ -23,7 +28,7 @@
           </p>
         {% else %}
           <div class="control-group">
-               <label for="id_{{ field.name }}" class="control-label" >{{ field }} {{ field.label }}</label>
+               <label for="id_{{ field.name }}" class="control-label" >{{ field.label }} {{ field }} </label>
               <div class="controls"
                   {{ field }}
               </div>
