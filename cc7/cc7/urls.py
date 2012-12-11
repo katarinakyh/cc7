@@ -1,15 +1,33 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 from django.contrib import admin
+from userena import views as userena_views
+from apps.account.forms import EditProfileFormExtra
+from apps.account.views import MyPage
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'cc7.views.home', name='home'),
+    url(r'^$', MyPage.as_view(), name='my_page'),
     # url(r'^cc7/', include('cc7.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/(?P<username>[\.\w]+)/edit/$',
+       userena_views.profile_edit,
+       {'edit_profile_form': EditProfileFormExtra,
+        'success_url': '/accounts/',},
+       name='userena_profile_edit',
+       ),
+
     url(r'^accounts/', include('userena.urls')),
 )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   )

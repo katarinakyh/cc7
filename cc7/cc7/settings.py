@@ -82,8 +82,8 @@ SECRET_KEY = 'ups)t_*yvnf(6-x7jxwurza@7*+ffa*&amp;wcwf)d$c^o^22oq*nv'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
 
@@ -106,6 +106,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    #'home/katarina/dev/cc7/cc7/apps/theme/templates/',
 )
 
 INSTALLED_APPS = (
@@ -119,15 +120,17 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'south',
-    'userena',
-    'guardian',
-    'easy_thumbnails',
     #own apps,
     'apps.theme',
     'apps.publication',
     'apps.event',
     'apps.account',
+    #installed apps,
+    'south',
+    'userena',
+    'guardian',
+    'easy_thumbnails',
+
 )
 
 # A sample logging configuration. The only tangible logging
