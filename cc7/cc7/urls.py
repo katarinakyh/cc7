@@ -23,6 +23,7 @@ urlpatterns = patterns('',
        ),
 
     url(r'^accounts/', include('userena.urls')),
+    url(r'^event/', include('apps.event.urls')),
 )
 
 if settings.DEBUG:
