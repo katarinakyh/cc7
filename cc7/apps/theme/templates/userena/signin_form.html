@@ -3,42 +3,79 @@
 
 {% block title %}{% trans "Signin" %}{% endblock %}
 {% block extra_head %}
-    <link href="{{ STATIC_URL }}css/new.css" rel="stylesheet">
       <style>
         body{
           background: url('{{STATIC_URL}}img/gray_jean.png');
         }
+
+        #huge_text{
+          font-family: Roboto-Light;
+          font-size: 200px;
+          color: #DDD;
+          text-shadow: 0 1px 0 white;
+          margin-bottom: 60px;
+        }
         
+        #login{
+          width: 450px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .formback{
+          background: #fff;
+          padding-top: 20px;
+          padding-left: 20px;
+          padding-right: 20px;
+          border: solid 1px #ccc;
+          border-radius: 5px;
+          z-index: 100;
+        }
+
+        .forgot-password{
+          text-align: center;
+        }
       </style>
 {% endblock %}
 
 {% block allcontent %}
 <div id="login" class="">
-  <form action="" method="post" class="form-horizontal block-form">
-    {% csrf_token %}
-    <fieldset>
+  <h1 id="huge_text">&nbsp;</h1>
+    <form action="" method="post" class="form-horizontal block-form">
+      {% csrf_token %}
+      <fieldset>
+      <div class="formback">
+        
+        {{ form.non_field_errors }}
+        {% for field in form %}
+          {{ field.errors }}
+          {% comment %} Displaying checkboxes differently {% endcomment %}
+          {% if field.name != 'remember_me' %}
+            <div class="control-group">
+                 <label for="id_{{ field.name }}" class="control-label" style="width: 40%; text-align: center; padding: 10px 0; overflow: hidden">{{ field.label }} </label>
+                <div class="controls" style="width: 60%;">
+                    {{ field }}
+                </div>
+            </div>
+          {% else %}
+            </div>
+            <div class="">
+              <input type="submit" class="new-btn button" style="width: 100%; background: #fff;margin-top: 5px;margin-bottom: 5px;padding:3px;border-radius: 5px;   " value="{% trans "Signin" %}" />
+            </div>
+            <p class="checkbox">
+              <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+            </p>
+            
+          {% endif %}
+        {% endfor %}
       
-      {{ form.non_field_errors }}
-      {% for field in form %}
-        {{ field.errors }}
-        {% comment %} Displaying checkboxes differently {% endcomment %}
-        {% if field.name == 'remember_me' %}
-          <p class="checkbox">
-          <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-          </p>
-        {% else %}
-          <div class="control-group">
-               <label for="id_{{ field.name }}" class="control-label" >{{ field.label }} {{ field }} </label>
-              <div class="controls"
-                  {{ field }}
-              </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </fieldset>
-    <input type="submit" class="new-btn button" value="{% trans "Signin" %}" />
-    <p class="forgot-password"><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
-    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-  </form>
+      </fieldset>
+      <div class="">
+        <br/>
+        <p class="forgot-password"><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
+        <p class="forgot-password"><a href="/accounts/signup/">{% trans "Sign up" %} </a></p>
+
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+      </div>
+    </form>
 </div>
 {% endblock %}
