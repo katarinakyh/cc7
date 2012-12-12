@@ -10,6 +10,25 @@
 
     <!-- The styles -->
     <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+      <link href="{{ STATIC_URL }}css/timePicker.css" rel="stylesheet">
+
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+      <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+      <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+      <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css" />
+      <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
+      <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
+
+
+      <script>
+          $(function() {
+              $("#id_date_from, #id_date_to").datepicker();
+              $("#id_time_from, #id_time_to").timePicker();
+
+
+
+          });
+      </script>
     <style type="text/css">
       body {
         padding-top: 60px;
