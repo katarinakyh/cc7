@@ -5,4 +5,4 @@ local_settings.py
 /cc7/cc7.komodoproject
 /cc7/.komodotools
 /env/*
-
+/cc7/db.sqlite3

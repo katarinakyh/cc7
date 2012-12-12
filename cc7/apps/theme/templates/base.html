@@ -10,6 +10,25 @@
 
     <!-- The styles -->
     <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+      <link href="{{ STATIC_URL }}css/timePicker.css" rel="stylesheet">
+
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+      <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+      <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+      <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css" />
+      <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
+      <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
+
+
+      <script>
+          $(function() {
+              $("#id_date_from, #id_date_to").datepicker();
+              $("#id_time_from, #id_time_to").timePicker();
+
+
+
+          });
+      </script>
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -32,14 +51,14 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="">
-                <a href="/accounts/signup/">Register MIN base.html</a>
+                <a href="/accounts/signup/">Register </a>
               </li>
               <li class="">
             {% if user.is_authenticated %}
           <a href="/">home</a>
               </li>
               <li class="">
-                    <a href="/accounts/signout/">Log out</a>
+                    <a href="/accounts/signout/">log out</a>
               </li>
             <li class="">
                     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a>
@@ -48,6 +67,12 @@
             <li class="">
                     <a href="{% url userena_profile_edit user.username %}">edit profile</a>
               </li>
+            <li>
+                    <a href="{% url list_events %}">all events</a>
+            </li>
+            <li>
+                    <a href="{% url add_event %}">add event</a>
+            </li>
                 {% else %}
                     <a href="/accounts/signin/">Please sign in </a>
                 {% endif %}
