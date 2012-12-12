@@ -39,7 +39,7 @@
           <a href="/">home</a>
               </li>
               <li class="">
-                    <a href="/accounts/signout/">Log out</a>
+                    <a href="/accounts/signout/">log out</a>
               </li>
             <li class="">
                     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a>
@@ -48,6 +48,12 @@
             <li class="">
                     <a href="{% url userena_profile_edit user.username %}">edit profile</a>
               </li>
+            <li>
+                    <a href="{% url list_events %}">all events</a>
+            </li>
+            <li>
+                    <a href="{% url add_event %}">add event</a>
+            </li>
                 {% else %}
                     <a href="/accounts/signin/">Please sign in </a>
                 {% endif %}
