@@ -120,11 +120,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'south',
-    'gunicorn', 
-    'userena',
-    'guardian',
-    'easy_thumbnails',
     #own apps,
     'apps.theme',
     'apps.publication',
@@ -132,10 +127,10 @@ INSTALLED_APPS = (
     'apps.account',
     #installed apps,
     'south',
+    'gunicorn',
     'userena',
     'guardian',
     'easy_thumbnails',
-
 )
 
 # A sample logging configuration. The only tangible logging
