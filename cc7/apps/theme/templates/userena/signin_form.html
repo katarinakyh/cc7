@@ -1,6 +1,12 @@
 {% extends 'userena/base_userena.html' %}
 {% load i18n %}
 
+<style>
+    #id_password {
+        color:red;
+    }
+</style>
+
 {% block title %}{% trans "Signin" %}{% endblock %}
 {% block extra_head %}
       <style>
