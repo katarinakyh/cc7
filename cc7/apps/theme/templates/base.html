@@ -41,6 +41,10 @@
               background-repeat: repeat-x;
               border-color: transparent;
           }
+          .logout {
+              padding-left: 400px;
+          }
+
       </style>
 
   </head>
@@ -50,20 +54,14 @@
 ================================================== -->
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
+
         <div class="container">
           <a class="brand" href="/">CC7</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="">
-                <a href="/accounts/signup/">Register </a>
-              </li>
-              <li class="">
+
             {% if user.is_authenticated %}
-          <a href="/">home</a>
-              </li>
-              <li class="">
-                    <a href="/accounts/signout/">log out</a>
-              </li>
+
             <li class="">
                     <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a>
               </li>
@@ -77,8 +75,19 @@
             <li>
                     <a href="{% url add_event %}">add event</a>
             </li>
+
+                <li class="logout">
+                    <a href="/accounts/signout/">log out</a>
+                </li>
+
                 {% else %}
+                <li class="">
                     <a href="/accounts/signin/">Please sign in </a>
+                </li>
+                <li class="">
+                    <a href="/accounts/signup/">Register </a>
+                </li>
+                <li class="">
                 {% endif %}
               </li>
 
