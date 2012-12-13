@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{%block content%}
+
+    {% for p in object_list  %}
+        <blockquote> <h4 style="display:inline">{{ p.title }} </h4>
+            <span class="small"> {{ p.date_created }} </span>
+            <div> {{ p.body }} </div>
+        </blockquote>
+    {% endfor %}
+
+{%endblock%}
