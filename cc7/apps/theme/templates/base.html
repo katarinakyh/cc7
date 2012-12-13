@@ -26,16 +26,23 @@
               $("#id_time_from, #id_time_to").timePicker();
           });
       </script>
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
 
     {% block extra_head %}{% endblock %}
     
     <title> {% block title %} cc7 social forum {% endblock %} </title>
+      <style type="text/css">
+          body {
+              padding-top: 60px;
+              padding-bottom: 40px;
+          }
+          .navbar-inverse .navbar-inner {
+              background-color: #000;
+              background-image: linear-gradient(to bottom, #000, #000);
+              background-repeat: repeat-x;
+              border-color: transparent;
+          }
+      </style>
+
   </head>
  <body data-spy="scroll" data-target=".bs-docs-sidebar">
 {%block allcontent%}
