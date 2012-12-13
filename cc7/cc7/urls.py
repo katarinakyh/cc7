@@ -21,7 +21,7 @@ urlpatterns = patterns('',
          'success_url': '/accounts/',},
         name='userena_profile_edit',
     ),
-
+    (r'^grappelli/', include('grappelli.urls')),
     url(r'^accounts/', include('userena.urls')),
     url(r'^event/', include('apps.event.urls')),
 )
