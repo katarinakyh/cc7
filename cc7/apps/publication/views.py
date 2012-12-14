@@ -44,11 +44,10 @@ class AddPostView(CreateView):
             post.title = str(title)
             post.body = str(body)
             post.author = MyProfile.objects.get(user=user)
-
             if (event != 0):
-                post.event = Event.objects.get(event=event)
+                post.event = Event.objects.get(id=event)
             if (association != 0):
-                post.association = Association.objects.get(association=association)
+                post.association = Association.objects.get(id=association)
             if (personal_page != 0):
                 post.personal_page = user
             if (is_public != 0):

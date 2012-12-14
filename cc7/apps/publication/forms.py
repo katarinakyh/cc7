@@ -10,5 +10,5 @@ class PostForm(ModelForm):
         widgets = {
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
         }
-        fields = ('title', 'body')
+        #fields = ('title', 'body')
         
