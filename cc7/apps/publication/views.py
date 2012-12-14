@@ -13,5 +13,12 @@ class AddPostView(CreateView):
     model = Post
     form_class = PostForm
 
+    def post(self, request, *args, **kwargs):
+
+        self.object = None
+
+        return super(AddPostView, self).post(request, *args, **kwargs)
+
     def get_success_url(self):
+
         return reverse('my_page')

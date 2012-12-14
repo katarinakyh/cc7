@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('userena.urls')),
     url(r'^event/', include('apps.event.urls')),
     url(r'^post/', include('apps.publication.urls')),
+    url(r'^association/', include('apps.account.urls')),
 )
 
 if settings.DEBUG:
