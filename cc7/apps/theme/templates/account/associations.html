@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{%block content%}
+
+    {% for a in object_list  %}
+        <blockquote> <h4 style="display:inline">{{ a.association }} </h4>
+        <div class="small">{{a.description}}</div>
+        
+        </blockquote>
+        
+    {% endfor %}
+
+{%endblock%}
+

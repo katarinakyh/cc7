@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import admin
 from userena import views as userena_views
@@ -8,7 +9,7 @@ from apps.account.views import MyPage
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', MyPage.as_view(), name='my_page'),
+    url(r'^$', login_required(MyPage.as_view()), name='my_page'),
     # url(r'^cc7/', include('cc7.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
