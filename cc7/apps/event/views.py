@@ -14,4 +14,4 @@ class AddEventView(CreateView):
     form_class = EventForm
     
     def get_success_url(self):
-        return reverse('my_page')
+        return reverse('list_events')
