@@ -41,6 +41,10 @@
               background-repeat: repeat-x;
               border-color: transparent;
           }
+          .myview {
+              padding-left: 300px;
+          }
+
       </style>
 
   </head>
@@ -50,35 +54,43 @@
 ================================================== -->
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
+
         <div class="container">
           <a class="brand" href="/">CC7</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="">
-                <a href="/accounts/signup/">Register </a>
-              </li>
-              <li class="">
+
             {% if user.is_authenticated %}
-          <a href="/">home</a>
-              </li>
-              <li class="">
-                    <a href="/accounts/signout/">log out</a>
-              </li>
-            <li class="">
-                    <a href="/accounts/{{ request.user.username }}/">{{ request.user.username }}</a>
-              </li>
-            
-            <li class="">
-                    <a href="{% url userena_profile_edit user.username %}">edit profile</a>
-              </li>
+
             <li>
-                    <a href="{% url list_events %}">all events</a>
+                    <a href="{% url list_events %}">Events</a>
             </li>
             <li>
-                    <a href="{% url add_event %}">add event</a>
+                    <a href="{% url add_event %}">Add event</a>
             </li>
+                <li>
+                    <a href="{% url list_posts %}">Posts</a>
+                </li>
+                <li>
+                    <a href="{% url add_post %}">Add post</a>
+                </li>
+                <div class=" nav myview">
+                    <li class="">
+                        <a href="{% url userena_profile_edit user.username %}">{{ user.username }}</a>
+                    </li>
+                    <li >
+
+                        <a href="/accounts/signout/">log out</a>
+                    </li>
+                </div>
                 {% else %}
+                <li class="">
                     <a href="/accounts/signin/">Please sign in </a>
+                </li>
+                <li class="">
+                    <a href="/accounts/signup/">Register </a>
+                </li>
+                <li class="">
                 {% endif %}
               </li>
 
@@ -89,14 +101,21 @@
     </div>
     <!--=========================================-->
  
-     <div class="container">
-
-      {% block leftsidebar %} {% endblock %}
-    
+     <div class="container" class="span12">
+       <div class="span2" style="min-height: 500px; background: #fff;margin: 0;">
+      {% block leftsidebar %}
+        <ul>
+           <li><a href="{% url list_events %}">Events</a></li>
+           <li><a href="{%url list_associations%}">Associations</a></li>
+        </ul>
+      {% endblock %}
+       </div>
+      <div class="span8" style="min-height: 500px;background: #ffffff;margin: 0;">
       {% block content %} {% endblock %}
-    
-      {% block rightsidebar %} {% endblock %}
-    
+      </div>
+     <div class="span2" style="min-height: 500px;background: #fff;margin: 0;border: solid 3px #BBBBFF;>
+         {% block rightsidebar %} right sidebar{% endblock %}
+     </div>
     </div>
 {%endblock%}  
  </body>
