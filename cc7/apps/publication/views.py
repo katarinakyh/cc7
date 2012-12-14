@@ -2,9 +2,11 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse
 from models import Post
-from event.models import Event
+from apps.event.models import Event
 from forms import PostForm
-from account.models import MyProfile
+from apps.account.models import MyProfile, Association
+from django.contrib.auth.models import User
+
 
 class PostView(ListView):
     template_name = 'post/events.html'
@@ -16,35 +18,46 @@ class AddPostView(CreateView):
     form_class = PostForm
 
     def post(self, request, *args, **kwargs):
-        post = Post.objects.creat()
+        post = Post()
         title = request.POST.get('title')
         body = request.POST.get('body')
         if (request.POST.get('is_public')):
             is_public = request.POST.get('is_public')
+        else:
+            is_public = 0
         if (request.POST.get('personal_page')):
             personal_page = request.POST.get('personal_page')
+        else:
+            personal_page = 0
+
         if (request.POST.get('association')):
             association = request.POST.get('association')
+        else:
+            association = 0
         if (request.POST.get('event')):
             event = request.POST.get('event')
+        else:
+            event = 0
 
+        user = User.objects.get(username=request.user)
         try:
             post.title = str(title)
             post.body = str(body)
-            post.author = request.user
-            if (event):
-                post.event = Event.object.get(event=event)
-            if (association):
-                post.association = Association.object.get(association=association)
-            if (personal_page):
-                post.personal_page = MyProfile.object.get(MyProfile=request.user)
-            if (is_public):
+            post.author = MyProfile.objects.get(user=user)
+
+            if (event != 0):
+                post.event = Event.objects.get(event=event)
+            if (association != 0):
+                post.association = Association.objects.get(association=association)
+            if (personal_page != 0):
+                post.personal_page = user
+            if (is_public != 0):
                 post.is_public = bool(is_public)
 
             post.save()
         except ValueError:
             pass
-        
+
         return super(AddPostView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
