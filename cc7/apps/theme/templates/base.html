@@ -29,7 +29,7 @@
 
     {% block extra_head %}{% endblock %}
     
-    <title> {% block title %} cc7 social forum {% endblock %} </title>
+    <title> {% block title %} {% trans "cc7 social forum" %} {% endblock %} </title>
       <style type="text/css">
           body {
               padding-top: 60px;
@@ -61,18 +61,11 @@
             <ul class="nav">
 
             {% if user.is_authenticated %}
-
             <li>
-                    <a href="{% url list_events %}">Events</a>
-            </li>
-            <li>
-                    <a href="{% url add_event %}">Add event</a>
+                    <a href="{% url add_event %}">{% trans "Event" %} ++</a>
             </li>
                 <li>
-                    <a href="{% url list_posts %}">Posts</a>
-                </li>
-                <li>
-                    <a href="{% url add_post %}">Add post</a>
+                    <a href="{% url add_post %}">{% trans "Post" %} ++</a>
                 </li>
                 <div class=" nav myview">
                     <li class="">
@@ -80,20 +73,19 @@
                     </li>
                     <li >
 
-                        <a href="/accounts/signout/">log out</a>
+                        <a href="/accounts/signout/">{% trans "Log out" %}</a>
                     </li>
                 </div>
                 {% else %}
                 <li class="">
-                    <a href="/accounts/signin/">Please sign in </a>
+                    <a href="/accounts/signin/">{% trans "Please" %} {% trans "sign in" %} </a>
                 </li>
                 <li class="">
-                    <a href="/accounts/signup/">Register </a>
+                    <a href="/accounts/signup/">{% trans "Register" %} </a>
                 </li>
                 <li class="">
                 {% endif %}
               </li>
-
             </ul>
           </div>
         </div>
@@ -105,8 +97,9 @@
        <div class="span2" style="min-height: 500px; background: #fff;margin: 0;">
       {% block leftsidebar %}
         <ul>
-           <li><a href="{% url list_events %}">Events</a></li>
-           <li><a href="{%url list_associations%}">Associations</a></li>
+           <li><a href="{% url list_events %}">{% trans "Events" %}</a></li>
+           <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
+            <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
         </ul>
       {% endblock %}
        </div>
@@ -114,7 +107,7 @@
       {% block content %} {% endblock %}
       </div>
      <div class="span2" style="min-height: 500px;background: #fff;margin: 0;border: solid 3px #BBBBFF;">
-         {% block rightsidebar %} right sidebar{% endblock %}
+         {% block rightsidebar %} right sidebar {% endblock %}
      </div>
     </div>
 {%endblock%}  

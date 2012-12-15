@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
-
 {%block content%}
+
 <form action="" method="post" class="form-horizontal block-form">
     {% csrf_token %}
     <div class="control-group" id="title">
@@ -26,4 +25,5 @@
     <input type="hidden" value="1" name="is_public" id="id_is_public"/>
     <input type="submit">
 </form>
+
 {%endblock%}
