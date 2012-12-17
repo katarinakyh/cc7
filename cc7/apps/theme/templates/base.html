@@ -35,7 +35,7 @@
               padding-bottom: 40px;
           }
           .main {
-              margin-top: 20px;
+              margin-top: 10px;
           }
           .navbar-inverse .navbar-inner {
               background-color: #000;
@@ -59,6 +59,10 @@
           }
           .navbar-inverse .nav{
               padding-left: 60px;
+          }
+          .nav-list > li > a:hover{
+              background-color: #fff2f2;
+              color: #000b03;
           }
 
       </style>
@@ -114,7 +118,7 @@
       {% block leftsidebar %}
 
         <ul class="nav nav-list">
-           <div>Filter:</div>
+           <div>Filter Stream:</div>
            <li><a href="{% url list_events %}">{% trans "Events" %}</a></li>
            <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
            <li><a href="/">{% trans "All" %}</a></li>
