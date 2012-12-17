@@ -50,6 +50,9 @@
           .small {
               font-size: 10px;
           }
+          .navbar-inner{
+              height: 52px;
+          }
 
           .navbar-inverse .brand {
               padding-left: 40px;
@@ -69,7 +72,7 @@
       <div class="navbar-inner">
 
         <div class="container">
-            <a class="brand" href="/"><img src="{{ MEDIA_URL }}c7.png" width="46px"> </a>
+            <a class="brand" href="/"><img src="{{ MEDIA_URL }}c7.png" width="40px"> </a>
           <div class="nav-collapse collapse">
             <ul class="nav">
 
@@ -113,7 +116,6 @@
         <ul class="nav nav-list">
            <div>Filter:</div>
            <li><a href="{% url list_events %}">{% trans "Events" %}</a></li>
-           <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
            <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
            <li><a href="/">{% trans "All" %}</a></li>
         </ul>
@@ -128,9 +130,9 @@
          <ul class="nav nav-list">
              <div>Entitles:</div>
 
-             <li>{% trans "Associations" %}</li>
-             <li>{% trans "Friends" %}</li>
-             <li>{% trans "Groups" %}</li>
+             <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
+             <li><a href="{%url list_associations%}">{% trans "Friends" %}</a></li>
+             <li><a href="{%url list_associations%}">{% trans "Groups" %}</a></li>
          </ul>
 
 
