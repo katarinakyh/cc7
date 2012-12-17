@@ -43,6 +43,9 @@ ls{% load i18n %}
           .myview {
               padding-left: 300px;
           }
+          .small {
+              font-size: 10px;
+          }
 
       </style>
 
@@ -98,7 +101,7 @@ ls{% load i18n %}
         <ul>
            <li><a href="{% url list_events %}">{% trans "Events" %}</a></li>
            <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
-            <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
+           <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
         </ul>
       {% endblock %}
        </div>

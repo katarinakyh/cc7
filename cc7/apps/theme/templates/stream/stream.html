@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+
+
+    {% for r in result_list %}
+
+            <blockquote>
+                <h4>{{ r.title }} / <span class="small">
+              {% if r.author %} {{ r.date_created }}
+                {% trans "Posted By" %}: {{ r.author }} </span>
+                {% endif %} </h4>
+                {% if r.organiser %}
+                   <div> {% trans "Event By" %}: {{ r.organiser }} </div>
+                {% endif %}
+                {% if r.description %}
+                <div> {{ r.description }} </div>
+                {% endif %}
+                {% if r.body %}
+                <div> {{ r.body }} </div>
+                {% endif %}
+
+            </blockquote>
+    {% endfor %}
+{%endblock%}

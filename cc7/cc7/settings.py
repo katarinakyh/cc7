@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'apps.theme',
     'apps.publication',
     'apps.event',
+    'apps.stream',
     'apps.account',
     #installed apps,
     'south',
