@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views.generic import DetailView
 from django.core.urlresolvers import reverse
 from models import Post
 from apps.event.models import Event
@@ -9,11 +10,11 @@ from django.contrib.auth.models import User
 
 
 class PostView(ListView):
-    template_name = 'post/events.html'
+    template_name = 'publication/posts.html'
     model = Post
 
 class AddPostView(CreateView):
-    template_name = 'post/create_event.html'
+    template_name = 'publication/create_post.html'
     model = Post
     form_class = PostForm
 
@@ -62,3 +63,6 @@ class AddPostView(CreateView):
     def get_success_url(self):
 
         return reverse('my_page')
+
+class PostDetailView(DetailView):
+    model = Post
