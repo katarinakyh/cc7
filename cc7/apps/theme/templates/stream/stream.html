@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-    {% for r in result_list %}
+    {% for r in result_list|dictsortreversed:"date_created"  %}
             <blockquote>
                 <h4>{{ r.title }} / <span class="small">
               {% if r.author %} {{ r.date_created }}
