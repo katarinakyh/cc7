@@ -1,10 +1,11 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+#from django.views.generic.form import FormView
 from django.core.urlresolvers import reverse
 from models import Post
-from event.models import Event
+from apps.event.models import Event
 from forms import PostForm
-from account.models import MyProfile
+from apps.account.models import MyProfile
 
 class PostView(ListView):
     template_name = 'post/events.html'
@@ -14,9 +15,10 @@ class AddPostView(CreateView):
     template_name = 'post/create_event.html'
     model = Post
     form_class = PostForm
-
+    
     def post(self, request, *args, **kwargs):
-        post = Post.objects.creat()
+        post = Post.objects.create()
+        author = request.user.get_profile()
         title = request.POST.get('title')
         body = request.POST.get('body')
         if (request.POST.get('is_public')):
