@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views.generic import DetailView
 from django.core.urlresolvers import reverse
 from models import Event
 from forms import EventForm
@@ -15,3 +16,7 @@ class AddEventView(CreateView):
     
     def get_success_url(self):
         return reverse('list_events')
+
+class EventDetailView(DetailView):
+    model = Event
+
