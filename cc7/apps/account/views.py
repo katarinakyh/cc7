@@ -4,11 +4,10 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from models import Association
-#from forms import AssociationForm
 
 class MyPage(TemplateView):
     template_name = 'userena/profile_detail.html'
-
+    
 class AssociationView(ListView):
     template_name = 'account/associations.html'
     model = Association

@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 from apps.account.models import Association
 
 class Event(models.Model):
+    date_created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(_("Title"), max_length=255)
     organiser = models.ForeignKey(Association)
     description = models.TextField(_("Description"))

@@ -19,7 +19,11 @@ class MyProfile(UserenaBaseProfile):
     
     def get_message(self):
         pass
-    
+
+    def get_user(self, request):
+        user = User.objects.get(username=request.user)
+        return user
+
     def send_message(self, to, text, thread):
         pass
     

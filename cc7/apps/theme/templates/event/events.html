@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
-
 {%block content%}
 
     {% for e in object_list  %}
         <blockquote> <h4 style="display:inline">{{ e.title }} </h4>
             <span class="small">  >> {{ e.date_from }},  {{ e.time_from }} >> {{ e.date_to }}, {{ e.time_to }}</span>
-            <div> Var: {{ e.place }} </div>
-            <div> Av: {{ e.organiser }} </div>
-            <div> Detaljer: {{ e.description }} </div>
+            <div> {% trans "Where" %}: {{ e.place }} </div>
+            <div> {% trans "Who" %}: {{ e.organiser }} </div>
+            <div> {% trans "Details" %}: {{ e.description }} </div>
         </blockquote>
     {% endfor %}
 
