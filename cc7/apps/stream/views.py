@@ -10,7 +10,6 @@ def Stream(request):
     events = Event.objects.filter().order_by('-date_created')
     result_list =  sorted(chain(posts, events),
         key=attrgetter('date_created'))
-    print result_list
     return render_to_response('stream/stream.html', {
         'result_list': result_list,
         }, context_instance=RequestContext(request))
