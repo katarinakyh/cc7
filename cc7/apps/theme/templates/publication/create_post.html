@@ -4,13 +4,6 @@
 
 <form action="" method="post" class="form-horizontal block-form">
     {% csrf_token %}
-    <div class="control-group" id="title">
-        <label class="control-label" > <label for="id_body">{% trans "Title" %}</label>
-            <div class="controls">
-                {{ form.title }}
-                <span class="label label-important">{{ form.title.errors }}</span>
-            </div>
-    </div>
     <div class="control-group" id="body">
         <label class="control-label" > <label for="id_body">{% trans "Message" %}</label>
             <div class="controls">

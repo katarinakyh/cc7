@@ -9,10 +9,10 @@ class Publication(models.Model):
 
 
 class Post(Publication):
-    title = models.CharField(max_length=50)
-    event = models.ForeignKey(Event, null=True)
-    association = models.ForeignKey(Association, null=True,)    
-    personal_page = models.ForeignKey(MyProfile, null=True,)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    event = models.ForeignKey(Event, null=True, blank=True)
+    association = models.ForeignKey(Association, null=True, blank=True)    
+    personal_page = models.ForeignKey(MyProfile, null=True, blank=True)
     is_public = models.BooleanField(default=True,)
 
     def __unicode__(self):

@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-
-        <div> <h3 style="display:inline">{{ event.title }} </h3>
+        <div class="story"> <h3 style="display:inline">{{ event.title }} </h3>
             <span class="small">  >> {{ event.date_from }},  {{ event.time_from }} >> {{ event.date_to }}, {{ event.time_to }}</span>
             <div> {% trans "Where" %}: {{ event.place }} </div>
             <div> {% trans "Who" %}: {{ event.organiser }} </div>
             <div> {% trans "Details" %}: {{ event.description }} </div>
+            <br/>
+            <form action="" method="post" class="form-horizontal block-form">
+                {% csrf_token %}
+                <i class="icon-comment"></i>
+                <input type="text" id="{{r.pk}}" class="input-xlarge">
+                <input class="btn" value="Post" type="submit">
+            </form>
         </div>
-
 {%endblock%}
