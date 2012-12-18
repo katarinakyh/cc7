@@ -62,7 +62,7 @@ class AddPostView(CreateView):
 
     def get_success_url(self):
 
-        return reverse('my_page')
+        return reverse('stream')
 
 class PostDetailView(DetailView):
     model = Post

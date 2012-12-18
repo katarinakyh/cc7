@@ -32,7 +32,7 @@
             <input type="submit" id="new_post" value="Ny post" />
         </form>
     {%endif%}
-    {{posts}}
+    
     {%for post in posts %}
         <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
         <strong>{% trans "av"%} {{post.author}}</strong><small> {{post.date_created}}</small>

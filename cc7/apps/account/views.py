@@ -26,11 +26,11 @@ def my_page(request, username):
         if 'new_comment' in request.POST:
             form = CommentForm(request.POST)
             if form.is_valid():
-                print profile
+                #print profile
                 form.save(commit = False)
                 f=form
                 f.author=profile
-                print f.author
+                #print f.author
                 f.post=request.POST['post']
                 f.save()
             else:
