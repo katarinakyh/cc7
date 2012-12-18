@@ -64,6 +64,33 @@
               background-color: #fff2f2;
               color: #000b03;
           }
+          .hide {
+              display: none;
+          }
+
+          .comment-button {
+              position: relative;
+              top: -10px;
+          }
+
+          .story {
+              color: #555555;
+              border-left: 5px solid #EEEEEE;
+              margin: 0 0 20px;
+              padding: 0 0 0 15px;
+          }
+
+          .comment_btn {
+              background-color: #cccccc;
+              color: black;
+              cursor: pointer;
+              display: inline-block;
+              font-size: 10px;
+              line-height: 20px;
+              margin-bottom: 0;
+              padding: 2px 6px;
+              text-align: center;
+          }
 
       </style>
 
@@ -76,16 +103,16 @@
       <div class="navbar-inner">
 
         <div class="container">
-            <a class="brand" href="/"><img src="{{ MEDIA_URL }}c7.png" width="40px"> </a>
+            <a class="brand" href="/"><i class="icon-bullhorn icon-white"></i> c7 </a>
           <div class="nav-collapse collapse">
             <ul class="nav">
 
             {% if user.is_authenticated %}
             <li>
-                    <a href="{% url add_event %}">{% trans "Event" %} ++</a>
+                    <a href="{% url add_event %}">{% trans "New Event" %} <i class="icon-calendar icon-white"></i></a>
             </li>
                 <li>
-                    <a href="{% url add_post %}">{% trans "Post" %} ++</a>
+                    <a href="{% url add_post %}">{% trans "New tread" %}  <i class="icon-share icon-white"></i></a>
                 </li>
                 <div class="nav myview">
                     <li class="">
@@ -93,7 +120,7 @@
                     </li>
                     <li >
 
-                        <a href="/accounts/signout/">{% trans "Log out" %}</a>
+                        <a href="/accounts/signout/"><i class="icon-eject icon-white"> </i> {% trans "Log out" %}</a>
                     </li>
                 </div>
                 {% else %}
@@ -119,9 +146,9 @@
 
         <ul class="nav nav-list">
            <div>Filter Stream:</div>
-           <li><a href="{% url list_events %}">{% trans "Events" %}</a></li>
-           <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
-           <li><a href="/">{% trans "All" %}</a></li>
+           <li><a href="{% url list_events %}"><i class="icon-list"></i>{% trans "Events" %}</a></li>
+           <li><a href="{% url list_posts %}"><i class="icon-list"></i>{% trans "Posts" %}</a></li>
+           <li><a href="/"><i class="icon-list"></i>{% trans "All" %}</a></li>
         </ul>
       {% endblock %}
        </div>
@@ -134,9 +161,9 @@
          <ul class="nav nav-list">
              <div>Entities:</div>
 
-             <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
-             <li><a href="{%url list_associations%}">{% trans "Friends" %}</a></li>
-             <li><a href="{%url list_associations%}">{% trans "Groups" %}</a></li>
+             <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a></li>
+             <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Friends" %}</a></li>
+             <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Groups" %}</a></li>
          </ul>
 
 

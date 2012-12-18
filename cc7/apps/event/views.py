@@ -6,7 +6,7 @@ from models import Event
 from forms import EventForm
 
 class EventView(ListView):
-    template_name = 'event/events.html'
+    template_name = 'stream/stream.html'
     model = Event
     
 class AddEventView(CreateView):
