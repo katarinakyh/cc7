@@ -11,7 +11,7 @@ def stream(request):
     result_list =  sorted(chain(posts, events),
         key=attrgetter('date_created'))
     return render_to_response('stream/stream.html', {
-        'result_list': result_list,
+        'object_list': result_list,
         }, context_instance=RequestContext(request))
 
 

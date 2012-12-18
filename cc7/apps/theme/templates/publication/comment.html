@@ -1,0 +1,15 @@
+<div class="comment-button">
+    <span class="comment_btn" id="buttonEditComment" href="javascript:void()"><i class="icon-comment"></i>comment</span>
+        <div class="hide">
+            <form action="" method="post" class="form-horizontal block-form">
+                {% csrf_token %}
+                    <textarea id="id_message" name="message" cols="1000" rows="1" class="input-xlarge"></textarea>
+                <input value="Post" type="submit">
+            </form>
+        </div>
+</div>
+<script>
+    $(".comment_btn").click(function () {
+        $(this).siblings('div.hide').toggle();
+    });
+</script>
