@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from models import Association
-
+    
 class MyPage(TemplateView):
     template_name = 'userena/profile_detail.html'
     
