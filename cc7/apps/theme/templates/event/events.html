@@ -9,5 +9,6 @@
             <div> {% trans "Who" %}: {{ e.organiser }} </div>
             <div> {% trans "Details" %}: {{ e.description }} </div>
         </blockquote>
+    {% include "publication/comment.html" %}
     {% endfor %}
 {%endblock%}

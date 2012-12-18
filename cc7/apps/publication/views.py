@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 
 class PostView(ListView):
-    template_name = 'publication/posts.html'
+    template_name = 'stream/stream.html'
     model = Post
 
 class AddPostView(CreateView):

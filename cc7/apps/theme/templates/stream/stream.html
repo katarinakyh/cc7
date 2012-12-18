@@ -1,37 +1,50 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-    {% for r in result_list|dictsortreversed:"date_created"  %}
-            <blockquote>
+    {% for r in object_list|dictsortreversed:"date_created"  %}
+    <div class="story">
                 <h4>
-                {% if r.organiser %}
-                <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a></a> / <span class="small">
-                {% endif %}
-                {% if r.body %}
-                <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a></a> / <span class="small">
-                {% endif %}
-                {% if r.author %} {{ r.date_created }}
-                {% trans "Posted By" %}: {{ r.author }} </span>
-                {% endif %}
-                {% if r.organiser %}
-                    {% trans "Event By" %}: {{ r.organiser }}
-                {% endif %} </h4>
+                    {% if r.organiser %}
+                    <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a> /
+                    <span class="small">
+                    {% endif %}
+                    {% if r.body %}
+                    <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a> /
+                    <span class="small">
+                    {% endif %}
+                    {% if r.author %} {{ r.date_created }}
+                    {% trans "Posted By" %}: {{ r.author }} </span>
+                    {% endif %}
+                    {% if r.organiser %}
+                        {% trans "Event By" %}: {{ r.organiser }} /
+                    {% endif %}
+                    {% if r.date_from %}
+                    {{ r.date_from }}
+                    {% endif %}
+                    {% if r.date_to %}
+                    -  {{ r.date_to }} /
+                    {% endif %}
+                    {% if r.place %}
+                    {% trans "@" %} {{ r.place }}
+                    {% endif %}
+                </h4>
+        <div class="story">
                 {% if r.description %}
                 <div> {{ r.description }} </div>
                 {% endif %}
                 {% if r.body %}
                 <div> {{ r.body }} </div>
                 {% endif %}
-                {% if r.date_from %}
-                <div>  {{ r.date_from }}
-                {% endif %}
-                {% if r.date_to %}
-                    -  {{ r.date_to }}
-                {% endif %}
-                {% if r.place %}
-                <div>  {% trans "Where" %}: {{ r.place }} </div>
-                {% endif %}
-            </blockquote>
-    {% endfor %}
-{%endblock%}
 
+        </div>
+        <form action="" method="post" class="form-horizontal block-form">
+            {% csrf_token %}
+            <i class="icon-comment"></i>
+            <input type="text" id="{{r.pk}}" class="input-xlarge">
+            <input class="btn" value="Post" type="submit">
+        </form>
+        </div>
+<hr/>
+    {% endfor %}
+
+{%endblock%}
