@@ -2,8 +2,15 @@
 {% load i18n %}
 {%block content%}
 
-        <div> <h3 style="display:inline">{{ post.title }} </h3>
+        <div class="story"> <h3 style="display:inline">{{ post.title }} </h3>
             <div> {{ post.body }} </div>
+            <br/>
+            <form action="" method="post" class="form-horizontal block-form">
+                {% csrf_token %}
+                <i class="icon-comment"></i>
+                <input type="text" id="{{r.pk}}" class="input-xlarge">
+                <input class="btn" value="Post" type="submit">
+            </form>
         </div>
 
 {%endblock%}
