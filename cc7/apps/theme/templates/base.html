@@ -112,11 +112,11 @@
                     <a href="{% url add_event %}">{% trans "New Event" %} <i class="icon-calendar icon-white"></i></a>
             </li>
                 <li>
-                    <a href="{% url add_post %}">{% trans "New tread" %}  <i class="icon-share icon-white"></i></a>
+                    <a href="{% url add_post %}">{% trans "New thread" %}  <i class="icon-share icon-white"></i></a>
                 </li>
                 <div class="nav myview">
                     <li class="">
-                        <a href="{% url userena_profile_edit user.username %}"><i class="icon-user icon-white"> </i> {{ user.username }}</a>
+                        <a href="{% url my_page user.username %}">{{ user.username }}</a>
                     </li>
                     <li >
 
@@ -159,7 +159,7 @@
 
          {% block rightsidebar %}
          <ul class="nav nav-list">
-             <div>Entitles:</div>
+             <div>Entities:</div>
 
              <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a></li>
              <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Friends" %}</a></li>
@@ -172,6 +172,5 @@
     </div>
 {%endblock%}  
 
-      <script src="{{ STATIC_URL }}js/tabellatest.js"></script>
  </body>
 </html>
