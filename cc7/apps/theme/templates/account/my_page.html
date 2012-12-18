@@ -1,0 +1,60 @@
+{% extends 'userena/profile_detail.html' %}
+{% load i18n %}
+{% block extra_head %}
+    <style>
+        textarea {
+            width: 450px;
+            height: 40px;
+            border: 1px solid #cccccc;
+            padding: 5px;
+            font-family: Tahoma, sans-serif;
+        }
+        submit{
+            float: right;
+        }
+        
+    </style>
+    
+{% endblock %}
+
+{%block posts%}
+    <p>&nbsp;</p>
+    
+    {%if pageprofile == profile %}
+        {{profile.pk}}
+        {{pageprofile}}
+        <form action="" method="post" class="form-horizontal block-form">
+            {% csrf_token %}
+            {{ post_form.body }}
+            <input type="hidden" value="{{post.pk}}" name="post" />
+            <input type="hidden" value="{{profile.pk}}" name="author"/>
+            <span class="label label-important">{{ form.body.errors }}</span><br />
+            <input type="submit" id="new_post" value="Ny post" />
+        </form>
+    {%endif%}
+    {{posts}}
+    {%for post in posts %}
+        <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
+        <strong>{% trans "av"%} {{post.author}}</strong><small> {{post.date_created}}</small>
+        <p>{{post.body}}</p>
+        <ul>
+            {%for c in post.comment_set.all%}
+               <li> <img class="mugshot" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
+                <em> {{c.author}} on</em><small> {{c.date_created}}</small>
+               <p>{{c.body}}</p></li>
+            {%endfor%}
+        
+        <form action="" method="post" >
+            {% csrf_token %}
+             <dd>
+                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
+            </dd>
+            <dd>{{comment_form.body}}</dd>
+            <input type="hidden" value="{{post.pk}}" name="post" />
+            <input type="hidden" value="{{profile.pk}}" name="author"/>
+            <dd><input type="submit" name="new_comment" value="Posta kommentar" /></dd>
+            <span class="label label-important">{{ form.body.errors }}</span><br />
+        </form>
+        </ul>
+    {%endfor%}    
+{%endblock%}

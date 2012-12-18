@@ -3,8 +3,14 @@
 {%block content%}
     {% for r in result_list|dictsortreversed:"date_created"  %}
             <blockquote>
-                <h4>{{ r.title }} / <span class="small">
-              {% if r.author %} {{ r.date_created }}
+                <h4>
+                {% if r.organiser %}
+                <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a></a> / <span class="small">
+                {% endif %}
+                {% if r.body %}
+                <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a></a> / <span class="small">
+                {% endif %}
+                {% if r.author %} {{ r.date_created }}
                 {% trans "Posted By" %}: {{ r.author }} </span>
                 {% endif %}
                 {% if r.organiser %}

@@ -34,17 +34,35 @@
               padding-top: 60px;
               padding-bottom: 40px;
           }
+          .main {
+              margin-top: 10px;
+          }
           .navbar-inverse .navbar-inner {
               background-color: #000;
               background-image: linear-gradient(to bottom, #000, #000);
               background-repeat: repeat-x;
               border-color: transparent;
           }
-          .myview {
-              padding-left: 300px;
+          .navbar .nav .myview  {
+              position:relative;
+              left:400px;
           }
           .small {
               font-size: 10px;
+          }
+          .navbar-inner{
+              height: 52px;
+          }
+
+          .navbar-inverse .brand {
+              padding-left: 40px;
+          }
+          .navbar-inverse .nav{
+              padding-left: 60px;
+          }
+          .nav-list > li > a:hover{
+              background-color: #fff2f2;
+              color: #000b03;
           }
 
       </style>
@@ -58,7 +76,7 @@
       <div class="navbar-inner">
 
         <div class="container">
-          <a class="brand" href="/">CC7</a>
+            <a class="brand" href="/"><img src="{{ MEDIA_URL }}c7.png" width="40px"> </a>
           <div class="nav-collapse collapse">
             <ul class="nav">
 
@@ -69,9 +87,9 @@
                 <li>
                     <a href="{% url add_post %}">{% trans "Post" %} ++</a>
                 </li>
-                <div class=" nav myview">
+                <div class="nav myview">
                     <li class="">
-                        <a href="{% url userena_profile_detail user.username %}">{{ user.username }}</a>
+                        <a href="{% url my_page user.username %}">{{ user.username }}</a>
                     </li>
                     <li >
 
@@ -95,14 +113,13 @@
     </div>
     <!--=========================================-->
  
-     <div class="container" class="span12">
+     <div class="container main" class="span12">
        <div class="span2" style="min-height: 500px; background: #fff;margin: 0;">
       {% block leftsidebar %}
 
         <ul class="nav nav-list">
-           <div>Filter:</div>
+           <div>Filter Stream:</div>
            <li><a href="{% url list_events %}">{% trans "Events" %}</a></li>
-           <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
            <li><a href="{% url list_posts %}">{% trans "Posts" %}</a></li>
            <li><a href="/">{% trans "All" %}</a></li>
         </ul>
@@ -112,7 +129,18 @@
       {% block content %} {% endblock %}
       </div>
      <div class="span2" style="min-height: 500px;background: #fff;margin: 0;">
-         {% block rightsidebar %} right sidebar {% endblock %}
+
+         {% block rightsidebar %}
+         <ul class="nav nav-list">
+             <div>Entities:</div>
+
+             <li><a href="{%url list_associations%}">{% trans "Associations" %}</a></li>
+             <li><a href="{%url list_associations%}">{% trans "Friends" %}</a></li>
+             <li><a href="{%url list_associations%}">{% trans "Groups" %}</a></li>
+         </ul>
+
+
+         {% endblock %}
      </div>
     </div>
 {%endblock%}  

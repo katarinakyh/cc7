@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+
+<form action="" method="post" class="form-horizontal block-form">
+    {% csrf_token %}
+    <div class="control-group" id="body">
+        <label class="control-label" > <label for="id_body">{% trans "Message" %}</label>
+            <div class="controls">
+                {{ form.body }}
+                <span class="label label-important">{{ form.body.errors }}</span>
+            </div>
+    </div>
+    <input type="hidden" value="1" name="event" id="id_event"/>
+    <input type="hidden" value="1" name="association" id="id_association"/>
+    <input type="hidden" value="1" name="author" id="id_author"/>
+    <input type="hidden" value="1" name="personal_page" id="id_personal_page"/>
+    <input type="hidden" value="1" name="is_public" id="id_is_public"/>
+    <input type="submit">
+</form>
+
+{%endblock%}
