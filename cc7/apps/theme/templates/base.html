@@ -76,7 +76,7 @@
           .story {
               color: #555555;
               border-left: 5px solid #EEEEEE;
-              margin: 0 0 20px;
+              margin: 0 0 20 10px;
               padding: 0 0 0 15px;
           }
 
@@ -112,11 +112,11 @@
                     <a href="{% url add_event %}">{% trans "New Event" %} <i class="icon-calendar icon-white"></i></a>
             </li>
                 <li>
-                    <a href="{% url add_post %}">{% trans "New thread" %}  <i class="icon-share icon-white"></i></a>
+                    <a href="{% url add_post %}">{% trans "New thread" %} <i class="icon-share icon-white"></i></a>
                 </li>
                 <div class="nav myview">
                     <li class="">
-                        <a href="{% url my_page user.username %}">{{ user.username }}</a>
+                        <a href="{% url my_page user.username %}"><i class="icon-user icon-white"></i> {{ user.username }}</a>
                     </li>
                     <li >
 

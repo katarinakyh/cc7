@@ -14,9 +14,6 @@
             width: 400px;
             height: 20px;
         }
-        submit{
-            float: right;
-        }
         
     </style>
     
@@ -27,57 +24,51 @@
     <div class="story">
                 <h4>
                     {% if r.organiser %}
-                    <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a> /
-                    <span class="small">
+                    <i class="icon-calendar"></i> <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a> /
                     {% endif %}
                     {% if r.body %}
-                    <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a> /
+                    <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a>
                     <span class="small">
                     {% endif %}
                     {% if r.author %} {{ r.date_created }}
                     {% trans "Posted by" %}: {{ r.author }} </span>
                     {% endif %}
-                    {% if r.organiser %}
-                       <strong> {% trans "Event by" %}</strong>: {{ r.organiser }} /
-                    {% endif %}
                     {% if r.date_from %}
-                    {{ r.date_from }}
-                    {% endif %}
-                    {% if r.date_to %}
-                    -  {{ r.date_to }} /
+                        <i class="icon-time"></i>
+                     {{ r.date_from }}
                     {% endif %}
                     {% if r.place %}
-                    {% trans "@" %} {{ r.place }}
+                    <i class="icon-map-marker"></i> {{ r.place }} /
+                    {% endif %}
+                      {% if r.organiser %}<span class="small"> <br/>
+                        {% trans "By" %}: {{ r.organiser }}</span>
                     {% endif %}
                 </h4>
         <div class="story">
-                {% if r.description %}
-                <div> {{ r.description }} </div>
-                {% endif %}
+             
                 {% if r.body %}
-                <div> {{ r.body }} </div>
+                <div> {{ r.body|safe|truncatewords:10}} </div>
                 {% endif %}
 
         </div>
+        {% if r.body %}
         <form action="" id="commentform" method="post" >
+
             {% csrf_token %}
             <i class="icon-comment"></i>
-             <dd>
-                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
-            </dd>
-            <dd>{{comment_form.body}}</dd>
+            <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
+            <span class="label label-important">{{ form.body.errors }}</span><br />
+            <dd><input type="text" id="{{r.pk}}" class="input-xlarge"></dd>
             <input type="hidden" value="{{post.pk}}" name="post" />
             <input type="hidden" value="{{profile.pk}}" name="author"/>
-            <dd><input type="submit" name="new_comment" value="Comment" /></dd>
-            <span class="label label-important">{{ form.body.errors }}</span><br />
+            <dd><input class="btn" value="Comment" type="submit"></dd>
         </form>
-            {%comment%}
-            <input type="text" id="{{r.pk}}" class="input-xlarge">
-            <input class="btn" value="Post" type="submit">
-        </form>
-            {%endcomment%}
-        </div>
-<hr/>
+        <hr/>
+
+        {% endif %}
+
+    </div>
+
     {% endfor %}
 
 {%endblock%}

@@ -34,7 +34,6 @@ def my_page(request, *args, **kwargs):
         if 'new_comment' in request.POST:
             form = CommentForm(request.POST)
             if form.is_valid():
-                print profile
                 form.save(commit = False)
                 f=form
                 f.author=profile
@@ -63,7 +62,6 @@ def my_page(request, *args, **kwargs):
                 f = form
                 f.title = 'no title'
                 f.author = profile
-                f.personal_page = profile
                 f.is_public = False
                 f.save()            
             else:
@@ -72,7 +70,7 @@ def my_page(request, *args, **kwargs):
     can_edit = False
     
     if model == 'username':
-        posts = Post.objects.defer('event','personal_page','association').filter(author = pageprofile).order_by('-date_created')
+        posts = Post.objects.defer('event','association').filter(author = pageprofile).order_by('-date_created')
         template = 'account/my_page.html'
     elif model == 'association':
         posts = Post.objects.filter(association = pageprofile).order_by('-date_created')

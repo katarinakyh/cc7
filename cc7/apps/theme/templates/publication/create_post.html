@@ -2,12 +2,20 @@
 {% load i18n %}
 {%block content%}
 
-<form action="" method="post" class="form-horizontal block-form">
+<form action="" method="post" class="form-inline">
     {% csrf_token %}
-    <div class="control-group" id="body">
-        <label class="control-label" > <label for="id_body">{% trans "Message" %}</label>
+
+    <div class="control-group" id="title">
+        <label class="control-label" > <label for="id_title">{% trans "Title" %}</label>
             <div class="controls">
-                {{ form.body }}
+                <input name="title" type="text" id="{{r.pk}}" class="input-xlarge">
+                <span class="label label-important">{{ form.title.errors }}</span>
+            </div>
+    </div>
+    <div class="control-group" id="body">
+        <label class="control-label" > <label for="id_body">{% trans "Details" %}</label>
+            <div class="controls">
+                <textarea name="body" cols="400" rows="4" id="id_body" class="input-xlarge"></textarea>
                 <span class="label label-important">{{ form.body.errors }}</span>
             </div>
     </div>
@@ -16,7 +24,8 @@
     <input type="hidden" value="1" name="author" id="id_author"/>
     <input type="hidden" value="1" name="personal_page" id="id_personal_page"/>
     <input type="hidden" value="1" name="is_public" id="id_is_public"/>
-    <input type="submit">
+    <br />
+    <input class="btn" type="submit">
 </form>
 
 {%endblock%}
