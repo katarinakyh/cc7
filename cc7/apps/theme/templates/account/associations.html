@@ -7,13 +7,14 @@
 <h3>Associations</h3>
 <ul id="profile_list">
   {% for association in object_list %}
-    {{association}}
-    {%ifnotequal profile.user.username "AnonymousUser"%}
+    <a href="{%url show_association association.slug%}">{{ association.association }}</a>
+
     <li>
       <a href="{%url show_association association.slug%}"><img src="{{ association.get_mugshot_url }}" style="width:30px; height:30px;"/></a>
-      <a href="{%url show_association association.slug%}">{{ association.association }}</a>
+      <small>{{association.description|linebreaks|truncatewords:10}}</small>
+
     </li>
-    {%endifnotequal%}
+
   {% endfor %}
 </ul>
 

@@ -29,7 +29,6 @@ urlpatterns = patterns('',
     url(r'^event/', include('apps.event.urls')),
     url(r'^association/(?P<association>[\.\w]+)/$', 'apps.account.views.my_page', name='show_association'),
     url(r'^association/', login_required(AssociationView.as_view()), name='list_associations'),
-    url(r'^$', include('apps.stream.urls')),
 )
 
 if settings.DEBUG:

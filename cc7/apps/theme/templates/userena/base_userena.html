@@ -46,10 +46,11 @@
         <ul class="nav nav-list">
     
     {% if profile.association %}
-        {%for a in profile.association.all %}
         <li><h4>My associations</h4>
-            <dd>{{ a.association }}</dd></li>
+        {%for a in profile.association.all %}
+            <dd>{{ a.association }}</dd>
         {%endfor%}
+        </li>
     {% endif %}
     {% if profile.user.email and not hide_email %}
 
