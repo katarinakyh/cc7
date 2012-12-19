@@ -4,14 +4,16 @@
 {% block content_title %}<h2>{% trans 'Profiles' %}</h2>{% endblock %}
 
 {% block content %}
+<h3>Friends</h3>
 <ul id="profile_list">
   {% for profile in profile_list %}
-  <li>
-  <a href='{% url userena_profile_detail profile.user.username %}'><img src="{{ profile.get_mugshot_url }}" /></a>
-  <a href='{% url userena_profile_detail profile.user.username %}'>{{ profile.user.username }}</a>
-  </li>
+    {%ifnotequal profile.user.username "AnonymousUser"%}
+    <li>
+      <a href='{% url userena_profile_detail profile.user.username %}'><img src="{{ profile.get_mugshot_url }}" style="width:30px; height:30px;"/></a>
+      <a href='{% url userena_profile_detail profile.user.username %}'>{{ profile.user.username }}</a>
+    </li>
+    {%endifnotequal%}
   {% endfor %}
-
 </ul>
 
 {% if is_paginated %}
