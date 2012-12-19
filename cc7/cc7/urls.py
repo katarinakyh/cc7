@@ -27,7 +27,8 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('userena.urls')),
     url(r'^post/', include('apps.publication.urls')),
     url(r'^event/', include('apps.event.urls')),
-    url(r'^association/', login_required(AssociationView.as_view()), name= 'list_associations'),
+    url(r'^association/(?P<association>[\.\w]+)/$', 'apps.account.views.my_page', name='show_association'),
+    url(r'^association/', login_required(AssociationView.as_view()), name='list_associations'),
     url(r'^$', include('apps.stream.urls')),
 )
 
