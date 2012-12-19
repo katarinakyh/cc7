@@ -21,18 +21,28 @@
     </style>
     
 {% endblock %}
+        {% block profile_details %}
+            <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;"/>
+            {% if pageprofile.association %}
+              <p class="lead">{{ pageprofile.association }}</p>
+            {% endif %}
+            {% if pageprofile.description %}
+              <p><em>"{{ pageprofile.description }}"</em></p>
+            {% endif %}
+      {% endblock %}
 
 {%block posts%}
     <p>&nbsp;</p>
-    
-    {%if pageprofile == profile %}
+
+
+    {%if can_edit %}
         <form action="" id="post_form" method="post" class="form-horizontal block-form">
             {% csrf_token %}
             {{ post_form.body }}
             <input type="hidden" value="{{post.pk}}" name="post" />
             <input type="hidden" value="{{profile.pk}}" name="author"/>
             <span class="label label-important">{{ form.body.errors }}</span><br />
-            <input type="submit" id="new_post" class="btn" value="Ny post" />
+            <input type="submit" name="association_post" value="Ny post" />
         </form>
     {%endif%}
     
@@ -59,5 +69,6 @@
             <span class="label label-important">{{ form.body.errors }}</span><br />
         </form>
         </ul>
-    {%endfor%}    
+    {%endfor%}
+            
 {%endblock%}

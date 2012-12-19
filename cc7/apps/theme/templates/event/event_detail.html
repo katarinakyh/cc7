@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-        <div class="story"> <h3 style="display:inline">{{ event.title }} </h3>
-            <span class="small">  >> {{ event.date_from }},  {{ event.time_from }} >> {{ event.date_to }}, {{ event.time_to }}</span>
-            <div> {% trans "Where" %}: {{ event.place }} </div>
-            <div> {% trans "Who" %}: {{ event.organiser }} </div>
-            <div> {% trans "Details" %}: {{ event.description }} </div>
+        <div class="story"> <h3 style="display:inline"><i class="icon-calendar"></i> {{ event.title }} <span class="small"> <i class="icon-map-marker"></i>  {{ event.place }} </span></h3>
+            <div class="small">  <i class="icon-time"></i> {{ event.date_from }},  {{ event.time_from }} >> {{ event.date_to }}, {{ event.time_to }} <i class="icon-th"></i> {{ event.organiser }}</div>
+            <div> {{ event.description|safe}} </div>
             <br/>
             <form action="" method="post" class="form-horizontal block-form">
                 {% csrf_token %}
                 <i class="icon-comment"></i>
                 <input type="text" id="{{r.pk}}" class="input-xlarge">
-                <input class="btn" value="Post" type="submit">
+                <input class="btn" value="Comment" type="submit">
             </form>
         </div>
 {%endblock%}

@@ -76,7 +76,7 @@
           .story {
               color: #555555;
               border-left: 5px solid #EEEEEE;
-              margin: 0 0 20px;
+              margin: 0 0 20 10px;
               padding: 0 0 0 15px;
           }
 
@@ -112,11 +112,11 @@
                     <a href="{% url add_event %}">{% trans "New Event" %} <i class="icon-calendar icon-white"></i></a>
             </li>
                 <li>
-                    <a href="{% url add_post %}">{% trans "New thread" %}  <i class="icon-share icon-white"></i></a>
+                    <a href="{% url add_post %}">{% trans "New thread" %} <i class="icon-share icon-white"></i></a>
                 </li>
                 <div class="nav myview">
                     <li class="">
-                        <a href="{% url my_page user.username %}">{{ user.username }}</a>
+                        <a href="{% url my_page user.username %}"><i class="icon-user icon-white"></i> {{ user.username }}</a>
                     </li>
                     <li >
 
@@ -145,7 +145,7 @@
       {% block leftsidebar %}
 
         <ul class="nav nav-list">
-           <div>Filter Stream:</div>
+           <div>Filters</div>
            <li><a href="{% url list_events %}"><i class="icon-list"></i>{% trans "Events" %}</a></li>
            <li><a href="{% url list_posts %}"><i class="icon-list"></i>{% trans "Posts" %}</a></li>
            <li><a href="/"><i class="icon-list"></i>{% trans "All" %}</a></li>
@@ -159,14 +159,12 @@
 
          {% block rightsidebar %}
          <ul class="nav nav-list">
-             <div>Entities:</div>
-
+             <div> &nbsp;</div>
              <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a></li>
-             <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Friends" %}</a></li>
-             <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Groups" %}</a></li>
+             <li><a href="{%url userena_profile_list%}"><i class="icon-cog"></i>{% trans "Friends" %}</a></li>
          </ul>
-
-
+            {%block rightinline%}
+            {% endblock %}
          {% endblock %}
      </div>
     </div>

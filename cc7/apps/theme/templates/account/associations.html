@@ -1,16 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'userena/base_userena.html' %}
 {% load i18n %}
 
+{% block content_title %}<h2>{% trans 'Associations' %}</h2>{% endblock %}
 
-{%block content%}
+{% block content %}
+<h3>Associations</h3>
+<ul id="profile_list">
+  {% for association in object_list %}
+    {{association}}
+    {%ifnotequal profile.user.username "AnonymousUser"%}
+    <li>
+      <a href="{%url show_association association.slug%}"><img src="{{ association.get_mugshot_url }}" style="width:30px; height:30px;"/></a>
+      <a href="{%url show_association association.slug%}">{{ association.association }}</a>
+    </li>
+    {%endifnotequal%}
+  {% endfor %}
+</ul>
 
-    {% for a in object_list  %}
-        <blockquote> <h4 style="display:inline">{{ a.association }} </h4>
-        <div class="small">{{a.description}}</div>
-        
-        </blockquote>
-        
-    {% endfor %}
+{% if is_paginated %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="{% url userena_profile_list_paginated page_obj.previous_page_number %}">{% trans 'previous' %}</a>
+    {% endif %}
 
-{%endblock%}
+    <span class="current">
+      {% blocktrans with page_obj.number as page and page_obj.paginator.num_pages as num_pages %}
+      Page {{ page }} of {{ num_pages }}
+      {% endblocktrans %}
+    </span>
 
+    {% if page_obj.has_next %}
+    <a href='{% url userena_profile_list_paginated  page_obj.next_page_number %}'>{% trans 'next' %}</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+{% endblock %}

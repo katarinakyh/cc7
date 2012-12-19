@@ -2,17 +2,14 @@ from django.db import models
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
 
-class Publication(models.Model):
+
+class Post(models.Model):
     author = models.ForeignKey(MyProfile)
     date_created = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
-
-
-class Post(Publication):
     title = models.CharField(max_length=50, null=True, blank=True)
     event = models.ForeignKey(Event, null=True, blank=True)
-    association = models.ForeignKey(Association, null=True, blank=True)    
-    personal_page = models.ForeignKey(MyProfile, null=True, blank=True)
+    association = models.ForeignKey(Association, null=True, blank=True)
     is_public = models.BooleanField(default=True,)
 
     def __unicode__(self):
@@ -22,7 +19,10 @@ class Post(Publication):
         pass
 
 
-class Comment(Publication):
+class Comment(models.Model):
+    author = models.ForeignKey(MyProfile)
+    date_created = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
     post = models.ForeignKey(Post)
     
     def __unicode__(self):
@@ -32,7 +32,10 @@ class Comment(Publication):
         pass
 
 
-class Message(Publication):
+class Message(models.Model):
+    author = models.ForeignKey(MyProfile, related_name="author")
+    date_created = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
     title = models.CharField(max_length=50)
     to = models.ForeignKey(MyProfile)
     thread = models.IntegerField()

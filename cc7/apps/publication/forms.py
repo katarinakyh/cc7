@@ -25,3 +25,7 @@ class MessageForm(ModelForm):
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
         }
         #fields = ('title', 'body')
+
+class ThreadForm(ModelForm):
+    class Meta:
+        model = Post 

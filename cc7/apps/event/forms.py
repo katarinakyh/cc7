@@ -7,7 +7,7 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         widgets = {
-            'description': Textarea(attrs={'cols': 180, 'rows': 20}),
+            'description': Textarea(attrs={'cols': 180, 'rows': 7}),
         }
         
     
