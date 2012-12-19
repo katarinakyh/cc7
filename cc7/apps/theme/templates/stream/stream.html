@@ -28,8 +28,8 @@
                     {% endif %}
                     {% if r.body %}
                     <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a>
-                    <span class="small">
                     {% endif %}
+                    <span class="small">
                     {% if r.author %} {{ r.date_created }}
                     {% trans "Posted by" %}: {{ r.author }} </span>
                     {% endif %}
