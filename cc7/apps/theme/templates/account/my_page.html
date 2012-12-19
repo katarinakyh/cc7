@@ -3,11 +3,16 @@
 {% block extra_head %}
     <style>
         textarea {
-            width: 450px;
-            height: 40px;
+            width: 475px;
+            height: 30px;
             border: 1px solid #cccccc;
             padding: 5px;
             font-family: Tahoma, sans-serif;
+        }
+        
+        #commentform textarea{
+            width: 400px;
+            height: 20px;
         }
         submit{
             float: right;
@@ -21,9 +26,7 @@
     <p>&nbsp;</p>
     
     {%if pageprofile == profile %}
-        {{profile.pk}}
-        {{pageprofile}}
-        <form action="" method="post" class="form-horizontal block-form">
+        <form action="" id="post_form" method="post" class="form-horizontal block-form">
             {% csrf_token %}
             {{ post_form.body }}
             <input type="hidden" value="{{post.pk}}" name="post" />
@@ -36,7 +39,7 @@
     {%for post in posts %}
         <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
         <strong>{% trans "av"%} {{post.author}}</strong><small> {{post.date_created}}</small>
-        <p>{{post.body}}</p>
+        <p>{{post.body|linebreaks }}</p>
         <ul>
             {%for c in post.comment_set.all%}
                <li> <img class="mugshot" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
@@ -44,7 +47,7 @@
                <p>{{c.body}}</p></li>
             {%endfor%}
         
-        <form action="" method="post" >
+        <form action="" id="commentform" method="post" >
             {% csrf_token %}
              <dd>
                 <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>

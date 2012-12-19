@@ -19,18 +19,14 @@ def my_page(request, username):
     pageuser = get_object_or_404(User,username__iexact=username)
     pageprofile = pageuser.get_profile()
     associations = Association.objects.all()
-    print pageprofile
-    print profile
     
     if request.POST:
         if 'new_comment' in request.POST:
             form = CommentForm(request.POST)
             if form.is_valid():
-                #print profile
                 form.save(commit = False)
                 f=form
                 f.author=profile
-                #print f.author
                 f.post=request.POST['post']
                 f.save()
             else:
