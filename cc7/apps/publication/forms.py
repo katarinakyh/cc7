@@ -8,12 +8,16 @@ from models import Post, Comment
 class PostForm(ModelForm):
     class Meta:
         model = Post
+
+
+        """
         widgets = {
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
-            'author' : HiddenInput(),
         }
-        #fields = ('body',)
-        
+        exclude = ('event','association','is_public')
+        fields = ('title', 'body','author')
+        """
+
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
@@ -28,4 +32,4 @@ class MessageForm(ModelForm):
 
 class ThreadForm(ModelForm):
     class Meta:
-        model = Post 
+        model = Post

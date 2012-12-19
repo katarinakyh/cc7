@@ -4,28 +4,22 @@
 
 <form action="" method="post" class="form-inline">
     {% csrf_token %}
-
-    <div class="control-group" id="title">
-        <label class="control-label" > <label for="id_title">{% trans "Title" %}</label>
-            <div class="controls">
-                <input name="title" type="text" id="{{r.pk}}" class="input-xlarge">
-                <span class="label label-important">{{ form.title.errors }}</span>
-            </div>
-    </div>
-    <div class="control-group" id="body">
-        <label class="control-label" > <label for="id_body">{% trans "Details" %}</label>
-            <div class="controls">
-                <textarea name="body" cols="400" rows="4" id="id_body" class="input-xlarge"></textarea>
-                <span class="label label-important">{{ form.body.errors }}</span>
-            </div>
-    </div>
-    <input type="hidden" value="1" name="event" id="id_event"/>
-    <input type="hidden" value="1" name="association" id="id_association"/>
-    <input type="hidden" value="1" name="author" id="id_author"/>
-    <input type="hidden" value="1" name="personal_page" id="id_personal_page"/>
-    <input type="hidden" value="1" name="is_public" id="id_is_public"/>
-    <br />
-    <input class="btn" type="submit">
+    <label class="control-label" > <label for="{{r.pk}}">{% trans "Title" %}</label>
+        <div class="controls">
+            <input name="title" type="text" id="{{r.pk}}" class="input-xlarge">
+            <span class="label label-important">{{ form.title.errors }}</span>
+        </div>
+        <div class="control-group" id="body">
+            <label class="control-label" > <label for="id_body">{% trans "Details" %}</label>
+                <div class="controls">
+                    <textarea name="body" cols="400" rows="4" id="id_body" class="input-xlarge"></textarea>
+                    <span class="label label-important">{{ form.body.errors }}</span>
+                </div>
+        </div>
+        <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
+        <input type="hidden" value="1" name="is_public" id="id_is_public"/>
+        <br />
+    <input class="btn" type="submit" value="Create thread"/>
 </form>
 
 {%endblock%}

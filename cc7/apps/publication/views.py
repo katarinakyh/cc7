@@ -19,46 +19,45 @@ class AddPostView(CreateView):
     form_class = PostForm
     
     def post(self, request, *args, **kwargs):
-        post = Post()
-        title = request.POST.get('title')
-        body = request.POST.get('body')
-        if (request.POST.get('is_public')):
-            is_public = request.POST.get('is_public')
-        else:
-            is_public = 0
-        if (request.POST.get('personal_page')):
-            personal_page = request.POST.get('personal_page')
-        else:
-            personal_page = 0
+        post = PostForm(request.POST)
+        if post.is_valid():
+            post = post.save(commit=False)
+            title = request.POST.get('title')
+            body = request.POST.get('body')
+            if (request.POST.get('is_public')):
+                is_public = request.POST.get('is_public')
+            else:
+                is_public = 0
 
-        if (request.POST.get('association')):
-            association = request.POST.get('association')
-        else:
-            association = 0
-        if (request.POST.get('event')):
-            event = request.POST.get('event')
-        else:
-            event = 0
+            if (request.POST.get('association')):
+                association = request.POST.get('association')
+            else:
+                association = 0
 
-        user = User.objects.get(username=request.user)
-        try:
-            post.title = str(title)
-            post.body = str(body)
-            post.author = MyProfile.objects.get(user=user)
-            if (event != 0):
-                post.event = Event.objects.get(id=event)
-            if (association != 0):
-                post.association = Association.objects.get(id=association)
-            if (personal_page != 0):
-                post.personal_page = user
-            if (is_public != 0):
-                post.is_public = bool(is_public)
+            if (request.POST.get('event')):
+                event = request.POST.get('event')
+            else:
+                event = 0
 
-            post.save()
-        except ValueError:
-            pass
+            user = User.objects.get(username=request.user)
 
-        return super(AddPostView, self).post(request, *args, **kwargs)
+            try:
+                post.title = str(title)
+                post.body = str(body)
+                post.author = MyProfile.objects.get(user=user)
+                if (event != 0):
+                    post.event = Event.objects.get(id=event)
+                if (association != 0):
+                    post.association = Association.objects.get(id=association)
+                if (is_public != 0):
+                    post.is_public = bool(is_public)
+
+                #post.save()
+            except ValueError:
+                pass
+
+            return super(AddPostView, self).post(request, *args, **kwargs)
+
 
     def get_success_url(self):
 
