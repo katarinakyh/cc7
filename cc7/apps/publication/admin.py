@@ -3,13 +3,14 @@ from models import Comment, Message, Post
 
 
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk','author', 'date_created',)
 
 class MessageAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', 'author', 'date_created',)
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', 'title', 'author', 'date_created',)
+
 
 
 admin.site.register(Comment,CommentAdmin)
