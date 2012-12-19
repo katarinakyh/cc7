@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% block extra_head %}
+    <style>
+        textarea {
+            width: 475px;
+            height: 30px;
+            border: 1px solid #cccccc;
+            padding: 5px;
+            font-family: Tahoma, sans-serif;
+        }
+        
+        #commentform textarea{
+            width: 400px;
+            height: 20px;
+        }
+        submit{
+            float: right;
+        }
+        
+    </style>
+    
+{% endblock %}
+
 {%block content%}
     {% for r in object_list|dictsortreversed:"date_created"  %}
     <div class="story">
@@ -13,10 +35,10 @@
                     <span class="small">
                     {% endif %}
                     {% if r.author %} {{ r.date_created }}
-                    {% trans "Posted By" %}: {{ r.author }} </span>
+                    {% trans "Posted by" %}: {{ r.author }} </span>
                     {% endif %}
                     {% if r.organiser %}
-                        {% trans "Event By" %}: {{ r.organiser }} /
+                       <strong> {% trans "Event by" %}</strong>: {{ r.organiser }} /
                     {% endif %}
                     {% if r.date_from %}
                     {{ r.date_from }}
@@ -37,12 +59,23 @@
                 {% endif %}
 
         </div>
-        <form action="" method="post" class="form-horizontal block-form">
+        <form action="" id="commentform" method="post" >
             {% csrf_token %}
             <i class="icon-comment"></i>
+             <dd>
+                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
+            </dd>
+            <dd>{{comment_form.body}}</dd>
+            <input type="hidden" value="{{post.pk}}" name="post" />
+            <input type="hidden" value="{{profile.pk}}" name="author"/>
+            <dd><input type="submit" name="new_comment" value="Comment" /></dd>
+            <span class="label label-important">{{ form.body.errors }}</span><br />
+        </form>
+            {%comment%}
             <input type="text" id="{{r.pk}}" class="input-xlarge">
             <input class="btn" value="Post" type="submit">
         </form>
+            {%endcomment%}
         </div>
 <hr/>
     {% endfor %}

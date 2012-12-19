@@ -14,47 +14,85 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 
 @login_required
-def my_page(request, username):
+def my_page(request, *args, **kwargs):
+    
     profile = request.user.get_profile()
-    pageuser = get_object_or_404(User,username__iexact=username)
-    pageprofile = pageuser.get_profile()
     associations = Association.objects.all()
+
+    for key in kwargs:
+        model = key
+        key = kwargs[key]
+        
+    if model == 'username':
+        pageuser = get_object_or_404(User,username__iexact=key)
+        pageprofile = pageuser.get_profile()
+    elif model == 'association':
+        pageuser = get_object_or_404(Association,slug__iexact=key)
+        pageprofile = pageuser
     
     if request.POST:
         if 'new_comment' in request.POST:
             form = CommentForm(request.POST)
             if form.is_valid():
+                print profile
                 form.save(commit = False)
                 f=form
                 f.author=profile
+                print f.author
                 f.post=request.POST['post']
                 f.save()
             else:
                 print form.errors
-
+        elif 'association_post' in request.POST:
+            form = PostForm(request.POST)
+            print "yeah"
+            if form.is_valid():
+                form.save(commit = False)
+                f = form
+                f.title = 'no title'
+                f.author = profile
+                f.association_page = pageprofile
+                f.is_public = True
+                f.save()            
+            else:
+                print form.errors
         else:
             form = PostForm(request.POST)
             if form.is_valid():
                 form.save(commit = False)
                 f = form
                 f.title = 'no title'
-                f.author=profile
+                f.author = profile
                 f.personal_page = profile
                 f.is_public = False
                 f.save()            
             else:
                 print form.errors
                 
-    posts = Post.objects.filter(author = pageprofile).order_by('-date_created')
+    can_edit = False
+    
+    if model == 'username':
+        posts = Post.objects.defer('event','personal_page','association').filter(author = pageprofile).order_by('-date_created')
+        template = 'account/my_page.html'
+    elif model == 'association':
+        posts = Post.objects.filter(association = pageprofile).order_by('-date_created')
+        for a in profile.association.all():
+            if pageuser == a:
+                can_edit = True
+        template = 'account/my_association.html'
+
     post_form = PostForm()
     comment_form = CommentForm()
-    return render_to_response('account/my_page.html',
+
+
+    return render_to_response(template,
                                    {'profile':profile,
                                     'pageprofile':pageprofile,
                                     'associations':associations,
                                     'posts':posts,
                                     'post_form':post_form,
                                     'comment_form':comment_form,
+                                    'can_edit': can_edit,
                                    },
                                   context_instance=RequestContext(request))   
 
