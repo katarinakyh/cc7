@@ -4,7 +4,7 @@ from apps.event.models import Event
 
 
 class Post(models.Model):
-    author = models.ForeignKey(MyProfile)
+    author = models.ForeignKey(MyProfile, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
     title = models.CharField(max_length=50, null=True, blank=True)
