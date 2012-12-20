@@ -27,10 +27,11 @@
     <div class="story">
                 <h4>
                     {% if r.organiser %}
+                                <div style="background: #f9f9f9;padding: 10px;">
                     <i class="icon-calendar"></i> <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a> /
                     {% endif %}
                     {% if r.body %}
-                        <img class="mugshot" src="{{ r.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
+                        <img class="mugshot" src="{{ r.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
                         <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a><br/>
                     {% endif %}
                     <span class="small">
@@ -47,6 +48,9 @@
                     {% endif %}
                       {% if r.organiser %}<span class="small"> <br/>
                         {% trans "By" %}: {{ r.organiser }}</span>
+                        <p style="margin-left: 20px;"><em>"{{ r.description|safe|truncatewords:10}}"</em></p>
+                                </div>
+                        <hr/>
                     {% endif %}
                 </h4>
         <div class="story">
@@ -60,14 +64,14 @@
             {%for c in r.comment_set.all%}
                <li> <img class="mugshot" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
                 <em> {{c.author}} on</em><small> {{c.date_created}}</small>
-               <p style="margin-left: 30px;margin-bottom: 10px;">{{c.body}}</p></li>
+               <p style="margin-left: 30px;margin-bottom: 10px;margin-top: 10px;">{{c.body}}</p></li>
             {%endfor%}
             {%endif%}
         <form action="" id="commentform" method="post" >
             {% csrf_token %}
-             <dd>
-                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
-            </dd>
+             
+                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
+            
             {{comment_form.body}}
             <input type="hidden" value="{{r.pk}}" name="post" />
             <input type="hidden" value="{{profile.pk}}" name="author"/>
