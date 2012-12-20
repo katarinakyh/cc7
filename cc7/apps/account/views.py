@@ -46,26 +46,23 @@ def my_page(request, *args, **kwargs):
             form = PostForm(request.POST)
             print "yeah"
             if form.is_valid():
-                print request.POST
                 form.save(commit = False)
                 f = form
                 f.title = 'no title'
-                """
-                f.author = profile
-                f.association_page = pageuser
-                f.is_public = True
-                """
+                f.author=profile
+                f.association_page=pageuser
+                f.is_public=True
                 f.save()            
             else:
                 print form.errors
         else:
             form = PostForm(request.POST)
             if form.is_valid():
-                form.save(commit = False)
+                form.save(commit=False)
                 f = form
-                f.title = 'no title'
-                f.author = profile
-                f.is_public = False
+                f.title = ' '
+                f.author=profile
+                f.is_public=False
                 f.save()            
             else:
                 print form.errors
