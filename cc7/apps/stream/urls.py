@@ -5,5 +5,4 @@ from apps.stream.views import stream
 
 urlpatterns = patterns('cc7.apps.stream.views',
     url(r'^$', login_required(stream), name='stream'),
-
 )

@@ -50,12 +50,10 @@
                     {% endif %}
                 </h4>
         <div class="story">
-             
                 {% if r.body %}
                         <div style="margin-left: 10px;margin-bottom: 10px;"> {{ r.body|safe|truncatewords:10}} </div>
                 {% endif %}
-
-        </div>
+       </div>
         {% if r.body %}
         <ul>
             {%if r.comment_set.all %}
@@ -80,9 +78,7 @@
         <hr/>
 
         {% endif %}
-
     </div>
-
-    {% endfor %}
+{% endfor %}
 
 {%endblock%}
