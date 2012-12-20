@@ -10,9 +10,8 @@ class PostForm(ModelForm):
         model = Post
         widgets = {
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
+            'author': HiddenInput()
         }
-        exclude = ('author','event','association','is_public',)
-        fields = ('title','body',)
                 
 class CommentForm(ModelForm):
     class Meta:
@@ -26,3 +25,11 @@ class MessageForm(ModelForm):
         }
         #fields = ('title', 'body')
 
+class ThreadForm(ModelForm):
+    class Meta:
+        model= Post
+        widgets = {
+            'body': Textarea(attrs={'cols': 200, 'rows': 10}),
+        }
+        exclude = ('author','event','association','is_public',)
+        fields = ('title','body',)

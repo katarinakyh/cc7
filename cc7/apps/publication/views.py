@@ -5,7 +5,7 @@ from django.views.generic import DetailView
 from django.core.urlresolvers import reverse
 from models import Post
 from apps.event.models import Event
-from forms import PostForm
+from forms import PostForm, ThreadForm
 from apps.account.models import MyProfile, Association
 from django.contrib.auth.models import User
 
@@ -18,7 +18,7 @@ class PostView(ListView):
 class AddPostView(FormView):
     template_name = 'publication/create_post.html'
     model = Post
-    form_class = PostForm
+    form_class = ThreadForm
     success_url = '/'
 
     def form_valid(self, form):
