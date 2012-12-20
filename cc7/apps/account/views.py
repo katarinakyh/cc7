@@ -81,7 +81,6 @@ def my_page(request, *args, **kwargs):
 
     post_form = PostForm()
     comment_form = CommentForm()
-    print template
 
     return render_to_response(template,
                                    {'profile':profile,

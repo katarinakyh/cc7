@@ -37,7 +37,7 @@
                     <span class="small">
                     {% if r.author %} {{ r.date_created }}
                     {% trans "Posted by" %}:<strong><a href="{%url my_page r.author.user%}"> {{ r.author }} </a></strong>
-                                    {%if r.association%}in <strong>{{r.association.association}}</strong>{%endif%}</span>
+                                    {%if r.association%}in <strong><a href="{%url show_association r.association.slug%}">{{r.association.association}}</a></strong>{%endif%}</span>
                     {% endif %}
                     {% if r.date_from %}
                         <i class="icon-time"></i>
