@@ -46,12 +46,15 @@ def my_page(request, *args, **kwargs):
             form = PostForm(request.POST)
             print "yeah"
             if form.is_valid():
+                print request.POST
                 form.save(commit = False)
                 f = form
                 f.title = 'no title'
+                """
                 f.author = profile
-                f.association_page = pageprofile
+                f.association_page = pageuser
                 f.is_public = True
+                """
                 f.save()            
             else:
                 print form.errors
@@ -81,7 +84,7 @@ def my_page(request, *args, **kwargs):
 
     post_form = PostForm()
     comment_form = CommentForm()
-
+    print template
 
     return render_to_response(template,
                                    {'profile':profile,

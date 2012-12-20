@@ -12,7 +12,8 @@ class PostForm(ModelForm):
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
             'author' : HiddenInput(),
         }
-        #fields = ('body',)
+        exclude = ('author','event','association','is_public',)
+        fields = ('title','body',)
         
 class CommentForm(ModelForm):
     class Meta:
