@@ -48,7 +48,7 @@
     {% if profile.association %}
         <li><h4>My associations</h4>
         {%for a in profile.association.all %}
-            <dd>{{ a.association }}</dd>
+            <dd><a href="{%url show_association a.slug %}"> {{ a.association }} </a></dd></li>
         {%endfor%}
         </li>
     {% endif %}
