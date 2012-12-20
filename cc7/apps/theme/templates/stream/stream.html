@@ -55,7 +55,7 @@
                 </h4>
         <div class="story">
                 {% if r.body %}
-                        <div style="margin-left: 10px;margin-bottom: 10px;"> {{ r.body|linebreaks|truncatewords:10}} </div>
+                        <div style="margin-left: 10px;margin-bottom: 10px;"> {{ r.body|linebreaks|truncatewords:30}} </div>
                 {% endif %}
        </div>
         {% if r.body %}
