@@ -55,7 +55,7 @@
                 </h4>
         <div class="story">
                 {% if r.body %}
-                        <div style="margin-left: 10px;margin-bottom: 10px;"> {{ r.body|safe|truncatewords:10}} </div>
+                        <div style="margin-left: 10px;margin-bottom: 10px;"> {{ r.body|linebreaks|truncatewords:10}} </div>
                 {% endif %}
        </div>
         {% if r.body %}
@@ -64,7 +64,7 @@
             {%for c in r.comment_set.all%}
                <li> <img class="mugshot" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
                 <em> {{c.author}} on</em><small> {{c.date_created}}</small>
-               <p style="margin-left: 30px;margin-bottom: 10px;margin-top: 10px;">{{c.body}}</p></li>
+               <p style="margin-left: 30px;margin-bottom: 10px;margin-top: 10px;">{{c.body|linebreaks}}</p></li>
             {%endfor%}
             {%endif%}
         <form action="" id="commentform" method="post" >
