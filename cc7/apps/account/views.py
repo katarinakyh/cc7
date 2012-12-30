@@ -9,9 +9,12 @@ from django.contrib.auth.models import User
 from models import Association
 from apps.publication.forms import PostForm, CommentForm
 from apps.publication.models import Post
+from apps.event.models import Event
 from apps.account.models import MyProfile
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
+from itertools import chain
+from operator import attrgetter
 
 @login_required
 def my_page(request, *args, **kwargs):
@@ -44,7 +47,6 @@ def my_page(request, *args, **kwargs):
                 print form.errors
         elif 'association_post' in request.POST:
             form = PostForm(request.POST)
-            print "yeah"
             if form.is_valid():
                 form.save(commit = False)
                 f = form
@@ -68,17 +70,25 @@ def my_page(request, *args, **kwargs):
                 print form.errors
                 
     can_edit = False
+    is_association = False
     
     if model == 'username':
         posts = Post.objects.defer('event','association').filter(author = pageprofile).order_by('-date_created')
         template = 'account/my_page.html'
     elif model == 'association':
+        p = Post.objects.filter(association = pageprofile).order_by('-date_created')
+        events = Event.objects.filter(organiser = pageprofile).order_by('-date_created')
+        posts =  sorted(chain(p, events),
+            key=attrgetter('date_created'))
+    
+
         posts = Post.objects.filter(association = pageprofile).order_by('-date_created')
         for a in profile.association.all():
             if pageuser == a:
                 can_edit = True
         template = 'account/my_association.html'
-
+        is_association=True
+        
     post_form = PostForm()
     comment_form = CommentForm()
 
@@ -90,6 +100,7 @@ def my_page(request, *args, **kwargs):
                                     'post_form':post_form,
                                     'comment_form':comment_form,
                                     'can_edit': can_edit,
+                                    'is_association': is_association,
                                    },
                                   context_instance=RequestContext(request))   
 
