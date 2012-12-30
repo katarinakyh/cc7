@@ -2,7 +2,7 @@
 {% load i18n %}
 {%block content%}
 
-<form action="" method="post" class="form-inline">
+<form action="" id="threadform" method="post" class="form-inline">
     {% csrf_token %}
     <label class="control-label" > <label for="{{r.pk}}">{% trans "Title" %}</label>
         <div class="controls">
@@ -10,7 +10,7 @@
             <span class="label label-important">{{ form.title.errors }}</span>
         </div>
         <div class="control-group" id="body">
-            <label class="control-label" > <label for="id_body">{% trans "Details" %}</label>
+            <label class="control-label" > <label for="id_body">{% trans "Text" %}</label>
                 <div class="controls">
                     <textarea name="body" cols="400" rows="4" id="id_body" class="input-xlarge"></textarea>
                     <span class="label label-important">{{ form.body.errors }}</span>
