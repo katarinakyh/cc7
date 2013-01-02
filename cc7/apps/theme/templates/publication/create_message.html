@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block extra_head %}
+<script>
+    $(function() {
+        var availableTags = [
+            {% for u in alluser %}
+            "{{ u.user }}" {%if forloop.last%} {%else%} , {%endif%}
+            {% endfor%}
+        ];
+        $(".tags").autocomplete({
+            source: availableTags
+        });
+
+    });
+
+</script>
+{% endblock %}
+{%block content%}
+    {% csrf_token %}
+    <label for="id_to"><h4>{% trans "Send a Message To" %}</h4></label>
+    <div class="controls ui-widget">
+        <form action="" id="messageform" method="post" class="form-inline">
+        <input name="name" type="text" id="to" class="tags" />
+        <input name="to" type="hidden" id="id_to" value="1" />
+        <span class="label label-important">{{ form.to.errors }}</span>
+    </div>
+    <hr/>
+
+    <label for="id_title">Title:</label>
+    <div class="controls">
+        <input type="text" maxlength="50" name="title" id="id_title">
+        <span class="label label-important">{{ form.title.errors }}</span>
+    </div>
+
+        <br/>
+        <div class="control-group" id="body">
+       <label for="id_body">{% trans "Message" %}</label>
+                <div class="controls">
+                    <textarea name="body" cols="400" rows="3" id="id_body" class="input-xlarge"></textarea>
+                    <span class="label label-important">{{ form.body.errors }}</span>
+                </div>
+        </div>
+        <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
+        <input type="hidden" value="0" name="is_public" id="id_is_public"/>
+        <input type="hidden" value="0" name="thread" id="id_thread"/>
+    <br />
+    <input class="btn" type="submit" value="Send Message"/>
+</form>
+
+{%endblock%}

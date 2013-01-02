@@ -43,7 +43,10 @@ body {
     position: relative;
     top: -10px;
 }
-
+.menuplus {
+    position: relative;
+    left: -28px;
+}
 .story {
     color: #555555;
     border-left: 5px solid #EEEEEE;
@@ -81,7 +84,7 @@ textarea {
     width: 200px;
     height: 160px;
 }
-#threadform textarea{
+#threadform textarea, #messageform textarea{
     width: 500px;
     height: 300px;
 }
@@ -93,3 +96,11 @@ submit{
     float: right;
 }
 
+.sidemessage {
+    height: 200px;
+    padding: 5px;
+    width: 160px;
+}
+.mini {
+    font-size: 70%;
+}

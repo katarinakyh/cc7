@@ -44,13 +44,22 @@
             <ul class="nav">
 
             {% if user.is_authenticated %}
-            <li>
-                    <a href="{% url add_event %}">{% trans "New Event" %} <i class="icon-calendar icon-white"></i></a>
-            </li>
                 <li>
-                    <a href="{% url add_post %}">{% trans "New thread" %} <i class="icon-share icon-white"></i></a>
+                    <a href="{% url list_events %}"> {% trans "Events" %} <i class="icon-calendar icon-white"></i> </a>
                 </li>
-                <div class="nav myview">
+                <li>
+                    <a href="{% url add_event %}" class="menuplus"><i class="icon-plus icon-white"></i> {% trans "Create" %} </a>
+                </li>
+                <li>
+                    <a href="{% url list_posts %}"> {% trans "Posts" %} <i class="icon-share icon-white"></i></a>
+                </li>
+                <li>
+                    <a href="{% url add_post %}" class="menuplus"><i class="icon-plus icon-white"></i> {% trans "Add" %} </a>
+                </li>
+                <li>
+                    <a href="/messages/">{% trans "Messages" %} <i class="icon-envelope icon-white"></i> <i class="icon-plus icon-white"></i>{% trans "New" %} </a>
+                </li>
+                <div class="nav ">
                     <li class="">
                         <a href="{% url my_page user.username %}"><i class="icon-user icon-white"></i> {{ user.username }}</a>
                     </li>
@@ -77,17 +86,7 @@
     <!--=========================================-->
  
      <div class="container main" class="span12">
-       <div class="span2" style="min-height: 500px; background: #fff;margin: 0;">
-      {% block leftsidebar %}
 
-        <ul class="nav nav-list">
-           <div>Filters</div>
-           <li><a href="{% url list_events %}"><i class="icon-list"></i>{% trans "Events" %}</a></li>
-           <li><a href="{% url list_posts %}"><i class="icon-list"></i>{% trans "Posts" %}</a></li>
-           <li><a href="/"><i class="icon-list"></i>{% trans "All" %}</a></li>
-        </ul>
-      {% endblock %}
-       </div>
       <div class="span8" style="min-height: 500px;background: #ffffff;margin: 0;">
       {% block content %} {% endblock %}
       </div>
@@ -98,7 +97,9 @@
              <div> &nbsp;</div>
              <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a></li>
              <li><a href="{%url userena_profile_list%}"><i class="icon-cog"></i>{% trans "Friends" %}</a></li>
+             <li><a href="/post/message/"> <i class="icon-envelope"></i> {% trans "SendMessage" %} </a></li>
          </ul>
+
             {%block rightinline%}
             {% endblock %}
          {% endblock %}
