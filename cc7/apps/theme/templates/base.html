@@ -9,13 +9,13 @@
     <meta name="author" content="">
 
     <!-- The styles -->
-    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+      <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
       <link href="{{ STATIC_URL }}css/timePicker.css" rel="stylesheet">
-
+      <link href="{{ STATIC_URL }}css/cc7.css" rel="stylesheet">
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-      <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-      <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
+
+      <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
+      <script src="{{ STATIC_URL }}js/jquery-ui-1.9.2.min.js"></script>
       <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
 
 
@@ -29,73 +29,6 @@
     {% block extra_head %}{% endblock %}
     
     <title> {% block title %} {% trans "cc7 social forum" %} {% endblock %} </title>
-      <style type="text/css">
-          body {
-              padding-top: 60px;
-              padding-bottom: 40px;
-          }
-          .main {
-              margin-top: 10px;
-          }
-          .navbar-inverse .navbar-inner {
-              background-color: #000;
-              background-image: linear-gradient(to bottom, #000, #000);
-              background-repeat: repeat-x;
-              border-color: transparent;
-          }
-          .navbar .nav .myview  {
-              position:relative;
-              left:400px;
-          }
-          .small {
-              font-size: 10px;
-          }
-          .navbar-inner{
-              height: 52px;
-          }
-          .navbar .navbar-inner {
-              box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
-          }
-
-          .navbar-inverse .brand {
-              padding-left: 40px;
-          }
-          .navbar-inverse .nav{
-              padding-left: 60px;
-          }
-          .nav-list > li > a:hover{
-              background-color: #fff2f2;
-              color: #000b03;
-          }
-          .hide {
-              display: none;
-          }
-
-          .comment-button {
-              position: relative;
-              top: -10px;
-          }
-
-          .story {
-              color: #555555;
-              border-left: 5px solid #EEEEEE;
-              margin: 0 0 20 10px;
-              padding: 0 0 0 15px;
-          }
-
-          .comment_btn {
-              background-color: #cccccc;
-              color: black;
-              cursor: pointer;
-              display: inline-block;
-              font-size: 10px;
-              line-height: 20px;
-              margin-bottom: 0;
-              padding: 2px 6px;
-              text-align: center;
-          }
-
-      </style>
 
   </head>
  <body data-spy="scroll" data-target=".bs-docs-sidebar">

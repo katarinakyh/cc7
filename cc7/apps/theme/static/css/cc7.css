@@ -1,0 +1,95 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.main {
+    margin-top: 10px;
+}
+.navbar-inverse .navbar-inner {
+    background-color: #000;
+    background-image: linear-gradient(to bottom, #000, #000);
+    background-repeat: repeat-x;
+    border-color: transparent;
+}
+.navbar .nav .myview  {
+    position:relative;
+    left:400px;
+}
+.small {
+    font-size: 10px;
+}
+.navbar-inner{
+    height: 52px;
+}
+.navbar .navbar-inner {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-inverse .brand {
+    padding-left: 40px;
+}
+.navbar-inverse .nav{
+    padding-left: 60px;
+}
+.nav-list > li > a:hover{
+    background-color: #fff2f2;
+    color: #000b03;
+}
+.hide {
+    display: none;
+}
+
+.comment-button {
+    position: relative;
+    top: -10px;
+}
+
+.story {
+    color: #555555;
+    border-left: 5px solid #EEEEEE;
+    margin: 0 0 20 10px;
+    padding: 0 0 0 15px;
+}
+
+.comment_btn {
+    background-color: #cccccc;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 10px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 2px 6px;
+    text-align: center;
+}
+
+
+textarea {
+    width: 475px;
+    height: 30px;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    font-family: Tahoma, sans-serif;
+}
+
+#commentform textarea{
+    width: 400px;
+    height: 20px;
+}
+
+#eventform textarea{
+    width: 200px;
+    height: 160px;
+}
+#threadform textarea{
+    width: 500px;
+    height: 300px;
+}
+li{
+    list-style-type: none;
+}
+        
+submit{
+    float: right;
+}
+
