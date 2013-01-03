@@ -11,6 +11,7 @@ from apps.publication.forms import PostForm, CommentForm
 from apps.publication.models import Post
 from apps.event.models import Event
 from apps.account.models import MyProfile
+from apps.stream.views import save_comment
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from itertools import chain
@@ -35,22 +36,14 @@ def my_page(request, *args, **kwargs):
     
     if request.POST:
         if 'new_comment' in request.POST:
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                form.save(commit = False)
-                f=form
-                f.author=profile
-                print f.author
-                f.post=request.POST['post']
-                f.save()
-            else:
-                print form.errors
+            save_comment(request, profile)
+
         elif 'association_post' in request.POST:
             form = PostForm(request.POST)
             if form.is_valid():
                 form.save(commit = False)
                 f = form
-                f.title = 'no title'
+                f.title = "%s post" %pageuser.association
                 f.author=profile
                 f.association_page=pageuser
                 f.is_public=True

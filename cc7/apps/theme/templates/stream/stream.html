@@ -5,65 +5,55 @@
 {% endblock %}
 
 {%block content%}
-    {% for r in object_list|dictsortreversed:"date_created"  %}
-    <div class="story">
-                <h4>
-                    {% if r.organiser %}
-                        <div style="background: #f9f9f9;padding: 10px;">
-                        <i class="icon-calendar"></i> <a href="/event/detail/{{ r.pk }}"> {{ r.title }}</a> /
-                    {% endif %}
-                    {% if r.body %}
-                        <img class="mugshot" src="{{ r.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
-                        <a href="/post/detail/{{ r.pk }}"> {{ r.title }}</a><br/>
-                    {% endif %}
+    {% for post in object_list|dictsortreversed:"date_created"  %}
+    <div class="story" >
+        {% if post.organiser %}
+            <h4>
+                <div class="event">
+                    <i class="icon-calendar"></i> <a href="/event/detail/{{ post.pk }}"> {{ post.title }}</a> /
+                    <i class="icon-time"></i> {{ post.date_from }}
+                    <i class="icon-map-marker"></i> {{ post.place }} /
+                    <br/>
                     <span class="small">
-                    {% if r.author %} {{ r.date_created }}
-                        {% trans "Posted by" %}:<strong><a href="{%url my_page r.author.user%}"> {{ r.author }} </a></strong>
-                        {%if r.association%}in <strong><a href="{%url show_association r.association.slug%}">{{r.association.association}}</a></strong>{%endif%}</span>
-                    {% endif %}
-                    {% if r.date_from %}
-                        <i class="icon-time"></i>
-                        {{ r.date_from }}
-                    {% endif %}
-                    {% if r.place %}
-                        <i class="icon-map-marker"></i> {{ r.place }} /
-                    {% endif %}
-                    {% if r.organiser %}<span class="small"> <br/>
-                        {% trans "By" %}: {{ r.organiser }}</span>
-                        <p style="margin-left: 20px;"><em>"{{ r.description|safe|truncatewords:10}}"</em></p>
-                        </div>
-                        <hr/>
-                    {% endif %}
-                </h4>
-        <div class="story">
-                {% if r.body %}
-                        <div style="margin-left: 10px;margin-bottom: 10px;"> {{ r.body|linebreaks|truncatewords:30}} </div>
+                        {% trans "By" %}: <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a>
+                    </span>
+                    <p style="margin-left: 20px;">
+                        <em>"{{ post.description|safe|truncatewords:10}}"</em>
+                    </p>
+                </div>
+                <hr/>
+            </h4>
+        {% endif %}
+        {% if post.body %}
+            <h4>
+                <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+                <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
+                <span class="small">
+                {% if post.author %} {{ post.date_created }}
+                    {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
+                    {%if post.association%}in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>{%endif%}
                 {% endif %}
-       </div>
-        {% if r.body %}
-        <ul>
-            {%if r.comment_set.all %}
-            {%for c in r.comment_set.all%}
-               <li> <img class="mugshot" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
-                <em> {{c.author}} on</em><small> {{c.date_created}}</small>
-               <p style="margin-left: 30px;margin-bottom: 10px;margin-top: 10px;">{{c.body|linebreaks}}</p></li>
-            {%endfor%}
+                </span>
+                
+            </h4>
+
+            <div style="margin-left: 27px;margin-bottom: 30px;padding: 5px;padding-left:10px;border-left:solid 3px #effce1;"> {{ post.body|linebreaks|truncatewords:60}} </div>
+            <ul style="background: #effce1;padding: 5px;color:#333333;width:500px;">
+            {%if post.comment_set.all %}
+                {%for c in post.comment_set.all%}
+                    <li>
+                        <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+                        <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
+                        <div style="margin-left: 30px;margin-bottom: 15px;margin-top: 0px;font-size: 12px;">{{c.body|linebreaks}}</div>
+                        <hr/>
+                    </li>
+                {%endfor%}
             {%endif%}
-        <form action="" id="commentform" method="post" >
-            {% csrf_token %}
-             
-                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:20px; width: 20px;"/>
-            
-            {{comment_form.body}}
-            <input type="hidden" value="{{r.pk}}" name="post" />
-            <input type="hidden" value="{{profile.pk}}" name="author"/>
-            <dd><input type="submit" name="new_comment" value="Posta kommentar" /></dd>
-            <span class="label label-important">{{ form.body.errors }}</span><br />
-        </form>
+            {% include "publication/comment.html" %}
         </ul>
         <hr/>
 
-        {% endif %}
+                    {% endif %}
     </div>
 {% endfor %}
 

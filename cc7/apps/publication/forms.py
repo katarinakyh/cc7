@@ -16,6 +16,7 @@ class PostForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
+        #exclude = ('author','post','association','is_public',)
         
 class MessageForm(ModelForm):
     class Meta:

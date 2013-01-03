@@ -1,15 +1,13 @@
-<div class="comment-button">
-    <span class="comment_btn" id="buttonEditComment" href="javascript:void()"><i class="icon-comment"></i>comment</span>
-        <div class="hide">
-            <form action="" method="post" class="form-horizontal block-form">
-                {% csrf_token %}
-                    <textarea id="id_message" name="message" cols="1000" rows="1" class="input-xlarge"></textarea>
-                <input value="Post" type="submit">
-            </form>
-        </div>
-</div>
-<script>
-    $(".comment_btn").click(function () {
-        $(this).siblings('div.hide').toggle();
-    });
-</script>
+{% load i18n %}
+
+<form action="" id="commentform" method="post" >
+    {% csrf_token %}
+     
+        <img class="mugshot_small" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+    
+    {{comment_form.body}}
+    <input type="hidden" value="{{post.pk}}" name="post" />
+    <input type="hidden" value="{{profile.pk}}" name="author"/>
+    <dd><input type="submit" name="new_comment" value="Post comment" /></dd>
+    <span class="label label-important">{{ form.body.errors }}</span><br />
+</form>
