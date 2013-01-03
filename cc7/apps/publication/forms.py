@@ -16,14 +16,14 @@ class PostForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
+        #exclude = ('author','post','association','is_public',)
         
 class MessageForm(ModelForm):
     class Meta:
         model = Message
         widgets = {
-            'body': Textarea(attrs={'cols': 200, 'rows': 10}),
+            'body': Textarea(attrs={'cols': 300, 'rows': 10}),
         }
-        #fields = ('title', 'body')
 
 class ThreadForm(ModelForm):
     class Meta:

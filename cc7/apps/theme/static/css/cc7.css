@@ -6,7 +6,7 @@ body {
     margin-top: 10px;
 }
 .navbar-inverse .navbar-inner {
-    background-color: #000;
+    background-color: #0f0117 ;
     background-image: linear-gradient(to bottom, #000, #000);
     background-repeat: repeat-x;
     border-color: transparent;
@@ -26,10 +26,10 @@ body {
 }
 
 .navbar-inverse .brand {
-    padding-left: 40px;
+    padding-left: 20px;
 }
 .navbar-inverse .nav{
-    padding-left: 60px;
+    padding-left: 20px;
 }
 .nav-list > li > a:hover{
     background-color: #fff2f2;
@@ -43,7 +43,10 @@ body {
     position: relative;
     top: -10px;
 }
-
+.menuplus {
+    position: relative;
+    left: -28px;
+}
 .story {
     color: #555555;
     border-left: 5px solid #EEEEEE;
@@ -81,7 +84,7 @@ textarea {
     width: 200px;
     height: 160px;
 }
-#threadform textarea{
+#threadform textarea, #messageform textarea{
     width: 500px;
     height: 300px;
 }
@@ -93,3 +96,42 @@ submit{
     float: right;
 }
 
+.mugshot_small {
+    float: left;
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.mugshot {
+    float: left;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+.comment_body{
+    margin-left: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.event{
+    background: #f9f9f9;
+    padding: 10px;
+}
+.sidemessage {
+    height: 200px;
+    padding: 5px;
+    width: 160px;
+}
+.mini {
+    font-size: 70%;
+}
+
+.editform{
+    font-size: 10px;
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
