@@ -12,13 +12,17 @@
           {% block profile_definition_list %}
             {% if pageprofile.user.get_full_name %}
               <p class="lead">{{ pageprofile.user.get_full_name }}</p>
-            {%else%}
+            {%elif pageprofile == profile%}
               <p class="lead">Welcome to c7 {{profile.user.username}}!</p>
+            {%else%}
+              <p class="lead">Welcome to {{pageprofile.user.username}}s personal page!</p>
             {% endif %}
             {% if pageprofile.description %}
               <p><em>"{{ pageprofile.description }}"</em></p>
-            {%else%}
+            {%elif pageprofile == profile%}
               <p><em>"This is your personal page, please <a href='{% url userena_profile_edit user.username %}'>{% trans "edit your profile" %}</a>"</em></p>
+            {%else%}
+                <p><em>"{{pageprofile.user.username}} is a great person, we are sure of it!"</em></p>
             {% endif %}
 
             {% if profile.has_new_messages %}
