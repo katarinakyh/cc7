@@ -69,8 +69,8 @@ def my_page(request, *args, **kwargs):
         object_list = Post.objects.defer('event','association').filter(author = pageprofile).order_by('-date_created')
         template = 'account/my_page.html'
     elif model == 'association':
-        posts = Post.objects.filter(is_public=True).order_by('-date_created')
-        events = Event.objects.filter().order_by('-date_created')
+        posts = Post.objects.filter(is_public=True, association = pageprofile).order_by('-date_created')
+        events = Event.objects.filter(organiser = pageprofile).order_by('-date_created')
         object_list =  sorted(chain(posts, events), key=attrgetter('date_created'))
         print posts
     

@@ -135,3 +135,11 @@ submit{
     margin-left: 10px;
     margin-top: 20px;
 }
+
+.postbody{
+    margin-left: 27px;
+    margin-bottom: 20px;
+    padding: 0px;
+    padding-left:10px;
+    border-left:solid 3px #effce1;
+}
