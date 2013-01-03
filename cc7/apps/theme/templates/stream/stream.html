@@ -5,56 +5,5 @@
 {% endblock %}
 
 {%block content%}
-    {% for post in object_list|dictsortreversed:"date_created"  %}
-    <div class="story" >
-        {% if post.organiser %}
-            <h4>
-                <div class="event">
-                    <i class="icon-calendar"></i> <a href="/event/detail/{{ post.pk }}"> {{ post.title }}</a> /
-                    <i class="icon-time"></i> {{ post.date_from }}
-                    <i class="icon-map-marker"></i> {{ post.place }} /
-                    <br/>
-                    <span class="small">
-                        {% trans "By" %}: <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a>
-                    </span>
-                    <p style="margin-left: 20px;">
-                        <em>"{{ post.description|safe|truncatewords:10}}"</em>
-                    </p>
-                </div>
-                <hr/>
-            </h4>
-        {% endif %}
-        {% if post.body %}
-            <h4>
-                <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
-                <span class="small">
-                {% if post.author %} {{ post.date_created }}
-                    {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
-                    {%if post.association%}in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>{%endif%}
-                {% endif %}
-                </span>
-                
-            </h4>
-
-            <div style="margin-left: 27px;margin-bottom: 30px;padding: 5px;padding-left:10px;border-left:solid 3px #effce1;"> {{ post.body|linebreaks|truncatewords:60}} </div>
-            <ul style="background: #effce1;padding: 5px;color:#333333;width:500px;">
-            {%if post.comment_set.all %}
-                {%for c in post.comment_set.all%}
-                    <li>
-                        <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                        <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
-                        <div style="margin-left: 30px;margin-bottom: 15px;margin-top: 0px;font-size: 12px;">{{c.body|linebreaks}}</div>
-                        <hr/>
-                    </li>
-                {%endfor%}
-            {%endif%}
-            {% include "publication/comment.html" %}
-        </ul>
-        <hr/>
-
-                    {% endif %}
-    </div>
-{% endfor %}
-
+    {%include 'publication/fullstream.html'%}
 {%endblock%}

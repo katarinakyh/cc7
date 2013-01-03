@@ -21,14 +21,6 @@
         submit{
             float: right;
         }
-        .editform{
-            background: #ccc;
-            font-size: 10px;
-            padding: 5px;
-            border: solid 1px #000;
-            margin-left: 20px;
-            margin-top: 20px;
-        }
         
         
     </style>
@@ -36,8 +28,6 @@
 {% endblock %}
 
 {%block posts%}
-    <p>&nbsp;</p>
-    
     {%if pageprofile == profile %}
             <form action="" id="post_form" method="post" class="form-horizontal block-form">
                 {% csrf_token %}
@@ -48,8 +38,8 @@
                 <input type="submit" id="new_post" class="btn" value="Ny post" />
             </form>
     {%endif%}
-    
-    {%for post in posts %}
+
+    {%for post in object_list %}
         <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
         <strong>{% trans "av"%} {{post.author}}</strong><small> {{post.date_created}}</small>
         <p>{{post.body|linebreaks }}</p>

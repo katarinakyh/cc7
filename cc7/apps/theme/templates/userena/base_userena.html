@@ -36,10 +36,8 @@
         
         #profile_list li{
             list-style-type: none;
-            margin: 3px; 
-            
+            margin: 3px;
         }
-
       </style>
 {% endblock %}
 
@@ -47,16 +45,19 @@
     {%if pageprofile == profile %}
         <ul class="nav nav-list">
             {% if profile.association %}
+
                 <li><h4>My associations</h4>
                 {%for a in profile.association.all %}
                     <dd><a href="{%url show_association a.slug %}"> {{ a.association }} </a></dd></li>
                 {%endfor%}
                 </li>
+
             {% endif %}
             {% if profile.user.email and not hide_email %}
-        
+                <br/>        
                 <li><h4>Email</h4>
                 <dd>{{ profile.user.email }}</dd><br/></li>
+
             {% endif %}
         </ul>
         {% block profile_navigation %}
@@ -88,10 +89,9 @@
             </li>
         {% endif %}
         {% if pageprofile.user.email and not hide_email %}
-    
             <li><h4>Email</h4>
             <dd>{{ pageprofile.user.email }}</dd><br/></li>
-        {% endif %}
+            {% endif %}
         </ul>
     {% endif %}
 

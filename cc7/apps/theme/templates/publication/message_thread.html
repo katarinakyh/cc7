@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+    <ul>
+        {%for message in message_list|dictsortreversed:"date_created"%}
+        <li>
+            <a href="{%url show_message_thread message.pk%}">{{message.title}}</a>
+            <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
+            {% trans "Conversation with" %} {{message.to}}
+            <p>{{message.body|safe|truncatewords:10}}</p>
+        </li>
+        {%endfor%}
+    </ul>
+
+
+{%endblock%}

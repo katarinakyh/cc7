@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+    <h4>Your Messages</h4>
+    <hr/>
+    <ul>
+        {%if message_list %}
+        {%for message in message_list|dictsortreversed:"date_created"%}
+        <li>
+            <a href="{%url show_message_thread message.pk%}">{{message.title}}</a>
+            <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
+            {% trans "Conversation with" %} {{message.to}}
+            <p>{{message.body|safe}}</p>
+        </li>
+        {%endfor%}
+        {%else%}
+            {% trans "You no messages" %}
+            <a href="/post/message/">{% trans "send a messages here" %}</a>
+        {%endif%}
+    </ul>
+{%endblock%}

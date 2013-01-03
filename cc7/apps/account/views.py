@@ -66,13 +66,13 @@ def my_page(request, *args, **kwargs):
     is_association = False
     
     if model == 'username':
-        posts = Post.objects.defer('event','association').filter(author = pageprofile).order_by('-date_created')
+        object_list = Post.objects.defer('event','association').filter(author = pageprofile).order_by('-date_created')
         template = 'account/my_page.html'
     elif model == 'association':
-        p = Post.objects.filter(association = pageprofile).order_by('-date_created')
-        events = Event.objects.filter(organiser = pageprofile).order_by('-date_created')
-        posts =  sorted(chain(p, events),
-            key=attrgetter('date_created'))
+        posts = Post.objects.filter(is_public=True).order_by('-date_created')
+        events = Event.objects.filter().order_by('-date_created')
+        object_list =  sorted(chain(posts, events), key=attrgetter('date_created'))
+        print posts
     
 
         posts = Post.objects.filter(association = pageprofile).order_by('-date_created')
@@ -89,7 +89,7 @@ def my_page(request, *args, **kwargs):
                                    {'profile':profile,
                                     'pageprofile':pageprofile,
                                     'associations':associations,
-                                    'posts':posts,
+                                    'object_list':object_list,
                                     'post_form':post_form,
                                     'comment_form':comment_form,
                                     'can_edit': can_edit,
