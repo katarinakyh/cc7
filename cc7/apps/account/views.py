@@ -72,10 +72,7 @@ def my_page(request, *args, **kwargs):
         posts = Post.objects.filter(is_public=True, association = pageprofile).order_by('-date_created')
         events = Event.objects.filter(organiser = pageprofile).order_by('-date_created')
         object_list =  sorted(chain(posts, events), key=attrgetter('date_created'))
-        print posts
-    
 
-        posts = Post.objects.filter(association = pageprofile).order_by('-date_created')
         for a in profile.association.all():
             if pageuser == a:
                 can_edit = True
