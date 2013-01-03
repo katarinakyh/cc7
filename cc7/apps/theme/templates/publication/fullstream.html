@@ -32,7 +32,7 @@
                 
             </h4>
     
-            <div style="margin-left: 27px;margin-bottom: 30px;padding: 5px;padding-left:10px;border-left:solid 3px #effce1;"> {{ post.body|linebreaks|truncatewords:60}} </div>
+            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div>
             <ul style="background: #f9f9f9;padding: 5px;color:#333333;width:500px;">
             {%if post.comment_set.all %}
                 {%for c in post.comment_set.all%}
