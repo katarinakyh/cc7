@@ -8,7 +8,7 @@
   <div class="white-box">
     <div id="details">
       {% block profile_details %}
-          <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;"/>
+          <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
           {% block profile_definition_list %}
             {% if pageprofile.user.get_full_name %}
               <p class="lead">{{ pageprofile.user.get_full_name }}</p>

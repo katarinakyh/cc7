@@ -4,7 +4,7 @@
     
 {% endblock %}
         {% block profile_details %}
-            <img class="mugshot" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;"/>
+            <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
             {% if pageprofile.association %}
               <p class="lead">{{ pageprofile.association }}</p>
             {% endif %}
