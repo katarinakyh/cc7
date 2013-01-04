@@ -13,10 +13,11 @@
             {% if pageprofile.user.get_full_name %}
               <p class="lead">{{ pageprofile.user.get_full_name }}</p>
             {%elif pageprofile == profile%}
-              <p class="lead">Welcome to c7 {{profile.user.username}}!</p>
+              <p class="lead">Welcome to c7, {{profile.user.username}}!</p>
             {%else%}
               <p class="lead">Welcome to {{pageprofile.user.username}}s personal page!</p>
             {% endif %}
+
             {% if pageprofile.description %}
               <p><em>"{{ pageprofile.description }}"</em></p>
             {%elif pageprofile == profile%}
@@ -43,3 +44,56 @@
   </div>
 {% endblock %}
 
+{%block rightinline%}
+    {%if pageprofile == profile %}
+        {% if profile.association.all %}
+            <h4 class="rightinline">My associations</h4>
+            {%for a in profile.association.all %}
+                <img class="mugshot" src="{{ a.get_mugshot_url }}" alt="{{a.association}}"/>
+                <a href="{%url show_association a.slug %}"> {{ a.association }} </a>
+                <div style="clear: both;"></div>
+            {%endfor%}
+        {% endif %}
+        <br/>        
+        {% if profile.user.email and not hide_email %}
+            <h4 class="rightinline">Email</h4>
+              
+            {{ profile.user.email }}
+              
+        {% endif %}
+        <br/><br/>
+        {% block profile_navigation %}
+          {% comment %}Dirty hack. Will use django-guardian in the future.{% endcomment %}
+            <h4 class="rightinline">Account settings</h4>
+              <div class="editform">
+                {% block profile_navigation_items %}
+                  <a href='{% url userena_profile_edit user.username %}'>{% trans "Edit details" %}</a><br/>
+                  <a href='{% url userena_password_change user.username %}'>{% trans "Change password" %}</a><br/>
+                  <a href='{% url userena_email_change user.username %}'></i>{% trans "Change email" %}</a>
+                {% endblock %}
+              </div>      
+        {% endblock %}
+    {%elif is_association%}
+         <h4 class="rightinline">Members</h4></li>
+            {%for member in pageprofile.myprofile_set.all %}
+                <a href="{%url my_page member %}">
+                    <img class="mugshot" src="{{ member.get_mugshot_url }}" alt="{{member}}"/>{{ member }}
+                </a>
+                <div style="clear: both;"></div>
+            {%endfor%}
+    {%else%}
+        {% if pageprofile.association.all %}
+            <h4 class="rightinline">{{pageprofile}}s associations</h4>
+                {%for a in pageprofile.association.all %}
+                    <img class="mugshot" src="{{ a.get_mugshot_url }}" alt="{{a.association}}"/>
+                    <a href="{%url show_association a.slug %}"> {{ a.association }} </a>
+                    <div style="clear: both;"></div>
+                {%endfor%}
+        {% endif %}
+        <br/>
+        {% if pageprofile.user.email and not hide_email %}
+            <h4 class="rightinline">Email</h4>
+                {{ pageprofile.user.email }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

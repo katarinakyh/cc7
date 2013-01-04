@@ -6,7 +6,7 @@ body {
     margin-top: 10px;
 }
 .navbar-inverse .navbar-inner {
-    background-color: #0f0117 ;
+    background-color: #170223; /*#0f0117*/ 
     background-image: linear-gradient(to bottom, #000, #000);
     background-repeat: repeat-x;
     border-color: transparent;
@@ -130,10 +130,7 @@ submit{
 }
 
 .editform{
-    font-size: 10px;
-    padding: 5px;
-    margin-left: 10px;
-    margin-top: 20px;
+    font-size: 11px;
 }
 
 .postbody{
@@ -142,4 +139,23 @@ submit{
     padding: 0px;
     padding-left:10px;
     border-left:solid 3px #effce1;
+}
+
+.commentfield{
+    background: #f9f9f9;
+    padding: 5px;
+    color:#333333;
+    width:500px;
+}
+.commentbody{
+    margin-left: 30px;
+    font-size: 12px;
+}
+
+.eventdescription{
+    margin-left: 20px;
+}
+
+.rightinline{
+    font-size: 15px;
 }

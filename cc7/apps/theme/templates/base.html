@@ -93,15 +93,14 @@
       <div class="span8" style="min-height: 500px;background: #ffffff;margin: 0;">
       {% block content %} {% endblock %}
       </div>
-     <div class="span2" style="min-height: 500px;background: #fff;margin: 0;">
+     <div class="span3" style="min-height: 500px;background: #fff;margin: 0;">
 
          {% block rightsidebar %}
-         <ul class="nav nav-list">
              <div> &nbsp;</div>
-             <li><a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a></li>
-             <li><a href="{%url userena_profile_list%}"><i class="icon-cog"></i>{% trans "Friends" %}</a></li>
-         </ul>
-          <br/>
+             <a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a>
+             <br/>
+             <a href="{%url userena_profile_list%}"><i class="icon-cog"></i>{% trans "Friends" %}</a>
+          <br/><br/>
             {%block rightinline%}
             {% endblock %}
          {% endblock %}
