@@ -4,17 +4,10 @@
 
         <div class="story"> <h3 style="display:inline">{{ post.title }} </h3>
             <li> <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-            <div> {{ post.body|linebreaks }} </div>
-            <ul>
-            {%if post.comment_set.all %}
-                {%for c in post.comment_set.all%}
-                   <li> <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                    <em> {{c.author}} on</em><small> {{c.date_created}}</small>
-                   <div class="comment_body">{{c.body|linebreaks}}</div></li>
-                {%endfor%}
-            {%endif%}
-            <br/>
-            {% include "publication/comment.html" %}
+            <div class="postbody"> {{ post.body|linebreaks }} </div>
+            <ul class="commentfield">
+                {%include 'publication/comment.html'%}
+            </ul>
         </div>
 
 {%endblock%}
