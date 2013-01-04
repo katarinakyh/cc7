@@ -1,6 +1,7 @@
 from django.conf.urls import url, patterns
 from django.contrib.auth.decorators import login_required
 from apps.publication.views import PostView, AddPostView, AddMessageView
+from apps.stream.views import stream, stream_posts
 
 
 urlpatterns = patterns('',
@@ -8,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^add/$', login_required(AddPostView.as_view()), name= 'add_post'),
     url(r'^detail/(?P<pk>[-_\w]+)/$', 'apps.publication.views.post_detail', name='postdetailview'),
     url(r'^message/$', login_required(AddMessageView.as_view()), name= 'add_message'),
+    url(r'^filter/$', login_required(stream_posts), name= 'stream_posts'),
 )
