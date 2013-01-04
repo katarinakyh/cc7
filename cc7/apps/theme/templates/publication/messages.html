@@ -14,8 +14,7 @@
         </li>
         {%endfor%}
         {%else%}
-            {% trans "You no messages" %}
-            <a href="/post/message/">{% trans "send a messages here" %}</a>
+            {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
         {%endif%}
     </ul>
 {%endblock%}
