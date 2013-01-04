@@ -12,7 +12,7 @@
                     <span class="small">
                         {% trans "By" %}: <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a>
                     </span>
-                    <p style="margin-left: 20px;">
+                    <p class="eventdescription">
                         <em>"{{ post.description|safe|truncatewords:10}}"</em>
                     </p>
                 </div>
@@ -33,19 +33,9 @@
             </h4>
     
             <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div>
-            <ul style="background: #f9f9f9;padding: 5px;color:#333333;width:500px;">
-            {%if post.comment_set.all %}
-                {%for c in post.comment_set.all%}
-                    <li>
-                        <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                        <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
-                        <div style="margin-left: 30px;margin-bottom: 15px;margin-top: 0px;font-size: 12px;">{{c.body|linebreaks}}</div>
-                        <hr/>
-                    </li>
-                {%endfor%}
-            {%endif%}
-            {% include "publication/comment.html" %}
-        </ul>
+            <ul class="commentfield">
+                {% include "publication/comment.html" %}
+            </ul>
         <hr/>
     {% endif %}
     </div>

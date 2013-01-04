@@ -40,35 +40,22 @@
     {%endif%}
 
     {%for post in object_list %}
-             <h4>
-                <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
-                <span class="small">
-                {% if post.author %}
-                    {{ post.date_created }}
-                    {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
-                    {%if post.association%}
-                        in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>
-                    {%endif%}
-                {% endif %}
-                </span>
-                
-            </h4>
-    
-            <div class="postbody"> {{ post.body|linebreaks}} </div>
-            <ul style="background: #f9f9f9;padding: 8px;color:#333333;width:500px;">
-            {%if post.comment_set.all %}
-                {%for c in post.comment_set.all%}
-                    <li>
-                        <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                        <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
-                        <div style="margin-left: 30px;margin-top: 0px;font-size: 12px;">{{c.body|linebreaks}}</div>
-                        <hr/>
-                    </li>
-                {%endfor%}
-            {%endif%}
-       
-        {%include 'publication/comment.html'%}
+        <h4>
+           <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+           <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
+           <span class="small">
+           {% if post.author %}
+               {{ post.date_created }}
+               {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
+               {%if post.association%}
+                   in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>
+               {%endif%}
+           {% endif %}
+           </span>
+       </h4>    
+        <div class="postbody"> {{ post.body|linebreaks}} </div>
+        <ul class="commentfield">
+            {%include 'publication/comment.html'%}
         </ul>
     {%endfor%}    
 {%endblock%}
