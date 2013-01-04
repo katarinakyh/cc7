@@ -36,4 +36,19 @@ def stream(request):
             'profile': profile,
         }, context_instance=RequestContext(request))
 
+def stream_posts(request):
+    profile = request.user.get_profile()
+    if request.POST:
+        if 'new_comment' in request.POST:
+            save_comment(request, profile)
+
+    posts = Post.objects.filter(is_public=True).order_by('-date_created')
+    comment_form = CommentForm()
+
+    return render_to_response('stream/stream.html', {
+        'object_list': posts,
+        'comment_form': comment_form,
+        'profile': profile,
+        }, context_instance=RequestContext(request))
+
 

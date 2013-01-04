@@ -83,7 +83,7 @@ class MessageView(ListView):
             'message_list':message_list
         }
         context.update(kwargs)
-        return super(   MessageView, self).get_context_data(**context)
+        return super(MessageView, self).get_context_data(**context)
 
 
 def view_message(request, pk):
