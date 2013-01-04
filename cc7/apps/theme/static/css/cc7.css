@@ -159,3 +159,7 @@ submit{
 .rightinline{
     font-size: 15px;
 }
+
+.titlefield {
+    display: none;
+}

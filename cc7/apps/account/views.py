@@ -43,7 +43,11 @@ def my_page(request, *args, **kwargs):
             if form.is_valid():
                 form.save(commit = False)
                 f = form
-                f.title = "%s post" %pageuser.association
+                title =  request.POST.get('title')
+                if (title):
+                    pass
+                else:
+                    form.instance.title = ">>"
                 f.author=profile
                 f.association_page=pageuser
                 f.is_public=True
@@ -55,7 +59,11 @@ def my_page(request, *args, **kwargs):
             if form.is_valid():
                 form.save(commit=False)
                 f = form
-                f.title = ' '
+                title =  request.POST.get('title')
+                if (title):
+                    pass
+                else:
+                    form.instance.title = ">>"
                 f.author=profile
                 f.is_public=False
                 f.save()            
