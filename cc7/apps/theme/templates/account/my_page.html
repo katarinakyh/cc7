@@ -26,6 +26,7 @@
     </style>
 {% endblock %}
 {%block posts%}
+    <br/>
     {%if pageprofile == profile %}
             <form action="" id="post_form" method="post" class="form-horizontal block-form">
                 {% csrf_token %}
