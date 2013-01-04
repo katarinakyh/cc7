@@ -12,7 +12,6 @@
               <p><em>"{{ pageprofile.description }}"</em></p>
             {% endif %}
       {% endblock %}
-
 {%block posts%}
     <p>&nbsp;</p>
 
@@ -25,7 +24,8 @@
             <input type="hidden" value="{{pageprofile.pk}}" name="association"/>
             <input type="hidden" value="1" name="is_public"/>
             <span class="label label-important">{{ form.body.errors }}</span><br />
-            <input type="submit" name="association_post" value="Ny post" />
+            <div class="titlefield"> Title: {{ post_form.title }} </div>
+            <input type="submit" id="new_post" class="btn" value="Ny post" /> <a href="" class="addtitle">Add title</a>
         </form>
     {%endif%}
     
