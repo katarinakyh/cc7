@@ -13,7 +13,12 @@ def save_comment(request, profile):
         form.save(commit = False)
         f=form
         f.author=profile
-        f.post=request.POST['post']
+        if request.POST['post'] != '1':
+            f.post=request.POST['post']
+            form.instance.event = ''
+        elif request.POST['event'] != '1':
+            f.event=request.POST['event']
+            form.instance.post = ''
         f.save()
     else:
         print form.errors
@@ -47,6 +52,21 @@ def stream_posts(request):
 
     return render_to_response('stream/stream.html', {
         'object_list': posts,
+        'comment_form': comment_form,
+        'profile': profile,
+        }, context_instance=RequestContext(request))
+
+def stream_events(request):
+    profile = request.user.get_profile()
+    if request.POST:
+        if 'new_comment' in request.POST:
+            save_comment(request, profile)
+
+    events = Event.objects.filter().order_by('-date_created')
+    comment_form = CommentForm()
+
+    return render_to_response('stream/stream.html', {
+        'object_list': events,
         'comment_form': comment_form,
         'profile': profile,
         }, context_instance=RequestContext(request))
