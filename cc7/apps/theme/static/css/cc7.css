@@ -169,3 +169,13 @@ submit{
 .titlefield {
     display: none;
 }
+.titlefield input[type=text]{
+    width: 440px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.addtitle{
+    font-size: 10px;
+    margin-left: 5px;
+}
