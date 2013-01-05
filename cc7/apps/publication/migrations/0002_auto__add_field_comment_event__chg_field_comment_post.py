@@ -23,7 +23,7 @@ class Migration(SchemaMigration):
 
 
         # Changing field 'Comment.post'
-        db.alter_column('publication_comment', 'post_id', self.gf('django.db.models.fields.related.ForeignKey')(default=0, to=orm['publication.Post']))
+        db.alter_column('publication_comment', 'post_id', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['publication.Post']))
 
     models = {
         'account.association': {
