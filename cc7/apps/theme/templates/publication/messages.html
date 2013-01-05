@@ -3,7 +3,9 @@
 {%block content%}
     <h4>Your Messages</h4>
     <hr/>
-    <ul>
+    <ul class="nav-list">
+
+
         {%if message_list %}
         {%for message in message_list|dictsortreversed:"date_created"%}
         <li>
@@ -14,7 +16,8 @@
         </li>
         {%endfor%}
         {%else%}
-            {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
+        {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
         {%endif%}
+
     </ul>
 {%endblock%}
