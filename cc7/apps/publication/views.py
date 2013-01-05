@@ -36,7 +36,10 @@ class AddMessageView(FormView):
     def form_valid(self, form):
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = False
-        form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
+        try:
+            form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
+        except:
+            pass
         form.save()
         return super(AddMessageView, self).form_valid(form)
 

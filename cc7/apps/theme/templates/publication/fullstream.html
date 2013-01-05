@@ -3,6 +3,7 @@
 {% for post in object_list|dictsortreversed:"date_created"  %}
     <div class="story" >
         {% if post.description %}
+        <div style="border:solid 1px #ccc; background: #f9f9f9;">
             <h4>
                 <div class="event">
                     <i class="icon-calendar"></i>  <a href="/event/detail/{{ post.pk }}"> {{ post.title }}  </a> /
@@ -16,8 +17,12 @@
                         <em>"{{ post.description|safe|truncatewords:10}}"</em>
                     </p>
                 </div>
-                <hr/>
             </h4>
+            <ul class="commentfield">
+                {% include "publication/comment.html" %}
+            </ul>
+        </div>
+        <br/>
         {% endif %}
         {% if post.body %}
             <h4>

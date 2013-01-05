@@ -5,12 +5,22 @@
     $(function() {
         var availableTags = [
             {% for u in alluser %}
-            "{{ u.user }}" {%if forloop.last%} {%else%} , {%endif%}
-            {% endfor%}
+            "{{ u.user }}"{%if forloop.last%}{%else%},{%endif%}{% endfor%}
         ];
         $(".tags").autocomplete({
             source: availableTags
         });
+
+        jQuery.validator.addMethod("tags", function(value) {
+            var in_array = $.inArray(value, availableTags);
+            if (in_array == -1) {
+                return false;
+            }else{
+                return true;
+            }
+        }, " Not a recipient");
+
+        $("#messageform").validate();
 
     });
 
