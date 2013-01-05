@@ -2,14 +2,28 @@
 {% load i18n %}
 {%block content%}
     <ul>
-        {%for message in message_list|dictsortreversed:"date_created"%}
+        {%for m in message_list|dictsortreversed:"date_created"%}
         <li>
-            <a href="{%url show_message_thread message.pk%}">{{message.title}}</a>
-            <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
-            {% trans "Conversation with" %} {{message.to}}
-            <p>{{message.body|safe|truncatewords:10}}</p>
+            <a href="{%url show_message_thread m.pk%}">{{thread.title}}</a>
+            <img class="mugshot" src="{{ m.to.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
+            {% trans "Conversation with" %} {{m.to}}
+            <p>{{m.body|safe|truncatewords:10}}</p>
         </li>
+
         {%endfor%}
+        <form action="" id="message_form" method="post" class="form-horizontal block-form">
+            {% csrf_token %}
+            <div class="messagebody"> {{ message_form.body }} </div>
+            <input type="hidden" value="{{message.thread}}" name="thread" />
+
+            <input type="hidden" value="{{profile.pk}}" name="author" />
+
+            <input type="hidden" value="{{message.to.pk }}" name="to" />
+            <input type="hidden" value="{{message.title }}" name="title" />
+
+            <input type="submit" id="new_post" class="btn" value="reply" />
+
+        </form>
     </ul>
 
 
