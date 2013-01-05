@@ -17,7 +17,7 @@
       <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
       <script src="{{ STATIC_URL }}js/jquery-ui-1.9.2.min.js"></script>
       <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
-
+      <script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
 
       <script>
           $(function() {
@@ -45,7 +45,7 @@
 
             {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url list_events %}"> {% trans "Events" %} <i class="icon-calendar icon-white"></i> </a>
+                    <a href="{% url stream_events  %}"> {% trans "Events" %} <i class="icon-calendar icon-white"></i> </a>
                 </li>
                 <li>
                     <a href="{% url add_event %}" class="menuplus"><i class="icon-plus icon-white"></i> {% trans "Create" %} </a>

@@ -3,12 +3,13 @@ from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.core.urlresolvers import reverse
 from models import Event
-from forms import EventForm
+from forms import EventForm, EventCommentForm
 
 class EventView(ListView):
     template_name = 'stream/stream.html'
     model = Event
-    
+    form_class = EventCommentForm
+
 class AddEventView(CreateView):
     template_name = 'event/create_event.html'
     model = Event
@@ -19,4 +20,4 @@ class AddEventView(CreateView):
 
 class EventDetailView(DetailView):
     model = Event
-
+    form_class = EventCommentForm

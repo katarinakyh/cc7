@@ -50,7 +50,7 @@ body {
 .story {
     color: #555555;
     border-left: 5px solid #EEEEEE;
-    margin: 0 0 20 10px;
+    margin: 0 0 20px 10px;
     padding: 0 0 0 15px;
 }
 
@@ -168,4 +168,14 @@ submit{
 
 .titlefield {
     display: none;
+}
+.titlefield input[type=text]{
+    width: 440px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.addtitle{
+    font-size: 10px;
+    margin-left: 5px;
 }
