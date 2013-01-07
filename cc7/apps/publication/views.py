@@ -24,7 +24,7 @@ class AddMessageView(FormView):
     template_name = 'publication/create_message.html'
     model = Message
     form_class = MessageForm
-    success_url = '/'
+    success_url = '/messages/'
 
     def get_context_data(self, **kwargs):
         context = {
@@ -61,7 +61,6 @@ def post_detail(request, pk):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
-            print 'newcomment'
             
     post = Post.objects.get(pk=pk)
     comment_form = CommentForm()
@@ -77,12 +76,8 @@ class MessageView(ListView):
     model = Message
 
     def get_context_data(self, **kwargs):
-        from_me = Message.objects.filter(author=self.request.user).order_by('-date_created')
-        to_me = Message.objects.filter(to=self.request.user).order_by('-date_created')
-        message_list =  sorted(chain(from_me, to_me),key=attrgetter('date_created'))
+        message_list = Message.objects.filter(author=self.request.user, to=self.request.user).order_by('-date_created')
         context = {
-            'from_me':from_me,
-            'to_me':to_me,
             'message_list':message_list
         }
         context.update(kwargs)
@@ -90,8 +85,10 @@ class MessageView(ListView):
 
 
 def view_message(request, pk):
+    
     message = Message.objects.get(pk=pk)
     thread = Message.objects.filter(thread=message.thread)
+    print thread
     form = MessageForm()
     return render_to_response('publication/message_thread.html', {
         'message_list': thread,
