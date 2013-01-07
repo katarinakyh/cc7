@@ -1,6 +1,6 @@
 from apps.event.models import Event
 from apps.publication.models import Post
-from apps.publication.forms import CommentForm
+from apps.publication.forms import CommentForm, MessageForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from itertools import chain

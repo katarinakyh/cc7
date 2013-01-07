@@ -13,7 +13,7 @@ from apps.account.models import MyProfile, Association
 from django.contrib.auth.models import User
 from apps.stream.views import save_comment
 from itertools import chain
-from operator import attrgetter
+from operator import attrgetter, itemgetter
 
 
 class PostView(ListView):
@@ -25,6 +25,8 @@ class AddMessageView(FormView):
     model = Message
     form_class = MessageForm
     success_url = '/messages/'
+    last_message= Message.objects.latest('pk')
+    thread = int(last_message.pk)  + 1
 
     def get_context_data(self, **kwargs):
         context = {
@@ -34,8 +36,11 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).get_context_data(**context)
 
     def form_valid(self, form):
+        form.save(commit=False)
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = False
+        form.instance.thread = self.thread
+        print form.instance.thread
         try:
             form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
         except:
@@ -76,8 +81,10 @@ class MessageView(ListView):
     model = Message
 
     def get_context_data(self, **kwargs):
+        profile = self.request.user.get_profile()
         message_list = Message.objects.filter(author=self.request.user, to=self.request.user).order_by('-date_created')
         context = {
+            'profile':profile,
             'message_list':message_list
         }
         context.update(kwargs)
@@ -85,14 +92,24 @@ class MessageView(ListView):
 
 
 def view_message(request, pk):
-    
+    profile=request.user.get_profile()
+
+    if request.POST:
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print form.errors
+
     message = Message.objects.get(pk=pk)
-    thread = Message.objects.filter(thread=message.thread)
-    print thread
-    form = MessageForm()
+    message_list = Message.objects.filter(thread=message.thread)
+    message_form = MessageForm()
+
     return render_to_response('publication/message_thread.html', {
-        'message_list': thread,
-        'form': form,
+        'message_list': message_list,
+        'message_form': message_form,
+        'message':message,
+        'profile':profile,
         }, context_instance=RequestContext(request))
 
 """

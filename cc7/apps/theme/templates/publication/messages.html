@@ -3,18 +3,30 @@
 {%block content%}
     <h4>Your Messages</h4>
     <hr/>
-    <ul>
+    <ul class="nav-list">
+
+
         {%if message_list %}
         {%for message in message_list|dictsortreversed:"date_created"%}
         <li>
-            <a href="{%url show_message_thread message.pk%}">{{message.title}}</a>
-            <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" style="float: left;margin-right: 10px;height:30px; width: 30px;"/>
-            {% trans "Conversation with" %} {{message.to}}
-            <p>{{message.body|safe}}</p>
+            {%if message.to.user == profile.user%}
+                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+                <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.pk%}">{{message.title}}</a></h4>
+                <small>{% trans "Discussion between " %} {{message.author}} and me on {{message.date_created}}</small>
+                
+            {%elif message.author.user == profile.user%}
+                <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+                <h4><a href="{%url show_message_thread message.pk%}">{{message.title}}</a> <br/>
+
+                {% trans "Message to " %} {{message.to}} from me {{message.date_created}}</h4>
+                
+            {%endif%}
+                
         </li>
         {%endfor%}
         {%else%}
-            {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
+        {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
         {%endif%}
+
     </ul>
 {%endblock%}
