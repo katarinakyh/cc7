@@ -29,10 +29,7 @@ class MessageForm(ModelForm):
 
     def clean_to(self):
         name  = self.cleaned_data['to']
-        print name
-
         friends = MyProfile.objects.all()
-        print friends
         if name not in friends:
             raise forms.ValidationError("This profile does not exist")
 

@@ -14,7 +14,6 @@
         {%if m_list %}
             
             {%for message in m_list|dictsortreversed:"date_created"%}
-                   {{message}}
                     <li>
                         <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
                         <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title}}</a></h4>
