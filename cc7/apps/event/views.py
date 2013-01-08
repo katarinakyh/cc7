@@ -33,7 +33,6 @@ def event_detail(request, pk):
             save_comment(request, profile)
             
     event = Event.objects.get(pk=pk)
-    print event
     comment_form = CommentForm()
 
     return render(request, 'event/event_detail.html', {
