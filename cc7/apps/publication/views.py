@@ -35,12 +35,15 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).get_context_data(**context)
 
     def form_valid(self, form):
-        last_message= Message.objects.latest('pk')
-        thread = int(last_message.pk)+1
+        try:
+            last_message= Message.objects.latest('pk')
+            thread = int(last_message.pk)+1
+        except:
+            thread=1
+        
         form.save(commit=False)
         form.instance.author = self.request.user.get_profile()
         form.instance.thread = thread
-        print thread
         try:
             form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
         except:
@@ -82,14 +85,28 @@ class MessageView(ListView):
 
     def get_context_data(self, **kwargs):
         profile = self.request.user.get_profile()
-        message_list = Message.objects.filter(author=self.request.user, to=self.request.user).order_by('-date_created')
+        message_list = Message.objects.filter(author=profile).order_by('-date_created')
+        message_list2 = Message.objects.filter(to=profile).order_by('-date_created')
+        result_list =  sorted(chain(message_list, message_list2), key=attrgetter('date_created','thread'))
+        m_list = []
+        thread=[]
+        for m in result_list:
+            if m.thread not in thread:
+                thread.append(m.thread)
+                m_list.append(m)
         
         context = {
             'profile':profile,
-            'message_list':message_list
+            'm_list':m_list,
         }
         context.update(kwargs)
         return super(MessageView, self).get_context_data(**context)
+
+def view_all_messages(request):
+    profile = request.user.get_profile()
+    message_list = Message.objects.filter(to=profile, author=profile).order_by('thread')
+
+
 
 
 def view_message(request, pk):
@@ -106,9 +123,9 @@ def view_message(request, pk):
             else:
                 print form.errors
     
-        message_list = Message.objects.filter(thread=pk)
+        message_list = Message.objects.filter(thread=pk).order_by('-date_created')
         message_form = MessageForm()
-    
+
         return render_to_response('publication/message_thread.html', {
             'message_list': message_list,
             'message_form': message_form,

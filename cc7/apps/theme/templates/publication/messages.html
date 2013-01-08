@@ -4,33 +4,28 @@
     <h4>Your Messages</h4>
     <hr/>
     <ul class="nav-list">
-
-
-        {%if message_list %}
-        {% regroup message_list|dictsortreversed:'date_created' by thread as messagelist %}
+{%comment%}
+        {%regroup message_list|dictsortreversed:'date_created' by thread as messagelist %}
         {%for m in messagelist%}
             {%for message in m.list%}
-                {% ifchanged message.thread%}
-                    <li>
-                        {%if message.to.user == profile.user%}
-                            <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                            <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title}}</a></h4>
-                            <small>{% trans "Message from " %} {{message.author}} to me {{message.date_created}}</small>
-                            
-                        {%elif message.author.user == profile.user%}
-                            <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                            <h4><a href="{%url show_message_thread message.thread%}">{{message.title}}</a> <br/>
+            {% ifchanged message.thread%}
+{%endcomment%}
+
+        {%if m_list %}
             
-                            {% trans "Message from me to " %} {{message.to}} {{message.date_created}}</h4>
-                            
-                        {%endif%}
+            {%for message in m_list|dictsortreversed:"date_created"%}
+                   {{message}}
+                    <li>
+                        <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+                        <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title}}</a></h4>
+                        <small>{% trans "Message from " %} {{message.author}} {%trans "to"%} {{message.to}} {{message.date_created}}</small>                            
                             
                     </li>
-                {% endifchanged %}
+
             {%endfor%}
-        {%endfor%}
+    
         {%else%}
-        {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
+            {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
         {%endif%}
 
     </ul>
