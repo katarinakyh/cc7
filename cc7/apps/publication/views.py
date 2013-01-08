@@ -26,9 +26,7 @@ class AddMessageView(FormView):
     model = Message
     form_class = MessageForm
     success_url = '/messages/'
-    last_message= Message.objects.latest('pk')
-    thread = int(last_message.pk)+1
-
+    
     def get_context_data(self, **kwargs):
         context = {
             'alluser':MyProfile.objects.all()
@@ -37,10 +35,12 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).get_context_data(**context)
 
     def form_valid(self, form):
+        last_message= Message.objects.latest('pk')
+        thread = int(last_message.pk)+1
         form.save(commit=False)
         form.instance.author = self.request.user.get_profile()
-        form.instance.is_public = False
-        form.instance.thread = self.thread
+        form.instance.thread = thread
+        print thread
         try:
             form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
         except:
@@ -83,6 +83,7 @@ class MessageView(ListView):
     def get_context_data(self, **kwargs):
         profile = self.request.user.get_profile()
         message_list = Message.objects.filter(author=self.request.user, to=self.request.user).order_by('-date_created')
+        
         context = {
             'profile':profile,
             'message_list':message_list
