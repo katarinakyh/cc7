@@ -13,14 +13,6 @@ def save_comment(request, profile):
         form.save(commit = False)
         f=form
         f.author=profile
-        """
-        if request.POST['post'] != '1':
-            f.post=request.POST['post']
-            #form.instance.event = 'null'
-        elif request.POST['event'] != '1':
-            #f.event=request.POST['event']
-            form.instance.post = 'null'
-        """
         f.save()
     else:
         print form.errors

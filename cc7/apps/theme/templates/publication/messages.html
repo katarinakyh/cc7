@@ -11,14 +11,14 @@
         <li>
             {%if message.to.user == profile.user%}
                 <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.pk%}">{{message.title}}</a></h4>
-                <small>{% trans "Discussion between " %} {{message.author}} and me on {{message.date_created}}</small>
+                <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title}}</a></h4>
+                <small>{% trans "Message from " %} {{message.author}} to me {{message.date_created}}</small>
                 
             {%elif message.author.user == profile.user%}
-                <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                <h4><a href="{%url show_message_thread message.pk%}">{{message.title}}</a> <br/>
+                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+                <h4><a href="{%url show_message_thread message.thread%}">{{message.title}}</a> <br/>
 
-                {% trans "Message to " %} {{message.to}} from me {{message.date_created}}</h4>
+                {% trans "Message from me to " %} {{message.to}} {{message.date_created}}</h4>
                 
             {%endif%}
                 
