@@ -1,20 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-        <div class="story"> <h3 style="display:inline"><i class="icon-calendar"></i> {{ event.title }} <span class="small"> <i class="icon-map-marker"></i>  {{ event.place }} </span></h3>
-            <div class="small">  <i class="icon-time"></i> {{ event.date_from }},  {{ event.time_from }} >> {{ event.date_to }}, {{ event.time_to }} <i class="icon-th"></i> <a href="{%url show_association event.organiser.slug%}">{{ event.organiser }}</a></div>
-            <div> {{ event.description|safe}} </div>
+        <div class="story"> <h3 style="display:inline"><i class="icon-calendar"></i> {{ post.title }} <span class="small"> <i class="icon-map-marker"></i>  {{ post.place }} </span></h3>
+            <div class="small">  <i class="icon-time"></i> {{ post.date_from }},  {{ post.time_from }} >> {{ post.date_to }}, {{ post.time_to }} <i class="icon-th"></i> <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a></div>
             <br/>
-            <form action="" id="post_form" method="post" class="form-horizontal block-form">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-                <span class="label label-important">{{ form.body.errors }}</span><br />
-                <input type="hidden" value="{{post.pk}}" name="post" />
-                <input type="hidden" value="{{profile.pk}}" name="author" />
-                <div class="titlefield"> Title: {{ post_form.title }} </div>
-                <input type="submit" id="new_post" class="btn" value="Ny post" /> <a href="" class="addtitle">Add title</a>
-
-            </form>
+            <p class="postbody"> {{ post.description|safe}} </p>
+            <br/>
+            {%include 'publication/comment.html'%}
         </div>
 {%endblock%}
