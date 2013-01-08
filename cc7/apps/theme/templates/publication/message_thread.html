@@ -4,7 +4,7 @@
     <ul>
     <h3>{{message.title}}</h3>
 
-    {%for message in message_list|dictsortreversed:"date_created"%}
+    {%for message in message_list%}
         <li>
             {%if message.to.user == profile.user%}
                 <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
@@ -12,30 +12,34 @@
                 <h4 style="margin-top: 0"><a href="{%url my_page message.author.user%}">{{message.author.user}}</a> </h4>
                 <div class="messagebody">{{message.body|linebreaks}}</div>                
             {%elif message.author.user == profile.user%}
-                <img class="mugshot" src="{{ message.to.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                <h4><a href="{%url show_message_thread message.pk%}">{{message.title}}</a> <br/>
+                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
 
-                {% trans "Message to " %} {{message.to}} from me {{message.date_created}}</h4>
+                <small>{% trans "Message to " %} {{message.to}} from me {{message.date_created}}</small>
+                <div class="messagebody">{{message.body|linebreaks}}</div>                
                 
             {%endif%}
                 
         </li>
-    {%endfor%}
-    </ul>    
+        {%if forloop.last%}
+
         <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Sender" %}" />
         <form action="" id="message_form" method="post" class="form-horizontal block-form">
             {% csrf_token %}
             <div class="messagebody"> {{ message_form.body }} </div>
             <input type="hidden" value="{{message.thread}}" name="thread" />
-
             <input type="hidden" value="{{profile.pk}}" name="author" />
 
-            <input type="hidden" value="{{message.to.pk }}" name="to" />
+            
+            <input type="hidden" value="{%if message.to.user == profile.user%}{{message.author.pk}}{%elif message.author.user == profile.user%}{{message.to.pk }}{%endif%}" name="to" />
+
             <input type="hidden" value="{{message.title }}" name="title" />
 
             <input type="submit" id="new_post" class="btn" value="reply" />
 
         </form>
+        {%endif%}
+    {%endfor%}
+
     </ul>
 
 

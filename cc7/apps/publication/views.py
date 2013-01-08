@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView, CreateView
 from django.views.generic import View, DetailView
 from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from models import Post, Comment, Message
 from apps.event.models import Event
 from forms import PostForm, ThreadForm, CommentForm, MessageForm
@@ -93,25 +94,33 @@ class MessageView(ListView):
 
 def view_message(request, pk):
     profile=request.user.get_profile()
+    messages = Message.objects.filter(thread=pk)
+    if ((messages[0].to == profile) or (messages[0].author == profile)):
+        if request.POST:
+            print request.POST
+            form = MessageForm(request.POST)
+            if form.is_valid():                
+                form.save(commit=False)
+                f = form
+                f.author = profile
+                f.save()
+            else:
+                print form.errors
+    
+        
+        #message = Message.objects.get(pk=pk)
+        message_list = Message.objects.filter(thread=pk)
+        message_form = MessageForm()
+    
+        return render_to_response('publication/message_thread.html', {
+            'message_list': message_list,
+            'message_form': message_form,
+            #'message':message,
+            'profile':profile,
+            }, context_instance=RequestContext(request))
 
-    if request.POST:
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            print form.errors
-
-    message = Message.objects.get(pk=pk)
-    message_list = Message.objects.filter(thread=message.thread)
-    message_form = MessageForm()
-
-    return render_to_response('publication/message_thread.html', {
-        'message_list': message_list,
-        'message_form': message_form,
-        'message':message,
-        'profile':profile,
-        }, context_instance=RequestContext(request))
-
+    else:
+        return HttpResponseRedirect('/messages/')
 """
     def post(self, request, *args, **kwargs):
         post = PostForm(request.POST)
