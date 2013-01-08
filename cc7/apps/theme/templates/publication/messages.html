@@ -7,22 +7,27 @@
 
 
         {%if message_list %}
-        {%for message in message_list|dictsortreversed:"date_created"%}
-        <li>
-            {%if message.to.user == profile.user%}
-                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title}}</a></h4>
-                <small>{% trans "Message from " %} {{message.author}} to me {{message.date_created}}</small>
-                
-            {%elif message.author.user == profile.user%}
-                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                <h4><a href="{%url show_message_thread message.thread%}">{{message.title}}</a> <br/>
-
-                {% trans "Message from me to " %} {{message.to}} {{message.date_created}}</h4>
-                
-            {%endif%}
-                
-        </li>
+        {% regroup message_list|dictsortreversed:'date_created' by thread as messagelist %}
+        {%for m in messagelist%}
+            {%for message in m.list%}
+                {% ifchanged message.thread%}
+                    <li>
+                        {%if message.to.user == profile.user%}
+                            <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+                            <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title}}</a></h4>
+                            <small>{% trans "Message from " %} {{message.author}} to me {{message.date_created}}</small>
+                            
+                        {%elif message.author.user == profile.user%}
+                            <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+                            <h4><a href="{%url show_message_thread message.thread%}">{{message.title}}</a> <br/>
+            
+                            {% trans "Message from me to " %} {{message.to}} {{message.date_created}}</h4>
+                            
+                        {%endif%}
+                            
+                    </li>
+                {% endifchanged %}
+            {%endfor%}
         {%endfor%}
         {%else%}
         {% trans "You have no messages." %} <a href="/post/message/">{% trans "Send a message." %}</a>
