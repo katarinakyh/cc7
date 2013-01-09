@@ -23,6 +23,9 @@ DATABASES = {
     }
 }
 
+
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -196,6 +199,13 @@ AUTH_PROFILE_MODULE = 'account.MyProfile'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'c7sendmail@gmail.com'
+EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 try:
     from .local_settings import *
