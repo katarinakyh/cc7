@@ -2,7 +2,7 @@ from models import Event
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import ModelForm, DateField
 from django.forms.widgets import Textarea, DateInput
-from apps.publication.models import Comment
+from apps.publication.models import Post
 
 
 class EventForm(ModelForm):
@@ -14,5 +14,4 @@ class EventForm(ModelForm):
 
 class EventCommentForm(ModelForm):
     class Meta:
-        model = Comment
-        #exclude = ('author','post','association','is_public',)
+        model = Post

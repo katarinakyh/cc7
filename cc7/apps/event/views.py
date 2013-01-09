@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from django.core.urlresolvers import reverse
 from models import Event
 from forms import EventForm, EventCommentForm
+from apps.publication.forms import CommentForm
 
 class EventView(ListView):
     template_name = 'stream/stream.html'
@@ -20,4 +21,6 @@ class AddEventView(CreateView):
 
 class EventDetailView(DetailView):
     model = Event
-    form_class = EventCommentForm
+    form_class = CommentForm
+
+
