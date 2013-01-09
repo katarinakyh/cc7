@@ -7,6 +7,7 @@ from django.utils.translation import ugettext as _
 from userena.models import UserenaBaseProfile, upload_to_mugshot
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import MaxLengthValidator
 
 class MyProfile(UserenaBaseProfile):
     user = models.OneToOneField(User,
@@ -15,7 +16,7 @@ class MyProfile(UserenaBaseProfile):
                                 related_name='my_profile')
 
     slug = models.SlugField(blank=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, validators=[MaxLengthValidator(2048)])
     association = models.ManyToManyField('Association', blank=True, null=True)
     has_new_message = models.BooleanField(default=False)
     has_new_comment = models.BooleanField(default=False)

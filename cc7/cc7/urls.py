@@ -11,12 +11,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', include('apps.stream.urls')),
-    url(r'^signup/$',
+    url(r'^accounts/signup/$',
        userena_views.signup,
         {
             'signup_form':SignupFormExtra,
         },
-
        name='userena_signup'),
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$', include('apps.account.urls')),
 

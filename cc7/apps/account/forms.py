@@ -3,14 +3,15 @@ from django.utils.translation import ugettext_lazy as _
 from userena.forms import EditProfileForm, SignupForm
 from models import MyProfile
 
+attrs_dict = {'class': 'required'}
 
 class EditProfileFormExtra(EditProfileForm):
     class Meta:
         model = MyProfile
         exclude = ('user','slug','privacy','has_new_message','has_new_comment')
         
-USERNAME_RE = r'^[\.\w]+$'
-attrs_dict = {'class': 'required'}
+USERNAME_RE = r'^[\.e\w]+$'
+
 
 class SignupFormExtra(SignupForm):
     """
@@ -22,14 +23,15 @@ class SignupFormExtra(SignupForm):
 
     """
     username = forms.RegexField(regex=USERNAME_RE,
-                                min_length=5,
+                                min_length=3,
                                 max_length=30,
                                 widget=forms.TextInput(attrs=attrs_dict),
                                 label=_("Username"),
-                                error_messages={'invalid': _('Username must contain only letters, numbers, dots and underscores.')})
-    password1 = forms.CharField(min_length=5, widget=forms.PasswordInput(attrs=attrs_dict,
-                                                           render_value=False),
-                                label=_("Create password"))
-    password2 = forms.CharField(min_length=5, widget=forms.PasswordInput(attrs=attrs_dict,
-                                                           render_value=False),
-                                label=_("Repeat password"))
+                                error_messages={'invalid': _('Username must contain only leDDers, numbers, dots and underscores.')})
+    
+    def clean_password1(self):
+        password1  = self.cleaned_data['password1']
+        if len(password1) < 5 :
+            raise forms.ValidationError("Password must be at least 5 characters long.")
+
+        return password1
