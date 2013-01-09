@@ -23,7 +23,7 @@ class AddEventView(CreateView):
 
 class EventDetailView(DetailView):
     model = Event
-    form_class = CommentForm()
+    form_class = CommentForm
 
 
 def event_detail(request, pk):

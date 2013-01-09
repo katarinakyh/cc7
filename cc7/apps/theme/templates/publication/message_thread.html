@@ -4,21 +4,15 @@
     <ul>
     <h3>{{message.title}}</h3>
 
-    {%for message in message_list%}
+    {%for message in message_list|dictsort:"date_created"%}
         <li>
-            {%if message.to.user == profile.user%}
-                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                <small>{{message.date_created}} </small>
-                <h4 style="margin-top: 0"><a href="{%url my_page message.author.user%}">{{message.author.user}}</a> </h4>
-                <div class="messagebody">{{message.body|linebreaks}}</div>                
-            {%elif message.author.user == profile.user%}
-                <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-
-                <small>{% trans "Message to " %} {{message.to}} from me {{message.date_created}}</small>
-                <div class="messagebody">{{message.body|linebreaks}}</div>                
-                
-            {%endif%}
-                
+            <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+            <h4 style="margin-top: 0">
+                <a href="{%url my_page message.author.user%}">{{message.author.user}}</a> <small>{{message.date_created}} </small>
+            </h4>
+            <div class="messagebody">
+                {{message.body|linebreaks}}
+            </div>
         </li>
         {%if forloop.last%}
 

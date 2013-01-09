@@ -83,30 +83,44 @@ class MessageView(ListView):
     template_name = 'publication/messages.html'
     model = Message
 
+
+    def get_context_data(self, **kwargs):
+        from_me = Message.objects.filter(author=self.request.user).order_by('-date_created')
+        to_me = Message.objects.filter(to=self.request.user).order_by('-date_created')
+        message_list =  sorted(chain(from_me, to_me),key=attrgetter('date_created'))
+        message_list = sorted(message_list, reverse=False)
+
+        context = {
+            'from_me':from_me,
+            'to_me':to_me,
+            'message_list':message_list
+        }
+        context.update(kwargs)
+        return super(MessageView, self).get_context_data(**context)
+
+
     def get_context_data(self, **kwargs):
         profile = self.request.user.get_profile()
-        message_list = Message.objects.filter(author=profile).order_by('-date_created')
-        message_list2 = Message.objects.filter(to=profile).order_by('-date_created')
-        result_list =  sorted(chain(message_list, message_list2), key=attrgetter('date_created','thread'))
+        from_me = Message.objects.filter(author=profile).order_by('-date_created')
+        to_me = Message.objects.filter(to=profile).order_by('-date_created')
+        message_list =  sorted(chain(from_me, to_me),key=attrgetter('date_created'))
+        message_list.sort(key=lambda x: x.date_created, reverse=True)
+        result_list = sorted(message_list, key=lambda x: x.date_created, reverse=True)
+
         m_list = []
         thread=[]
         for m in result_list:
             if m.thread not in thread:
                 thread.append(m.thread)
                 m_list.append(m)
-        
+
         context = {
             'profile':profile,
             'm_list':m_list,
         }
+
         context.update(kwargs)
         return super(MessageView, self).get_context_data(**context)
-
-def view_all_messages(request):
-    profile = request.user.get_profile()
-    message_list = Message.objects.filter(to=profile, author=profile).order_by('thread')
-
-
 
 
 def view_message(request, pk):
