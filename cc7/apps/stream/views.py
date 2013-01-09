@@ -13,12 +13,6 @@ def save_comment(request, profile):
         form.save(commit = False)
         f=form
         f.author=profile
-        if request.POST['post'] != '1':
-            f.post=request.POST['post']
-            form.instance.event = ''
-        elif request.POST['event'] != '1':
-            f.event=request.POST['event']
-            form.instance.post = ''
         f.save()
     else:
         print form.errors
@@ -32,12 +26,12 @@ def stream(request):
      
     posts = Post.objects.filter(is_public=True).order_by('-date_created')
     events = Event.objects.filter().order_by('-date_created')
-    message_form = MessageForm()
+    comment_form = CommentForm()
     result_list =  sorted(chain(posts, events), key=attrgetter('date_created'))
 
     return render_to_response('stream/stream.html', {
             'object_list': result_list,
-            'message_form': message_form,
+            'comment_form': comment_form,
             'profile': profile,
         }, context_instance=RequestContext(request))
 

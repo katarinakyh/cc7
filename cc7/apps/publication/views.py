@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView, CreateView
 from django.views.generic import View, DetailView
 from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from models import Post, Comment, Message
 from apps.event.models import Event
 from forms import PostForm, ThreadForm, CommentForm, MessageForm
@@ -24,10 +25,8 @@ class AddMessageView(FormView):
     template_name = 'publication/create_message.html'
     model = Message
     form_class = MessageForm
-    success_url = '/'
-    last_message= Message.objects.latest('pk')
-    thread = int(last_message.pk)  + 1
-
+    success_url = '/messages/'
+    
     def get_context_data(self, **kwargs):
         context = {
             'alluser':MyProfile.objects.all()
@@ -36,11 +35,15 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).get_context_data(**context)
 
     def form_valid(self, form):
+        try:
+            last_message= Message.objects.latest('pk')
+            thread = int(last_message.pk)+1
+        except:
+            thread=1
+        
         form.save(commit=False)
         form.instance.author = self.request.user.get_profile()
-        form.instance.is_public = False
-        form.instance.thread = self.thread
-        print form.instance.thread
+        form.instance.thread = thread
         try:
             form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
         except:
@@ -66,7 +69,6 @@ def post_detail(request, pk):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
-            print 'newcomment'
             
     post = Post.objects.get(pk=pk)
     comment_form = CommentForm()
@@ -82,100 +84,53 @@ class MessageView(ListView):
     model = Message
 
     def get_context_data(self, **kwargs):
-        from_me = Message.objects.filter(author=self.request.user).order_by('-date_created')
-        to_me = Message.objects.filter(to=self.request.user).order_by('-date_created')
-        message_list =  sorted(chain(from_me, to_me),key=attrgetter('date_created'))
-        message_list = sorted(message_list, reverse=False)
+        profile = self.request.user.get_profile()
+        message_list = Message.objects.filter(author=profile).order_by('-date_created')
+        message_list2 = Message.objects.filter(to=profile).order_by('-date_created')
+        result_list =  sorted(chain(message_list, message_list2), key=attrgetter('date_created','thread'))
+        m_list = []
+        thread=[]
+        for m in result_list:
+            if m.thread not in thread:
+                thread.append(m.thread)
+                m_list.append(m)
         
         context = {
-            'from_me':from_me,
-            'to_me':to_me,
-            'message_list':message_list
+            'profile':profile,
+            'm_list':m_list,
         }
         context.update(kwargs)
         return super(MessageView, self).get_context_data(**context)
 
+def view_all_messages(request):
+    profile = request.user.get_profile()
+    message_list = Message.objects.filter(to=profile, author=profile).order_by('thread')
+
+
+
 
 def view_message(request, pk):
     profile=request.user.get_profile()
-    if request.POST:
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            print form.errors
-
-    message = Message.objects.get(pk=pk)
-    message_list = Message.objects.filter(thread=message.thread)
-    message_form = MessageForm()
-    print message_list
-
-    return render_to_response('publication/message_thread.html', {
-        'message_list': message_list,
-        'message_form': message_form,
-        'message':message,
-        'profile':profile,
-        }, context_instance=RequestContext(request))
-
-"""
-    def post(self, request, *args, **kwargs):
-        post = PostForm(request.POST)
-        if post.is_valid():
-            post = post.save(commit=False)
-            title = request.POST.get('title')
-            body = request.POST.get('body')
-            if (request.POST.get('is_public')):
-                is_public = request.POST.get('is_public')
+    messages = Message.objects.filter(thread=pk)
+    if ((messages[0].to == profile) or (messages[0].author == profile)):
+        if request.POST:
+            form = MessageForm(request.POST)
+            if form.is_valid():                
+                form.save(commit=False)
+                f = form
+                f.author = profile
+                f.save()
             else:
-                is_public = 0
-
-            if (request.POST.get('association')):
-                association = request.POST.get('association')
-            else:
-                association = 0
-
-
-class PostDetailView(DetailView):
-    model = Post
+                print form.errors
     
-    def get_context_data(self, **kwargs):
-        context = {
-            'form': CommentForm(),
-            'profile': self.request.user.get_profile(),
-        }
-        context.update(kwargs)
-        return super(PostDetailView, self).get_context_data(**context)
- 
-class PostComment(FormView, SingleObjectMixin):
-    template_name = 'publication/post_detail.html'
-    form_class = CommentForm
-    model = Post
-    success_url = '/'
+        message_list = Message.objects.filter(thread=pk).order_by('-date_created')
+        message_form = MessageForm()
 
-    print 'in here now y all'
+        return render_to_response('publication/message_thread.html', {
+            'message_list': message_list,
+            'message_form': message_form,
+            'profile':profile,
+            }, context_instance=RequestContext(request))
 
-    
-    def get_context_data(self, **kwargs):
-        context = {
-            'object': self.get_object(),
-        }
-        return super(PostComment, self).get_context_data(**context)
-     
-    def get_success_url(self):
-        print 'yo'
-        return reverse('postdetailview',{kwargs:self.get_context_data(),})
-    
-    def form_valid(self, form):
-        save_comment(self.request, self.request.user.get_profile())
-
-class PostDetail(View):
-
-    def get(self, request, *args, **kwargs):
-        view = PostDetailView.as_view()
-        return view(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        print 'in post'
-        view = PostComment.as_view()
-        return view(request, *args, **kwargs)
-"""
+    else:
+        return HttpResponseRedirect('/messages/')

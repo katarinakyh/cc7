@@ -179,3 +179,8 @@ submit{
     font-size: 10px;
     margin-left: 5px;
 }
+.messagebody{
+    margin-left: 40px;
+    margin-bottom: 40px;
+    font-size: 14px;
+}

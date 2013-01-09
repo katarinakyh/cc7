@@ -18,7 +18,6 @@ class PostForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        #exclude = ('author','post','association','is_public',)
         
 class MessageForm(ModelForm):
     class Meta:
@@ -29,10 +28,7 @@ class MessageForm(ModelForm):
 
     def clean_to(self):
         name  = self.cleaned_data['to']
-        print name
-
         friends = MyProfile.objects.all()
-        print friends
         if name not in friends:
             raise forms.ValidationError("This profile does not exist")
 
