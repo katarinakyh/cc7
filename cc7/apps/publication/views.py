@@ -109,14 +109,11 @@ class MessageView(ListView):
 
         m_list = []
         thread=[]
-        i = 0
+
         for m in result_list:
             if m.thread not in thread:
                 thread.append(m.thread)
                 m_list.append(m)
-
-
-
 
             context = {
             'profile':profile,
@@ -125,12 +122,6 @@ class MessageView(ListView):
 
         context.update(kwargs)
         return super(MessageView, self).get_context_data(**context)
-
-def view_all_messages(request):
-    profile = request.user.get_profile()
-    message_list = Message.objects.filter(to=profile, author=profile).order_by('thread')
-
-
 
 
 def view_message(request, pk):
