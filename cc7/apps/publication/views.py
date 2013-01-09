@@ -85,19 +85,66 @@ class MessageView(ListView):
 
     def get_context_data(self, **kwargs):
         profile = self.request.user.get_profile()
-        message_list = Message.objects.filter(author=profile).order_by('-date_created')
-        message_list2 = Message.objects.filter(to=profile).order_by('-date_created')
-        result_list =  sorted(chain(message_list, message_list2), key=attrgetter('date_created','thread'))
+        message_list_author = Message.objects.filter(author=profile)
+        message_list_to = Message.objects.filter(to=profile)
+                
+        #result_list = chain(message_list, message_list2)
+        
+        my_dict = {} #med thread som '20': m_list
+        thread=[]
+        sista_datumet = 0
+
+        def make_message_list(current_thread):
+            my_list=[]
+            for m in message_list_author:
+                if m.thread == current_thread:
+                    my_list.append(m)
+            for m in message_list_to:
+                if m.thread == current_thread:
+                    my_list.append(m)
+
+            return my_list
+        
+
+        for m in message_list_author:
+            if m.thread not in thread:
+                thread.append(m.thread)
+                my_dict[m.title] = make_message_list(thread[-1])
+
+        for m in message_list_to:
+            if m.thread not in thread:
+                thread.append(m.thread)
+                my_dict[m.title] = make_message_list(thread[-1])
+
+        for key in my_dict.items():
+            print key
+            
+        """
+        result_list =  sorted(result_list, key=attrgetter('date_created',))
+
+        print "2"
+        print result_list
+        for m in result_list:
+            print m.date_created
+        
+        result_list = sorted(result_list, reverse=False)
+        print "3"
+        print result_list
+        for m in result_list:
+            print m.date_created
+        
         m_list = []
         thread=[]
         for m in result_list:
+            #print m.date_created
+            #print m.title
             if m.thread not in thread:
                 thread.append(m.thread)
                 m_list.append(m)
-        
+        """     
         context = {
             'profile':profile,
-            'm_list':m_list,
+            'my_dict':my_dict,
         }
         context.update(kwargs)
         return super(MessageView, self).get_context_data(**context)
