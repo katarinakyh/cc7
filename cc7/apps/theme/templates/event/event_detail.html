@@ -4,15 +4,9 @@
         <div class="story"> <h3 style="display:inline"><i class="icon-calendar"></i> {{ post.title }} <span class="small"> <i class="icon-map-marker"></i>  {{ post.place }} </span></h3>
             <div class="small">  <i class="icon-time"></i> {{ post.date_from }},  {{ post.time_from }} >> {{ post.date_to }}, {{ post.time_to }} <i class="icon-th"></i> <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a></div>
             <br/>
-<<<<<<< HEAD
-
             <ul class="commentfield">
                 {%include 'publication/comment.html'%}
             </ul>
-=======
-            <p class="postbody"> {{ post.description|safe}} </p>
-            <br/>
-            {%include 'publication/comment.html'%}
->>>>>>> 60d283d0460d7afc4ca5d46ca5a7ac30ff37cbf3
+
         </div>
 {%endblock%}
