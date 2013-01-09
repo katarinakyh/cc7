@@ -1,6 +1,6 @@
 from models import Post, Comment, Message
 from django.contrib.admin.widgets import AdminDateWidget
-from django.forms import ModelForm, DateField,  forms
+from django.forms import ModelForm, DateField, forms
 from django.forms.widgets import HiddenInput
 from django.forms.widgets import Textarea, DateInput
 from models import Post, Comment
