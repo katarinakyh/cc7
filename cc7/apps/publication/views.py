@@ -109,13 +109,12 @@ class MessageView(ListView):
 
         m_list = []
         thread=[]
-
         for m in result_list:
             if m.thread not in thread:
                 thread.append(m.thread)
                 m_list.append(m)
 
-            context = {
+        context = {
             'profile':profile,
             'm_list':m_list,
         }
