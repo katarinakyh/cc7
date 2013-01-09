@@ -9,7 +9,7 @@ class EditProfileFormExtra(EditProfileForm):
         model = MyProfile
         exclude = ('user','slug','privacy','has_new_message','has_new_comment')
         
-USERNAME_RE = r'^[a-zA-Z]+$'
+USERNAME_RE = r'^[\.\w]+$'
 attrs_dict = {'class': 'required'}
 
 class SignupFormExtra(SignupForm):
