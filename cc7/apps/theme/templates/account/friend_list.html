@@ -1,0 +1,6 @@
+{%for member in friend_list%}
+    <a href="{%url my_page member %}">
+        <img src="{{ member.get_mugshot_url }}" alt="{{member}}" style="width:30px; height:30px;float: left;"/>
+    </a>
+    {%if forloop.counter0 == 4%} <div style="clear: both;"> {%endif%}
+{%endfor%}
