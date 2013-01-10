@@ -4,13 +4,19 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import admin
 from userena import views as userena_views
-from apps.account.forms import EditProfileFormExtra
+from apps.account.forms import EditProfileFormExtra, SignupFormExtra
 from apps.account.views import AssociationView
 from apps.publication.views import MessageView
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', include('apps.stream.urls')),
+    url(r'^accounts/signup/$',
+       userena_views.signup,
+        {
+            'signup_form':SignupFormExtra,
+        },
+       name='userena_signup'),
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$', include('apps.account.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
