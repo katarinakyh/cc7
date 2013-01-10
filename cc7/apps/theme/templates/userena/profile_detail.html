@@ -19,7 +19,7 @@
             {% endif %}
 
             {% if pageprofile.description %}
-              <p><em>"{{ pageprofile.description|linebreaks }}"</em></p>
+              <p><em>"{{ pageprofile.description|safe }}"</em></p>
             {%elif pageprofile == profile%}
               <p><em>"This is your personal page, please <a href='{% url userena_profile_edit user.username %}'>{% trans "edit your profile" %}</a>"</em></p>
             {%else%}
