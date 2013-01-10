@@ -1,0 +1,6 @@
+{%for association in association_list%}
+    <a href="{%url show_association association.slug%}">
+        <img src="{{ association.get_mugshot_url }}" style="width:30px; height:30px;float: left;"/>
+    </a>
+    {%if forloop.counter0 == 4%} <div style="clear: both;"> {%endif%}
+{%endfor%}

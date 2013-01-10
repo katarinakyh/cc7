@@ -1,4 +1,6 @@
 {% load i18n %}
+{%load account_extras%}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -97,10 +99,17 @@
 
          {% block rightsidebar %}
              <div> &nbsp;</div>
-             <a href="{%url list_associations%}"><i class="icon-cog"></i>{% trans "Associations" %}</a>
+             <a href="{%url list_associations%}">
+                <h4 class="rightinline black">{% trans "All associations" %}</h4>
+            </a>             
+            {% list_associations %}
+             <div> &nbsp;</div>
              <br/>
-             <a href="{%url userena_profile_list%}"><i class="icon-cog"></i>{% trans "Friends" %}</a>
-          <br/><br/>
+             <a href="{%url userena_profile_list%}">
+                <h4 class="rightinline black">{% trans "Friends" %}</h4>
+            </a>
+            {% list_friends %}
+
             {%block rightinline%}
             {% endblock %}
          {% endblock %}
