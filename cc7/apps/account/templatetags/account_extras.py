@@ -10,5 +10,5 @@ def list_associations():
 
 @register.inclusion_tag('account/friend_list.html')
 def list_friends():
-    f = MyProfile.objects.all()[:16]
+    f = MyProfile.objects.all()
     return {'friend_list':f,}
