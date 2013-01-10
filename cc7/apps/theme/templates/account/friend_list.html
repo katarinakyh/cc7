@@ -2,5 +2,4 @@
     <a href="{%url my_page member %}">
         <img src="{{ member.get_mugshot_url }}" alt="{{member}}" style="width:40px; height:40px;float: left;"/>
     </a>
-    {%if forloop.counter == 4%} <div style="clear: both;"> {%endif%}
 {%endfor%}
