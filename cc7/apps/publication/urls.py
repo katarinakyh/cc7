@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 from django.contrib.auth.decorators import login_required
-from apps.publication.views import PostView, AddPostView, AddMessageView, DeleteCommentView, delete_comment
+from apps.publication.views import PostView, AddPostView, AddMessageView, delete_comment
 from apps.stream.views import stream, stream_posts
 
 
