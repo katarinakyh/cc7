@@ -17,6 +17,7 @@ urlpatterns = patterns('',
             'signup_form':SignupFormExtra,
         },
        name='userena_signup'),
+
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$', include('apps.account.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

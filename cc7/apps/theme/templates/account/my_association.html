@@ -1,7 +1,7 @@
 {% extends 'userena/profile_detail.html' %}
 {% load i18n %}
 {% block extra_head %}
-    
+{% block title %}{% blocktrans with pageprofile.association as association %}{{ association }}'s profile.{% endblocktrans %}
 {% endblock %}
         {% block profile_details %}
             <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />

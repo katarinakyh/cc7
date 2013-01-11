@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from userena.forms import EditProfileForm, SignupForm
 from models import MyProfile
+from django.contrib.auth.forms import PasswordChangeForm
 
 attrs_dict = {'class': 'required'}
 
@@ -30,8 +31,16 @@ class SignupFormExtra(SignupForm):
                                 error_messages={'invalid': _('Username must contain only leDDers, numbers, dots and underscores.')})
     
     def clean_password1(self):
-        password1  = self.cleaned_data['password1']
+        password1 = self.cleaned_data['password1']
         if len(password1) < 5 :
             raise forms.ValidationError("Password must be at least 5 characters long.")
-
         return password1
+'''
+class PasswordChangeFormExtra(PasswordChangeForm):
+
+    def clean_new_password1(self):
+        new_password1  = self.cleaned_data['new_password1']
+        if len(new_password1) < 5 :
+            raise forms.ValidationError("Password must be at least 5 characters long.")
+        return new_password1
+'''
