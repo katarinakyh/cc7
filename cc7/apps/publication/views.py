@@ -48,6 +48,7 @@ class AddMessageView(FormView):
             form.instance.to = MyProfile.objects.get(user__username = self.request.POST.get('name'))
         except:
             pass
+
         form.save()
         return super(AddMessageView, self).form_valid(form)
 
@@ -58,7 +59,6 @@ class AddPostView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        form.instance.thread = form.instance.pk
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
         form.save()
@@ -82,22 +82,6 @@ def post_detail(request, pk):
 class MessageView(ListView):
     template_name = 'publication/messages.html'
     model = Message
-
-
-    def get_context_data(self, **kwargs):
-        from_me = Message.objects.filter(author=self.request.user).order_by('-date_created')
-        to_me = Message.objects.filter(to=self.request.user).order_by('-date_created')
-        message_list =  sorted(chain(from_me, to_me),key=attrgetter('date_created'))
-        message_list = sorted(message_list, reverse=False)
-
-        context = {
-            'from_me':from_me,
-            'to_me':to_me,
-            'message_list':message_list
-        }
-        context.update(kwargs)
-        return super(MessageView, self).get_context_data(**context)
-
 
     def get_context_data(self, **kwargs):
         profile = self.request.user.get_profile()

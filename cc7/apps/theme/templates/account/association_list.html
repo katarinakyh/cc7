@@ -1,0 +1,5 @@
+{%for association in association_list%}
+    <a href="{%url show_association association.slug%}" name="{{association.association}}">
+        <img src="{{ association.get_mugshot_url }}" rel="tipsy" alt="{{association.association}}" style="width:40px; height:40px;float: left;"/>
+    </a>
+{%endfor%}

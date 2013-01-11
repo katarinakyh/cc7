@@ -19,7 +19,7 @@
             {% endif %}
 
             {% if pageprofile.description %}
-              <p><em>"{{ pageprofile.description|linebreaks }}"</em></p>
+              <p><em>"{{ pageprofile.description|safe }}"</em></p>
             {%elif pageprofile == profile%}
               <p><em>"This is your personal page, please <a href='{% url userena_profile_edit user.username %}'>{% trans "edit your profile" %}</a>"</em></p>
             {%else%}
@@ -47,6 +47,7 @@
 {%block rightinline%}
     {%if pageprofile == profile %}
         {% if profile.association.all %}
+            <br/>
             <h4 class="rightinline">My associations</h4>
             {%for a in profile.association.all %}
                 <img class="mugshot" src="{{ a.get_mugshot_url }}" alt="{{a.association}}"/>

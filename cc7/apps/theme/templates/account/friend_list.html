@@ -1,0 +1,5 @@
+{%for member in friend_list%}
+    <a href="{%url my_page member %}" >
+        <img src="{{ member.get_mugshot_url }}" rel="tipsy" alt="{{member}}" style="width:40px; height:40px;float: left;"/>
+    </a>
+{%endfor%}
