@@ -1,5 +1,5 @@
 
-$(document).ready(function() {
+$(function() {
     $(".addtitle").click(function(e){
         e.preventDefault();
         $(".titlefield").toggle(200,function(){
@@ -37,5 +37,7 @@ $(document).ready(function() {
             }
         });    
     }
-    
+
+
 });
+

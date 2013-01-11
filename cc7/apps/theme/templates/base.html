@@ -11,20 +11,23 @@
     <meta name="author" content="">
 
     <!-- The styles -->
-      <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
-      <link href="{{ STATIC_URL }}css/timePicker.css" rel="stylesheet">
-      <link href="{{ STATIC_URL }}css/cc7.css" rel="stylesheet">
-      <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+      <link href="{{ STATIC_URL }}css/bootstrap.css" type="text/css" rel="stylesheet">
+      <link href="{{ STATIC_URL }}css/timePicker.css" type="text/css"  rel="stylesheet">
+      <link href="{{ STATIC_URL }}css/cc7.css" type="text/css" rel="stylesheet">
+      <link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}css/tipsy.css" type="text/css" rel="stylesheet" />
 
-      <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery-ui-1.9.2.min.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.timePicker.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
-
+      <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js" type="text/javascript" ></script>
+      <script src="{{ STATIC_URL }}js/jquery-ui-1.9.2.min.js" type="text/javascript" ></script>
+      <script src="{{ STATIC_URL }}js/jquery.timePicker.js" type="text/javascript" ></script>
+      <script src="{{ STATIC_URL }}js/jquery.validate.js" type="text/javascript"></script>
+      <script src='{{ STATIC_URL}}js/jquery.tipsy.js' type="text/javascript"></script>
       <script>
           $(function() {
               $("#id_date_from, #id_date_to").datepicker();
               $("#id_time_from, #id_time_to").timePicker();
+              $('img[rel=tipsy]').tipsy({title: 'alt', gravity:$.fn.tipsy.autoNS});    
+
           });
       </script>
 
@@ -119,5 +122,7 @@
 {%endblock%}
 
 <script src="{{ STATIC_URL }}js/c7.js"></script>
+
+
  </body>
 </html>
