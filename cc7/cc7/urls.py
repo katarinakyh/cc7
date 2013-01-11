@@ -43,8 +43,10 @@ urlpatterns = patterns('',
     url(r'^messages/', login_required(MessageView.as_view()), name='show_messages'),
     url(r'^message/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'apps.publication.views.view_message', name='show_message_thread'),
     url(r'^event/', include('apps.event.urls')),
-    url(r'^association/(?P<association>[a-zA-Z0-9_.-]+)/$', 'apps.account.views.my_page', name='show_association'),
-    url(r'^association/', login_required(AssociationView.as_view()), name='list_associations'),
+
+    url(r'^association/', include('apps.account.urls')),
+    #url(r'^association/(?P<association>[a-zA-Z0-9_.-]+)/$', 'apps.account.views.my_page', name='show_association'),
+    #url(r'^association/', login_required(AssociationView.as_view()), name='list_associations'),
 )
 
 if settings.DEBUG:

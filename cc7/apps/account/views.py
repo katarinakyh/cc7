@@ -1,6 +1,8 @@
-from django.views.generic import TemplateView
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView, RedirectView
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
@@ -44,7 +46,7 @@ def my_page(request, *args, **kwargs):
                 form.save(commit = False)
                 f = form
                 title =  request.POST.get('title')
-                if (title):
+                if title:
                     pass
                 else:
                     form.instance.title = ">>"
@@ -60,7 +62,7 @@ def my_page(request, *args, **kwargs):
                 form.save(commit=False)
                 f = form
                 title =  request.POST.get('title')
-                if (title):
+                if title:
                     pass
                 else:
                     form.instance.title = ">>"
@@ -100,8 +102,38 @@ def my_page(request, *args, **kwargs):
                                     'can_edit': can_edit,
                                     'is_association': is_association,
                                    },
-                                  context_instance=RequestContext(request))   
+                                  context_instance=RequestContext(request))
 
 class AssociationView(ListView):
     template_name = 'account/associations.html'
     model = Association
+
+
+class AssociationActivityBase(RedirectView):
+    def get(self, request, *args, **kwargs):
+        association = Association.objects.get(slug=kwargs.get('slug'))
+        self.update_action(request, association, request.user.get_profile())
+        success_url = request.META.get('referer') or '/'
+
+        print 'groups', request.user.get_profile().association.all()
+        return HttpResponseRedirect(success_url)
+
+class AssociationJoinView(AssociationActivityBase):
+    """
+    Lets a user join an Association (group)
+    """
+    def update_action(self, request, association, user_profile):
+        if association not in user_profile.association.all():
+            user_profile.association.add(association)
+            user_profile.save()
+            messages.success(request, u'Joined group')
+
+class AssociationLeaveView(AssociationActivityBase):
+    """
+    Lets a user leave an Association (group)
+    """
+    def update_action(self, request, association, user_profile):
+        if association in user_profile.association.all():
+            user_profile.association.remove(association)
+            user_profile.save()
+            messages.success(request, u'Left group')
