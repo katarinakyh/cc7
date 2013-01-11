@@ -29,19 +29,9 @@ class SignupFormExtra(SignupForm):
             raise forms.ValidationError("Password must be at least 5 characters long.")
         return password1
 
-'''
 class PasswordChangeFormExtra(PasswordChangeForm):
-
-=======
-
-
-class PasswordChangeFormExtra(PasswordChangeForm):
->>>>>>> b385ad3fbbf86656e1032854b8baab72f74f5afc
     def clean_new_password1(self):
         new_password1  = self.cleaned_data['new_password1']
         if len(new_password1) < 5 :
             raise forms.ValidationError("Password must be at least 5 characters long.")
-<<<<<<< HEAD
         return new_password1
-'''
-
