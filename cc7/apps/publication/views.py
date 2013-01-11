@@ -3,10 +3,10 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView
-from django.views.generic import View, DetailView
+from django.views.generic import View, DetailView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from models import Post, Comment, Message
 from apps.event.models import Event
 from forms import PostForm, ThreadForm, CommentForm, MessageForm
@@ -15,6 +15,14 @@ from django.contrib.auth.models import User
 from apps.stream.views import save_comment
 from itertools import chain
 from operator import attrgetter, itemgetter
+
+
+def delete_comment(request, pk):
+    profile = request.user.get_profile()            
+    comment = Comment.objects.get(pk=pk)
+    if comment.author == profile:
+        comment.delete()    
+        return HttpResponseRedirect('/')
 
 
 class PostView(ListView):
@@ -61,6 +69,7 @@ class AddPostView(FormView):
     def form_valid(self, form):
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
+        #form.instance.title = self.request.POST['title']
         form.save()
         return super(AddPostView, self).form_valid(form)
     

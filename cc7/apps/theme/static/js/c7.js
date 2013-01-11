@@ -37,7 +37,40 @@ $(function() {
             }
         });    
     }
+    $('.confirm').click(function(e){
+        e.preventDefault()
+        if(confirm('Delete this comment?')){
+            return true;
+        }
+    });
+
+    //preparePage();
 
 
 });
+
+/*
+
+function preparePage() {
+    var submittedMsg = false;
+
+    document.getElementById('msgForm').onsubmit = function () {
+        // prevent form from submitting if no msg
+        if (document.getElementById('msgField').value === '' ) {
+            document.getElementById('errorMsg').innerHTML = "please type a message";
+            // stop the form
+            return false;
+        } else {
+            // reset and allow submit
+            document.getElementById('errorMsg').innerHTML = "";
+            // and disable the submit button to prevent dubble submits
+            document.getElementById("submitMsg").disabled = true;
+            document.getElementById("errorMsg").innerHTML = "processing...";
+            submittedMsg = true;
+            return true;
+        }
+    };
+
+}
+ */
 

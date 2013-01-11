@@ -23,17 +23,14 @@ class SignupFormExtra(SignupForm):
         return username
     
     def clean_password1(self):
-        password1  = self.cleaned_data['password1']
+        password1 = self.cleaned_data['password1']
         if len(password1) < 5 :
             raise forms.ValidationError("Password must be at least 5 characters long.")
-
         return password1
-
 
 class PasswordChangeFormExtra(PasswordChangeForm):
     def clean_new_password1(self):
         new_password1  = self.cleaned_data['new_password1']
         if len(new_password1) < 5 :
             raise forms.ValidationError("Password must be at least 5 characters long.")
-
         return new_password1

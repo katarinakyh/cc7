@@ -11,6 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', include('apps.stream.urls')),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/signup/$',
        userena_views.signup,
         {
@@ -20,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^accounts/(?P<username>[\.\w]+)/password/$',
        userena_views.password_change,
        {
-        'pass_form': PasswordChangeFormExtra,      
+        'pass_form': PasswordChangeFormExtra,
         },
        name='userena_password_change'),
 
@@ -29,7 +30,6 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     
-    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/(?P<username>[\.\w]+)/edit/$',
         userena_views.profile_edit,
         {

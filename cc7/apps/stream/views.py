@@ -7,6 +7,7 @@ from itertools import chain
 from operator import attrgetter
 
 
+
 def save_comment(request, profile):
     form = CommentForm(request.POST)
     if form.is_valid():

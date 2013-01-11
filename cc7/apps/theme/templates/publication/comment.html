@@ -3,7 +3,13 @@
     {%for c in post.comment_set.all%}
         <li>
             <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-            <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
+            {%if profile.user == c.author.user%}
+                <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
+                <a href="/post/comment/edit/{{c.pk}}/" rel="{{c.pk}}"><small>edit </small></a> |
+                <a href="/post/delete/comment/{{c.pk}}/" rel="{{c.pk}} class="confirm"> <small>delete </small></a>
+            {%else%}
+                <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
+            {%endif%}
             <div class="commentbody">{{c.body|linebreaks}}</div>
             <hr/>
         </li>
