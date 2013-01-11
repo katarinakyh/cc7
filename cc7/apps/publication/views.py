@@ -17,20 +17,6 @@ from itertools import chain
 from operator import attrgetter, itemgetter
 
 
-
-class DeleteCommentView(DeleteView):
-    model = Comment
-    success_url = '/'
-    
-    def get_object(self):
-        """ Hook to ensure object is owned by request.user. """
-        obj = super(DeleteCommentView, self).get_object()
-        if not obj.author == self.request.user:
-            print 'hhb'
-            raise Http404
-        print obj
-        return obj
-
 def delete_comment(request, pk):
     profile = request.user.get_profile()            
     comment = Comment.objects.get(pk=pk)
@@ -83,6 +69,7 @@ class AddPostView(FormView):
     def form_valid(self, form):
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
+        #form.instance.title = self.request.POST['title']
         form.save()
         return super(AddPostView, self).form_valid(form)
     
