@@ -2,7 +2,9 @@
 {% load i18n %}
 {%block content%}
 
-        <div class="story"> <h3 style="display:inline">{{ post.title }} </h3>
+        <div class="story">
+            
+            <h3 style="display:inline">{{ post.title }} </h3>
             <li> <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
             <div class="postbody"> {{ post.body|linebreaks }} </div>
             <ul class="commentfield">

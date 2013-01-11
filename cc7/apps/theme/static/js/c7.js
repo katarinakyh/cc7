@@ -21,4 +21,21 @@ $(document).ready(function() {
         }
     
     });
+
+    var setCommentHeight = function(){
+        $('.commentbody').each(function(){
+            true_height = $(this).children('p').height
+            if(true_height > '250'){
+                $('p').html('<a class="toggleMe" > ... </a>')
+                .css({'position':'relative','height':'50px', 'backgrounColor':'red'})
+                .appendTo($(this))
+                $('.toggleMe').click(function(){
+                    $(this).parent('div').toggle(function(){$(this).css('height','true_height')});
+                });
+                $(this).css('height','250px').
+                $('.commentbody')
+            }
+        });    
+    }
+    
 });
