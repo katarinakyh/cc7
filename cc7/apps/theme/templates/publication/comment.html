@@ -4,7 +4,7 @@
         <li>
             <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
             <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
-            <div class="commentbody">{{c.body|linebreaks}}</div>
+            <div class="commentbody ellipsis">{{c.body|linebreaks}}</div>
             <hr/>
         </li>
     {%endfor%}

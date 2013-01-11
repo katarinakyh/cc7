@@ -152,16 +152,19 @@ submit{
     padding: 5px;
     color:#333333;
     width:500px;
+    
 }
 .commentbody{
     margin-left: 30px;
     font-size: 12px;
+    max-height: 250px;
+    overflow: auto;
 }
 
 .eventdescription{
-    margin-left: 20px;
+    margin: 10px 0 20px 25px;
+    
 }
-
 .rightinline{
     font-size: 15px;
 }
