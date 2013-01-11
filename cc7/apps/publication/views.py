@@ -3,10 +3,10 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, CreateView
-from django.views.generic import View, DetailView
+from django.views.generic import View, DetailView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from models import Post, Comment, Message
 from apps.event.models import Event
 from forms import PostForm, ThreadForm, CommentForm, MessageForm
@@ -15,6 +15,22 @@ from django.contrib.auth.models import User
 from apps.stream.views import save_comment
 from itertools import chain
 from operator import attrgetter, itemgetter
+
+
+
+class DeleteCommentView(DeleteView):
+    model = Comment
+    success_url = '/'
+    
+    def get_object(self):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(DeleteCommentView, self).get_object()
+        if not obj.author == self.request.user:
+            print 'hhb'
+            raise Http404
+        print obj
+        return obj
+
 
 
 class PostView(ListView):
