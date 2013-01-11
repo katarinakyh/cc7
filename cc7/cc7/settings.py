@@ -203,7 +203,7 @@ LOGOUT_URL = '/accounts/signout/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'c7sendmail@gmail.com'
-EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_HOST_PASSWORD = 'hundg0dis'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
