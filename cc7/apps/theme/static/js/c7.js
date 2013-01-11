@@ -37,12 +37,10 @@ $(function() {
             }
         });    
     }
-
     $('.confirm').click(function(e){
-        e.preventDefault();
-        var pk = $(this).attr('href');
+        e.preventDefault()
         if(confirm('Delete this comment?')){
-            $.post('/post/delete/comment/'+pk+'/', {pk:pk});
+            return true;
         }
     });
 

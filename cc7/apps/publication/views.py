@@ -31,6 +31,12 @@ class DeleteCommentView(DeleteView):
         print obj
         return obj
 
+def delete_comment(request, pk):
+    profile = request.user.get_profile()            
+    comment = Comment.objects.get(pk=pk)
+    if comment.author == profile:
+        comment.delete()    
+        return HttpResponseRedirect('/')
 
 
 class PostView(ListView):
