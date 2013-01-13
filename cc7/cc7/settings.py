@@ -154,6 +154,8 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
 
+    'micawber.contrib.mcdjango',
+
 )
 
 # A sample logging configuration. The only tangible logging

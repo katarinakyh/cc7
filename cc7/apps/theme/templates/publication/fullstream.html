@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n micawber_tags %}
 
 {% for post in object_list|dictsortreversed:"date_created"  %}
     <div class="story" >
@@ -6,12 +6,12 @@
         <div style="border:solid 1px #ccc; background: #f9f9f9;">
             <h4>
                 <div class="event">
-                    <i class="icon-calendar"></i>  <a href="/event/detail/{{ post.pk }}"> {{ post.title }}  </a> /
+                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title }}  </a> /
                     <i class="icon-time"></i> {{ post.date_from }}
                     <i class="icon-map-marker"></i> {{ post.place }} /
                     <br/>
                     <span class="small">
-                        {% trans "By" %}: <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a>
+                        {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser }}</a>
                     </span>
                     <p class="eventdescription">
                         <em>"{{ post.description|safe|truncatewords:10}}"</em>
@@ -24,22 +24,27 @@
         </div>
         <br/>
         {% endif %}
+
         {% if post.body %}
             <h4>
                 <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <a href="/post/detail/{{ post.pk }}">{% if post.title %} {{ post.title }} {% else %} >> {% endif %}</a><br/>
+                <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title }} {% else %} >> {% endif %}</a><br/>
                 <span class="small">
                 {% if post.author %} {{ post.date_created }}
-                    {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
-                    {%if post.association%}in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>{%endif%}
+                    {% trans "Posted by" %}:<strong><a href="{% url my_page post.author.user %}"> {{ post.author }} </a></strong>
+                    {% if post.association %} in <strong><a href="{% url show_association post.association.slug %}">{{ post.association.association }}</a></strong>{% endif %}
                 {% endif %}
                 </span>
             </h4>
-            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div>
+
+{#            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div>#}
+                <div class="postbody">{{ post.body|oembed:"508x255" }}</div>
+
             <ul class="commentfield">
                 {% include "publication/comment.html" %}
             </ul>
-        <hr/>
-    {% endif %}
+
+            <hr/>
+        {% endif %}
     </div>
 {% endfor %}

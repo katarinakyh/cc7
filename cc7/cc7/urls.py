@@ -18,6 +18,7 @@ urlpatterns = patterns('',
             'signup_form':SignupFormExtra,
         },
        name='userena_signup'),
+
     url(r'^accounts/(?P<username>[\.\w]+)/password/$',
        userena_views.password_change,
        {
@@ -40,13 +41,12 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^accounts/', include('userena.urls')),
     url(r'^post/', include('apps.publication.urls')),
+
     url(r'^messages/', login_required(MessageView.as_view()), name='show_messages'),
     url(r'^message/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'apps.publication.views.view_message', name='show_message_thread'),
     url(r'^event/', include('apps.event.urls')),
 
     url(r'^association/', include('apps.account.urls')),
-    #url(r'^association/(?P<association>[a-zA-Z0-9_.-]+)/$', 'apps.account.views.my_page', name='show_association'),
-    #url(r'^association/', login_required(AssociationView.as_view()), name='list_associations'),
 )
 
 if settings.DEBUG:

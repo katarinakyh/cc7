@@ -8,8 +8,6 @@ from django.template import RequestContext
 from itertools import chain
 from operator import attrgetter
 
-
-
 def save_comment(request, profile):
     """
     Saves a comment to the stream
