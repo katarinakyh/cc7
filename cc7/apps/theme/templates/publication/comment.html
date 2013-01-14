@@ -1,27 +1,34 @@
-{% load i18n %}
-{%if post.comment_set.all %}
-    {%for c in post.comment_set.all%}
+{% load i18n micawber_tags %}
+{% if post.comment_set.all %}
+    {% for c in post.comment_set.all %}
         <li>
             <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-            {%if profile.user == c.author.user%}
+            {% if profile.user == c.author.user %}
                 <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
+<<<<<<< HEAD
                 <a href="/post/edit/comment/{{c.pk}}/" rel="{{c.pk}}"><small>edit </small></a> |
                 <a href="/post/delete/comment/{{c.pk}}/" rel="{{c.pk}} class="confirm"> <small>delete </small></a>
             {%else%}
+=======
+                <a href="{% url edit_comment c.pk %}" rel="{{c.pk}}"><small>edit </small></a> |
+                <a href="{% url delete_comment c.pk %}" rel="{{c.pk}}"><small>delete</small></a>
+            {% else %}
+>>>>>>> c89b346732716de05645305b62389a1a1688d43e
                 <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
-            {%endif%}
-            <div class="commentbody">{{c.body|linebreaks}}</div>
+            {% endif %}
+            <div class="commentbody">
+                {{c.body|oembed:"508x255"|linebreaks}}
+            </div>
             <hr/>
         </li>
-    {%endfor%}
-{%endif%}
+    {% endfor %}
+{% endif %}
 
-<form action="" id="commentform" method="post" >
-    {% csrf_token %}
+<form action="" id="commentform" method="post">{% csrf_token %}
      
-        <img class="mugshot_small" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+    <img class="mugshot_small" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
     
-    {{comment_form.body}}
+    {{ comment_form.body }}
     <input type="hidden" value="{{post.pk}}" {%if post.description %} name="event" {%else%} name="post" {% endif %}/>
     <input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>
     <input type="hidden" value="{{profile.pk}}" name="author"/>

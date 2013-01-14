@@ -1,24 +1,32 @@
+from itertools import chain
+from operator import attrgetter
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.core.urlresolvers import reverse
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, CreateView
-from django.views.generic import View, DetailView, DeleteView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, Http404
-from models import Post, Comment, Message
-from apps.event.models import Event
-from forms import PostForm, ThreadForm, CommentForm, MessageForm
-from apps.account.models import MyProfile, Association
-from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from .models import Post, Comment, Message
+from .forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
+from apps.account.models import MyProfile
 from apps.stream.views import save_comment
-from itertools import chain
-from operator import attrgetter, itemgetter
+
+
+class EditCommentView(UpdateView):
+    """ Editing of a users commentin the stream.
+        TODO: Verify only authorized users can edit form
+    """
+    model = Comment
+    form_class = CommentEditForm
+    template_name = 'publication/edit_comment.html'
+
+    def get_success_url(self):
+        return '/' # self.request.META.get('referer')
 
 
 def delete_post(request, model, pk):
     profile = request.user.get_profile()            
+<<<<<<< HEAD
     
     if model == 'comment':
         post = Comment.objects.get(pk=pk)
@@ -68,6 +76,13 @@ def edit_post(request, model, pk):
         return HttpResponseRedirect('/')
         
 
+=======
+    comment = Comment.objects.get(pk=pk)
+    if comment.author == profile:
+        comment.delete()
+        return HttpResponseRedirect('/')
+
+>>>>>>> c89b346732716de05645305b62389a1a1688d43e
 class PostView(ListView):
     template_name = 'stream/stream.html'
     model = Post
