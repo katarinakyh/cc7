@@ -12,6 +12,7 @@ class EventForm(ModelForm):
             'description': Textarea(attrs={'cols': 180, 'rows': 7}),
         }
 
+
 class EventCommentForm(ModelForm):
     class Meta:
         model = Post

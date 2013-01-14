@@ -19,18 +19,48 @@
 
       <script src="{{ STATIC_URL }}js/jquery-1.8.3.min.js" type="text/javascript" ></script>
       <script src="{{ STATIC_URL }}js/jquery-ui-1.9.2.min.js" type="text/javascript" ></script>
+      <script src="{{ STATIC_URL }}js/jquery.autosize.js" type="text/javascript"></script>
       <script src="{{ STATIC_URL }}js/jquery.timePicker.js" type="text/javascript" ></script>
       <script src="{{ STATIC_URL }}js/jquery.validate.js" type="text/javascript"></script>
       <script src='{{ STATIC_URL}}js/jquery.tipsy.js' type="text/javascript"></script>
+      <script src='{{ STATIC_URL}}js/jquery-ui-timepicker-addon.js' type="text/javascript"></script>
+
+  
+
       <script>
           $(function() {
-              $("#id_date_from, #id_date_to").datepicker();
+              $('textarea').autosize();
+
+              $( "#id_date_from").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 2,
+                minDate: 0,
+                onClose: function( selectedDate ) {
+                  $( "#id_date_to" ).datepicker( "option", "minDate", selectedDate );
+                }
+              });
+
+              $( "#id_date_to").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 2,
+                onClose: function( selectedDate ) {
+                  $( "#id_date_from" ).datepicker( "option", "maxDate", selectedDate );
+                }
+              });
+
+              //$("#id_date_from, #id_date_to").datepicker();
               $("#id_time_from, #id_time_to").timePicker();
               $('img[rel=tipsy]').tipsy({title: 'alt', gravity:$.fn.tipsy.autoNS});    
 
           });
       </script>
 
+    <style>
+      
+    </style>
+  
     {% block extra_head %}{% endblock %}
     
     <title> {% block title %} {% trans "c7 social forum" %} {% endblock %} </title>
@@ -50,7 +80,7 @@
 
             {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url stream_events  %}"> {% trans "Events" %} <i class="icon-calendar icon-white"></i> </a>
+                    <a href="{% url stream_events %}"> {% trans "Events" %} <i class="icon-calendar icon-white"></i> </a>
                 </li>
                 <li>
                     <a href="{% url add_event %}" class="menuplus"><i class="icon-plus icon-white"></i> {% trans "Create" %} </a>

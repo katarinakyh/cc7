@@ -1,5 +1,6 @@
 
 $(function() {
+    
     $(".addtitle").click(function(e){
         e.preventDefault();
         $(".titlefield").toggle(200,function(){
@@ -38,10 +39,7 @@ $(function() {
         });    
     }
     $('.confirm').click(function(e){
-        e.preventDefault()
-        if(confirm('Delete this comment?')){
-            return true;
-        }
+        if(confirm('Delete this comment?')) return true;
     });
 
     //preparePage();
