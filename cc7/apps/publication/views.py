@@ -104,15 +104,17 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).form_valid(form)
 
 class AddPostView(FormView):
-    template_name = 'publication/create_post.html'
+    """ Add a post to the stream
+    """
     model = Post
     form_class = ThreadForm
     success_url = '/'
+    template_name = 'publication/create_post.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
-        #form.instance.title = self.request.POST['title']
+        form.instance.title = self.request.POST.get('title')
         form.save()
         return super(AddPostView, self).form_valid(form)
     
