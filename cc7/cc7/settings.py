@@ -154,12 +154,8 @@ INSTALLED_APPS = (
     'userena',
     'guardian',
     'easy_thumbnails',
-<<<<<<< HEAD
-=======
-
     'micawber.contrib.mcdjango',
 
->>>>>>> c36f558e5c2cc01cd7164107f861590c8d213b24
 )
 
 # A sample logging configuration. The only tangible logging

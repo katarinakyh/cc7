@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib import admin
 from userena import views as userena_views
 from apps.account.forms import EditProfileFormExtra, SignupFormExtra, PasswordChangeFormExtra
-from apps.account.views import AssociationView
 from apps.publication.views import MessageView
 admin.autodiscover()
 
