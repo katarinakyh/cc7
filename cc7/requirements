@@ -2,7 +2,11 @@ Django==1.4.2
 Pillow==1.7.8
 South==0.7.6
 argparse==1.2.1
+django-grappelli==2.4.3
 django-guardian==1.0.4
 django-userena==1.1.2
 easy-thumbnails==1.1
+johnny-cache==1.4
+python-memcached==1.48
 wsgiref==0.1.2
+micawber==0.2.5

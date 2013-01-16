@@ -11,12 +11,14 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', include('apps.stream.urls')),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/signup/$',
        userena_views.signup,
         {
             'signup_form':SignupFormExtra,
         },
        name='userena_signup'),
+
     url(r'^accounts/(?P<username>[\.\w]+)/password/$',
        userena_views.password_change,
        {
@@ -29,7 +31,6 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     
-    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/(?P<username>[\.\w]+)/edit/$',
         userena_views.profile_edit,
         {
@@ -40,11 +41,12 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^accounts/', include('userena.urls')),
     url(r'^post/', include('apps.publication.urls')),
+
     url(r'^messages/', login_required(MessageView.as_view()), name='show_messages'),
     url(r'^message/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'apps.publication.views.view_message', name='show_message_thread'),
     url(r'^event/', include('apps.event.urls')),
-    url(r'^association/(?P<association>[a-zA-Z0-9_.-]+)/$', 'apps.account.views.my_page', name='show_association'),
-    url(r'^association/', login_required(AssociationView.as_view()), name='list_associations'),
+
+    url(r'^association/', include('apps.account.urls')),
 )
 
 if settings.DEBUG:

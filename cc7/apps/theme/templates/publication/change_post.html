@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+<h4>Edit </h4>
+<hr/>
+<form action="" id="threadform" method="post" class="form-inline">
+    {% csrf_token %}
+    {{form.body}}
+
+    {%if model == 'comment'%}
+        <input type="hidden" value="{{post.pk}}" {%if post.description %} name="event" {%else%} name="post" {% endif %}/>
+        <input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>
+        <input type="hidden" value="{{profile.pk}}" name="author"/>
+    {%elif model == 'post'%}
+        <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
+        <input class="btn" type="submit" value="Change"/>
+
+    {%elif model == 'message'%}
+        <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
+    {%endif%}
+    <input class="btn" type="submit" value="Change"/>
+</form>
+
+{%endblock%}

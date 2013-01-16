@@ -1,8 +1,7 @@
 {% extends 'userena/profile_detail.html' %}
 {% load i18n %}
 {% block extra_head %}
-{% block title %}{% blocktrans with pageprofile.association as association %}{{ association }}'s profile.{% endblocktrans %}
-{% endblock %}{% endblock %}
+{% endblock %}
         {% block profile_details %}
             <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
             {% if pageprofile.association %}
@@ -27,8 +26,11 @@
             <div class="titlefield"> Title: {{ post_form.title }} </div>
             <input type="submit" id="new_post" class="btn" value="New post" /> <a href="" class="addtitle">Add title</a>
         </form>
+        <p><a href="{% url leave_association pageprofile.slug %}">Lämna grupp</a></p>
+    {% else %}
+        <p><a href="{% url join_association pageprofile.slug %}">Gå med i grupp</a></p>
     {%endif%}
-    
-    {%include 'publication/fullstream.html'%}            
+
+    {%include 'publication/fullstream.html'%}
 
 {%endblock%}

@@ -3,7 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import PasswordChangeForm 
 from userena.forms import EditProfileForm, SignupForm
 from models import MyProfile
-from django.contrib.auth.forms import PasswordChangeForm
 
 attrs_dict = {'class': 'required'}
 USERNAME_RE = r'^[\.e\w]+$'
