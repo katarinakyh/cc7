@@ -6,8 +6,8 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import Post, Comment, Message
-from .forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
+from models import Post, Comment, Message
+from forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
 from apps.account.models import MyProfile
 from apps.stream.views import save_comment
 
@@ -25,9 +25,6 @@ class EditCommentView(UpdateView):
             form.save()
     
         return super(EditCommentView, self).form_valid(form)
-
-    def get_success_url(self):
-        return '/' # self.request.META.get('referer')
 
 
 def delete_post(request, model, pk):
@@ -117,8 +114,6 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).form_valid(form)
 
 class AddPostView(FormView):
-    """ Add a post to the stream
-    """
     model = Post
     form_class = ThreadForm
     success_url = '/'
@@ -130,6 +125,7 @@ class AddPostView(FormView):
         form.instance.title = self.request.POST.get('title')
         form.save()
         return super(AddPostView, self).form_valid(form)
+
     
 def post_detail(request, pk):
     profile = request.user.get_profile()
