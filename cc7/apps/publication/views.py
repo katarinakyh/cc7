@@ -1,29 +1,90 @@
+from itertools import chain
+from operator import attrgetter
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.core.urlresolvers import reverse
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, CreateView
-from django.views.generic import View, DetailView, DeleteView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, Http404
-from models import Post, Comment, Message
-from apps.event.models import Event
-from forms import PostForm, ThreadForm, CommentForm, MessageForm
-from apps.account.models import MyProfile, Association
-from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from .models import Post, Comment, Message
+from .forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
+from apps.account.models import MyProfile
 from apps.stream.views import save_comment
-from itertools import chain
-from operator import attrgetter, itemgetter
 
 
-def delete_comment(request, pk):
+class EditCommentView(UpdateView):
+    """ Editing of a users commentin the stream.
+        TODO: Verify only authorized users can edit form
+    """
+    model = Comment
+    form_class = CommentEditForm
+    template_name = 'publication/edit_comment.html'
+    success_url='/'
+    
+    def form_valid(self, form):        
+        if form.initial['author'] == self.request.user.get_profile().pk:
+            form.save(commit=False)
+            
+            form.instance.author = self.request.user.get_profile()
+            form.save()
+    
+        return super(EditCommentView, self).form_valid(form)
+
+    """
+    def get_success_url(self):
+        return '/' # self.request.META.get('referer')
+    """
+
+def delete_post(request, model, pk):
     profile = request.user.get_profile()            
-    comment = Comment.objects.get(pk=pk)
-    if comment.author == profile:
-        comment.delete()    
+    
+    if model == 'comment':
+        post = Comment.objects.get(pk=pk)
+    elif model == 'post':
+        post = Post.objects.get(pk=pk)
+    elif model == 'message':
+        post = Message.objects.get(pk=pk)
+
+    if post.author == profile:
+        post.delete()    
         return HttpResponseRedirect('/')
 
+def edit_post(request, model, pk):
+    profile = request.user.get_profile()            
+    
+    if model == 'comment':
+        post = Comment.objects.get(pk=pk)
+        form = CommentForm(instance=post)
+    elif model == 'post':
+        post = Post.objects.get(pk=pk)
+        form = PostForm(instance=post)
+    elif model == 'message':
+        post = Message.objects.get(pk=pk)
+        form = MessageForm(instance=post)
+
+    if post.author == profile:
+        print ''
+        if request.POST:
+            if model == 'comment':
+                form = CommentForm(request.POST, instance=post)
+            elif model == 'post':
+                form = PostForm(request.POST, instance=post)
+            elif model == 'message':
+                form = MessageForm(request.POST,instance=post)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/')
+    
+
+        return render(request, 'publication/change_post.html', {
+                'model':model,
+                'form': form,
+                'post': post,
+                'profile': profile,
+            })    
+    else:
+        return HttpResponseRedirect('/')
+        
 
 class PostView(ListView):
     template_name = 'stream/stream.html'
@@ -61,15 +122,17 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).form_valid(form)
 
 class AddPostView(FormView):
-    template_name = 'publication/create_post.html'
+    """ Add a post to the stream
+    """
     model = Post
     form_class = ThreadForm
     success_url = '/'
+    template_name = 'publication/create_post.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
-        #form.instance.title = self.request.POST['title']
+        form.instance.title = self.request.POST.get('title')
         form.save()
         return super(AddPostView, self).form_valid(form)
     

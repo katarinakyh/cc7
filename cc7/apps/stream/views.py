@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from apps.event.models import Event
 from apps.publication.models import Post
 from apps.publication.forms import CommentForm, MessageForm
@@ -6,24 +8,35 @@ from django.template import RequestContext
 from itertools import chain
 from operator import attrgetter
 
-
-
 def save_comment(request, profile):
+    """
+    Saves a comment to the stream
+    """
     form = CommentForm(request.POST)
     if form.is_valid():
+<<<<<<< HEAD
         form.save(commit = False)
         f=form
         f.author=profile
 	f.save()
+=======
+        instance = form.save(commit=False)
+        instance.author=profile
+        instance.save()
+>>>>>>> c36f558e5c2cc01cd7164107f861590c8d213b24
     else:
         print form.errors
 
 
 def stream(request):
+    """
+    Handles posts and publications in the personal stream.
+    """
     profile = request.user.get_profile()
-    if request.POST:
-        if 'new_comment' in request.POST:
-            save_comment(request, profile)                
+
+    if request.POST and 'new_comment' in request.POST:
+        save_comment(request, profile)
+        return HttpResponseRedirect(reverse('stream'))
      
     posts = Post.objects.filter(is_public=True).order_by('-date_created')
     events = Event.objects.filter().order_by('-date_created')
