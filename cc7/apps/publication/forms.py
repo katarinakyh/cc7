@@ -23,7 +23,11 @@ class CommentEditForm(ModelForm):
 
     class Meta:
         model = Comment
-        exclude = ('author', 'date_created', 'post', 'event')
+        widgets = {
+            'author': HiddenInput()
+        }
+
+        exclude = ( 'date_created', 'post', 'event')
 
 
 class MessageForm(ModelForm):

@@ -19,14 +19,24 @@ class EditCommentView(UpdateView):
     model = Comment
     form_class = CommentEditForm
     template_name = 'publication/edit_comment.html'
+    success_url='/'
+    
+    def form_valid(self, form):        
+        if form.initial['author'] == self.request.user.get_profile().pk:
+            form.save(commit=False)
+            
+            form.instance.author = self.request.user.get_profile()
+            form.save()
+    
+        return super(EditCommentView, self).form_valid(form)
 
+    """
     def get_success_url(self):
         return '/' # self.request.META.get('referer')
-
+    """
 
 def delete_post(request, model, pk):
     profile = request.user.get_profile()            
-<<<<<<< HEAD
     
     if model == 'comment':
         post = Comment.objects.get(pk=pk)
@@ -76,13 +86,6 @@ def edit_post(request, model, pk):
         return HttpResponseRedirect('/')
         
 
-=======
-    comment = Comment.objects.get(pk=pk)
-    if comment.author == profile:
-        comment.delete()
-        return HttpResponseRedirect('/')
-
->>>>>>> c89b346732716de05645305b62389a1a1688d43e
 class PostView(ListView):
     template_name = 'stream/stream.html'
     model = Post

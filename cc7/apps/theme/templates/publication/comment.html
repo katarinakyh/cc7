@@ -5,15 +5,9 @@
             <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
             {% if profile.user == c.author.user %}
                 <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
-<<<<<<< HEAD
-                <a href="/post/edit/comment/{{c.pk}}/" rel="{{c.pk}}"><small>edit </small></a> |
-                <a href="/post/delete/comment/{{c.pk}}/" rel="{{c.pk}} class="confirm"> <small>delete </small></a>
-            {%else%}
-=======
                 <a href="{% url edit_comment c.pk %}" rel="{{c.pk}}"><small>edit </small></a> |
-                <a href="{% url delete_comment c.pk %}" rel="{{c.pk}}"><small>delete</small></a>
+                <a href="{% url delete_post 'comment' c.pk %}" rel="{{c.pk}}"><small>delete</small></a>
             {% else %}
->>>>>>> c89b346732716de05645305b62389a1a1688d43e
                 <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
             {% endif %}
             <div class="commentbody">
