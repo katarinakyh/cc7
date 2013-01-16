@@ -129,9 +129,6 @@ class AddPostView(FormView):
         form.save()
         return super(AddPostView, self).form_valid(form)
 
-class PostDetailView(DetailView):
-    pass
-
     
 def post_detail(request, pk):
     profile = request.user.get_profile()
