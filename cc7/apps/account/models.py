@@ -93,8 +93,6 @@ class Association(models.Model):
                 return userena_settings.USERENA_MUGSHOT_DEFAULT
             else: return None
 
-
-
     def __unicode__(self):
         return unicode(self.association)
 
@@ -103,5 +101,4 @@ class Association(models.Model):
 
     def remove_event(self, event):
         pass
-
     
