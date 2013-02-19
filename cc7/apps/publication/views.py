@@ -10,6 +10,12 @@ from models import Post, Comment, Message
 from forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
 from apps.account.models import MyProfile
 from apps.stream.views import save_comment
+<<<<<<< HEAD
+from itertools import chain
+from operator import attrgetter, itemgetter
+import re
+=======
+>>>>>>> 79808a048277da100bfc9934f5d6a5e8a29fd9a7
 
 class EditCommentView(UpdateView):
     model = Comment
@@ -141,6 +147,20 @@ def post_detail(request, pk):
             'post': post,
             'profile': profile,
         })
+
+
+def youtube_embed_url(value):
+
+    match = re.search(r'^(http|https)\:\/\/www\.youtube\.com\/watch\?v\=(\w*)(\&(.*))?$', value)
+    if match:
+        embed_url = 'http://www.youtube.com/embed/%s' %(match.group(2))
+        res = "<iframe width=\"560\" height=\"315\" src=\"%s\" frameborder=\"0\" allowfullscreen></iframe>" %(embed_url)
+        return res
+    if match:
+        pass
+
+    return ''
+
 
 class MessageView(ListView):
     template_name = 'publication/messages.html'
