@@ -115,8 +115,6 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).form_valid(form)
 
 class AddPostView(FormView):
-    """ Add a post to the stream
-    """
     model = Post
     form_class = ThreadForm
     success_url = '/'

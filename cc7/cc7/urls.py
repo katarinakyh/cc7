@@ -7,6 +7,7 @@ from userena import views as userena_views
 from apps.account.forms import EditProfileFormExtra, SignupFormExtra, PasswordChangeFormExtra
 from apps.account.views import AssociationView
 from apps.publication.views import MessageView
+from django.views.generic.base import TemplateView
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -47,6 +48,8 @@ urlpatterns = patterns('',
     url(r'^event/', include('apps.event.urls')),
 
     url(r'^association/', include('apps.account.urls')),
+    url(r'^map/', TemplateView.as_view(template_name='map/index2.html')),
+
 )
 
 if settings.DEBUG:
