@@ -44,8 +44,13 @@ $(function() {
 
     //preparePage();
 
+    $('body').html(function(i, html) {
+        return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g,
+        '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
+    });
 
 });
+
 
 /*
 
