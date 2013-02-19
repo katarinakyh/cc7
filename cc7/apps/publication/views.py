@@ -10,12 +10,9 @@ from models import Post, Comment, Message
 from forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
 from apps.account.models import MyProfile
 from apps.stream.views import save_comment
-<<<<<<< HEAD
 from itertools import chain
 from operator import attrgetter, itemgetter
 import re
-=======
->>>>>>> 79808a048277da100bfc9934f5d6a5e8a29fd9a7
 
 class EditCommentView(UpdateView):
     model = Comment
