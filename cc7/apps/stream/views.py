@@ -14,9 +14,16 @@ def save_comment(request, profile):
     """
     form = CommentForm(request.POST)
     if form.is_valid():
+<<<<<<< HEAD
+        form.save(commit = False)
+        f=form
+        f.author=profile
+	f.save()
+=======
         instance = form.save(commit=False)
         instance.author=profile
         instance.save()
+>>>>>>> c36f558e5c2cc01cd7164107f861590c8d213b24
     else:
         print form.errors
 

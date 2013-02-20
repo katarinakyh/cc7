@@ -14,7 +14,6 @@ from itertools import chain
 from operator import attrgetter, itemgetter
 import re
 
-
 class EditCommentView(UpdateView):
     model = Comment
     form_class = CommentEditForm
@@ -118,8 +117,6 @@ class AddMessageView(FormView):
         return super(AddMessageView, self).form_valid(form)
 
 class AddPostView(FormView):
-    """ Add a post to the stream
-    """
     model = Post
     form_class = ThreadForm
     success_url = '/'

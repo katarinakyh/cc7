@@ -24,7 +24,7 @@
     
     {{ comment_form.body }}
     <input type="hidden" value="{{post.pk}}" {%if post.description %} name="event" {%else%} name="post" {% endif %}/>
-    <input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>
+    {%comment%}<input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>{%endcomment%}
     <input type="hidden" value="{{profile.pk}}" name="author"/>
     <dd><input type="submit" name="new_comment" value="Post comment" /></dd>
     <span class="label label-important">{{ form.body.errors }}</span><br />

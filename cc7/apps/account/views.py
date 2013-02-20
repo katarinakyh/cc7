@@ -12,7 +12,7 @@ from models import Association
 from apps.publication.forms import PostForm, CommentForm
 from apps.publication.models import Post
 from apps.event.models import Event
-from apps.account.models import MyProfile
+from apps.account.models import MyProfile                                                             
 from apps.stream.views import save_comment
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404

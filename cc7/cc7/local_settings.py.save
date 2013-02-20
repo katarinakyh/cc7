@@ -1,0 +1,13 @@
+from .settings import ROOT_DIR
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cc7',
+        'USER': 'root',
+        'PASSWORD': 'freedomtoroam',
+        'OPTIONS': { 'init_command': 'SET storage_engine=MyISAM; SET names "utf8"' },
+        }
+}
+
+MEDIA_ROOT = '/home/palle/Project/django/cc

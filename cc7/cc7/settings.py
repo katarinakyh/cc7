@@ -150,10 +150,10 @@ INSTALLED_APPS = (
     'apps.account',
     #installed apps,
     'south',
+    'gunicorn',
     'userena',
     'guardian',
     'easy_thumbnails',
-
     'micawber.contrib.mcdjango',
 
 )
@@ -208,7 +208,7 @@ LOGOUT_URL = '/accounts/signout/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'c7sendmail@gmail.com'
-EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_HOST_PASSWORD = 'hundg0dis'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
