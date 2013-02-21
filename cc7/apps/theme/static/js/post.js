@@ -58,6 +58,7 @@ PostView = Backbone.View.extend({
 
 
 var postview = new PostView({model:PostModel});
+
 //$('#post-data').html(postview.$el);
 //$('#post-data').trigger('create');
 
