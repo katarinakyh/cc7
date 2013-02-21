@@ -14,14 +14,77 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
     <!--script src="http://code.jquery.com/jquery-1.8.2.min.js"></script-->
     <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <style type="text/css">
+        body {
+            color: #333333;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+        }
 
+        a {
+            color: #0088CC;
+            text-decoration: none;
+        }
+
+
+        li {
+            list-style-type: none;
+        }
+
+        .story {
+            color: #555555;
+            /*border-left: 5px solid #EEEEEE;*/
+            margin: 0 0 20px 10px;
+            padding: 0 0 0 15px;
+        }
+        
+        .postbody {
+            border-left: 3px solid #EFFCE1;
+            margin-bottom: 20px;
+            margin-left: 27px;
+            padding: 0 0 0 10px;
+        }
+        .mugshot {
+            float: left;
+            margin-right: 10px;
+            height: 30px;
+            width: 30px;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 10px 0;
+            font-family: inherit;
+            font-weight: bold;
+            line-height: 20px;
+            color: inherit;
+            text-rendering: optimizelegibility;
+            font-size: 17.5px;
+        }
+        .small {
+            font-size: 10px;
+        }
+
+    </style>
     <script id="post_template" type="text/template">
+    <div class="story" >
+            <h4>
+                <img class="mugshot" src="{{MEDIA_URL}}mugshots/69ddbbfa22.jpg" alt="Your mugshot"/>
+                <a href="/post/detail/<%= id %>"> <%= title %> </a><br/>
+                <span class="small">
+                <%= date_created %>
+                    Posted by:<strong><a href="/accounts/katarina/"> katarina </a></strong>
+                </span>
+            </h4>
+            <div class="postbody"><%= body %></div>
+            <hr style="color:transparent"/>
+    </div>
 
-        <img src="{{MEDIA_URL}}mugshots/5439207ebd.png" alt="CSS">
-        <h3> <a href="#"><%= title %></a>
-        <span class="ui-li-aside"><%= date_created %> </span>
-        </h3>
-        <p> <%= body %> </p>
+
     </script>
     <script src="{{ STATIC_URL }}js/underscore.js"></script>
     <script src="{{ STATIC_URL }}js/backbone.js"></script>
