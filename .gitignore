@@ -2,8 +2,11 @@
 *.pot
 *.pyc
 .idea/
-db/
+db/*
+/cc7/cc7/local_settings.py
+*local_settings.py
+local_settings.py*
 local_settings.py
-
+*.sqlite3
 /env/*
 
