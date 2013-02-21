@@ -6,6 +6,6 @@ from apps.publication.models import Post
 
 class PostResource(ModelResource):
     class Meta:
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().order_by('-date_created')
         resource_name = 'post'
         list_allowed_methods = ['get']

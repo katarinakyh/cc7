@@ -11,8 +11,8 @@ PostCollection = Backbone.Tastypie.Collection.extend({
 
 
 PostItemView = Backbone.View.extend({
-    tagName : 'div',
-    templateTest:   '(<%= id %>) <%= title %> ',
+    tagName : 'li',
+    templateTest: $('#post_template').html(),
 
     initialize : function(){
         this.template = _.template(this.templateTest);
@@ -26,17 +26,17 @@ PostItemView = Backbone.View.extend({
 })
 
 PostView = Backbone.View.extend({
-    tagName : 'div',
+    el : '#post-data',
     templateHtml:   'Posts',
 
     initialize : function(){
-        this.template = _.template(this.templateHtml)
-        this.list = new PostCollection()
+        this.template = _.template(this.templateHtml);
+        this.list = new PostCollection();
         var _this = this;
         this.list.bind('reset', function(){ //binder till event
-            _this.onReset()
+            _this.onReset();
         });
-        this.list.fetch()
+        this.list.fetch();
     },
 
     onReset: function(){
@@ -44,15 +44,20 @@ PostView = Backbone.View.extend({
     },
 
     render : function(){
-        this.$el.append(this.template())
+
+        this.$el.append(this.template());
         _.each(this.list.models, function(elem){
             var Postview = new PostItemView({model:elem})
             $('#post-data').append(Postview.$el);
         })
         this.template();
+        return this;
     }
 
 })
 
-var postview = new PostView();
-$('#post-data').html(postview.$el);
+
+var postview = new PostView({model:PostModel});
+//$('#post-data').html(postview.$el);
+//$('#post-data').trigger('create');
+
