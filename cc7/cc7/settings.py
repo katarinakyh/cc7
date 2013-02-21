@@ -155,7 +155,6 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
     'micawber.contrib.mcdjango',
-    'tastypie',
 
 )
 
