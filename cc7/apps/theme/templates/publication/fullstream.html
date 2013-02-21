@@ -37,7 +37,7 @@
                 </span>
             </h4>
 
-{#            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div>#}
+{%comment%}            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div> {%endcomment%}
                 <div class="postbody">{{ post.body|oembed:"508x255" }}</div>
 
             <ul class="commentfield">
