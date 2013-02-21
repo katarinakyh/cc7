@@ -31,10 +31,11 @@ body {
 .navbar-inverse .nav{
     padding-left: 20px;
 }
-.nav-list > li > a:hover{
+.nav-list > li > a:hover {
     background-color: #fff2f2;
     color: #000b03;
 }
+
 .hide {
     display: none;
 }

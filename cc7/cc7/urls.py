@@ -41,7 +41,7 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^accounts/', include('userena.urls')),
     url(r'^post/', include('apps.publication.urls')),
-
+    url(r'^mobile/', include('apps.mobile.urls')),
     url(r'^messages/', login_required(MessageView.as_view()), name='show_messages'),
     url(r'^message/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'apps.publication.views.view_message', name='show_message_thread'),
     url(r'^event/', include('apps.event.urls')),
