@@ -68,7 +68,7 @@ Posts.View.Posts = Backbone.View.extend({
     },
 
     render : function(){
-        this.$el.append(this.template());
+             this.$el.append(this.template());
         _.each(this.posts.models, function(post){
             var postView = new Posts.Views.Post({model:post})
             $('#post-data').append(postView.$el);
