@@ -1,16 +1,31 @@
-PostModel = Backbone.Tastypie.Model.extend({
+(function() {
+
+    window.Posts = {
+        Models: {},
+        Collections: {},
+        Views: {},
+        View: {}
+
+    };
+
+    window.template = function(id) {
+        return _.template( $('#' + id).html() );
+    };
+
+
+Posts.Models.Post = Backbone.Tastypie.Model.extend({
     urlRoot: 'api/v1/post/',
     defaults: {
+        title: '>>'
     }
 });
 
-PostCollection = Backbone.Tastypie.Collection.extend({
+Posts.Collections.Post = Backbone.Tastypie.Collection.extend({
     urlRoot: 'api/v1/post/',
-    model: PostModel
+    model: Posts.Models.Post
 })
 
-
-PostItemView = Backbone.View.extend({
+Posts.Views.Post = Backbone.View.extend({
     tagName : 'li',
     templateTest: $('#post_template').html(),
 
@@ -21,22 +36,31 @@ PostItemView = Backbone.View.extend({
 
     render : function(){
         this.$el.html(this.template(this.model.toJSON()));
+        return this;
     }
 
 })
 
-PostView = Backbone.View.extend({
+Posts.View.Posts = Backbone.View.extend({
     el : '#post-data',
-    templateHtml:   'Posts',
+    templateHtml: 'Posts',
 
     initialize : function(){
         this.template = _.template(this.templateHtml);
-        this.list = new PostCollection();
+        this.posts = new Posts.Collections.Post();
         var _this = this;
-        this.list.bind('reset', function(){ //binder till event
+        this.posts.bind('reset', function(){ //binder till event
             _this.onReset();
         });
-        this.list.fetch();
+        this.posts.fetch();
+    },
+
+    events: {
+        'click': 'console'
+    },
+
+    console: function() {
+        console.log("click");
     },
 
     onReset: function(){
@@ -44,21 +68,21 @@ PostView = Backbone.View.extend({
     },
 
     render : function(){
-
         this.$el.append(this.template());
-        _.each(this.list.models, function(elem){
-            var Postview = new PostItemView({model:elem})
-            $('#post-data').append(Postview.$el);
+        _.each(this.posts.models, function(post){
+            var postView = new Posts.Views.Post({model:post})
+            $('#post-data').append(postView.$el);
         })
         this.template();
-        return this;
+
     }
 
 })
 
 
-var postview = new PostView({model:PostModel});
+var postview = new Posts.View.Posts({model:Posts.Models.Post});
 
 //$('#post-data').html(postview.$el);
 //$('#post-data').trigger('create');
 
+})();
