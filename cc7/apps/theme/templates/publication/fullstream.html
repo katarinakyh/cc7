@@ -1,4 +1,5 @@
-{% load i18n micawber_tags %}
+{% load i18n%}
+{%load micawber_tags %}
 
 {% for post in object_list|dictsortreversed:"date_created"  %}
     <div class="story" >
@@ -37,8 +38,8 @@
                 </span>
             </h4>
 
-{#            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div>#}
-                <div class="postbody">{{ post.body|oembed:"508x255" }}</div>
+{%comment%}            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div> {%endcomment%}
+                <div class="postbody">{{ post.body|oembed:"508x255" }} </div>
 
             <ul class="commentfield">
                 {% include "publication/comment.html" %}

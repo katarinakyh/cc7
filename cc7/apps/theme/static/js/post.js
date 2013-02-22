@@ -35,15 +35,27 @@ Posts.Views.Post = Backbone.View.extend({
     },
 
     render : function(){
+        body = this.model.toJSON().body;
+        fullText = this.model.get('body');
+        var shortText = jQuery.trim(fullText).substring(0, 100)
+            .split(" ").slice(0, -1).join(" ") + "...";
+        this.model.set('trunc_text', shortText);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
-    }
+    },
+    
+    events: {
+        click : 'console'
+    },
 
+    console : function(){
+        console.log('click');
+    }
 })
 
 Posts.View.Posts = Backbone.View.extend({
     el : '#post-data',
-    templateHtml: 'Posts',
+    templateHtml: '',
 
     initialize : function(){
         this.template = _.template(this.templateHtml);
@@ -66,12 +78,13 @@ Posts.View.Posts = Backbone.View.extend({
     onReset: function(){
         this.render();
     },
-
+    
     render : function(){
-             this.$el.append(this.template());
+         this.$el.append(this.template());
         _.each(this.posts.models, function(post){
             var postView = new Posts.Views.Post({model:post})
             $('#post-data').append(postView.$el);
+
         })
         this.template();
 
