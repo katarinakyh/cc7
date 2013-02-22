@@ -36,7 +36,6 @@ class PostResource(ModelResource):
         
     
     def dehydrate(self, bundle):
-        print self.author
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
         mugshot = user.get_mugshot_url()
         bundle.data['mugshot'] = mugshot
