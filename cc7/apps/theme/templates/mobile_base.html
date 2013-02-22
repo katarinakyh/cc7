@@ -30,6 +30,7 @@
 
         li {
             list-style-type: none;
+            margin-left: -40px;
         }
 
         .story {
@@ -39,12 +40,30 @@
             padding: 0 0 0 15px;
         }
         
-        .postbody {
-            border-left: 3px solid #EFFCE1;
+        .story:hover {
+            background: #ccc;
+            cursor: pointer;
+            color: #555555;
+            /*border-left: 5px solid #EEEEEE;*/
+            margin: 0 0 20px 10px;
+            padding: 0 0 0 15px;
+        }
+        
+        .postbody_fulltext {
             margin-bottom: 20px;
             margin-left: 27px;
             padding: 0 0 0 10px;
+            overflow: auto;
+            display: none;
         }
+
+        .postbody_trunctext {
+            margin-bottom: 20px;
+            margin-left: 27px;
+            padding: 0 0 0 10px;
+            height: 50px;
+        }
+        
         .mugshot {
             float: left;
             margin-right: 10px;
@@ -71,20 +90,18 @@
 
     </style>
     <script id="post_template" type="text/template">
-    <div class="story" >
-            <h4>
-                <img class="mugshot" src="{{MEDIA_URL}}mugshots/69ddbbfa22.jpg" alt="Your mugshot"/>
-                <a href="/post/detail/<%= id %>"> <%= title %> </a><br/>
-                <span class="small">
-                <%= date_created %>
-                    Posted by:<strong><a href="/accounts/katarina/"> katarina </a></strong>
-                </span>
-            </h4>
-            <div class="postbody"><%= body %></div>
-            <hr style="color:transparent"/>
-    </div>
-
-
+        <div class="story" >
+                <h4>
+                    <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
+                    <a href="/post/detail/<%= id %>/"> <%= title %> </a><br/>
+                    <span class="small">
+                        <%= date_created %>
+                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
+                    </span>
+                </h4>
+                <div class="postbody_fulltext"><%= body %></div>
+                <div class="postbody_trunctext"><%= body %></div>
+        </div>
     </script>
     <script src="{{ STATIC_URL }}js/underscore.js"></script>
     <script src="{{ STATIC_URL }}js/backbone.js"></script>
@@ -99,7 +116,7 @@
 <body >
     <div data-role="page">
         <header data-role="header">
-            <h4>C7 Mobile</h4>
+            <h4>C7 Mobile </h4>
         </header>
         <div data-role="content" data-theme="c">
             <ul id="post-data" data-role="listview" data-inset="true" data-theme="c" data-filter="true">

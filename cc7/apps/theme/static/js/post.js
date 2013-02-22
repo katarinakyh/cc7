@@ -21,13 +21,21 @@ PostItemView = Backbone.View.extend({
 
     render : function(){
         this.$el.html(this.template(this.model.toJSON()));
-    }
+        return this;
+    },
+    
+    events: {
+        click : 'console',
+    },
 
+    console : function(){
+        console.log('click');
+    }
 })
 
 PostView = Backbone.View.extend({
     el : '#post-data',
-    templateHtml:   'Posts',
+    templateHtml: '',
 
     initialize : function(){
         this.template = _.template(this.templateHtml);
@@ -42,13 +50,13 @@ PostView = Backbone.View.extend({
     onReset: function(){
         this.render();
     },
-
+    
     render : function(){
-
         this.$el.append(this.template());
+        var _this = this;
         _.each(this.list.models, function(elem){
             var Postview = new PostItemView({model:elem})
-            $('#post-data').append(Postview.$el);
+            _this.$el.append(Postview.$el);
         })
         this.template();
         return this;
