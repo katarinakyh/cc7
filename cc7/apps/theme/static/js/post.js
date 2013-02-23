@@ -34,22 +34,28 @@ Posts.Views.Post = Backbone.View.extend({
         this.render();
     },
 
+
     render : function(){
         body = this.model.toJSON().body;
-        fullText = this.model.get('body');
-        var shortText = jQuery.trim(fullText).substring(0, 100)
+        var fullText = this.model.get('body');
+        var shortText = fullText;
+        if (fullText.length > 100) {
+            shortText = jQuery.trim(fullText).substring(0, 100)
             .split(" ").slice(0, -1).join(" ") + "...";
-        this.model.set('trunc_text', shortText);
+        }
+
+        this.model.set('trunc_text', shortText );
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     },
     
     events: {
-        click : 'console'
+        'click .postbody_trunctext': 'fulltext'
     },
 
-    console : function(){
-        console.log('click');
+    fulltext : function(e){
+        $(e.target).html(this.model.get('body'));
+        console.log(e.target);
     }
 })
 
