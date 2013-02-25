@@ -118,7 +118,7 @@
         <div class="story" >
                 <h4>
                     <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-                    <a href="/post/detail/<%= id %>/"> <%= title %> </a><br/>
+                    <a href="#detail<%=id%>"> <%= title %> </a><br/>
                     <span class="small">
                         Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
                     </span>
@@ -129,6 +129,36 @@
             <span class="right_nav"> <a href="#">comment (1</a>)</span>
             <hr/>
         </div>
+        <div data-role="page" id="detail<%=id%>">
+            <header class="menu ">
+                <h4>
+                    <span class="left_nav"><a href="/"><i class="icon-bullhorn icon-white"></i> </a>  c7 </span>
+                    <span class="center_nav"> <i class="icon-share icon-white"></i><i class="icon-plus icon-white"></i> </span>
+                    <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="#">1</a>)  <i class="icon-user icon-white"></i> </span>
+                </h4>
+            </header>
+            <div data-role="content" data-theme="c">
+                <div class="story" >
+                        <h4>
+                            <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
+                            <a href="#detail"> <%= title %> </a><br/>
+                            <span class="small">
+                                Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
+                            </span>
+                        </h4>
+                        <div class="postbody"><%= body %></div>
+                    <span class="left_nav"> Posted at: <%= date_created %></span>
+                    <hr/>
+                </div>
+            </div>
+            <footer data-role="footer">
+                <h4>C7 mobile footer</h4>
+            </footer>
+        </div>
+
+
+
+
     </script>
     <script src="{{ STATIC_URL }}js/underscore.js"></script>
     <script src="{{ STATIC_URL }}js/backbone.js"></script>
@@ -140,7 +170,7 @@
 
 </head>
 <body >
-    <div >
+    <div data-role="page" id="main">
         <header class="menu ">
             <h4>
                 <span class="left_nav"><a href="/"><i class="icon-bullhorn icon-white"></i> </a>  c7 </span>
@@ -149,15 +179,35 @@
             </h4>
         </header>
         <div data-role="content" data-theme="c">
-            <ul id="post-data" data-role="listview" data-inset="true" data-theme="c" data-filter="true">
-
-            </ul>
         </div>
         <footer data-role="footer">
             <h4>C7 mobile footer</h4>
         </footer>
     </div>
-
+    <div data-role="page" id="detail">
+        <header class="menu ">
+            <h4>
+                <span class="left_nav"><a href="/"><i class="icon-bullhorn icon-white"></i> </a>  c7 </span>
+                <span class="center_nav"> <i class="icon-share icon-white"></i><i class="icon-plus icon-white"></i> </span>
+                <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="#">1</a>)  <i class="icon-user icon-white"></i> </span>
+            </h4>
+        </header>
+        <div data-role="content" data-theme="c">
+                <p>THIS IS THE DETAIL DIV</p>
+        </div>
+        <footer data-role="footer">
+            <h4>C7 mobile footer</h4>
+        </footer>
+    </div>
+<script type="text/javascript">
+    $(document).bind('pagebeforecreate', function(){
+        var postview = new Posts.View.Posts({model:Posts.Models.Post});
+    });
+    
+    $(document).bind('pageinit', function(){
+    });    
+    
+</script>
 
 </body>
 </html>

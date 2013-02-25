@@ -30,7 +30,7 @@ Posts.Views.Post = Backbone.View.extend({
     templateTest: $('#post_template').html(),
 
     initialize : function(){
-        this.template = _.template(this.templateTest);
+        this.template = _.template(this.templateTest); //make a template out of that code
         this.render();
     },
 
@@ -45,7 +45,7 @@ Posts.Views.Post = Backbone.View.extend({
         }
 
         this.model.set('trunc_text', shortText );
-        this.$el.html(this.template(this.model.toJSON()));
+        this.$el.html(this.template(this.model.toJSON())); //inserts an object of data, which is available to the template
         return this;
     },
     
@@ -59,26 +59,38 @@ Posts.Views.Post = Backbone.View.extend({
     }
 })
 
+//view for all posts
 Posts.View.Posts = Backbone.View.extend({
-    el : '#post-data',
-    templateHtml: '',
-
+    tagName :'ul',
+        id : 'main',
     initialize : function(){
+//        console.log(this.collection);
         this.template = _.template(this.templateHtml);
+        this.ready = function(){
+            //('#post-data').trigger('create');
+            $('a').click(function(e){
+                var thediv = $(this).attr('href');
+                console.log(thediv);
+                $.mobile.changePage($(thediv));
+                //console.log($(thediv).html());
+            });            
+        };
+
         this.posts = new Posts.Collections.Post();
         var _this = this;
         this.posts.bind('reset', function(){ //binder till event
             _this.onReset();
         });
         this.posts.fetch();
+        console.log(this.posts)
     },
 
     events: {
-        'click': 'console'
+        //'click': 'console'
     },
 
     console: function() {
-        console.log("click");
+        //alert($(this).attr('href'));
     },
 
     onReset: function(){
@@ -86,20 +98,29 @@ Posts.View.Posts = Backbone.View.extend({
     },
     
     render : function(){
+        //filter through all items in a collection
+        console.log(this.collection);
+
+        this.collection.each(function(post){
+            var postView = new Posts.Views.Post({ model:post });
+            this.$el.append(postView.render().el)
+        }, this)
+/*
+         this.$el.attr({"id":"post-data", "data-role":"listview", "data-inset":"true", "data-theme":"c", "data-filter":"true"});
          this.$el.append(this.template());
+        
         _.each(this.posts.models, function(post){
             var postView = new Posts.Views.Post({model:post})
-            $('#post-data').append(postView.$el);
+            _this.$el.append(postView.$el);
 
         })
-        this.template();
+  */
+        this.template()
+        this.ready();
 
     }
 
 })
-
-
-var postview = new Posts.View.Posts({model:Posts.Models.Post});
 
 //$('#post-data').html(postview.$el);
 //$('#post-data').trigger('create');
