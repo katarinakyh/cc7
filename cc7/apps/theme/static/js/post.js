@@ -1,107 +1,78 @@
-(function() {
 
-    window.Posts = {
-        Models: {},
-        Collections: {},
-        Views: {},
-        View: {}
+// Models
+window.Post = Backbone.Tastypie.Model.extend({
+});
 
-    };
+window.PostCollection = Backbone.Tastypie.Collection.extend({
+    model:Post,
+    urlRoot: 'api/v1/post/'
+});
 
-    window.template = function(id) {
-        return _.template( $('#' + id).html() );
-    };
+// Views
+window.PostListView = Backbone.View.extend({
 
+    tagName:'ul',
 
-Posts.Models.Post = Backbone.Tastypie.Model.extend({
-    urlRoot: 'api/v1/post/',
-    defaults: {
-        title: '>>'
+    initialize:function () {
+        this.model.bind("reset", this.render, this);
+    },
+
+    render:function (eventName) {
+        _.each(this.model.models, function (Post) {
+            $(this.el).append(new PostListItemView({model:Post}).render().el);
+        }, this);
+        return this;
+    }
+
+});
+
+window.PostListItemView = Backbone.View.extend({
+
+    tagName:"li",
+
+    template:_.template($('#post_list_template').html()),
+
+    render:function (eventName) {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    }
+
+});
+
+window.PostView = Backbone.View.extend({
+
+    template:_.template($('#singel_post_template').html()),
+
+    render:function (eventName) {
+        $(this.el).html(this.template(this.model.toJSON()));
+        return this;
+    }
+
+});
+
+// Router
+var AppRouter = Backbone.Router.extend({
+
+    routes:{
+        "":"list",
+        "detail_id?:id":"PostDetails"
+    },
+
+    list:function () {
+        this.PostList = new PostCollection();
+        this.PostListView = new PostListView({model:this.PostList});
+        this.PostList.fetch();
+        $('#post-data').html(this.PostListView.render().el);
+    },
+
+    PostDetails:function (id) {
+        this.Post = this.PostList.models[12];
+        this.PostView = new PostView({model:this.Post});
+        $('#post-data').html(this.PostView.render().el);
     }
 });
 
-Posts.Collections.Post = Backbone.Tastypie.Collection.extend({
-    urlRoot: 'api/v1/post/',
-    model: Posts.Models.Post
-})
-
-Posts.Views.Post = Backbone.View.extend({
-    tagName : 'li',
-    templateTest: $('#post_template').html(),
-
-    initialize : function(){
-        this.template = _.template(this.templateTest);
-        this.render();
-    },
+var app = new AppRouter();
+Backbone.history.start();
 
 
-    render : function(){
-        body = this.model.toJSON().body;
-        var fullText = this.model.get('body');
-        var shortText = fullText;
-        if (fullText.length > 100) {
-            shortText = jQuery.trim(fullText).substring(0, 100)
-            .split(" ").slice(0, -1).join(" ") + "...";
-        }
-
-        this.model.set('trunc_text', shortText );
-        this.$el.html(this.template(this.model.toJSON()));
-        return this;
-    },
-    
-    events: {
-        'click .postbody_trunctext': 'fulltext'
-    },
-
-    fulltext : function(e){
-        $(e.target).html(this.model.get('body'));
-        console.log(e.target);
-    }
-})
-
-Posts.View.Posts = Backbone.View.extend({
-    el : '#post-data',
-    templateHtml: '',
-
-    initialize : function(){
-        this.template = _.template(this.templateHtml);
-        this.posts = new Posts.Collections.Post();
-        var _this = this;
-        this.posts.bind('reset', function(){ //binder till event
-            _this.onReset();
-        });
-        this.posts.fetch();
-    },
-
-    events: {
-        'click': 'console'
-    },
-
-    console: function() {
-        console.log("click");
-    },
-
-    onReset: function(){
-        this.render();
-    },
-    
-    render : function(){
-         this.$el.append(this.template());
-        _.each(this.posts.models, function(post){
-            var postView = new Posts.Views.Post({model:post})
-            $('#post-data').append(postView.$el);
-
-        })
-        this.template();
-
-    }
-
-})
-
-
-var postview = new Posts.View.Posts({model:Posts.Models.Post});
-
-//$('#post-data').html(postview.$el);
-//$('#post-data').trigger('create');
-
-})();
