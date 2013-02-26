@@ -1,6 +1,7 @@
 
 // Models
 window.Post = Backbone.Tastypie.Model.extend({
+    idAttribute : '_id'
 });
 
 window.PostCollection = Backbone.Tastypie.Collection.extend({
@@ -27,7 +28,6 @@ window.PostListView = Backbone.View.extend({
 });
 
 window.PostListItemView = Backbone.View.extend({
-
     tagName:"li",
 
     template:_.template($('#post_list_template').html()),
@@ -57,19 +57,21 @@ var AppRouter = Backbone.Router.extend({
         "":"list",
         "detail_id?:id":"PostDetails"
     },
-
     list:function () {
         this.PostList = new PostCollection();
+        //console.log(this.PostList);
         this.PostListView = new PostListView({model:this.PostList});
         this.PostList.fetch();
         $('#post-data').html(this.PostListView.render().el);
     },
 
+
     PostDetails:function (id) {
-        this.Post = this.PostList.models[12];
+        this.Post = this.PostList.get('/mobile/api/v1/post/'+ id +'/'); //HÄR SITTER ID JÄVELN!
         this.PostView = new PostView({model:this.Post});
         $('#post-data').html(this.PostView.render().el);
     }
+
 });
 
 var app = new AppRouter();
