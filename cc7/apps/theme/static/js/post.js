@@ -23,7 +23,7 @@ Posts.Models.Post = Backbone.Tastypie.Model.extend({
 Posts.Collections.Post = Backbone.Tastypie.Collection.extend({
     urlRoot: 'api/v1/post/',
     model: Posts.Models.Post
-})
+});
 
 Posts.Views.Post = Backbone.View.extend({
     tagName : 'li',
@@ -57,14 +57,15 @@ Posts.Views.Post = Backbone.View.extend({
         $(e.target).html(this.model.get('body'));
         console.log(e.target);
     }
-})
+});
 
 //view for all posts
 Posts.View.Posts = Backbone.View.extend({
     tagName :'ul',
-        id : 'main',
+    id : 'main',
+    templateHtml : 'div#maincontent',
     initialize : function(){
-//        console.log(this.collection);
+        console.log(this.collection);
         this.template = _.template(this.templateHtml);
         this.ready = function(){
             //('#post-data').trigger('create');
@@ -82,7 +83,8 @@ Posts.View.Posts = Backbone.View.extend({
             _this.onReset();
         });
         this.posts.fetch();
-        console.log(this.posts)
+        console.log(this);
+        console.log(this.posts);
     },
 
     events: {
@@ -99,24 +101,17 @@ Posts.View.Posts = Backbone.View.extend({
     
     render : function(){
         //filter through all items in a collection
-        console.log(this.collection);
 
-        this.collection.each(function(post){
-            var postView = new Posts.Views.Post({ model:post });
-            this.$el.append(postView.render().el)
-        }, this)
-/*
-         this.$el.attr({"id":"post-data", "data-role":"listview", "data-inset":"true", "data-theme":"c", "data-filter":"true"});
-         this.$el.append(this.template());
-        
+        this.$el.attr({"id":"post-data", "data-role":"listview", "data-inset":"true", "data-theme":"c", "data-filter":"true"});
+        this.$el.append(this.template());
+        var _this = this;
         _.each(this.posts.models, function(post){
             var postView = new Posts.Views.Post({model:post})
             _this.$el.append(postView.$el);
 
         })
-  */
         this.template()
-        this.ready();
+//        this.ready();
 
     }
 
