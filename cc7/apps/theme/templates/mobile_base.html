@@ -39,15 +39,18 @@
         .left_nav {
             float:left;
             padding-left: 5%;
+            cursor: pointer;
         }
 
         .right_nav {
             float:right;
             padding-right: 5%;
+            cursor: pointer;
         }
 
         .center_nav {
             padding-left: 10%;
+            cursor: pointer;
         }
 
 
@@ -62,18 +65,39 @@
             color: #555555;
             background: #f3f3f3;
             /*border-left: 5px solid #EEEEEE;*/
-            margin-left: 40px;
+            margin-left: 15px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
 
         }
-        
-        .story:hover {
-            background: #f3f3f3;
-            cursor: pointer;
+
+        .new_post {
             color: #555555;
+            background: #f3f3f3;
+            /*border-left: 5px solid #EEEEEE;*/
+            padding-left: 15px;
+            padding-top: 20px;
+            padding-bottom: 15px;
+
         }
+
+        .story:hover {
+             background: #f3f3f3;
+             cursor: pointer;
+             color: #555555;
+         }
+
+        .story_detail {
+            color: #555555;
+            background: #f3f3f2;
+            /*border-left: 5px solid #EEEEEE;*/
+            margin-left: 15px;
+            margin-top: 20px;
+            padding-top: 2px;
+            padding-bottom: 15px;
+        }
+
 
         .date_comment {
             background-color: #fff;
@@ -87,7 +111,7 @@
             margin-bottom: 20px;
             margin-left: 40px;
             padding: 0 0 0 10px;
-            height: 50px;
+
         }
         
         .mugshot {
@@ -113,6 +137,27 @@
         }
         .small {
             font-size: 10px;
+            margin-left: 50px;
+        }
+
+        .comment_body {
+            margin-top: 20px;
+            margin-left: 46px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            background-color: Ivory;
+        }
+        .comment_body h3 {
+            padding-top: 20px;
+        }
+        .comment_body form {
+            padding-left: 50px;
+        }
+        #add_local {
+            cursor: pointer;
+        }
+        .current_location {
+            font-size: 11px;
         }
 
     </style>
@@ -127,7 +172,7 @@
         <header class="menu">
             <h4>
                 <span class="left_nav"><a href="/"><i class="icon-bullhorn icon-white"></i> </a>  c7 </span>
-                <span class="center_nav"> <i class="icon-share icon-white"></i><i class="icon-plus icon-white"></i> </span>
+               <span id="add_post" class="center_nav">  <a href="#add_post" ><i class="icon-share icon-white"></i><span class="small"> post </span> <i class="icon-plus icon-white"></i> </span></a>
                 <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="#">1</a>)  <i class="icon-user icon-white"></i> </span>
             </h4>
         </header>
@@ -164,31 +209,42 @@
     </script>
     <!-- template for list view -->
     <script id="singel_post_template" type="text/template">
-        <div class="story" data-role="content" data-theme="c">
-            <h4>
+        <div class="story_detail" data-role="content" data-theme="c">
+
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-                <a href="#detail_id?<%= id %>" > <%= title %> </a><br/>
+                <h1><%= title %> <br/>
                     <span class="small" >
-                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
-                    </span>
-            </h4>
+                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> Posted at: <%= date_created %></strong>
+                    </span></h1>
+
             <div class="postbody">
                 <%= body %>
             </div>
-            <div class="date_comment">
-                <span class="left_nav"> Posted at: <%= date_created %></span>
-                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
-            </div>
-            <div class="commentbody">
-                Comments:
-                <% _.each(comments, function(comment) { %>  <p><%= comment.body %></p> <% }); %>
-                
-            </div>
-            <form>
-                <input type="text">
-                <button>comment</button>
-            </form>
+            <div class="comment_body">
 
+                <h3>  Comments: (<%= comment_count %>)</h3>
+
+                <% _.each(comments, function(comment) { %>
+                        <img class="mugshot" src="<%= comment.author_mugshot %>" alt="Author"/>
+                        <p><strong><a href="/accounts/<%= comment.author_name %>/"></a> </strong> <%= comment.comment_body %></p>
+                        <span class="small" >Posted by <%= comment.author_name %> at <%= comment.comment_date %><hr/></span>
+                <% }); %>
+                <form>
+                    <input type="text" id="commentbody">
+                    <button class="newcomment">comment</button>
+                </form>
+            </div>
+        </div>
+    </script>
+     <script id="new_post_template" type="text/template">
+         <h3>New Post</h3>
+        <div class="new_post" data-role="content" data-theme="c">
+            <form>
+                <textarea id="new_post_boby"></textarea><br />
+                <i class="icon-map-marker"></i> <span class="label label-success" id="add_local"> add your location </span> <span class="current_location" id="your_location"> Current location: Internet</span><br /><br />
+                <button class="post_new">post</button>
+            </form>
+        </div>
         </div>
     </script>
 
