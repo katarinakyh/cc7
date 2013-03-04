@@ -1,7 +1,22 @@
+// Namespaceing
+(function() {
+
+    window.Apps = {
+        Models: {},
+        Collections: {},
+        Views: {},
+        Routers: {}
+    };
+
+})();
+
 
 // Models
-window.Post = Backbone.Tastypie.Model.extend({
+// change  window.Post to Apps.Models.Post - 1
+Apps.Models.Post  = Backbone.Tastypie.Model.extend({
     urlRoot: 'api/v1/post/',
+
+    // TODO validate the data for each model
     validate: function (attrs) {
         if (attrs.id < 0) {
             return "id cannot be less then 0"
@@ -21,17 +36,21 @@ window.Post = Backbone.Tastypie.Model.extend({
     }
 
 });
-window.Comment = Backbone.Tastypie.Model.extend({
+
+// change  window.Comment to Apps.Models.Comment - 2
+Apps.Models.Comment = Backbone.Tastypie.Model.extend({
     urlRoot: 'api/v1/comment/'
 });
 
-// Collection
-window.PostCollection = Backbone.Tastypie.Collection.extend({
+// Collections
+// change  window.PostCollection to Apps.Collections.PostCollection - 2
+Apps.Collections.PostCollection = Backbone.Tastypie.Collection.extend({
     model:Post,
     urlRoot: 'api/v1/post/'
 });
 
-window.CommentCollection = Backbone.Tastypie.Collection.extend({
+// change  window.CommentCollection to Apps.Collections.CommentCollection - 1
+Apps.Collections.CommentCollection = Backbone.Tastypie.Collection.extend({
     model:Comment,
     urlRoot: 'api/v1/comment/',
     inititalize : function(models, options){
@@ -41,7 +60,8 @@ window.CommentCollection = Backbone.Tastypie.Collection.extend({
 });
 
 // Views
-window.PostListView = Backbone.View.extend({
+// change  window.PostListView to Apps.Views.PostListView - 1
+Apps.Views.PostListView = Backbone.View.extend({
 
     tagName:'ul',
 
@@ -57,7 +77,8 @@ window.PostListView = Backbone.View.extend({
     }
 });
 
-window.PostListItemView = Backbone.View.extend({
+// change  window.PostListItemView to Apps.Views.PostListItemView - 1
+Apps.Views.PostListItemView = Backbone.View.extend({
     tagName:"li",
 
     template:_.template($('#post_list_template').html()),
@@ -69,8 +90,8 @@ window.PostListItemView = Backbone.View.extend({
 
 });
 
-
-window.PostView = Backbone.View.extend({
+// change  window.PostView to Apps.Views.PostView - 1
+Apps.Views.PostView = Backbone.View.extend({
 
     template:_.template($('#singel_post_template').html()),
     
@@ -91,7 +112,7 @@ window.PostView = Backbone.View.extend({
         var author = this.model.get('author')
         var author_id = author.id;
         var author_uri = '/mobile/api/v1/author/'+ author_id +'/';
-        var comment = new window.Comment();
+        var comment = new Apps.Models.Comment();
         // we save this right to the server
         comment.save({author:author_uri, body:comment_body, post:post_uri, event: event_id});
         this.render();
@@ -117,7 +138,8 @@ window.PostView = Backbone.View.extend({
 });
 
 // Router
-var AppRouter = Backbone.Router.extend({
+// change var AppRouter  to Apps.Routers.PostRouter - 1
+Apps.Routers.PostRouter = Backbone.Router.extend({
 
     routes:{
         "":"list",
@@ -125,7 +147,7 @@ var AppRouter = Backbone.Router.extend({
         "detail_id?:id":"PostDetails"
     },
     list:function () {
-        this.PostList = new window.PostCollection();
+        this.PostList = new Apps.Collections.PostCollection();
         this.PostListView = new window.PostListView({model:this.PostList});
         this.PostList.fetch({
                 data:{ 'limit':10 }
@@ -162,5 +184,5 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-var app = new AppRouter();
+var app = new Apps.Routers.PostRouter();
 Backbone.history.start();
