@@ -62,18 +62,28 @@
             color: #555555;
             background: #f3f3f3;
             /*border-left: 5px solid #EEEEEE;*/
-            margin-left: 40px;
+            margin-left: 15px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
 
         }
-        
         .story:hover {
-            background: #f3f3f3;
-            cursor: pointer;
+             background: #f3f3f3;
+             cursor: pointer;
+             color: #555555;
+         }
+
+        .story_detail {
             color: #555555;
+            background: #f3f3f2;
+            /*border-left: 5px solid #EEEEEE;*/
+            margin-left: 15px;
+            margin-top: 20px;
+            padding-top: 2px;
+            padding-bottom: 15px;
         }
+
 
         .date_comment {
             background-color: #fff;
@@ -87,7 +97,7 @@
             margin-bottom: 20px;
             margin-left: 40px;
             padding: 0 0 0 10px;
-            height: 50px;
+
         }
         
         .mugshot {
@@ -113,6 +123,21 @@
         }
         .small {
             font-size: 10px;
+            margin-left: 50px;
+        }
+
+        .comment_body {
+            margin-top: 20px;
+            margin-left: 46px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            background-color: Ivory;
+        }
+        .comment_body h3 {
+            padding-top: 20px;
+        }
+        .comment_body form {
+            padding-left: 50px;
         }
 
     </style>
@@ -164,30 +189,31 @@
     </script>
     <!-- template for list view -->
     <script id="singel_post_template" type="text/template">
-        <div class="story" data-role="content" data-theme="c">
-            <h4>
+        <div class="story_detail" data-role="content" data-theme="c">
+
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-                <a href="#detail_id?<%= id %>" > <%= title %> </a><br/>
+                <h1><%= title %> <br/>
                     <span class="small" >
-                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
-                    </span>
-            </h4>
+                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> Posted at: <%= date_created %></strong>
+                    </span></h1>
+
             <div class="postbody">
                 <%= body %>
             </div>
-            <div class="date_comment">
-                <span class="left_nav"> Posted at: <%= date_created %></span>
-                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
+            <div class="comment_body">
+
+                <h3>  Comments: (<%= comment_count %>)</h3>
+
+                <% _.each(comments, function(comment) { %>  <img class="mugshot" src="{{ MEDIA_URL }}<%= comment.author_mugshot %>" alt="Author"/>
+                                                            <p><strong><a href="/accounts/<%= comment.author_name %>/">
+                                                                 </a> - <%= comment.comment_body %></p>
+                                                                  <span class="small" >Posted by <%= comment.author_name %> at <%= comment.comment_date %><hr/></span><% }); %>
+                <form>
+                    <input type="text" id="commentbody">
+                    <button class="newcomment">comment</button>
+                </form>
             </div>
-            <div class="commentbody">
-                Comments:
-                <% _.each(comments, function(comment) { %>  <p><%= comment.body %></p> <% }); %>
-                
-            </div>
-            <form>
-                <input type="text">
-                <button>comment</button>
-            </form>
+
 
         </div>
     </script>

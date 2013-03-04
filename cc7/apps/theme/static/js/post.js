@@ -21,9 +21,11 @@ window.Post = Backbone.Tastypie.Model.extend({
     }
 
 });
-window.Comment = Backbone.Tastypie.Model.extend({});
+window.Comment = Backbone.Tastypie.Model.extend({
+    urlRoot: 'api/v1/comment/'
+});
 
-// Collectiona
+// Collection
 window.PostCollection = Backbone.Tastypie.Collection.extend({
     model:Post,
     urlRoot: 'api/v1/post/'
@@ -45,8 +47,6 @@ window.PostListView = Backbone.View.extend({
 
     initialize:function () {
         this.model.bind("reset", this.render, this);
-
-
     },
 
     render:function (eventName) {
@@ -63,7 +63,7 @@ window.PostListItemView = Backbone.View.extend({
     template:_.template($('#post_list_template').html()),
 
     render:function (eventName) {
-        $(this.el).html(this.template(this.model.toJSON()));
+        $(this.el).html(this.template( this.model.toJSON() ));
         return this;
     }
 
@@ -75,11 +75,30 @@ window.PostView = Backbone.View.extend({
     template:_.template($('#singel_post_template').html()),
     
     initialize : function(){
-        this.on('reset', this.getNotes, this)
-        console.log('initializing');
-        console.log(this.model);
+        this.on('reset', this.getNotes, this);
     },
-    
+
+    events: {
+        "click button.newcomment": "postcomment"
+    },
+
+    postcomment: function(){
+        console.log(this.model.toJSON());
+        var comment_body = $('#commentbody').val();
+        var post_uri = '/mobile/api/v1/post/'+ this.model.get('id') +'/';
+        var event_id = null
+        // this is not the right id fixing later
+        var author = this.model.get('author')
+        var author_id = author.id;
+        var author_uri = '/mobile/api/v1/author/'+ author_id +'/';
+        var comment = new window.Comment();
+        // we save this right to the server
+        comment.save({author:author_uri, body:comment_body, post:post_uri, event: event_id});
+        this.render();
+
+    },
+
+
     getNotes : function(){
         for(var i = 0; i < this.comments.length; i++){
             console.log(this.comments[i].body)
@@ -91,8 +110,7 @@ window.PostView = Backbone.View.extend({
     },
     
     render:function (model) {
-        console.log(this.model.toJSON());
-        $(this.el).html(this.template(this.model.toJSON()));
+        $(this.el).html(this.template( this.model.toJSON() ));
         return this;
     }
 
