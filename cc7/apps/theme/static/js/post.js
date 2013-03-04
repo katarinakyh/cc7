@@ -12,7 +12,8 @@
 
 
 // Models
-// change  window.Post to Apps.Models.Post - 1
+
+// the Post model is all the post of the stream
 Apps.Models.Post  = Backbone.Tastypie.Model.extend({
     urlRoot: 'api/v1/post/',
 
@@ -28,7 +29,7 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
     },
 
     initialize: function(){
-        this.comments = new CommentCollection([], {post:this});
+        this.comments = new Apps.Collections.CommentCollection([], {post:this});
     },
 
     addComment : function(text){
@@ -37,19 +38,20 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
 
 });
 
-// change  window.Comment to Apps.Models.Comment - 2
+// comments per post, not used at this moment
 Apps.Models.Comment = Backbone.Tastypie.Model.extend({
     urlRoot: 'api/v1/comment/'
 });
 
 // Collections
-// change  window.PostCollection to Apps.Collections.PostCollection - 2
+
+// the collection of posts of the stream
 Apps.Collections.PostCollection = Backbone.Tastypie.Collection.extend({
-    model:Post,
+    model:Apps.Models.Post,
     urlRoot: 'api/v1/post/'
 });
 
-// change  window.CommentCollection to Apps.Collections.CommentCollection - 1
+// comments collection per post, not used at this moment
 Apps.Collections.CommentCollection = Backbone.Tastypie.Collection.extend({
     model:Comment,
     urlRoot: 'api/v1/comment/',
@@ -60,7 +62,7 @@ Apps.Collections.CommentCollection = Backbone.Tastypie.Collection.extend({
 });
 
 // Views
-// change  window.PostListView to Apps.Views.PostListView - 1
+// the stream post view wapping postitems
 Apps.Views.PostListView = Backbone.View.extend({
 
     tagName:'ul',
@@ -71,13 +73,13 @@ Apps.Views.PostListView = Backbone.View.extend({
 
     render:function (eventName) {
         _.each(this.model.models, function (Post) {
-            $(this.el).append(new PostListItemView({model:Post}).render().el);
+            $(this.el).append(new Apps.Views.PostListItemView({model:Post}).render().el);
         }, this);
         return this;
     }
 });
 
-// change  window.PostListItemView to Apps.Views.PostListItemView - 1
+// view for individual post items call for each item in the post list
 Apps.Views.PostListItemView = Backbone.View.extend({
     tagName:"li",
 
@@ -90,7 +92,7 @@ Apps.Views.PostListItemView = Backbone.View.extend({
 
 });
 
-// change  window.PostView to Apps.Views.PostView - 1
+// same as above the stream post view wapping postitems - TODO check - the one in use
 Apps.Views.PostView = Backbone.View.extend({
 
     template:_.template($('#singel_post_template').html()),
@@ -148,7 +150,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
     list:function () {
         this.PostList = new Apps.Collections.PostCollection();
-        this.PostListView = new window.PostListView({model:this.PostList});
+        this.PostListView = new Apps.Views.PostListView({model:this.PostList});
         this.PostList.fetch({
                 data:{ 'limit':10 }
             //success: function(coll, resp) {
@@ -165,9 +167,9 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         if (limit > 100) {limit = 100};
         if (offset > 100) {offset = 100};
         if (from > to) {limit = 20; offset = 0}
-        this.PostList = new PostCollection();
+        this.PostList = new Apps.Collections.PostCollection();
         //console.log(this.PostList);
-        this.PostListView = new PostListView({model:this.PostList});
+        this.PostListView = new Apps.Views.PostListView({model:this.PostList});
         this.PostList.fetch({data:{
             'limit': limit,
             'offset':offset
@@ -178,7 +180,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
     PostDetails:function (id) {
         this.Post = this.PostList.get('/mobile/api/v1/post/'+ id +'/');
-        this.PostView = new PostView({model:this.Post});
+        this.PostView = new Apps.Views. PostView({model:this.Post});
         $('#post-data').html(this.PostView.render().el);
     }
 
