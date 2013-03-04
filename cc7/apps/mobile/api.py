@@ -36,7 +36,7 @@ class PostResource(ModelResource):
         queryset = Post.objects.all().order_by('-date_created')
         resource_name = 'post'
         list_allowed_methods = ['get']
-        
+        detail_allowed_methods = ['get']        
     
     def dehydrate(self, bundle):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
@@ -56,3 +56,5 @@ class CommentResource(ModelResource):
     class Meta:
         queryset = Comment.objects.all()
         resource_name = 'comment'
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get', 'put']        
