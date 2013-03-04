@@ -158,7 +158,7 @@
                 <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
             </div>
             <div>
-                <%= comments %>
+                <%= comments.body %>
             </div>
         </div>
     </script>
@@ -180,7 +180,14 @@
                 <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
             </div>
             <div class="commentbody">
+                Comments:
+                <% _.each(comments, function(comment) { %>  <p><%= comment.body %></p> <% }); %>
+                
             </div>
+            <form>
+                <input type="text">
+                <button>comment</button>
+            </form>
 
         </div>
     </script>
