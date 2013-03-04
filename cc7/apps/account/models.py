@@ -52,7 +52,7 @@ class Association(models.Model):
     description = models.TextField()
     MUGSHOT_SETTINGS = {'size': (userena_settings.USERENA_MUGSHOT_SIZE,
                                  userena_settings.USERENA_MUGSHOT_SIZE),
-                        'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}
+                         'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}
 
     mugshot = ThumbnailerImageField(_('mugshot'),
                                     blank=True,

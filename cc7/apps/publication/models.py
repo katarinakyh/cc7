@@ -24,7 +24,7 @@ class Comment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
     post = models.ForeignKey(Post, default=1, null=True,blank=True)
-    event = models.ForeignKey(Event, null=True, blank=True)
+    event = models.ForeignKey(Event,default=1, null=True, blank=True)
 
     def __unicode__(self):
         return u'Comment to %s' %self.post
