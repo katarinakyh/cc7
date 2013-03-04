@@ -1,19 +1,32 @@
 
 // Models
 window.Post = Backbone.Tastypie.Model.extend({
+    urlRoot: 'api/v1/post/',
+    validate: function (attrs) {
+        if (attrs.id < 0) {
+            return "id cannot be less then 0"
+        }
+        if (attrs.id === "") {
+            return "id cannot be blank"
+        }
+
+    },
+
     initialize: function(){
         this.comments = new CommentCollection([], {post:this});
     },
+
     addComment : function(text){
         this.comments.create({text: text});
-    }    
+    }
+
 });
 window.Comment = Backbone.Tastypie.Model.extend({});
 
-//Collections
+// Collectiona
 window.PostCollection = Backbone.Tastypie.Collection.extend({
     model:Post,
-    urlRoot: 'api/v1/comment/'
+    urlRoot: 'api/v1/post/'
 });
 
 window.CommentCollection = Backbone.Tastypie.Collection.extend({
@@ -32,6 +45,8 @@ window.PostListView = Backbone.View.extend({
 
     initialize:function () {
         this.model.bind("reset", this.render, this);
+
+
     },
 
     render:function (eventName) {
@@ -76,7 +91,7 @@ window.PostView = Backbone.View.extend({
     },
     
     render:function (model) {
-        //console.log(this.model.toJSON());
+        console.log(this.model.toJSON());
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
     }
@@ -87,22 +102,39 @@ window.PostView = Backbone.View.extend({
 var AppRouter = Backbone.Router.extend({
 
     routes:{
-        '':'list',
-        'detail_id?:id':'PostDetails'
+        "":"list",
+        "postrange/:from-:to":"range",
+        "detail_id?:id":"PostDetails"
     },
     list:function () {
         this.PostList = new window.PostCollection();
         this.PostListView = new window.PostListView({model:this.PostList});
-        this.PostList.fetch(/*{
-            success: function(coll, resp) {
-              console.log(coll);
-              console.log((coll.first()).id);
-              console.log(coll.last());
-            }
-        }*/);  
+        this.PostList.fetch({
+                data:{ 'limit':10 }
+            //success: function(coll, resp) {
+            //    console.log(coll);
+            //    console.log((coll.first()).id);
+            //     console.log(coll.last());
+        });
         $('#post-data').html(this.PostListView.render().el);
     },
 
+    range:function (from, to) {
+        var offset = from-1;
+        var limit = (to - from)+1;
+        if (limit > 100) {limit = 100};
+        if (offset > 100) {offset = 100};
+        if (from > to) {limit = 20; offset = 0}
+        this.PostList = new PostCollection();
+        //console.log(this.PostList);
+        this.PostListView = new PostListView({model:this.PostList});
+        this.PostList.fetch({data:{
+            'limit': limit,
+            'offset':offset
+        }
+        });
+        $('#post-data').html(this.PostListView.render().el);
+    },
 
     PostDetails:function (id) {
         this.Post = this.PostList.get('/mobile/api/v1/post/'+ id +'/');
@@ -114,5 +146,3 @@ var AppRouter = Backbone.Router.extend({
 
 var app = new AppRouter();
 Backbone.history.start();
-
-
