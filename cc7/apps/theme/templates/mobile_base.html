@@ -55,7 +55,7 @@
 
 
         .menu {
-            background: linear-gradient(#3C3C3C, #111111) repeat scroll 0 0 #111111;
+            background: #111111;
             border: 1px solid #333333;
             color: #FFFFFF;
             font-weight: bold;
@@ -92,7 +92,7 @@
             color: #555555;
             background: #f3f3f2;
             /*border-left: 5px solid #EEEEEE;*/
-            margin-left: 15px;
+            margin-left: 1px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
@@ -151,13 +151,17 @@
             padding-top: 20px;
         }
         .comment_body form {
-            padding-left: 50px;
+            padding-left: 5px;
         }
         #add_local {
             cursor: pointer;
         }
         .current_location {
             font-size: 11px;
+        }
+        ul, ol {
+            margin: 0 0 10px 20px;
+            padding: 0;
         }
 
     </style>
@@ -171,14 +175,13 @@
     <div data-role="page">
         <header class="menu">
             <h4>
-                <span class="left_nav"><a href="/"><i class="icon-bullhorn icon-white"></i> </a>  c7 </span>
+                <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
                <span id="add_post" class="center_nav">  <a href="#add_post" ><i class="icon-share icon-white"></i><span class="small"> post </span> <i class="icon-plus icon-white"></i> </span></a>
-                <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="#">1</a>)  <i class="icon-user icon-white"></i> </span>
+                <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)  <i class="icon-user icon-white"></i> </span>
             </h4>
         </header>
         <div data-role="content" data-theme="c">
             <ul id="post-data" data-role="listview" data-inset="true" data-theme="c" data-filter="true">
-
             </ul>
         </div>
         <footer class="menu" data-role="footer">
