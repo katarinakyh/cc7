@@ -144,8 +144,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
     events: {
         "click #add_local": "add_local",
-        "click button.post_new": "new_post",
-
+        "click button.post_new": "new_post"
     },
 
     add_local:function (eventName) {
