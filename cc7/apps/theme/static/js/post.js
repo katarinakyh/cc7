@@ -43,7 +43,6 @@ window.PostListView = Backbone.View.extend({
 });
 
 window.PostListItemView = Backbone.View.extend({
-
     tagName:"li",
 
     template:_.template($('#post_list_template').html()),
@@ -91,7 +90,6 @@ var AppRouter = Backbone.Router.extend({
         '':'list',
         'detail_id?:id':'PostDetails'
     },
-
     list:function () {
         this.PostList = new window.PostCollection();
         this.PostListView = new window.PostListView({model:this.PostList});
@@ -105,11 +103,13 @@ var AppRouter = Backbone.Router.extend({
         $('#post-data').html(this.PostListView.render().el);
     },
 
+
     PostDetails:function (id) {
         this.Post = this.PostList.get('/mobile/api/v1/post/'+ id +'/');
         this.PostView = new PostView({model:this.Post});
         $('#post-data').html(this.PostView.render().el);
     }
+
 });
 
 var app = new AppRouter();
