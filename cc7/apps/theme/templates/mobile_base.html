@@ -39,15 +39,18 @@
         .left_nav {
             float:left;
             padding-left: 5%;
+            cursor: pointer;
         }
 
         .right_nav {
             float:right;
             padding-right: 5%;
+            cursor: pointer;
         }
 
         .center_nav {
             padding-left: 10%;
+            cursor: pointer;
         }
 
 
@@ -68,6 +71,17 @@
             padding-bottom: 15px;
 
         }
+
+        .new_post {
+            color: #555555;
+            background: #f3f3f3;
+            /*border-left: 5px solid #EEEEEE;*/
+            padding-left: 15px;
+            padding-top: 20px;
+            padding-bottom: 15px;
+
+        }
+
         .story:hover {
              background: #f3f3f3;
              cursor: pointer;
@@ -139,6 +153,12 @@
         .comment_body form {
             padding-left: 50px;
         }
+        #add_local {
+            cursor: pointer;
+        }
+        .current_location {
+            font-size: 11px;
+        }
 
     </style>
 
@@ -152,7 +172,7 @@
         <header class="menu">
             <h4>
                 <span class="left_nav"><a href="/"><i class="icon-bullhorn icon-white"></i> </a>  c7 </span>
-                <span class="center_nav"> <i class="icon-share icon-white"></i><i class="icon-plus icon-white"></i> </span>
+               <span id="add_post" class="center_nav">  <a href="#add_post" ><i class="icon-share icon-white"></i><span class="small"> post </span> <i class="icon-plus icon-white"></i> </span></a>
                 <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="#">1</a>)  <i class="icon-user icon-white"></i> </span>
             </h4>
         </header>
@@ -213,8 +233,17 @@
                     <button class="newcomment">comment</button>
                 </form>
             </div>
-
-
+        </div>
+    </script>
+     <script id="new_post_template" type="text/template">
+         <h3>New Post</h3>
+        <div class="new_post" data-role="content" data-theme="c">
+            <form>
+                <textarea id="new_post_boby"></textarea><br />
+                <i class="icon-map-marker"></i> <span class="label label-success" id="add_local"> add your location </span> <span class="current_location" id="your_location"> Current location: Internet</span><br /><br />
+                <button class="post_new">post</button>
+            </form>
+        </div>
         </div>
     </script>
 

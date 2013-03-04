@@ -1,4 +1,4 @@
-// Namespaceing
+// Namespacing
 (function() {
 
     window.Apps = {
@@ -9,7 +9,6 @@
     };
 
 })();
-
 
 // Models
 
@@ -102,7 +101,7 @@ Apps.Views.PostView = Backbone.View.extend({
     },
 
     events: {
-        "click button.newcomment": "postcomment"
+        "click button.newcomment": "postcomment",
     },
 
     postcomment: function(){
@@ -121,7 +120,6 @@ Apps.Views.PostView = Backbone.View.extend({
 
     },
 
-
     getNotes : function(){
         for(var i = 0; i < this.comments.length; i++){
             console.log(this.comments[i].body)
@@ -131,7 +129,8 @@ Apps.Views.PostView = Backbone.View.extend({
             post.comments.fetch();
         })*/
     },
-    
+
+
     render:function (model) {
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
@@ -139,14 +138,41 @@ Apps.Views.PostView = Backbone.View.extend({
 
 });
 
+Apps.Views.NewPostView = Backbone.View.extend({
+
+    template:_.template($('#new_post_template').html()),
+
+    events: {
+        "click #add_local": "add_local",
+        "click button.post_new": "new_post",
+
+    },
+
+    add_local:function (eventName) {
+      console.log("your trying to change your location")
+    },
+
+    new_post:function (eventName) {
+        console.log("you are trying to post")
+    },
+
+
+    render:function (eventName) {
+        $(this.el).html(this.template);
+        return this;
+    }
+
+});
 // Router
-// change var AppRouter  to Apps.Routers.PostRouter - 1
+// Routers for stream range and detail view
 Apps.Routers.PostRouter = Backbone.Router.extend({
 
     routes:{
         "":"list",
         "postrange/:from-:to":"range",
-        "detail_id?:id":"PostDetails"
+        "detail_id?:id":"PostDetails",
+        "add_post":"AddPost"
+
     },
     list:function () {
         this.PostList = new Apps.Collections.PostCollection();
@@ -164,11 +190,12 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     range:function (from, to) {
         var offset = from-1;
         var limit = (to - from)+1;
+        // TODO move this validation to the model
         if (limit > 100) {limit = 100};
         if (offset > 100) {offset = 100};
         if (from > to) {limit = 20; offset = 0}
+
         this.PostList = new Apps.Collections.PostCollection();
-        //console.log(this.PostList);
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
         this.PostList.fetch({data:{
             'limit': limit,
@@ -180,8 +207,13 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
     PostDetails:function (id) {
         this.Post = this.PostList.get('/mobile/api/v1/post/'+ id +'/');
-        this.PostView = new Apps.Views. PostView({model:this.Post});
+        this.PostView = new Apps.Views.PostView({model:this.Post});
         $('#post-data').html(this.PostView.render().el);
+    },
+
+    AddPost: function() {
+        this.NewPostView = new Apps.Views.NewPostView();
+        $('#post-data').html(this.NewPostView.render().el);
     }
 
 });
