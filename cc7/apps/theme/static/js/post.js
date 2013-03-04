@@ -23,7 +23,7 @@ window.Post = Backbone.Tastypie.Model.extend({
 });
 window.Comment = Backbone.Tastypie.Model.extend({});
 
-// Collectiona
+// Collection
 window.PostCollection = Backbone.Tastypie.Collection.extend({
     model:Post,
     urlRoot: 'api/v1/post/'

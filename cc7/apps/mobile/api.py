@@ -41,7 +41,6 @@ class PostResource(ModelResource):
         queryset = Post.objects.all().order_by('-date_created')
         resource_name = 'post'
         list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
         paginator_class = Paginator
         allowed_methods = ['get']
     
@@ -57,8 +56,8 @@ class PostResource(ModelResource):
     
 class CommentResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
-    post = fields.ToOneField(PostResource, 'post', full=True)
-    event = fields.ToOneField(EventResource, 'event', full=True)
+    post = fields.ToOneField(PostResource, 'post', full=True, null=True)
+    event = fields.ToOneField(EventResource, 'event', full=True, null=True)
     
     class Meta:
         queryset = Comment.objects.all()
