@@ -155,7 +155,10 @@
             </div>
             <div class="date_comment">
                 <span class="left_nav"> Posted at: <%= date_created %></span>
-                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (1)</a></span>
+                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
+            </div>
+            <div>
+                <%= comments %>
             </div>
         </div>
     </script>
@@ -174,8 +177,11 @@
             </div>
             <div class="date_comment">
                 <span class="left_nav"> Posted at: <%= date_created %></span>
-                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (1)</a></span>
+                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
             </div>
+            <div class="commentbody">
+            </div>
+
         </div>
     </script>
 
