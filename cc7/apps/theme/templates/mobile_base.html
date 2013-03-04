@@ -220,13 +220,14 @@
 
                 <img class="mugshot" id="mugshot_detail" src="<%= mugshot %>" alt="Author"/>
                 <h3><%= title %> </h3>
-                    <span class="small" >
-                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> Posted at: <%= date_created %></strong>
-                    </span>
-
             <div class="postbody">
                 <%= body %>
             </div>
+            <div class="date_comment">
+                <span class="left_nav"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
+                <span class="right_nav"> Posted at: <%= date_created %></span>
+            </div>
+
             <div class="comment_body">
 
                 <h5><%= comment_count %> Comments</h5>
@@ -235,6 +236,7 @@
                                                             <p><a href="/accounts/<%= comment.author_name %>/">
                                                                  </a> - <%= comment.comment_body %></p>
                                                                   <span class="small" >Posted by <%= comment.author_name %> at <%= comment.comment_date %><hr/></span><% }); %>
+                <h6>Post a new Comment</h6>
                 <form>
                     <textarea id="commentbody"></textarea><br />
                     <button class="newcomment">comment</button>
