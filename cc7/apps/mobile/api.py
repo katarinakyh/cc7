@@ -47,15 +47,18 @@ class PostResource(ModelResource):
         paginator_class = Paginator
         allowed_methods = ['get']
 
+        print "mjau"
 
     def dehydrate(self, bundle):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
         mugshot = user.get_mugshot_url()
         bundle.data['mugshot'] = mugshot
-        
+
+
         comments = Comment.objects.filter(post = bundle.obj.pk)
         for c in comments:
             c.mugshot = c.author.mugshot
+
 
         i = 0
         commentsdict  = {  }
@@ -68,22 +71,25 @@ class PostResource(ModelResource):
             commentsdict[i]['author_id'] = c.author.id
             commentsdict[i]['author_name'] = c.author.user
             commentsdict[i]['author_mugshot'] = c.author.get_mugshot_url()
+
+
             i = i + 1
+
 
         bundle.data['comment_count'] = len(comments)
         bundle.data['comments'] = commentsdict
         return bundle
-    
+
 class CommentResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
-    post = fields.ToOneField(PostResource, 'post', full=True, null=True)
-    event = fields.ToOneField(EventResource, 'event', full=True, null=True)
-    
+    post = fields.ToOneField(PostResource, 'post', full=True)
+    event = fields.ToOneField(EventResource, 'event', full=True)
+
     class Meta:
         queryset = Comment.objects.all()
         resource_name = 'comment'
         allowed_methods = ['get', 'post']
         # insecure!: must be change to methods below when done testing
-        authorization = Authorization()
+        authorization= Authorization()
         #authentication = BasicAuthentication()
         #authorization = DjangoAuthorization()

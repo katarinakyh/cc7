@@ -198,7 +198,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
     routes:{
         "":"list",
-        "moreposts/:howmanymore/:update_num":"moreposts",
+        "moreposts/:howmanymore/:update_num":"more_posts",
         "postrange/:from-:to":"range",
         "detail_id?:id":"PostDetails",
         "add_post":"AddPost"
@@ -225,7 +225,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         new Apps.Views.Pagination({model:this.PageModel});
     },
 
-    moreposts:function (count, update_num) {
+    more_posts:function (count, update_num) {
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
         var limit = this.PageModel.get('limit');
         var count = this.PageModel.get('item_count');
