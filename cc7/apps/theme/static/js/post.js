@@ -213,6 +213,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     AddPost: function() {
         this.NewPostView = new Apps.Views.NewPostView();
         $('#post-data').html(this.NewPostView.render().el);
+        initmap();
     }
 
 });

@@ -47,7 +47,7 @@ urlpatterns = patterns('',
     url(r'^event/', include('apps.event.urls')),
 
     url(r'^association/', include('apps.account.urls')),
-    url(r'^map/', TemplateView.as_view(template_name='map/index2.html')),
+    url(r'^map/', TemplateView.as_view(template_name='map/index.html')),
 
 )
 

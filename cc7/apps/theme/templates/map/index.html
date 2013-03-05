@@ -11,6 +11,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJU7WLAtYAAwB4Q-4jYZ2uiktTvwt0aNU&sensor=false">
     </script>
     <script type="text/javascript">
+    
     var lat, long;
         
     function initialize() {
@@ -23,34 +24,29 @@
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
     
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title:"Hello World!"
-        });
-
+    
     }
 
     var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-var mapOptions = {
-  zoom: 4,
-  center: myLatlng,
-  mapTypeId: google.maps.MapTypeId.ROADMAP,
-}
-var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    var mapOptions = {
+        zoom: 4,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+    }
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        title:"Hello World!"
+    });
 
-var marker = new google.maps.Marker({
-    position: myLatlng,
-    title:"Hello World!"
-});
-
-// To add the marker to the map, call setMap();
-marker.setMap(map);
+    // To add the marker to the map, call setMap();
     
     
     
     
     var test = function(){
+        alert('in test')
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(
                 function(position){

@@ -35,9 +35,14 @@
 
       <script>
           $(function() {
-              if (screen.width <= 700) {
-                window.location = "/mobile/";
-              }   
+              var checkSize = function(){
+                if ($(window).width() <= 700) {
+                  window.location = "/mobile/";
+                }
+              }
+              
+              window.onresize = checkSize;
+              
               $('textarea').autosize();
 
               $( "#id_date_from").datepicker({

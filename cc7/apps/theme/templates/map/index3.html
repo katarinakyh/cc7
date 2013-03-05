@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJU7WLAtYAAwB4Q-4jYZ2uiktTvwt0aNU&sensor=false">
+    </script>
+        <script>  
+        jQuery(window).ready(function(){  
+            jQuery("#btnInit").click(initiate_geolocation);  
+        });  
+        function initiate_geolocation() {  
+            navigator.geolocation.getCurrentPosition(handle_geolocation_query);  
+        }  
+        function handle_geolocation_query(position){  
+            alert('Lat: ' + position.coords.latitude + ' ' +  
+                  'Lon: ' + position.coords.longitude);  
+        }  
+    </script>  
+  </head>  
+  <body>  
+    <div>  
+      <button id="btnInit" >Find my location</button>  
+    </div>
+  </body>
+</html>
