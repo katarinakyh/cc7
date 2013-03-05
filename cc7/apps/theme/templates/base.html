@@ -35,6 +35,9 @@
 
       <script>
           $(function() {
+              if (screen.width <= 700) {
+                window.location = "/mobile/";
+              }   
               $('textarea').autosize();
 
               $( "#id_date_from").datepicker({
