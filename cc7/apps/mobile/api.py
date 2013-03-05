@@ -39,7 +39,6 @@ class EventResource(ModelResource):
 
 class PostResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
-    comment = fields.ForeignKey('CommentResource', 'comment', related_name='Comment', full=True, null=True)
 
     class Meta:
         queryset = Post.objects.all().order_by('-date_created')
@@ -85,6 +84,6 @@ class CommentResource(ModelResource):
         resource_name = 'comment'
         allowed_methods = ['get', 'post']
         # insecure!: must be change to methods below when done testing
-        authorization= Authorization()
+        authorization = Authorization()
         #authentication = BasicAuthentication()
         #authorization = DjangoAuthorization()

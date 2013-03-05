@@ -176,7 +176,7 @@
                 <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
                <span id="add_post" class="center_nav">
                    <a href="#add_post" >
-                       <i class="icon-share icon-white"></i> post <i class="icon-plus icon-white"></i>
+                        post <i class="icon-plus icon-white"></i>
                    </a>
                </span>
                 <span class="right_nav">
@@ -186,7 +186,7 @@
             </h4>
         </header>
         <div data-role="content" data-theme="c">
-            <ul id="post-data" data-role="listview" data-inset="true" data-theme="c" data-filter="true">
+            <ul id="post-data">
             </ul>
         </div>
         <footer class="menu" data-role="footer">
@@ -198,7 +198,7 @@
         <div class="story" data-role="content" data-theme="c">
             <h4>
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-                <a href="#detail_id?<%= id %>" > <%= title %> </a><br/>
+                <a href="#detail_id?<%= id %>" > <%= title %> </a> (<%= id %>)<br/>
                     <span class="small" >
                         Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
                     </span>
@@ -212,14 +212,15 @@
             </div>
 
         </div>
-
     </script>
-    <!-- template for list view -->
-    <script id="singel_post_template" type="text/template">
+    <!-- template for pagination -->
+
+    <!-- template for single post -->
+    <script id="single_post_template" type="text/template">
         <div class="story_detail" data-role="content" data-theme="c">
 
                 <img class="mugshot" id="mugshot_detail" src="<%= mugshot %>" alt="Author"/>
-                <h3><%= title %> </h3>
+                <h4><%= title %> </h4>
             <div class="postbody">
                 <%= body %>
             </div>
