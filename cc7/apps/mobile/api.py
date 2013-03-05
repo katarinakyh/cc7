@@ -67,7 +67,7 @@ class PostResource(ModelResource):
             commentsdict[i]['author'] = c.author
             commentsdict[i]['author_id'] = c.author.id
             commentsdict[i]['author_name'] = c.author.user
-            commentsdict[i]['author_mugshot'] = c.author.mugshot
+            commentsdict[i]['author_mugshot'] = c.author.get_mugshot_url()
             i = i + 1
 
         bundle.data['comment_count'] = len(comments)
@@ -76,8 +76,8 @@ class PostResource(ModelResource):
     
 class CommentResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
-    post = fields.ToOneField(PostResource, 'post', full=True)
-    event = fields.ToOneField(EventResource, 'event', full=True)
+    post = fields.ToOneField(PostResource, 'post', full=True, null=True)
+    event = fields.ToOneField(EventResource, 'event', full=True, null=True)
     
     class Meta:
         queryset = Comment.objects.all()
