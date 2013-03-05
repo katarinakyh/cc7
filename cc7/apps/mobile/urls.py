@@ -11,6 +11,6 @@ v1.register(AuthorResource())
 
 urlpatterns = patterns('',
     url(r'^api/', include(v1.urls)),
-    url(r'^$', PostsView.as_view(), name='PostsView'),
+    url(r'^$', login_required(PostsView.as_view()), name='PostsView'),
 )
 
