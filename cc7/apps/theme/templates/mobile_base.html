@@ -52,7 +52,10 @@
             padding-left: 10%;
             cursor: pointer;
         }
-
+        .search_nav {
+            padding-left: 30%;
+            cursor: pointer;
+        }
 
         .menu {
             background: #111111;
@@ -121,20 +124,10 @@
             height: 30px;
             width: 30px;
         }
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin: 10px 0;
-            font-family: inherit;
-            font-weight: bold;
-            line-height: 20px;
-            color: inherit;
-            text-rendering: optimizelegibility;
-            font-size: 17.5px;
+        #mugshot_detail {
+            margin-top: 10px;
         }
+
         .small {
             font-size: 10px;
             margin-left: 50px;
@@ -145,7 +138,12 @@
             margin-left: 46px;
             padding-bottom: 20px;
             padding-left: 10px;
-            background-color: Ivory;
+            background-color: #f9f9f9;
+            border-style:solid;
+            border-left: solid #dedede;
+            border-bottom: none;
+            border-top: none;
+            border-right: none;
         }
         .comment_body h3 {
             padding-top: 20px;
@@ -176,8 +174,15 @@
         <header class="menu">
             <h4>
                 <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
-               <span id="add_post" class="center_nav">  <a href="#add_post" ><i class="icon-share icon-white"></i><span class="small"> post </span> <i class="icon-plus icon-white"></i> </span></a>
-                <span class="right_nav"> <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)  <i class="icon-user icon-white"></i> </span>
+               <span id="add_post" class="center_nav">
+                   <a href="#add_post" >
+                       <i class="icon-share icon-white"></i> post <i class="icon-plus icon-white"></i>
+                   </a>
+               </span>
+                <span class="right_nav">
+                    <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)
+                    <i class="icon-user icon-white"></i>
+                </span>
             </h4>
         </header>
         <div data-role="content" data-theme="c">
@@ -205,35 +210,36 @@
                 <span class="left_nav"> Posted at: <%= date_created %></span>
                 <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
             </div>
-            <div>
-                <%= comments.body %>
-            </div>
+
         </div>
+
     </script>
     <!-- template for list view -->
     <script id="singel_post_template" type="text/template">
         <div class="story_detail" data-role="content" data-theme="c">
 
-                <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-                <h1><%= title %> <br/>
-                    <span class="small" >
-                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> Posted at: <%= date_created %></strong>
-                    </span></h1>
-
+                <img class="mugshot" id="mugshot_detail" src="<%= mugshot %>" alt="Author"/>
+                <h3><%= title %> </h3>
             <div class="postbody">
                 <%= body %>
             </div>
+            <div class="date_comment">
+                <span class="left_nav"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
+                <span class="right_nav"> Posted at: <%= date_created %></span>
+            </div>
+
             <div class="comment_body">
 
-                <h3>  Comments: (<%= comment_count %>)</h3>
+                <h5><%= comment_count %> Comments</h5>
 
                 <% _.each(comments, function(comment) { %>
                         <img class="mugshot" src="<%= comment.author_mugshot %>" alt="Author"/>
                         <p><strong><a href="/accounts/<%= comment.author_name %>/"></a> </strong> <%= comment.comment_body %></p>
                         <span class="small" >Posted by <%= comment.author_name %> at <%= comment.comment_date %><hr/></span>
                 <% }); %>
+                <h6>Post a new Comment</h6>
                 <form>
-                    <input type="text" id="commentbody">
+                    <textarea id="commentbody"></textarea><br />
                     <button class="newcomment">comment</button>
                 </form>
             </div>
