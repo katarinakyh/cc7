@@ -40,10 +40,10 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
 Apps.Models.Pages = Backbone.Model.extend({
     defaults:
         {
-            'limit': 5,
-            'offset': 0,
-            'item_count': 5,
-            'update_num':1
+            'limit' : 5,
+            'offset' : 0,
+            'item_count' : 5,
+            'update_num' : 1
         }
 });
 
@@ -231,7 +231,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         var count = this.PageModel.get('item_count');
         var offset = this.PageModel.get('offset');
         var update = this.PageModel.get('offset');
-        update = update + parseInt(update_num);
+        update = update + 2;
         offset = offset + limit;
         this.PageModel.set('offset', offset);
         this.PageModel.set('update_num', update);
@@ -239,9 +239,13 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
         this.PostList.fetch({
                 data:
-                { 'limit': limit,
-                  'offset': offset
+
+                {
+                  'limit' : limit,
+                  'offset' : offset,
+                  'add' : true
                 }
+
          });
          $('#post-data').html(this.PostListView.render().el);
         new Apps.Views.Pagination({model:this.PageModel});
