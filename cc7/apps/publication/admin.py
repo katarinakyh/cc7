@@ -9,9 +9,7 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = ('pk', 'author', 'to', 'date_created',)
     
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'author', 'date_created',)
-
-
+    list_display = ('pk', 'title', 'body',  'author', 'date_created',)
 
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(Message, MessageAdmin)

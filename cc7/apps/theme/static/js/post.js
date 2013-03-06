@@ -28,7 +28,6 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
     },
 
     initialize: function(){
-        this.comments = new Apps.Collections.CommentCollection([], {post:this});
     },
 
     addComment : function(text){
@@ -63,24 +62,19 @@ Apps.Collections.PostCollection = Backbone.Tastypie.Collection.extend({
     urlRoot: 'api/v1/post/'
 });
 
-// comments collection per post, not used at this moment
-Apps.Collections.CommentCollection = Backbone.Tastypie.Collection.extend({
-    model:Comment,
-    urlRoot: 'api/v1/comment/',
-    inititalize : function(models, options){
-        this.post = options.post;
-    }
-
+Apps.Collections.AllLoadedPosts = Backbone.Collection.extend({
+    model:Apps.Models.Post
 });
 
 // Views
+//a collection of all loaded posts
+Apps.Views.AllLoadedPosts = Backbone.View.extend({
+})
+
 // the stream post view wapping postitems
 Apps.Views.PostListView = Backbone.View.extend({
 
     tagName:'ul',
-
-    template_html:
-        '<span class="btn" id="more_post">show more posts</span>',
 
     initialize:function () {
         this.model.bind("reset", this.render, this);
@@ -89,7 +83,7 @@ Apps.Views.PostListView = Backbone.View.extend({
     },
 
     events : {
-        'click .more_post':'more_posts'
+        'click .more_post': 'more_posts'
     },
     more_posts:function () {
         this.PostList = new Apps.Collections.PostCollection();
@@ -98,9 +92,13 @@ Apps.Views.PostListView = Backbone.View.extend({
             url: Apps.meta.next,
             success: function(coll){
                 Apps.meta = coll.meta;
-                i = 1;
+                i = 1; //allow scrolling again, code is in maps.js
             }
         });
+        Apps.allLoadedPosts.fetch({
+            url: Apps.meta.next,
+            add:true
+        }); //TODO is a double fetch necessary???
         $('#post-data').append(this.PostListView.render().el);
 
         //more_posts();
@@ -125,16 +123,11 @@ Apps.Views.PostListItemView = Backbone.View.extend({
     render:function (eventName) {
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
-    },
-
-    showmoreposts: function () {
-        console.log("mjau")
     }
-
 
 });
 
-// same as above the stream post view wappning post-items - TODO check - the one in use
+// same as above the stream post view wrappning single post-view
 Apps.Views.PostView = Backbone.View.extend({
 
     template:_.template($('#single_post_template').html()),
@@ -148,7 +141,6 @@ Apps.Views.PostView = Backbone.View.extend({
     },
 
     postcomment: function(){
-        console.log(this.model.toJSON());
         var comment_body = $('#commentbody').val();
         var post_uri = '/mobile/api/v1/post/'+ this.model.get('id') +'/';
         var event_id = null
@@ -166,10 +158,7 @@ Apps.Views.PostView = Backbone.View.extend({
         for(var i = 0; i < this.comments.length; i++){
             console.log(this.comments[i].body)
         }
-        /*this.each(function(post){
-            post.comments = new CommentCollection([], { post:post });
-            post.comments.fetch();
-        })*/
+
     },
 
 
@@ -221,6 +210,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
     list:function () {
         this.PostList = new Apps.Collections.PostCollection();
+        //Apps.allLoadedPosts = new Apps.Collections.PostCollection();
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
 
         this.PostList.fetch({
@@ -230,6 +220,8 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
                 }
         });
         $('#post-data').html(this.PostListView.render().el);
+        Apps.allLoadedPosts = this.PostList;
+        console.log(Apps.allLoadedPosts);
     },
     range:function (from, to) {
         var offset = from-1;
@@ -247,21 +239,26 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     PostDetails:function (id) {
-        console.log(this.PostList)
-        if(this.PostList != undefined){
 
-            this.DetailPost = this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
+        if(Apps.allLoadedPosts != undefined){
+            this.DetailPost = Apps.allLoadedPosts.get('/mobile/api/v1/post/'+ id +'/');
             this.PostView = new Apps.Views.PostView({model:this.DetailPost});
             $('#post-data').html(this.PostView.render().el);
         } else {
 
-            _this = this;
-            this.PostList = new Apps.Collections.PostCollection();
+            this.PostModel = new Apps.Models.Post()
+            //this.PostModel.fetch({url:'/mobile/api/v1/post/'+ id +'/'});
+            this.PostList = new Apps.Collections.PostCollection({model:this.PostModel});
+            console.log(this.PostList);
             this.PostListView = new Apps.Views.PostListView({model:this.PostList});
-            this.PostList.fetch().then(function(){
-                    this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
-                    this.PostView = new Apps.Views.PostView({model:this.DetailPost});
-                    $('#post-data').html(this.PostView.render().el);
+            this.PostModel.fetch({url:'/mobile/api/v1/post/'+ id +'/',
+                success:function(coll){
+                    console.log(coll)
+                }
+            }).then(function(){
+                //this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/');
+                this.PostView = new Apps.Views.PostView({model:this.PostModel});
+                $('#post-data').html(this.PostView.render().el);
             });
         }
     },
