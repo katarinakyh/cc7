@@ -120,7 +120,7 @@ Apps.Views.PostListItemView = Backbone.View.extend({
 
 });
 
-// same as above the stream post view wappning post-items - TODO check - the one in use
+// same as above the stream post view wrappning post-items - TODO check - the one in use
 Apps.Views.PostView = Backbone.View.extend({
 
     template:_.template($('#single_post_template').html()),
@@ -212,6 +212,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         this.PostList.fetch({
                 success : function(coll){
                     Apps.meta = coll.meta;
+                    console.log(Apps.meta.next);
                 }
         });
         $('#post-data').html(this.PostListView.render().el);
@@ -233,7 +234,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     PostDetails:function (id) {
-        console.log(this.PostList)
         if(this.PostList != undefined){
             this.DetailPost = this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
             this.PostView = new Apps.Views.PostView({model:this.DetailPost});
@@ -242,10 +242,17 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
             _this = this;
             this.PostList = new Apps.Collections.PostCollection();
             this.PostListView = new Apps.Views.PostListView({model:this.PostList});
-            this.PostList.fetch().then(function(){
+            this.PostList.fetch({
+                url: Apps.meta.next,
+                success : function(){
                     this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
+                    console.log(this.DetailPost);
                     this.PostView = new Apps.Views.PostView({model:this.DetailPost});
                     $('#post-data').html(this.PostView.render().el);
+            
+                }
+            }).then(function(){
+                alert('then');
             });
         }
     },
