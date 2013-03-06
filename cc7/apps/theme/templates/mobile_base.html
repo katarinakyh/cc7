@@ -10,6 +10,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+    <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript" ></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJU7WLAtYAAwB4Q-4jYZ2uiktTvwt0aNU&sensor=false">
+    </script>
+
+    <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap_mobile.css" />
 
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript" ></script>
@@ -43,12 +49,15 @@
             cursor: pointer;
         }
 
-        .right_nav {
+        .right_nav, .right_nav_details {
             float:right;
             padding-right: 5%;
             cursor: pointer;
         }
 
+        .right_nav_details {
+           font-weight: bold;
+        }
         .center_nav {
             padding-left: 10%;
             cursor: pointer;
@@ -65,49 +74,35 @@
             font-weight: bold;
             text-shadow: 0 -1px 0 #000000;
         }
-        .story {
+        .story, .story_detail, .new_post,  {
             color: #555555;
-            background: #f3f3f3;
             /*border-left: 5px solid #EEEEEE;*/
             margin-left: 15px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
-
         }
 
-        .new_post {
-            color: #555555;
-            background: #f3f3f3;
-            /*border-left: 5px solid #EEEEEE;*/
-            padding-left: 15px;
-            padding-top: 20px;
-            padding-bottom: 15px;
-
+        .comment_body {
+            margin-left: 15px;
         }
 
         .story:hover {
-             background: #f3f3f3;
-             cursor: pointer;
-             color: #555555;
-         }
-
-        .story_detail {
-            color: #555555;
-            background: #f3f3f2;
-            /*border-left: 5px solid #EEEEEE;*/
-            margin-left: 1px;
-            margin-top: 20px;
-            padding-top: 2px;
-            padding-bottom: 15px;
+            cursor: pointer;
         }
 
+        .left_date {
+            float:left;
+            padding-left: 44px;
+
+        }
 
         .date_comment {
-            background-color: #fff;
-            margin-left: 46px;
+            background: #f3f3f3;
+            margin-left: 4px;
+            margin-right: 4px;
             padding-bottom: 20px;
-            padding-left: 10px;
+            padding-left: 1px;
             font-size: 10px;
         }
 
@@ -118,29 +113,23 @@
 
         }
         
-        .mugshot {
+        .mugshot, #mugshot_detail {
             float: left;
             margin-right: 10px;
-            margin-left: 10px;
+            margin-left: 14px;
             height: 30px;
             width: 30px;
         }
+
         #mugshot_detail {
-            margin-top: 10px;
+            margin-right: 10px;
+            margin-left: 6px;
         }
 
         .small {
             font-size: 10px;
-            margin-left: 50px;
         }
 
-        .comment_body {
-            margin-top: 20px;
-            margin-left: 0px;
-            padding-bottom: 20px;
-            padding-left: 10px;
-            background-color: #f9f9f9;
-        }
         .comment_body h3 {
             padding-top: 20px;
         }
@@ -151,6 +140,11 @@
             width: 20px;
             height: 20px;
         }
+        .comment_text {
+            margin-bottom: 20px;
+            font-size: 10px;
+        }
+
         #add_local {
             cursor: pointer;
         }
@@ -161,6 +155,13 @@
             margin: 0 0 10px 8px;
             padding: 0;
         }
+        div.hr_narrow {
+            height: 2px;
+            background: #fff;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
 
     </style>
 
@@ -197,19 +198,23 @@
     <!-- template for list view -->
     <script id="post_list_template" type="text/template">
         <div class="story">
-            <h4>
+            <h6>
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
                 <a href="#detail_id?<%= id %>" > <%= title %> </a> (<%= id %>)<br/>
-                    <span class="small" >
+                    <span class="small">
                         Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
                     </span>
-            </h4>
+            </h6>
             <div class="postbody">
                 <%= body %>
             </div>
             <div class="date_comment">
-                <span class="left_nav"> Posted at: <%= date_created %></span>
-                <span class="right_nav"> <a href="#detail_id?<%= id %>">comment (<%= comment_count %>)</a></span>
+                <span class="left_date"> Posted at: <%= date_created %></span>
+                <span class="right_nav"> <a href="#detail_id?<%= id %>">Comment (<%= comment_count %>)</a></span>
+            </div>
+            <div class="hr_narrow"></div>
+            <div class="date_comment">
+                <span class="right_nav_details"> <a href="#detail_id?<%= id %>">Details ></a></span>
             </div>
 
         </div>
@@ -218,23 +223,27 @@
     <script id="single_post_template" type="text/template">
         <div class="story_detail">
                 <img class="mugshot" id="mugshot_detail" src="<%= mugshot %>" alt="Author"/>
-                <h4><%= title %> </h4>
+                <h6><%= title %> </h6>
             <div class="postbody">
                 <%= body %>
             </div>
             <div class="date_comment">
-                <span class="left_nav"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
+                <span class="left_date"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
                 <span class="right_nav"> Posted at: <%= date_created %></span>
             </div>
 
             <div class="comment_body">
-
-                <h5><%= comment_count %> Comments</h5>
-
+                <h6><%= comment_count %> Comments</h6>
                 <% _.each(comments, function(comment) { %>
-                        <img class="mugshot" src="<%= comment.author_mugshot %>" alt="Author"/>
-                        <p><strong><a href="/accounts/<%= comment.author_name %>/"></a> </strong> <%= comment.comment_body %></p>
-                        <span class="small" >Posted by <%= comment.author_name %> at <%= comment.comment_date %><hr/></span>
+            <div>
+                <div class>
+                    <span class="small"><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> </span> <span class="small nav_right" ><%= comment.comment_date %></span>
+                    <br/>
+                </div>
+                <div class="comment_text">
+                  <span> <%= comment.comment_body %> </span>
+                </div>
+            </div>
                 <% }); %>
                 <h6>Post a new Comment</h6>
                 <form>
@@ -249,21 +258,13 @@
         <div class="new_post">
             <form>
                 <textarea id="new_post_boby"></textarea><br />
-                <i class="icon-map-marker"></i>
-                <span class="label label-success" id="add_local"> add your location </span>
-                <span class="current_location" id="your_location"> Current location: Internet</span>
-                <br /><br />
+                <i class="icon-map-marker"></i> <span id="watchPositionBtn"> <span class="label label-success " id="add_local"> add your location </span></span> <span class="current_location" id="your_location"> Current location: Internet</span><br /><br />
                 <button class="post_new">post</button>
             </form>
         </div>
-        <div>
-            <button id="watchPositionBtn" >Watch Current Position</button>
-            <button id="stopWatchBtn" >Stop Watch Position</button>
-        </div>
         <div id="APIReturnValues"></div>
         <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
-     </script>
-    
+    </script>
 
     <script src="{{ STATIC_URL }}js/underscore.js"></script>
     <script src="{{ STATIC_URL }}js/backbone.js"></script>

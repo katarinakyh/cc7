@@ -40,10 +40,10 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
 Apps.Models.Pages = Backbone.Model.extend({
     defaults:
         {
-            'limit': 5,
-            'offset': 0,
-            'item_count': 5,
-            'update_num':1
+            'limit' : 5,
+            'offset' : 0,
+            'item_count' : 5,
+            'update_num' : 1
         }
 });
 
@@ -225,13 +225,13 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         new Apps.Views.Pagination({model:this.PageModel});
     },
 
-    moreposts:function (count, update_num) {
+    more_posts:function (count, update_num) {
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
         var limit = this.PageModel.get('limit');
         var count = this.PageModel.get('item_count');
         var offset = this.PageModel.get('offset');
         var update = this.PageModel.get('offset');
-        update = update + parseInt(update_num);
+        update = update + 2;
         offset = offset + limit;
         this.PageModel.set('offset', offset);
         this.PageModel.set('update_num', update);
@@ -239,9 +239,13 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
         this.PostList.fetch({
                 data:
-                { 'limit': limit,
-                  'offset': offset
+
+                {
+                  'limit' : limit,
+                  'offset' : offset,
+                  'add' : true
                 }
+
          });
          $('#post-data').html(this.PostListView.render().el);
         new Apps.Views.Pagination({model:this.PageModel});
@@ -274,7 +278,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
             this.PostList = new Apps.Collections.PostCollection();
             this.PostListView = new Apps.Views.PostListView({model:this.PostList});
             this.PostList.fetch().then(function(){
-                    this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
+                      this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
                     console.log(this.DetailPost);
                     this.PostView = new Apps.Views.PostView({model:this.DetailPost});
                     $('#post-data').html(this.PostView.render().el);

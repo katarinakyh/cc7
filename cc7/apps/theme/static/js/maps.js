@@ -2,8 +2,7 @@
         //jQuery(window).ready(function(){
         jQuery(window).ready(function(){
             gMapInit();
-            jQuery("#watchPositionBtn").click(initiate_watchlocation);
-            jQuery("#stopWatchBtn").click(stop_watchlocation);
+            jQuery("#watchPositionBtn").click(get_current_postion);
         });
     }
         function gMapInit(){
@@ -14,19 +13,14 @@
         }
         var watchProcess = null;
 
-        function initiate_watchlocation() {
+        function get_current_postion() {
           if (watchProcess == null) {
-              watchProcess = navigator.geolocation.watchPosition(handle_geolocation_query, handle_errors);
+              watchProcess = navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);
           }
         }
 
-        function stop_watchlocation() {
-          if (watchProcess != null)
-          {
-              navigator.geolocation.clearWatch(watchProcess);
-              watchProcess = null;
-          }
-        }
+
+
 
         function handle_errors(error)
         {
@@ -47,14 +41,9 @@
         }
 
         function handle_geolocation_query(position) {
-          var text = "position.coords.latitude: "  + position.coords.latitude  + "<br/>" +
-                     "position.coords.longitude: " + position.coords.longitude + "<br/>" +
-                     "position.coords.altitude: " + position.coords.altitude + "<br/>" +
-                     "position.coords.accuracy(meters): "  + position.coords.accuracy  + "<br/>" +
-                     "position.coords.altitudeAccuracy(meters): "  + position.coords.altitudeAccuracy  + "<br/>" +
-                      "position.coords.heading: "  + position.coords.heading  + "<br/>" +
-                      "position.coords.speed: "  + position.coords.speed  + "<br/>" +
-                     "position.timestamp: " + new Date(position.timestamp);
+          var text = "latitude: "  + position.coords.latitude  + "<br/>" +
+                     "longitude: " + position.coords.longitude + "<br/>" +
+                     "timestamp: " + new Date(position.timestamp);
           jQuery("#APIReturnValues").html(text);
           jQuery("#APIReturnValues").css("border","3px solid green");
 
