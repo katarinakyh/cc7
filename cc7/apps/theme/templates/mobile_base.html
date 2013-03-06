@@ -187,9 +187,7 @@
             </h4>
         </header>
 
-        <div>
-            <ul id="post-data">
-            </ul>
+        <div id="post-data">
         </div>
         <footer class="menu">
             <h4>C7 mobile footer</h4>
@@ -216,8 +214,9 @@
             <div class="date_comment">
                 <span class="right_nav_details"> <a href="#detail_id?<%= id %>">Details ></a></span>
             </div>
-
         </div>
+        <span class="btn more_post"></span>
+
     </script>
     <!-- template for list view -->
     <script id="single_post_template" type="text/template">
@@ -265,6 +264,8 @@
         <div id="APIReturnValues"></div>
         <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
     </script>
+    <script type="text/javascript">
+    </script>
 
     <script src="{{ STATIC_URL }}js/underscore.js"></script>
     <script src="{{ STATIC_URL }}js/backbone.js"></script>
@@ -279,6 +280,7 @@
 
 
     <script>
+    
     new Posts.Router;
     // start listen form # change events in the url
     Backbone.history.start();

@@ -73,24 +73,6 @@ Apps.Collections.CommentCollection = Backbone.Tastypie.Collection.extend({
 
 // Views
 
-Apps.Views.Pagination = Backbone.View.extend({
-
-    initialize:function () {
-        this.model.bind("reset", this.render, this);
-        this.render();
-    },
-
-    template_html:
-        '<a href="#moreposts/<%= item_count %>/<%= update_num %>"><span class="btn" id="more_post">show more posts</span></a>',
-
-    render:function (eventName) {
-        console.log(this.el)
-        this.template_page = _.template(this.template_html);
-        ($('#post-data').append(this.template_page( this.model.toJSON() )));
-    }
-
-
-});
 
 // the stream post view wapping postitems
 Apps.Views.PostListView = Backbone.View.extend({
@@ -101,11 +83,27 @@ Apps.Views.PostListView = Backbone.View.extend({
         this.model.bind("reset", this.render, this);
     },
 
+    events : {
+        'click .more_post':'more_posts',  
+    },
+    more_posts:function () {
+        this.PostList = new Apps.Collections.PostCollection();
+        this.PostListView = new Apps.Views.PostListView({model : this.PostList});
+        this.PostList.fetch({
+            url: Apps.meta.next,
+            success: function(coll){
+                Apps.meta = coll.meta;
+            }
+        });
+        $('#post-data').append(this.PostListView.render().el);
+        more_posts();
+    },
+
     render:function (eventName) {
-    _.each(this.model.models, function (Post) {
-        $(this.el).append(new Apps.Views.PostListItemView({model:Post}).render().el);
-    }, this);
-    return this;
+        _.each(this.model.models, function (Post) {
+            $(this.el).append(new Apps.Views.PostListItemView({model:Post}).render().el);
+        }, this);
+        return this;
     }
 });
 
@@ -114,7 +112,7 @@ Apps.Views.PostListItemView = Backbone.View.extend({
     tagName:"li",
 
     template:_.template($('#post_list_template').html()),
-
+    
     render:function (eventName) {
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
@@ -175,9 +173,8 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
     events: {
         "click #add_local": "add_local",
-        "click button.post_new": "new_post"
+        "click button.post_new": "new_post",
     },
-
     add_local:function (eventName) {
       console.log("your trying to change your location")
     },
@@ -199,7 +196,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
     routes:{
         "" : "list",
-        "moreposts/:howmanymore/:update_num" : "moreposts",
         "postrange/:from-:to" : "range",
         "detail_id?:id" : "PostDetails",
         "add_post" : "AddPost"
@@ -213,45 +209,14 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         this.PostList = new Apps.Collections.PostCollection();
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
 
-        var limit = this.PageModel.get('limit');
         this.PostList.fetch({
-                data:{ 'limit': limit }
-            //success: function(coll, resp) {
-            //    console.log(coll);
-            //    console.log((coll.first()).id);
-            //     console.log(coll.last());
+                success : function(coll){
+                    Apps.meta = coll.meta;
+                }
         });
         $('#post-data').html(this.PostListView.render().el);
-        new Apps.Views.Pagination({model:this.PageModel});
     },
-
-    more_posts:function (count, update_num) {
-        this.PostListView = new Apps.Views.PostListView({model:this.PostList});
-        var limit = this.PageModel.get('limit');
-        var count = this.PageModel.get('item_count');
-        var offset = this.PageModel.get('offset');
-        var update = this.PageModel.get('offset');
-        update = update + 2;
-        offset = offset + limit;
-        this.PageModel.set('offset', offset);
-        this.PageModel.set('update_num', update);
-        this.PageModel.set('limit', limit);
-
-        this.PostList.fetch({
-                data:
-
-                {
-                  'limit' : limit,
-                  'offset' : offset,
-                  'add' : true
-                }
-
-         });
-         $('#post-data').html(this.PostListView.render().el);
-        new Apps.Views.Pagination({model:this.PageModel});
-    },
-
-
+    
     range:function (from, to) {
         var offset = from-1;
         var limit = (to - from)+1;
@@ -278,8 +243,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
             this.PostList = new Apps.Collections.PostCollection();
             this.PostListView = new Apps.Views.PostListView({model:this.PostList});
             this.PostList.fetch().then(function(){
-                      this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
-                    console.log(this.DetailPost);
+                    this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
                     this.PostView = new Apps.Views.PostView({model:this.DetailPost});
                     $('#post-data').html(this.PostView.render().el);
             });
