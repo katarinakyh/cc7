@@ -51,6 +51,7 @@
             cursor: pointer;
         }
 
+
         .right_nav, .right_nav_details {
             float:right;
             padding-right: 5%;
@@ -62,7 +63,11 @@
         }
 
         .center_nav {
-            padding-left: 10%;
+            padding-left:8%;
+            cursor: pointer;
+        }
+        .drop_nav {
+            padding-left:  12%;
             cursor: pointer;
         }
 
@@ -195,33 +200,33 @@
                    <a href="#add_post" >
                        <div class="label label-info" > post </div> <i class="icon-plus icon-white"></i>
                    </a>
-
-
-    <div class="btn-group">
-        <button class="btn btn-mini">All posts</button>
-        <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">Events</a>
-            </li>
-            <li class="divider">Associations</li>
-            <li>
-                <a href="#">Hemliga</a>
-            </li>
-            <li>
-                <a href="#">Kråkan</a>
-            </li>
-            <li>
-                <a href="#">Sparvnästet</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">Me</a>
-            </li>
-        </ul>
-    </div>
+                   </span>
+               <span class="drop_nav">
+                <div class="btn-group">
+                    <button class="btn btn-mini">All posts</button>
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">Events</a>
+                        </li>
+                        <li class="divider">Associations</li>
+                        <li>
+                            <a href="#">Hemliga</a>
+                        </li>
+                        <li>
+                            <a href="#">Kråkan</a>
+                        </li>
+                        <li>
+                            <a href="#">Sparvnästet</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">Me</a>
+                        </li>
+                    </ul>
+                </div>
                </span>
                 <span class="right_nav">
                     <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)
