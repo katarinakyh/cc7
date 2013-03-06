@@ -100,18 +100,22 @@ Apps.Views.PostListView = Backbone.View.extend({
 
     template_html:
         '<span class="btn" id="more_post">show more posts</span>',
+
     initialize:function () {
         this.model.bind("reset", this.render, this);
+        _.bindAll(this, "render");
+        this.render();
     },
 
     render:function (eventName) {
         _.each(this.model.models, function (Post) {
             $(this.el).append(new Apps.Views.PostListItemView({model:Post}).render().el);
         }, this);
-        this.template_page = _.template(this.template_html);
-        ($('#post-data').append(this.template_page()));
+        this.infiniScroll = new Backbone.InfiniScroll(this.collection, {success: this.appendRender});
         return this;
     }
+
+
 });
 
 // view for individual post items call for each item in the post list
@@ -132,6 +136,7 @@ Apps.Views.PostListItemView = Backbone.View.extend({
     showmoreposts: function () {
         console.log("mjau")
     }
+
 
 });
 
