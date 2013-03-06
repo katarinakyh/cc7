@@ -76,7 +76,7 @@
             text-shadow: 0 -1px 0 #000000;
         }
 
-        .story, .story_detail, .new_post,  {
+        .story, .story_detail, .new_post, .post_content  {
             color: #555555;
             /*border-left: 5px solid #EEEEEE;*/
             margin-left: 15px;
@@ -188,7 +188,7 @@
                 <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
                <span id="add_post" class="center_nav">
                    <a href="#add_post" >
-                       <div class="label label-success" > post </div> <i class="icon-plus icon-white"></i>
+                       <div class="label label-info" > post </div> <i class="icon-plus icon-white"></i>
                    </a>
                </span>
                 <span class="right_nav">
@@ -261,13 +261,15 @@
         </div>
     </script>
      <script id="new_post_template" type="text/template">
-     <div class="post">
-         <h3>New Post</h3>
+     <div class="post_content">
+         <h6>New Post</h6>
         <div class="new_post">
             <form>
+                <label>Add post</label>
                 <textarea id="new_post_boby"></textarea><br />
-                <i class="icon-map-marker"></i> <span id="watchPositionBtn"> <span class="label label-success " id="add_local"> add your location </span></span> <span class="current_location" id="your_location"> Current location: Internet</span><br /><br />
-                <button class="post_new">post</button>
+                <div>Add a photo <span class="label label-success " id="add_pict">Add</span></div><br/>
+                <i class="icon-map-marker"></i> <span id="watchPositionBtn"> <span class="label label-success " id="add_local"> add your location </span></span> <span class="current_location" id="your_location"> Non location attached </span><br /><br />
+                <button class="btn">post</button>
             </form>
         </div>
         <div id="APIReturnValues"></div>

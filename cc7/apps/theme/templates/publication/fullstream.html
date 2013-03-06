@@ -7,15 +7,15 @@
         <div style="border:solid 1px #ccc; background: #f9f9f9;">
             <h4>
                 <div class="event">
-                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title }}  </a> /
+                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title|escape }}  </a> /
                     <i class="icon-time"></i> {{ post.date_from }}
-                    <i class="icon-map-marker"></i> {{ post.place }} /
+                    <i class="icon-map-marker"></i> {{ post.place|escape }} /
                     <br/>
                     <span class="small">
-                        {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser }}</a>
+                        {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser|escape }}</a>
                     </span>
                     <p class="eventdescription">
-                        <em>"{{ post.description|safe|truncatewords:10}}"</em>
+                        <em>"{{ post.description|safe|escape|truncatewords:10}}"</em>
                     </p>
                 </div>
             </h4>
@@ -29,7 +29,7 @@
         {% if post.body %}
             <h4>
                 <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title }} {% else %} >> {% endif %}</a><br/>
+                <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a><br/>
                 <span class="small">
                 {% if post.author %} {{ post.date_created }}
                     {% trans "Posted by" %}:<strong><a href="{% url my_page post.author.user %}"> {{ post.author }} </a></strong>
@@ -38,8 +38,8 @@
                 </span>
             </h4>
 
-{%comment%}            <div class="postbody"> {{ post.body|linebreaks|truncatewords:60}} </div> {%endcomment%}
-                <div class="postbody">{{ post.body|oembed:"508x255" }} </div>
+{%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}} </div> {%endcomment%}
+                <div class="postbody">{{ post.body|escape|oembed:"508x255" }} </div>
 
             <ul class="commentfield">
                 {% include "publication/comment.html" %}

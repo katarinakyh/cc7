@@ -1,12 +1,13 @@
 from django.db import models
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
+from django.core.validators import MaxLengthValidator
 
 
 class Post(models.Model):
     author = models.ForeignKey(MyProfile, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    body = models.TextField()
+    body = models.TextField(validators=[MaxLengthValidator(10000)])
     title = models.CharField(max_length=50, null=True, blank=True)
     event = models.ForeignKey(Event, null=True, blank=True)
     association = models.ForeignKey(Association, null=True, blank=True)
@@ -22,7 +23,7 @@ class Post(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(MyProfile)
     date_created = models.DateTimeField(auto_now_add=True)
-    body = models.TextField()
+    body = models.TextField(validators=[MaxLengthValidator(5000)])
     post = models.ForeignKey(Post, default=1, null=True,blank=True)
     event = models.ForeignKey(Event,default=1, null=True, blank=True)
 
@@ -36,7 +37,7 @@ class Comment(models.Model):
 class Message(models.Model):
     author = models.ForeignKey(MyProfile, related_name="author")
     date_created = models.DateTimeField(auto_now_add=True)
-    body = models.TextField()
+    body = models.TextField(validators=[MaxLengthValidator(5000)])
     title = models.CharField(max_length=50)
     to = models.ForeignKey(MyProfile)
     thread = models.IntegerField()
@@ -47,4 +48,7 @@ class Message(models.Model):
 
     def get_recipient(self):
         pass
+
+
+
 
