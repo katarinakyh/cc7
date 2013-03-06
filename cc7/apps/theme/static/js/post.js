@@ -40,10 +40,12 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
 Apps.Models.Pages = Backbone.Model.extend({
     defaults:
         {
-            'limit' : 5,
+            'limit' : 10,
             'offset' : 0,
-            'item_count' : 5,
-            'update_num' : 1
+            'item_count' : 10,
+            'update_num' : 1,
+            'next':'',
+            'previous':''
         }
 });
 
@@ -81,14 +83,13 @@ Apps.Views.Pagination = Backbone.View.extend({
     },
 
     template_html:
-        '<a href="#moreposts/<%= item_count %>/<%= update_num %>"><span class="btn" id="more_post">show more posts</span></a>',
+        '<span class="btn" id="more_post">show more posts</span>',
 
     render:function (eventName) {
         console.log(this.el)
         this.template_page = _.template(this.template_html);
-        ($('#post-data').append(this.template_page( this.model.toJSON() )));
+        ($('#post-data').append(this.template_page()));
     }
-
 
 });
 
@@ -97,15 +98,19 @@ Apps.Views.PostListView = Backbone.View.extend({
 
     tagName:'ul',
 
+    template_html:
+        '<span class="btn" id="more_post">show more posts</span>',
     initialize:function () {
         this.model.bind("reset", this.render, this);
     },
 
     render:function (eventName) {
-    _.each(this.model.models, function (Post) {
-        $(this.el).append(new Apps.Views.PostListItemView({model:Post}).render().el);
-    }, this);
-    return this;
+        _.each(this.model.models, function (Post) {
+            $(this.el).append(new Apps.Views.PostListItemView({model:Post}).render().el);
+        }, this);
+        this.template_page = _.template(this.template_html);
+        ($('#post-data').append(this.template_page()));
+        return this;
     }
 });
 
@@ -115,9 +120,17 @@ Apps.Views.PostListItemView = Backbone.View.extend({
 
     template:_.template($('#post_list_template').html()),
 
+    events: {
+        'click #morepost': 'showmoreposts'
+    },
+
     render:function (eventName) {
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
+    },
+
+    showmoreposts: function () {
+        console.log("mjau")
     }
 
 });
@@ -198,7 +211,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
 
     routes:{
         "":"list",
-        "moreposts/:howmanymore/:update_num":"more_posts",
+        "moreposts":"more_posts",
         "postrange/:from-:to":"range",
         "detail_id?:id":"PostDetails",
         "add_post":"AddPost"
@@ -212,42 +225,15 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         console.log("list");
         this.PostList = new Apps.Collections.PostCollection();
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
-
+        var offset = this.PageModel.get('offset');
         var limit = this.PageModel.get('limit');
         this.PostList.fetch({
-                data:{ 'limit': limit }
-            //success: function(coll, resp) {
-            //    console.log(coll);
-            //    console.log((coll.first()).id);
-            //     console.log(coll.last());
+            //url: 'api/v1/post/?limit='+limit+'&offset='+offset+'&add=true'
+            success: function(coll, resp) {
+                Apps.meta = coll.meta;
+            }
         });
         $('#post-data').html(this.PostListView.render().el);
-        new Apps.Views.Pagination({model:this.PageModel});
-    },
-
-    more_posts:function (count, update_num) {
-        this.PostListView = new Apps.Views.PostListView({model:this.PostList});
-        var limit = this.PageModel.get('limit');
-        var count = this.PageModel.get('item_count');
-        var offset = this.PageModel.get('offset');
-        var update = this.PageModel.get('offset');
-        update = update + 2;
-        offset = offset + limit;
-        this.PageModel.set('offset', offset);
-        this.PageModel.set('update_num', update);
-        this.PageModel.set('limit', limit);
-
-        this.PostList.fetch({
-                data:
-
-                {
-                  'limit' : limit,
-                  'offset' : offset,
-                  'add' : true
-                }
-
-         });
-         $('#post-data').html(this.PostListView.render().el);
         new Apps.Views.Pagination({model:this.PageModel});
     },
 
