@@ -20,8 +20,6 @@
         }
 
 
-
-
         function handle_errors(error)
         {
             switch(error.code)

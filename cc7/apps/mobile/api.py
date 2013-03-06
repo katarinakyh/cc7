@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from userena.models import UserenaBaseProfile, upload_to_mugshot
 from tastypie import fields
 from tastypie.paginator import Paginator
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.authorization import Authorization
 from tastypie.authorization import DjangoAuthorization
 from tastypie.authentication import BasicAuthentication
@@ -19,7 +19,10 @@ class UserResource(ModelResource):
         include_resource_uri = False
         excludes = 'password, is_staff, is_superuser, last_login, date_joined, email, is_active, last_name'
         allowed_methods = ['get']
-
+        filtering = {
+            'user' : ALL_WITH_RELATIONS,
+            'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+            }
 
 
 class AuthorResource(ModelResource):
@@ -30,6 +33,10 @@ class AuthorResource(ModelResource):
         include_resource_uri = False
         excludes = 'password, is_staff, is_superuser, last_login, date_joined, email, is_active, last_name'
         allowed_methods = ['get']
+        filtering = {
+            'user' : ALL_WITH_RELATIONS,
+            'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+            }
 
 
 class EventResource(ModelResource):
@@ -52,7 +59,11 @@ class PostResource(ModelResource):
         list_allowed_methods = ['get']
         paginator_class = Paginator
         allowed_methods = ['get']
-
+        filtering = {
+            'body': ALL,
+            'author' : ALL_WITH_RELATIONS,
+            'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+        }
 
     def dehydrate(self, bundle):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
@@ -76,8 +87,6 @@ class PostResource(ModelResource):
             commentsdict[i]['author_id'] = c.author.id
             commentsdict[i]['author_name'] = c.author.user
             commentsdict[i]['author_mugshot'] = c.author.get_mugshot_url()
-
-
             i = i + 1
 
 

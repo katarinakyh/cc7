@@ -40,7 +40,6 @@
 
         li {
             list-style-type: none;
-            margin-left: -30px;
         }
 
         .left_nav {
@@ -58,10 +57,12 @@
         .right_nav_details {
            font-weight: bold;
         }
+
         .center_nav {
             padding-left: 10%;
             cursor: pointer;
         }
+
         .search_nav {
             padding-left: 30%;
             cursor: pointer;
@@ -74,6 +75,7 @@
             font-weight: bold;
             text-shadow: 0 -1px 0 #000000;
         }
+
         .story, .story_detail, .new_post,  {
             color: #555555;
             /*border-left: 5px solid #EEEEEE;*/
@@ -96,6 +98,11 @@
             padding-left: 44px;
 
         }
+        .right_date {
+            float:right;
+            padding-right: 44px;
+            font-size: 10px;
+        }
 
         .date_comment {
             background: #f3f3f3;
@@ -113,7 +120,7 @@
 
         }
         
-        .mugshot, #mugshot_detail {
+        .mugshot {
             float: left;
             margin-right: 10px;
             margin-left: 14px;
@@ -122,8 +129,8 @@
         }
 
         #mugshot_detail {
-            margin-right: 10px;
-            margin-left: 6px;
+            height: 20px;
+            width: 20px;
         }
 
         .small {
@@ -133,13 +140,16 @@
         .comment_body h3 {
             padding-top: 20px;
         }
+
         .comment_body form {
             padding-left: 5px;
         }
+
         .comment_body img {
             width: 20px;
             height: 20px;
         }
+
         .comment_text {
             margin-bottom: 20px;
             font-size: 10px;
@@ -148,21 +158,22 @@
         #add_local {
             cursor: pointer;
         }
+
         .current_location {
             font-size: 11px;
         }
+
         ul, ol {
-            margin: 0 0 10px 8px;
+            margin: 0 0 0px 0px;
             padding: 0;
         }
+
         div.hr_narrow {
             height: 2px;
             background: #fff;
             margin-left: 4px;
             margin-right: 4px;
         }
-
-
     </style>
 
     {% block extra_head %}{% endblock %}
@@ -177,7 +188,7 @@
                 <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
                <span id="add_post" class="center_nav">
                    <a href="#add_post" >
-                        post <i class="icon-plus icon-white"></i>
+                       <div class="label label-success" > post </div> <i class="icon-plus icon-white"></i>
                    </a>
                </span>
                 <span class="right_nav">
@@ -189,16 +200,13 @@
 
         <div id="post-data">
         </div>
-        <footer class="menu">
-            <h4>C7 mobile footer</h4>
-        </footer>
     </div>
     <!-- template for list view -->
     <script id="post_list_template" type="text/template">
         <div class="story">
             <h6>
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-                <a href="#detail_id?<%= id %>" > <%= title %> </a> (<%= id %>)<br/>
+                <a href="#detail_id?<%= id %>" > <%= title %> <span class="right_nav"> [<%= id %>]</span></a>
                     <span class="small">
                         Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
                     </span>
@@ -215,16 +223,16 @@
                 <span class="right_nav_details"> <a href="#detail_id?<%= id %>">Details ></a></span>
             </div>
         </div>
-        <span class="btn more_post"></span>
+        <span class="btn more_post" style="display:none;"></span>
 
     </script>
     <!-- template for list view -->
     <script id="single_post_template" type="text/template">
         <div class="story_detail">
-                <img class="mugshot" id="mugshot_detail" src="<%= mugshot %>" alt="Author"/>
+                <img class="mugshot"  src="<%= mugshot %>" alt="Author"/>
                 <h6><%= title %> </h6>
             <div class="postbody">
-                <%= body %>
+               - <%= body %>
             </div>
             <div class="date_comment">
                 <span class="left_date"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
@@ -236,11 +244,11 @@
                 <% _.each(comments, function(comment) { %>
             <div>
                 <div class>
-                    <span class="small"><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> </span> <span class="small nav_right" ><%= comment.comment_date %></span>
+                    <span class="small"><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
                     <br/>
                 </div>
                 <div class="comment_text">
-                  <span> <%= comment.comment_body %> </span>
+                  <span> <img id="mugshot_detail" src="<%= comment.author_mugshot %>" alt="Author"/> - <%= comment.comment_body %> </span>
                 </div>
             </div>
                 <% }); %>
@@ -253,6 +261,7 @@
         </div>
     </script>
      <script id="new_post_template" type="text/template">
+     <div class="post">
          <h3>New Post</h3>
         <div class="new_post">
             <form>
@@ -263,6 +272,7 @@
         </div>
         <div id="APIReturnValues"></div>
         <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
+     </div>
     </script>
     <script type="text/javascript">
     </script>
