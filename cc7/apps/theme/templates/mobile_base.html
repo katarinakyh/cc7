@@ -87,7 +87,7 @@
         .story, .story_detail, .new_post, .post_content  {
             color: #555555;
             /*border-left: 5px solid #EEEEEE;*/
-            margin-left: 15px;
+            margin-left: 4px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
@@ -124,6 +124,7 @@
         .postbody {
             margin-bottom: 20px;
             margin-left: 40px;
+            margin-right: 10px;
             padding: 0 0 0 10px;
 
         }
@@ -245,7 +246,7 @@
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
                 <a href="#detail_id?<%= id %>" > <%= title %> <span class="right_nav"> [<%= id %>]</span></a>
                     <span class="small">
-                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
+
                     </span>
             </h6>
             <div class="postbody">
@@ -257,6 +258,7 @@
             </div>
             <div class="hr_narrow"></div>
             <div class="date_comment">
+                <span class="left_date"> Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong></span>
                 <span class="right_nav_details"> <a href="#detail_id?<%= id %>">Details ></a></span>
             </div>
         </div>
@@ -281,7 +283,7 @@
                 <% _.each(comments, function(comment) { %>
             <div>
                 <div class>
-                    <span class="small"><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
+                    <span class="small"><a href="/accounts/<%= comment.author_name %>/"><%= comment.author_name %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
                     <br/>
                 </div>
                 <div class="comment_text">
