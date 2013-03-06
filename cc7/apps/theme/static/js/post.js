@@ -128,7 +128,7 @@ Apps.Views.PostView = Backbone.View.extend({
     template:_.template($('#single_post_template').html()),
     
     initialize : function(){
-        this.on('reset', this.getNotes, this);
+        //this.on('reset', this.getNotes, this);
     },
 
     events: {
@@ -162,6 +162,7 @@ Apps.Views.PostView = Backbone.View.extend({
 
 
     render:function (model) {
+        console.log(this.model);
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
     }
@@ -197,11 +198,11 @@ Apps.Views.NewPostView = Backbone.View.extend({
 Apps.Routers.PostRouter = Backbone.Router.extend({
 
     routes:{
-        "":"list",
-        "moreposts/:howmanymore/:update_num":"moreposts",
-        "postrange/:from-:to":"range",
-        "detail_id?:id":"PostDetails",
-        "add_post":"AddPost"
+        "" : "list",
+        "moreposts/:howmanymore/:update_num" : "moreposts",
+        "postrange/:from-:to" : "range",
+        "detail_id?:id" : "PostDetails",
+        "add_post" : "AddPost"
 
     },
     initialize:function () {
@@ -209,7 +210,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     list:function () {
-        console.log("list");
         this.PostList = new Apps.Collections.PostCollection();
         this.PostListView = new Apps.Views.PostListView({model:this.PostList});
 
@@ -264,9 +264,22 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     PostDetails:function (id) {
-        this.DetailPost = this.PostList.get('/mobile/api/v1/post/'+ id +'/');
-        this.PostView = new Apps.Views.PostView({model:this.DetailPost});
-        $('#post-data').html(this.PostView.render().el);
+        console.log(this.PostList)
+        if(this.PostList != undefined){
+            this.DetailPost = this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
+            this.PostView = new Apps.Views.PostView({model:this.DetailPost});
+            $('#post-data').html(this.PostView.render().el);
+        } else {
+            _this = this;
+            this.PostList = new Apps.Collections.PostCollection();
+            this.PostListView = new Apps.Views.PostListView({model:this.PostList});
+            this.PostList.fetch().then(function(){
+                    this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/'); 
+                    console.log(this.DetailPost);
+                    this.PostView = new Apps.Views.PostView({model:this.DetailPost});
+                    $('#post-data').html(this.PostView.render().el);
+            });
+        }
     },
 
     AddPost: function() {
