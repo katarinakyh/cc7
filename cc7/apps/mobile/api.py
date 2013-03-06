@@ -44,6 +44,12 @@ class EventResource(ModelResource):
         queryset= Event.objects.all()
         include_resource_uri = False
 
+class PageNumberPaginator(Paginator):
+    def page(self):
+        output = super(PageNumberPaginator, self).page()
+        output['page_number'] = int(self.offset / self.limit) + 1
+        return output
+    
 class PostResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
 

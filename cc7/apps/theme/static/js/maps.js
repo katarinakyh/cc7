@@ -20,8 +20,6 @@
         }
 
 
-
-
         function handle_errors(error)
         {
             switch(error.code)
@@ -54,3 +52,20 @@
               jQuery(document.createElement("img")).attr("src", image_url)
           );
         }
+
+        var i = 1;
+        var more_posts = function(){
+                if($(document).height() == $(window).scrollTop()+$(window).height()){
+                    if(i == 1){
+                        i++;
+                        $('.more_post').eq(0).trigger('click');
+                    }
+                }
+            }   
+
+        $(function(){
+            $(window).scroll(function(e){
+                e.stopPropagation();
+                more_posts();
+            });
+         });
