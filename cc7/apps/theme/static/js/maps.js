@@ -6,12 +6,13 @@
         });
     }
         function gMapInit(){
-          var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=-34.397,150.644&zoom=8&size=300x400"
+          var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=Stockholm&zoom=9&size=300x400"
           jQuery("#googleMap").html(
               jQuery(document.createElement("img")).attr("src", google_tile)
           );
         }
         var watchProcess = null;
+
 
         function get_current_postion() {
           if (watchProcess == null) {
