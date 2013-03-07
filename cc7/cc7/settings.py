@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'apps.event',
     'apps.stream',
     'apps.account',
+    'apps.map',
     #installed apps,
     'south',
     'gunicorn',

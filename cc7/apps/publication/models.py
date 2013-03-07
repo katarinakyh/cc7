@@ -1,6 +1,7 @@
 from django.db import models
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
+from apps.map.models import Place
 from django.core.validators import MaxLengthValidator
 
 
@@ -11,6 +12,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
     event = models.ForeignKey(Event, null=True, blank=True)
     association = models.ForeignKey(Association, null=True, blank=True)
+    place = models.ForeignKey(Place, null=True, blank=True)
     is_public = models.BooleanField(default=True,)
 
     def __unicode__(self):

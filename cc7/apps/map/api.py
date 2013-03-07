@@ -11,7 +11,7 @@ from apps.publication.models import Post, Comment
 from apps.event.models import Event
 from apps.account.models import MyProfile, Association
 from django.forms.models import model_to_dict
-from apps.map.models import Place
+
 
 class UserResource(ModelResource):
     class Meta:
@@ -44,19 +44,15 @@ class EventResource(ModelResource):
         queryset= Event.objects.all()
         include_resource_uri = False
 
-class PlaceResource(ModelResource):
-    class Meta:
-        queryset = Place.objects.all()
-        allowed_methods = ['get', 'post', 'put']
-        filtering = {
-            'profile' : ALL_WITH_RELATIONS,
-            'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
-            }
-
+class PageNumberPaginator(Paginator):
+    def page(self):
+        output = super(PageNumberPaginator, self).page()
+        output['page_number'] = int(self.offset / self.limit) + 1
+        return output
+    
 class PostResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
-    place = fields.ToOneField(PlaceResource, 'place', full=True, null=True)
-    
+
     class Meta:
         queryset = Post.objects.all().order_by('-date_created')
         resource_name = 'post'
@@ -66,7 +62,7 @@ class PostResource(ModelResource):
         filtering = {
             'body': ALL,
             'author' : ALL_WITH_RELATIONS,
-            'id': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+            'id': ALL, #['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
 
     def dehydrate(self, bundle):
