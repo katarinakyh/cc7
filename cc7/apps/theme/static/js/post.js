@@ -1,4 +1,4 @@
-// Namespacing
+s// Namespacing
 (function() {
 
     window.Apps = {
@@ -226,11 +226,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         this.PostList.fetch({
                 success : function(coll){
                     Apps.meta = coll.meta;
-<<<<<<< HEAD
                     console.log(Apps.meta.next);
-=======
-
->>>>>>> f4177ac77987e8c6fdd6195b9806ed1ba07cf686
                 }
         });
         $('#post-data').html(this.PostListView.render().el);
