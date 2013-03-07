@@ -163,7 +163,6 @@ Apps.Views.PostView = Backbone.View.extend({
 
 
     render:function (model) {
-        console.log(this.model);
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
     }
@@ -216,12 +215,11 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         this.PostList.fetch({
                 success : function(coll){
                     Apps.meta = coll.meta;
-
+                    console.log(Apps.meta.next);
                 }
         });
         $('#post-data').html(this.PostListView.render().el);
         Apps.allLoadedPosts = this.PostList;
-        console.log(Apps.allLoadedPosts);
     },
     range:function (from, to) {
         var offset = from-1;
@@ -245,19 +243,13 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
             this.PostView = new Apps.Views.PostView({model:this.DetailPost});
             $('#post-data').html(this.PostView.render().el);
         } else {
+            this.PostList = new Apps.Collections.PostCollection();
+            this.PostListView = new Apps.Views.PostListView({model : this.PostList});
 
-            this.PostModel = new Apps.Models.Post()
-            //this.PostModel.fetch({url:'/mobile/api/v1/post/'+ id +'/'});
-            this.PostList = new Apps.Collections.PostCollection({model:this.PostModel});
-            console.log(this.PostList);
-            this.PostListView = new Apps.Views.PostListView({model:this.PostList});
-            this.PostModel.fetch({url:'/mobile/api/v1/post/'+ id +'/',
-                success:function(coll){
-                    console.log(coll)
-                }
-            }).then(function(){
-                //this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/');
-                this.PostView = new Apps.Views.PostView({model:this.PostModel});
+            _this = this;
+            this.PostList.fetch({ url: '/mobile/api/v1/post/?id__exact='+ id}).then(function(){
+                this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/');
+                this.PostView = new Apps.Views.PostView({model:this.DetailPost});
                 $('#post-data').html(this.PostView.render().el);
             });
         }

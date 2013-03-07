@@ -34,7 +34,7 @@ class AuthorResource(ModelResource):
         excludes = 'password, is_staff, is_superuser, last_login, date_joined, email, is_active, last_name'
         allowed_methods = ['get']
         filtering = {
-            'user' : ALL_WITH_RELATIONS,
+            'profile' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
             }
 
@@ -62,7 +62,7 @@ class PostResource(ModelResource):
         filtering = {
             'body': ALL,
             'author' : ALL_WITH_RELATIONS,
-            'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
+            'id': ALL, #['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
 
     def dehydrate(self, bundle):
