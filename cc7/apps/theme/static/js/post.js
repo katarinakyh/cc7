@@ -48,6 +48,9 @@ Apps.Models.Pages = Backbone.Model.extend({
         }
 });
 
+Apps.Models.Place = Backbone.Tastypie.Model.extend({
+    urlRoot: 'api/v1/place/'
+});
 
 // comments per post, not used at this moment
 Apps.Models.Comment = Backbone.Tastypie.Model.extend({
@@ -175,15 +178,44 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
     events: {
         "click #add_local": "add_local",
-        "click button.post_new": "new_post"
+        "click #new_post": "new_post"
     },
+
     add_local:function (eventName) {
       console.log("your trying to change your location")
     },
 
     new_post:function (eventName) {
-        console.log("you are trying to post")
+        // post data
+        var post_body = $('#new_post_body').val();
+        var body_event_id = null
+
+        // place data
+        var place_title = $('#place_name').val();
+        var place_address = $('#adress').val();
+        var place_latitude = $('#latitude').val();
+        var place_longitude = $('#longitude').val();
+
+        var post = new Apps.Models.Post();
+        var place = new Apps.Models.Place();
+        // we save this right to the server
+        place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
+            {success: function(data){
+                console.log(data)
+                //var data1 = $.parseJSON(data);
+                //console.log(data1);
+                post.save({author: 'mobile/api/v1/author/1', body:post_body, event: body_event_id, title:"", place:13});
+            },error: function(data){
+                console.log(data);
+            }
+        });
+
+        this.render();
     },
+
+
+
+
 
 
     render:function (eventName) {

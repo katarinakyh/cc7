@@ -24,7 +24,6 @@ class UserResource(ModelResource):
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
             }
 
-
 class AuthorResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
 
@@ -48,10 +47,12 @@ class PlaceResource(ModelResource):
     class Meta:
         queryset = Place.objects.all()
         allowed_methods = ['get', 'post', 'put']
+        authorization= Authorization()
         filtering = {
             'profile' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
             }
+        always_return_data = True
 
 class PostResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
@@ -60,14 +61,17 @@ class PostResource(ModelResource):
     class Meta:
         queryset = Post.objects.all().order_by('-date_created')
         resource_name = 'post'
-        list_allowed_methods = ['get']
+        list_allowed_methods = ['get', 'post']
         paginator_class = Paginator
-        allowed_methods = ['get']
+        allowed_methods = ['get', 'post']
         filtering = {
             'body': ALL,
             'author' : ALL_WITH_RELATIONS,
             'id': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
+        always_return_data = True
+        # insecure!: must be change to methods below when done testing
+        authorization= Authorization()
 
     def dehydrate(self, bundle):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
@@ -97,6 +101,13 @@ class PostResource(ModelResource):
         bundle.data['comment_count'] = len(comments)
         bundle.data['comments'] = commentsdict
         return bundle
+
+    #def obj_create(self, bundle, request, **kwargs):
+        #bundle.data['author'] = request.user
+        #bundle.data['place_id'] = 1
+
+        #return super(PostResource, self).obj_create(bundle, request, **kwargs)
+
 
 class CommentResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
