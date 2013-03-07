@@ -11,7 +11,7 @@
                 <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
             {% endif %}
             <div class="commentbody">
-                {{c.body|oembed:"508x255"|linebreaks}}
+                {{c.body|oembed:"508x255"|linebreaks|escape}}
             </div>
             <hr/>
         </li>
@@ -22,7 +22,7 @@
      
     <img class="mugshot_small" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
     
-    {{ comment_form.body }}
+    {{ comment_form.body|escape }}
     <input type="hidden" value="{{post.pk}}" {%if post.description %} name="event" {%else%} name="post" {% endif %}/>
     {%comment%}<input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>{%endcomment%}
     <input type="hidden" value="{{profile.pk}}" name="author"/>

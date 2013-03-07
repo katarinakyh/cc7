@@ -17,6 +17,9 @@
 
     <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap_mobile.css" />
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+
+
 
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript" ></script>
 <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
@@ -48,6 +51,7 @@
             cursor: pointer;
         }
 
+
         .right_nav, .right_nav_details {
             float:right;
             padding-right: 5%;
@@ -59,7 +63,11 @@
         }
 
         .center_nav {
-            padding-left: 10%;
+            padding-left:8%;
+            cursor: pointer;
+        }
+        .drop_nav {
+            padding-left:  12%;
             cursor: pointer;
         }
 
@@ -76,10 +84,10 @@
             text-shadow: 0 -1px 0 #000000;
         }
 
-        .story, .story_detail, .new_post,  {
+        .story, .story_detail, .new_post, .post_content  {
             color: #555555;
             /*border-left: 5px solid #EEEEEE;*/
-            margin-left: 15px;
+            margin-left: 4px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
@@ -116,6 +124,7 @@
         .postbody {
             margin-bottom: 20px;
             margin-left: 40px;
+            margin-right: 10px;
             padding: 0 0 0 10px;
 
         }
@@ -153,6 +162,8 @@
         .comment_text {
             margin-bottom: 20px;
             font-size: 10px;
+            margin-right: 5px;
+
         }
 
         #add_local {
@@ -188,8 +199,35 @@
                 <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
                <span id="add_post" class="center_nav">
                    <a href="#add_post" >
-                       <div class="label label-success" > post </div> <i class="icon-plus icon-white"></i>
+                       <div class="label label-info" > post </div> <i class="icon-plus icon-white"></i>
                    </a>
+                   </span>
+               <span class="drop_nav">
+                <div class="btn-group">
+                    <button class="btn btn-mini">All posts</button>
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">Events</a>
+                        </li>
+                        <li class="divider">Associations</li>
+                        <li>
+                            <a href="#">Hemliga</a>
+                        </li>
+                        <li>
+                            <a href="#">Kråkan</a>
+                        </li>
+                        <li>
+                            <a href="#">Sparvnästet</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">Me</a>
+                        </li>
+                    </ul>
+                </div>
                </span>
                 <span class="right_nav">
                     <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)
@@ -208,7 +246,7 @@
                 <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
                 <a href="#detail_id?<%= id %>" > <%= title %> <span class="right_nav"> [<%= id %>]</span></a>
                     <span class="small">
-                        Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
+
                     </span>
             </h6>
             <div class="postbody">
@@ -220,6 +258,7 @@
             </div>
             <div class="hr_narrow"></div>
             <div class="date_comment">
+                <span class="left_date"> Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong></span>
                 <span class="right_nav_details"> <a href="#detail_id?<%= id %>">Details ></a></span>
             </div>
         </div>
@@ -229,6 +268,7 @@
     <!-- template for list view -->
     <script id="single_post_template" type="text/template">
         <div class="story_detail">
+        <%= author.user.username %>
                 <img class="mugshot"  src="<%= mugshot %>" alt="Author"/>
                 <h6><%= title %> </h6>
             <div class="postbody">
@@ -244,7 +284,7 @@
                 <% _.each(comments, function(comment) { %>
             <div>
                 <div class>
-                    <span class="small"><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
+                    <span class="small"><a href="/accounts/<%= comment.author_name %>/"><%= comment.author_name %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
                     <br/>
                 </div>
                 <div class="comment_text">
@@ -261,13 +301,15 @@
         </div>
     </script>
      <script id="new_post_template" type="text/template">
-     <div class="post">
-         <h3>New Post</h3>
+     <div class="post_content">
+         <h6>New Post</h6>
         <div class="new_post">
             <form>
+                <label>Add post</label>
                 <textarea id="new_post_boby"></textarea><br />
-                <i class="icon-map-marker"></i> <span id="watchPositionBtn"> <span class="label label-success " id="add_local"> add your location </span></span> <span class="current_location" id="your_location"> Current location: Internet</span><br /><br />
-                <button class="post_new">post</button>
+                <div>Add a photo <span class="label label-success " id="add_pict">Add</span></div><br/>
+                <i class="icon-map-marker"></i> <span id="watchPositionBtn"> <span class="label label-success " id="add_local"> add your location </span></span> <span class="current_location" id="your_location"> Non location attached </span><br /><br />
+                <button class="btn">post</button>
             </form>
         </div>
         <div id="APIReturnValues"></div>
