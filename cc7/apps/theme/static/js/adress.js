@@ -18,7 +18,8 @@ function codeLatLng(lat, lng) {
             if (results[7]) {
                adress = results[0].formatted_address;
                $("#APIReturnValues").val(adress);
-                console.log(results[0]);
+               $(".add_adress").show();
+                init_newpost();
             }
         } else {
             alert("Geocoder failed due to: " + status);
