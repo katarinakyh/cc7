@@ -1,4 +1,6 @@
     var initmap = function(){
+
+
         //jQuery(window).ready(function(){
         jQuery(window).ready(function(){
             gMapInit();
@@ -6,7 +8,13 @@
         });
     }
         function gMapInit(){
-          var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=Stockholm&zoom=9&size=300x400"
+            var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=Stockholm&zoom=9&size=300x400",
+                lat = 44.88623409320778,
+                lng = -87.86480712897173,
+                latlng = new google.maps.LatLng(lat, lng),
+                image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
+
+
           jQuery("#googleMap").html(
               jQuery(document.createElement("img")).attr("src", google_tile)
           );
@@ -17,9 +25,17 @@
         function get_current_postion() {
           if (watchProcess == null) {
               watchProcess = navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);
+
           }
         }
 
+
+        function moveMarker(placeName, latlng) {
+            marker.setIcon(image);
+            marker.setPosition(latlng);
+            infowindow.setContent(placeName);
+            //infowindow.open(map, marker);
+        }
 
         function handle_errors(error)
         {
@@ -40,15 +56,21 @@
         }
 
         function handle_geolocation_query(position) {
-          var text = "latitude: "  + position.coords.latitude  + "<br/>" +
-                     "longitude: " + position.coords.longitude + "<br/>" +
+          lat = position.coords.latitude;
+          lng = position.coords.longitude;
+          var text = "latitude: "  + lat  + "<br/>" +
+                     "longitude: " + lng + "<br/>" +
                      "timestamp: " + new Date(position.timestamp);
-          jQuery("#APIReturnValues").html(text);
-          jQuery("#APIReturnValues").css("border","3px solid green");
 
-          var image_url = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + ',' + position.coords.longitude +
+            initialize_adress();
+            codeLatLng(lat, lng);
+
+
+
+            var image_url = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + ',' + position.coords.longitude +
                           "&zoom=14&size=300x400&markers=color:blue|label:S|" + position.coords.latitude + ',' + position.coords.longitude;
-          
+
+   ;
           jQuery("#googleMap").html(
               jQuery(document.createElement("img")).attr("src", image_url)
           );
