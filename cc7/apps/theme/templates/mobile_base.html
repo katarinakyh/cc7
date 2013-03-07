@@ -84,13 +84,17 @@
             text-shadow: 0 -1px 0 #000000;
         }
 
-        .story, .story_detail, .new_post, .post_content  {
+        .story, .story_detail,  {
             color: #555555;
             /*border-left: 5px solid #EEEEEE;*/
             margin-left: 4px;
             margin-top: 20px;
             padding-top: 2px;
             padding-bottom: 15px;
+        }
+
+        .post_content, .new_post {
+            margin-left: 12px;
         }
 
         .comment_body {
@@ -184,6 +188,15 @@
             background: #fff;
             margin-left: 4px;
             margin-right: 4px;
+        }
+        .mobile_form {
+            width: 300px;
+            height: 160px;
+        }
+        .geolocation {
+            width: 300px;
+            margin-bottom: 10px;
+            border: none;
         }
     </style>
 
@@ -302,18 +315,21 @@
     </script>
      <script id="new_post_template" type="text/template">
      <div class="post_content">
-         <h6>New Post</h6>
+         <h5>Share</h5>
         <div class="new_post">
             <form>
-                <label>Add post</label>
-                <textarea id="new_post_boby"></textarea><br />
-                <div>Add a photo <span class="label label-success " id="add_pict">Add</span></div><br/>
-                <i class="icon-map-marker"></i> <span id="watchPositionBtn"> <span class="label label-success " id="add_local"> add your location </span></span> <span class="current_location" id="your_location"> Non location attached </span><br /><br />
+                <label>A thought</label>
+                <textarea id="new_post_boby" class="mobile_form"></textarea><br />
+                <div class="add_more"> <i class="icon-camera add_from_camera"></i> &nbsp; &nbsp; &nbsp; <i class="icon-picture add_from_file"></i>  &nbsp; &nbsp; &nbsp;  <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span></div>
+                <input type="file" accept="image/*" capture="camera">
+                <span class="current_location" id="your_location"> No picture or location attached </span><br /><br />
+                <div id="APIReturnValues" class="geolocation"></div>
                 <button class="btn">post</button>
             </form>
+            <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
         </div>
-        <div id="APIReturnValues"></div>
-        <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
+
+
      </div>
     </script>
     <script type="text/javascript">
