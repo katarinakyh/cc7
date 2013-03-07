@@ -17,6 +17,7 @@
 
     <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap_mobile.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.min.css">
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 
 
@@ -198,6 +199,11 @@
             margin-bottom: 10px;
             border: none;
         }
+        .add_from_camera, .add_from_file, .add_location{
+            font-size: 20px;
+            width: 12px;
+            height: 12px;
+        }
     </style>
 
     {% block extra_head %}{% endblock %}
@@ -214,34 +220,18 @@
                    <a href="#add_post" >
                        <div class="label label-info" > post </div> <i class="icon-plus icon-white"></i>
                    </a>
-                   </span>
-               <span class="drop_nav">
+               </span>
                 <div class="btn-group">
-                    <button class="btn btn-mini">All posts</button>
-                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
+                    <a class="btn btn-primary" href="#"><i class="icon-list-alt"></i> All posts</a>
+                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-caret-down"></span></a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="#">Events</a>
-                        </li>
-                        <li class="divider">Associations</li>
-                        <li>
-                            <a href="#">Hemliga</a>
-                        </li>
-                        <li>
-                            <a href="#">Kråkan</a>
-                        </li>
-                        <li>
-                            <a href="#">Sparvnästet</a>
-                        </li>
+                        <li><a href="#"><i class="icon-group"></i> Hemliga</a></li>
+                        <li><a href="#"><i class="icon-group"></i> Sparvnästet</a></li>
+                        <li><a href="#"><i class="icon-group"></i> Kråkan</a></li>
                         <li class="divider"></li>
-                        <li>
-                            <a href="#">Me</a>
-                        </li>
+                        <li><a href="#"><i class="i"></i> Make admin</a></li>
                     </ul>
                 </div>
-               </span>
                 <span class="right_nav">
                     <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)
                     <i class="icon-user icon-white"></i>
@@ -320,13 +310,17 @@
             <form>
                 <label>A thought</label>
                 <textarea id="new_post_boby" class="mobile_form"></textarea><br />
-                <div class="add_more"> <i class="icon-camera add_from_camera"></i> &nbsp; &nbsp; &nbsp; <i class="icon-picture add_from_file"></i>  &nbsp; &nbsp; &nbsp;  <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span></div>
+                <div class="add_more"> <i class="icon-camera add_from_camera"></i> &nbsp; &nbsp; &nbsp;
+                <i class="icon-picture add_from_file"></i>  &nbsp; &nbsp; &nbsp;
+                <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>  &nbsp; &nbsp;
+                    <span class="current_location" id="your_location"> No picture or location attached </span>
+                </div>
                 <input type="file" accept="image/*" capture="camera">
-                <span class="current_location" id="your_location"> No picture or location attached </span><br /><br />
+               <br /><br />
                 <label>Name this place</label>
-                <input id="placeName" type="text" size="50" style="text-align: left;width:357px;direction: ltr;">
+                <input id="placeName"   class="mobile_form" type="text">
                 <label>Address</label>
-                <input id="APIReturnValues" class="geolocation" type="text" size="50" style="text-align: left;width:357px;direction: ltr;"><br />
+                <input id="APIReturnValues" class="mobile_form" type="text"><br />
                 <button class="btn">post</button>
             </form>
             <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
