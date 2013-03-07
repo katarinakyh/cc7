@@ -200,9 +200,22 @@
             border: none;
         }
         .add_from_camera, .add_from_file, .add_location{
-            font-size: 20px;
+            font-size: 30px;
+            cursor: pointer;
             width: 12px;
             height: 12px;
+            margin-right: 45px;
+
+        }
+        .add_more{
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .get_from_camera, .get_from_file{
+            display: none;
+        }
+        .add_adress{
+            display: none;
         }
     </style>
 
@@ -212,6 +225,39 @@
 
 </head>
 <body >
+<script id="new_post_template" type="text/template">
+    <div class="post_content">
+        <h5>Share</h5>
+        <div class="new_post">
+            <form>
+                <label>A thought</label>
+                <textarea id="new_post_boby" class="mobile_form"></textarea><br />
+                <div class="add_more">
+                    <i class="icon-camera add_from_camera"></i>
+                    <i class="icon-picture add_from_file"></i>
+                    <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>
+                    <button class="btn">post</button>
+                </div>
+                <div class="get_from_camera">
+                    <input type="file" accept="image/*" capture="camera">
+                </div>
+                <div class="get_from_file">
+                    <input type="file" accept="image/*" >
+                </div>
+                <div class="add_adress">
+                    <label>Name this place</label>
+                    <input id="placeName"   class="mobile_form" type="text">
+                    <label>Address</label>
+                    <input id="APIReturnValues" class="mobile_form" type="text"><br />
+                </div>
+            </form>
+            <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
+            <br>
+        </div>
+        <div id="map_canvas"> </div>
+
+    </div>
+</script>
     <div>
         <header class="menu">
             <h4>
@@ -303,34 +349,29 @@
             </div>
         </div>
     </script>
-     <script id="new_post_template" type="text/template">
-     <div class="post_content">
-         <h5>Share</h5>
-        <div class="new_post">
-            <form>
-                <label>A thought</label>
-                <textarea id="new_post_boby" class="mobile_form"></textarea><br />
-                <div class="add_more"> <i class="icon-camera add_from_camera"></i> &nbsp; &nbsp; &nbsp;
-                <i class="icon-picture add_from_file"></i>  &nbsp; &nbsp; &nbsp;
-                <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>  &nbsp; &nbsp;
-                    <span class="current_location" id="your_location"> No picture or location attached </span>
-                </div>
-                <input type="file" accept="image/*" capture="camera">
-               <br /><br />
-                <label>Name this place</label>
-                <input id="placeName"   class="mobile_form" type="text">
-                <label>Address</label>
-                <input id="APIReturnValues" class="mobile_form" type="text"><br />
-                <button class="btn">post</button>
-            </form>
-            <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
-            <br>
-        </div>
-     <div id="map_canvas"> </div>
-
-     </div>
-    </script>
     <script type="text/javascript">
+        var init_newpost = function(){
+        $('.add_from_camera').click(function(){
+            console.log($('.get_from_file').css('display'));
+            if($('.get_from_file').css('display') == 'block'){
+
+                $('.get_from_file').hide();
+            }
+            $('.get_from_camera').show();
+            init_newpost();
+        });
+        $('.add_from_file').click(function(){
+            if($('.get_from_camera').css('display') == 'block'){
+                $('.get_from_camera').hide();
+            }
+
+            $('.get_from_file').show();
+            init_newpost();
+        });
+        }
+        $(document).ready(function(){
+            init_newpost();
+        });
     </script>
 
     <script src="{{ STATIC_URL }}js/underscore.js"></script>
