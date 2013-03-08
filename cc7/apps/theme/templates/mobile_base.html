@@ -231,12 +231,12 @@
         <div class="new_post">
             <form>
                 <label>A thought</label>
-                <textarea id="new_post_boby" class="mobile_form"></textarea><br />
+                <textarea id="new_post_body" class="mobile_form"></textarea><br />
                 <div class="add_more">
                     <i class="icon-camera add_from_camera"></i>
                     <i class="icon-picture add_from_file"></i>
                     <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>
-                    <button class="btn">post</button>
+                    <button class="btn" id="new_post">post</button>
                 </div>
                 <div class="get_from_camera">
                     <input type="file" accept="image/*" capture="camera">
@@ -246,9 +246,11 @@
                 </div>
                 <div class="add_adress">
                     <label>Name this place</label>
-                    <input id="placeName"   class="mobile_form" type="text">
+                    <input id="place_name"   class="mobile_form" type="text">
                     <label>Address</label>
-                    <input id="APIReturnValues" class="mobile_form" type="text"><br />
+                    <input id="adress" class="mobile_form" type="text"><br />
+                    <input id="latitude" class="mobile_form" type="hidden">
+                    <input id="longitude" class="mobile_form" type="hidden">
                 </div>
             </form>
             <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
@@ -317,7 +319,7 @@
     <!-- template for list view -->
     <script id="single_post_template" type="text/template">
         <div class="story_detail">
-        <%= author.user.username %>
+
                 <img class="mugshot"  src="<%= mugshot %>" alt="Author"/>
                 <h6><%= title %> </h6>
             <div class="postbody">

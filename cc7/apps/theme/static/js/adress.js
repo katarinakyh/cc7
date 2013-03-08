@@ -17,7 +17,9 @@ function codeLatLng(lat, lng) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[7]) {
                adress = results[0].formatted_address;
-               $("#APIReturnValues").val(adress);
+               $("#adress").val(adress);
+               $("#latitude").val(lat);
+               $("#longitude").val(lng);
                $(".add_adress").show();
                 init_newpost();
             }

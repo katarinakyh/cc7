@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from itertools import chain
 from operator import attrgetter
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def save_comment(request, profile):
     """
@@ -35,12 +36,33 @@ def stream(request):
     events = Event.objects.filter().order_by('-date_created')
     comment_form = CommentForm()
     result_list =  sorted(chain(posts, events), key=attrgetter('date_created'))
+    #pagination
+
+    page_list = pagination(request, result_list)
 
     return render_to_response('stream/stream.html', {
-            'object_list': result_list,
+            'object_list': page_list,
             'comment_form': comment_form,
             'profile': profile,
         }, context_instance=RequestContext(request))
+
+
+def pagination(request, list):
+    paginator = Paginator(list, 20) # Show 20 contacts per page
+
+    page = request.GET.get('page')
+
+    try:
+        page_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page_list = paginator.page(len(paginator.page_range))
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page_list = paginator.page(len(paginator.page_range))
+
+    return page_list
+
 
 def stream_posts(request):
     profile = request.user.get_profile()
@@ -48,11 +70,13 @@ def stream_posts(request):
         if 'new_comment' in request.POST:
             save_comment(request, profile)
 
-    posts = Post.objects.filter(is_public=True).order_by('-date_created')
+    posts = Post.objects.filter(is_public=True).order_by('date_created')
     comment_form = CommentForm()
 
+    page_list = pagination(request, posts)
+
     return render_to_response('stream/stream.html', {
-        'object_list': posts,
+        'object_list': page_list,
         'comment_form': comment_form,
         'profile': profile,
         }, context_instance=RequestContext(request))
@@ -66,8 +90,10 @@ def stream_events(request):
     events = Event.objects.filter().order_by('-date_created')
     comment_form = CommentForm()
 
+    page_list_events = pagination(request, events)
+
     return render_to_response('stream/stream.html', {
-        'object_list': events,
+        'object_list': page_list_events ,
         'comment_form': comment_form,
         'profile': profile,
         }, context_instance=RequestContext(request))

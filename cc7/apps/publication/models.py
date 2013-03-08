@@ -43,14 +43,10 @@ class Message(models.Model):
     title = models.CharField(max_length=50)
     to = models.ForeignKey(MyProfile)
     thread = models.IntegerField()
-    #is_read = models.BooleanField(default=False)
+    is_read = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u'%s' %self.title
 
     def get_recipient(self):
         pass
-
-
-
-
