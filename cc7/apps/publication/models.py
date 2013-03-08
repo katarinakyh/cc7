@@ -13,7 +13,7 @@ class Post(models.Model):
     event = models.ForeignKey(Event, null=True, blank=True)
     association = models.ForeignKey(Association, null=True, blank=True)
     place = models.ForeignKey(Place, null=True, blank=True)
-    is_public = models.BooleanField(default=True,)
+    is_public = models.BooleanField(default=True)
 
     def __unicode__(self):
         return u'%s' %self.title
