@@ -189,6 +189,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
         // post data
         var post_body = $('#new_post_body').val();
         var body_event_id = null
+        var post_uri = '/mobile/api/v1/post/1/';
 
         // place data
         var place_title = $('#place_name').val();
@@ -204,7 +205,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
                 console.log(data)
                 //var data1 = $.parseJSON(data);
                 //console.log(data1);
-                post.save({author: 'mobile/api/v1/author/1', body:post_body, event: body_event_id, title:"", place:13});
+                post.save({author: '/mobile/api/v1/author/1/', body:post_body, event: body_event_id, title:"", place:'/mobile/api/v1/place/1/'});
             },error: function(data){
                 console.log(data);
             }
