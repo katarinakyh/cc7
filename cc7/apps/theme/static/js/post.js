@@ -178,38 +178,66 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
     events: {
         "click #add_local": "add_local",
-        "click #new_post": "new_post"
+        "click #new_post": "new_post",
+        'click .add_from_camera' : 'togglefield',
+        'click .add_from_file' : 'togglefield'
     },
 
+    togglefield : function(e){
+        if($(e.target).hasClass('add_from_camera')){
+            if($('.get_from_file').css('display') == 'block'){    
+                $('.get_from_file').hide();
+            }
+            $('.get_from_camera').show();        
+        }else{
+            if($('.get_from_camera').css('display') == 'block'){
+                $('.get_from_camera').hide();
+            }
+            $('.get_from_file').show();
+        };
+    },
     add_local:function (eventName) {
       console.log("your trying to change your location")
     },
 
-    new_post:function (eventName) {
+    new_post:function (e) {
+        console.log(e.target);
         // post data
-        var post_body = $('#new_post_body').val();
-        var body_event_id = null
+        var post_body = $('#new_post_body').val(),
+            post_event_id = null;
 
-        // place data
-        var place_title = $('#place_name').val();
-        var place_address = $('#adress').val();
-        var place_latitude = $('#latitude').val();
-        var place_longitude = $('#longitude').val();
+        if($('#latitude').val() != ''){
+            // place data
+            var place_title = $('#place_name').val(),
+                place_address = $('#adress').val(),
+                place_latitude = $('#latitude').val(),
+                place_longitude = $('#longitude').val();
+            
+            alert(place_latitude);
 
+            var place = new Apps.Models.Place();
+            place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
+                {success: function(data){
+                    console.log(data)
+                    post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: data.id, is_public: true})
+                },error: function(data){
+                    console.log(data);
+                }
+            });    
+        }
         var post = new Apps.Models.Post();
-        var place = new Apps.Models.Place();
         // we save this right to the server
-        place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
-            {success: function(data){
-                console.log(data)
-                //var data1 = $.parseJSON(data);
-                //console.log(data1);
-                post.save({author: 'mobile/api/v1/author/1', body:post_body, event: body_event_id, title:"", place:13});
-            },error: function(data){
-                console.log(data);
-            }
-        });
-
+        
+        post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: null, is_public: true},
+                    {success: function(data){
+                        console.log('success');
+                        console.log(data);
+                    },error: function(data){
+                        console.log('error');
+                        console.log(data);
+                    }
+                });
+        
         this.render();
     },
 
@@ -253,6 +281,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         $('#post-data').html(this.PostListView.render().el);
         Apps.allLoadedPosts = this.PostList;
     },
+
     range:function (from, to) {
         var offset = from-1;
         var limit = (to - from)+1;
@@ -278,7 +307,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
             this.PostList = new Apps.Collections.PostCollection();
             this.PostListView = new Apps.Views.PostListView({model : this.PostList});
 
-            _this = this;
+            var _this = this;
             this.PostList.fetch({ url: '/mobile/api/v1/post/?id__exact='+ id}).then(function(){
                 this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/');
                 this.PostView = new Apps.Views.PostView({model:this.DetailPost});
