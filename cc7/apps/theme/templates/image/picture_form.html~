@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load upload_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+
+    </div>
+----------------------<
+    <form id="fileupload" method="post" action="." enctype="multipart/form-data">{% csrf_token %}
+        <div class="row fileupload-buttonbar">
+             <div class="add_more">
+                    <i class="icon-camera add_from_camera"></i>
+                    <i class="icon-picture add_from_file"></i>
+                    <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>
+                    <input type="file" name="file" multiple>
+                </span>
+                <button type="submit" class="btn btn-success start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start upload</span>
+                </button>
+
+            </div>
+            <div class="span5 fileupload-progress fade">
+                <div class="progress progress-success progres-striped active">
+                    <div class="bar" style="width:0%"></div>
+                </div>
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <div class="fileupload-loading"></div>
+        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+    <div class="fileupload-content">
+        <table class="files"></table>
+        <div class="fileupload-progressbar"></div>
+    </div>
+</div>
+
+----------------------->
+{% upload_js %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.ui.widget.js"></script>
+<script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
+<script src="{{ STATIC_URL }}js/load-image.min.js"></script>
+<script src="{{ STATIC_URL }}js/canvas-to-blob.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap-image-gallery.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.iframe-transport.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.fileupload.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.fileupload-fp.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.fileupload-ui.js"></script>
+<script src="{{ STATIC_URL }}js/locale.js"></script>
+<script src="{{ STATIC_URL }}js/main.js"></script>
+<script src="{{ STATIC_URL }}js/csrf.js"></script>
+{% endblock %}

@@ -18,11 +18,10 @@
     <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap_mobile.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.min.css">
-    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-
-
 
     <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript" ></script>
+    <script src="{{ STATIC_URL }}js/jquery.form.js"></script>
+    <script src="{{ STATIC_URL }}js/adress.js" type="text/javascript" ></script>
     <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <script src="{{ STATIC_URL }}js/adress.js" type="text/javascript" ></script>
 
@@ -246,7 +245,7 @@
     <div class="post_content">
         <h5>Share</h5>
         <div class="new_post">
-            <form>
+            <form id="post_form" method="post" enctype="multipart/form-data"  >
                 <label>A thought</label>
                 <textarea id="new_post_body" class="mobile_form"></textarea><br />
                 <div class="add_more">
@@ -255,12 +254,20 @@
                     <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>
                     <button class="btn btn-primary" id="new_post">post</button>
                 </div>
+
+                <form id="imagetheForm" enctype="multipart/form-data" method="post" action="image/upload_image/">
+                    <input type="file" name="myfile">
+                </form>
+
+                <button id="imageForm">Submit</button>
+
                 <div class="get_from_camera">
                     <input type="file" accept="image/*" capture="camera">
                 </div>
                 <div class="get_from_file">
                     <input type="file" accept="image/*" >
                 </div>
+
                 <div class="add_adress">
                     <label>Name this place</label>
                     <input id="place_name"   class="mobile_form" type="text">
@@ -282,7 +289,7 @@
                 <span class="left_nav"><a href=""> <i class="icon-bullhorn"></i><span class="thec">c</span>7 </a></span>
                <span id="add_post" class="center_nav">
                    <a href="#add_post" >
-                       <i class="icon-edit"></i>                       <i class="icon-plus"></i>
+                       <i class="icon-edit"></i><i class="icon-plus"></i>
 
                    </a>
                </span>

@@ -9,6 +9,7 @@ v1.register(PostResource())
 v1.register(CommentResource())
 v1.register(AuthorResource())
 
+
 urlpatterns = patterns('',
     url(r'^api/', include(v1.urls)),
     url(r'^$', login_required(PostsView.as_view()), name='PostsView'),

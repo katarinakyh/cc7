@@ -180,7 +180,8 @@ Apps.Views.NewPostView = Backbone.View.extend({
         "click #add_local": "add_local",
         "click #new_post": "new_post",
         'click .add_from_camera' : 'togglefield',
-        'click .add_from_file' : 'togglefield'
+        'click .add_from_file' : 'togglefield',
+        'click #imageForm' : 'file_submit'
     },
 
     togglefield : function(e){
@@ -196,13 +197,19 @@ Apps.Views.NewPostView = Backbone.View.extend({
             $('.get_from_file').show();
         };
     },
+
     add_local:function (eventName) {
       console.log("your trying to change your location")
     },
 
+    file_submit: function (e) {
+        console.log("the form");
+        $('#imagetheForm').submit();
+        console.log("mjau");
+    },
+
     new_post:function (e) {
         console.log(e.target);
-        // post data
 
         var post_body = $('#new_post_body').val(),
             post_event_id = null;
@@ -216,7 +223,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
             
             alert(place_latitude);
 
-            var place = new Apps.Models.Place();
+        var place = new Apps.Models.Place();
             place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
                 {success: function(data){
                     console.log(data)
@@ -229,6 +236,10 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
         var post = new Apps.Models.Post();
         // we save this right to the server
+        var image;
+            // bind 'myForm' and provide a simple callback function
+
+
         post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: null, is_public: true},
                     {success: function(data){
                         console.log('success');
