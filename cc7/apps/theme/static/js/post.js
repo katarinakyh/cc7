@@ -181,7 +181,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
         "click #new_post": "new_post",
         'click .add_from_camera' : 'togglefield',
         'click .add_from_file' : 'togglefield',
-        'click #imageForm' : 'file_submit'
+        'click button.submitImageForm' : 'file_submit'
     },
 
     togglefield : function(e){
@@ -202,10 +202,11 @@ Apps.Views.NewPostView = Backbone.View.extend({
       console.log("your trying to change your location")
     },
 
-    file_submit: function (e) {
-        console.log("the form");
-        $('#imagetheForm').submit();
-        console.log("mjau");
+    file_submit: function () {
+            console.log("maju");
+            $('.imagetheForm').submit();
+        console.log("maju");
+
     },
 
     new_post:function (e) {
