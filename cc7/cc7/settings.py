@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     'apps.stream',
     'apps.account',
     'apps.map',
+    'apps.image',
     #installed apps,
     'south',
     'gunicorn',
@@ -157,6 +158,7 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
     'micawber.contrib.mcdjango',
+    'sorl.thumbnail',
 
 )
 

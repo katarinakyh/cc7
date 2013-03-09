@@ -217,6 +217,23 @@
         .add_adress{
             display: none;
         }
+        .icon-bullhorn {
+            font-size: 21px;
+            margin-right: -3px;
+            color:#fff;
+        }
+        .thec{
+            font-size: 36px;
+            margin-right: -6px;
+            
+        }
+        .header{
+            
+        }
+        .btn-group{
+            background-color: black;
+            color: white;
+        }
     </style>
 
     {% block extra_head %}{% endblock %}
@@ -236,7 +253,7 @@
                     <i class="icon-camera add_from_camera"></i>
                     <i class="icon-picture add_from_file"></i>
                     <span id="watchPositionBtn"><i class="icon-map-marker add_location"></i></span>
-                    <button class="btn" id="new_post">post</button>
+                    <button class="btn btn-primary" id="new_post">post</button>
                 </div>
                 <div class="get_from_camera">
                     <input type="file" accept="image/*" capture="camera">
@@ -262,29 +279,29 @@
 </script>
     <div>
         <header class="menu">
-            <h4>
-                <span class="left_nav"><a href=""><i class="icon-bullhorn icon-white"></i> c7 </a></span>
+                <span class="left_nav"><a href=""> <i class="icon-bullhorn"></i><span class="thec">c</span>7 </a></span>
                <span id="add_post" class="center_nav">
                    <a href="#add_post" >
-                       <div class="label label-info" > post </div> <i class="icon-plus icon-white"></i>
+                       <i class="icon-edit"></i>                       <i class="icon-plus"></i>
+
                    </a>
                </span>
                 <div class="btn-group">
-                    <a class="btn btn-primary" href="#"><i class="icon-list-alt"></i> All posts</a>
-                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-caret-down"></span></a>
+                    <a class="" href="#"><i class="icon-list-alt"></i> All posts</a>
+                    <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-caret-down"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-group"></i> Hemliga</a></li>
                         <li><a href="#"><i class="icon-group"></i> Sparvnästet</a></li>
                         <li><a href="#"><i class="icon-group"></i> Kråkan</a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="i"></i> Make admin</a></li>
+                        <li><a href="#"><i class="i"></i> <i class="icon-heart-empty"></i> Mina poster </a></li>
                     </ul>
                 </div>
                 <span class="right_nav">
                     <i class="icon-envelope icon-white"></i>(<a href="../messages/">1</a>)
                     <i class="icon-user icon-white"></i>
                 </span>
-            </h4>
+            
         </header>
 
         <div id="post-data">
@@ -338,9 +355,9 @@
                     <span class="small"><a href="/accounts/<%= comment.author_name %>/"><%= comment.author_name %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
                     <br/>
                 </div>
-                <div class="comment_text">
+               <div class="comment_text">
                   <span> <img id="mugshot_detail" src="<%= comment.author_mugshot %>" alt="Author"/> - <%= comment.comment_body %> </span>
-                </div>
+                </div>f
             </div>
                 <% }); %>
                 <h6>Post a new Comment</h6>
@@ -352,28 +369,7 @@
         </div>
     </script>
     <script type="text/javascript">
-        var init_newpost = function(){
-        $('.add_from_camera').click(function(){
-            console.log($('.get_from_file').css('display'));
-            if($('.get_from_file').css('display') == 'block'){
 
-                $('.get_from_file').hide();
-            }
-            $('.get_from_camera').show();
-            init_newpost();
-        });
-        $('.add_from_file').click(function(){
-            if($('.get_from_camera').css('display') == 'block'){
-                $('.get_from_camera').hide();
-            }
-
-            $('.get_from_file').show();
-            init_newpost();
-        });
-        }
-        $(document).ready(function(){
-            init_newpost();
-        });
     </script>
 
     <script src="{{ STATIC_URL }}js/underscore.js"></script>

@@ -22,7 +22,8 @@ class UserResource(ModelResource):
         filtering = {
             'user' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
-            }
+        }
+        authorization= Authorization()
 
 class AuthorResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
@@ -31,11 +32,12 @@ class AuthorResource(ModelResource):
         queryset= MyProfile.objects.all()
         include_resource_uri = False
         excludes = 'password, is_staff, is_superuser, last_login, date_joined, email, is_active, last_name'
-        allowed_methods = ['get']
+        allowed_methods = ['get','post']
         filtering = {
             'profile' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
-            }
+        }
+        authorization= Authorization()
 
 
 class EventResource(ModelResource):
@@ -51,15 +53,16 @@ class PlaceResource(ModelResource):
         filtering = {
             'profile' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
-            }
+        }
         always_return_data = True
 
 class PostResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
     place = fields.ToOneField(PlaceResource, 'place', full=True, null=True)
+    event = fields.ToOneField(EventResource, 'event', full=True, null=True)
     
     class Meta:
-        queryset = Post.objects.all().order_by('-date_created')
+        queryset = Post.objects.filter(is_public=True).order_by('-date_created')
         resource_name = 'post'
         list_allowed_methods = ['get', 'post']
         paginator_class = Paginator
@@ -101,14 +104,14 @@ class PostResource(ModelResource):
         bundle.data['comment_count'] = len(comments)
         bundle.data['comments'] = commentsdict
         return bundle
+    """
+    def obj_create(self, bundle, request, **kwargs):
+        bundle.data['author'] = request.user
+        #bundle.data['place_id'] = null
 
-    #def obj_create(self, bundle, request, **kwargs):
-        #bundle.data['author'] = request.user
-        #bundle.data['place_id'] = 1
-
-        #return super(PostResource, self).obj_create(bundle, request, **kwargs)
-
-
+        return super(PostResource, self).obj_create(bundle, request, **kwargs)
+        """
+    
 class CommentResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)
     post = fields.ToOneField(PostResource, 'post', full=True)

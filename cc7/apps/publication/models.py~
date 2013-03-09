@@ -3,7 +3,7 @@ from apps.account.models import MyProfile, Association
 from apps.event.models import Event
 from apps.map.models import Place
 from django.core.validators import MaxLengthValidator
-
+from sorl.thumbnail import ImageField
 
 
 class Post(models.Model):
@@ -44,10 +44,21 @@ class Message(models.Model):
     title = models.CharField(max_length=50)
     to = models.ForeignKey(MyProfile)
     thread = models.IntegerField()
-    #is_read = models.BooleanField(default=False)
+    is_read = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u'%s' %self.title
 
     def get_recipient(self):
         pass
+
+# images model
+class Item(models.Model):
+    image = ImageField(upload_to='/images')
+
+    def __unicode__(self):
+        return u'Comment to %s' %self.image
+
+   def save(self, *args, **kwargs):
+        super(Item, self).save(*args, **kwargs)
+

@@ -1,7 +1,6 @@
 from django.contrib import admin
 from models import Comment, Message, Post
 
-
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('pk','author', 'date_created',)
 
@@ -14,3 +13,5 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Post,PostAdmin)
+
+
