@@ -272,13 +272,18 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         "" : "list",
         "postrange/:from-:to" : "range",
         "detail_id?:id" : "PostDetails",
-        "add_post" : "AddPost"
+        "add_post" : "AddPost",
+        "image/upload_image" : "image"
 
     },
     initialize:function () {
         this.PageModel = new Apps.Models.Pages();
     },
 
+    image : function(){
+        alert('image')
+    },
+    
     list:function () {
         this.PostList = new Apps.Collections.PostCollection();
         //Apps.allLoadedPosts = new Apps.Collections.PostCollection();

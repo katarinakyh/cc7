@@ -25,8 +25,6 @@
     <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <script src="{{ STATIC_URL }}js/adress.js" type="text/javascript" ></script>
 
-    <!--script src="http://code.jquery.com/jquery-1.8.2.min.js"></script-->
-
     <style type="text/css">
         body {
             color: #333333;
@@ -255,18 +253,18 @@
                     <button class="btn btn-primary" id="new_post">post</button>
                 </div>
 
-                <form id="imagetheForm" enctype="multipart/form-data" method="post" action="image/upload_image/">
+                <form id="imagetheForm" enctype="multipart/form-data" method="post" action="/image/upload_image/">
                     <input type="file" name="myfile">
+                    <div class="get_from_camera">
+                        <input type="file" accept="image/*" capture="camera" />
+                    </div>
+                    <div class="get_from_file">
+                        <input type="file" accept="image/*" />
+                    </div>
+                    <button id="imageForm"> Submit </button>
                 </form>
 
-                <button id="imageForm">Submit</button>
 
-                <div class="get_from_camera">
-                    <input type="file" accept="image/*" capture="camera">
-                </div>
-                <div class="get_from_file">
-                    <input type="file" accept="image/*" >
-                </div>
 
                 <div class="add_adress">
                     <label>Name this place</label>
@@ -398,6 +396,7 @@
     Backbone.history.start();
     </script>
     -->
+
 
 
 </body>
