@@ -46,11 +46,12 @@ class MessageForm(ModelForm):
         return name
 
 class ThreadForm(ModelForm):
+    image = forms.FileField()
     class Meta:
         model= Post
         widgets = {
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
         }
         exclude = ('author','event','association','is_public',)
-        fields = ('title','body',)
+        fields = ('title', 'body', 'image',)
 

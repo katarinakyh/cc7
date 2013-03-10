@@ -1,5 +1,6 @@
 from itertools import chain
 from operator import attrgetter
+from django.core.files.base import ContentFile
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.views.generic.list import ListView
@@ -10,6 +11,7 @@ from models import Post, Comment, Message
 from forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
 from apps.account.models import MyProfile
 from apps.stream.views import save_comment
+from apps.image.models import Image
 from itertools import chain
 from operator import attrgetter, itemgetter
 import re
@@ -122,7 +124,12 @@ class AddPostView(FormView):
     success_url = '/'
     template_name = 'publication/create_post.html'
 
+
     def form_valid(self, form):
+
+        image = Image.objects.get(pk=1)
+
+        form.instance.image = image
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
         form.instance.title = self.request.POST.get('title')

@@ -203,10 +203,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
     },
 
     file_submit: function () {
-            console.log("maju");
-            $('.imagetheForm').submit();
-        console.log("maju");
-
+        $('.imagetheForm').submit();
     },
 
     new_post:function (e) {

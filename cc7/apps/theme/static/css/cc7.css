@@ -1,5 +1,11 @@
 .main {
-    margin-top: 10px;
+    margin-top: 40px;
+}
+.mainflow {
+    margin-top: 44px;
+    min-height: 500px;
+    background: #ffffff;
+
 }
 .navbar-inverse .navbar-inner {
     background-color: #170223; /*#0f0117*/ 
@@ -50,6 +56,7 @@
     position: relative;
     top: -10px;
 }
+
 .menuplus {
     position: relative;
     left: -6%;
@@ -76,6 +83,16 @@
     text-align: center;
 }
 
+#threadform #id_title {
+    width: 300px;
+    height: 30px;
+    margin-left: 4px;
+}
+
+#threadform #id_body {
+    width: 300px;
+    height: 200px;
+}
 
 textarea {
     width: 475px;
@@ -98,6 +115,11 @@ textarea {
     width: 500px;
     height: 300px;
 }
+#threadform .post_submit {
+    margin-left: 280px;
+
+}
+
 li{
     list-style-type: none;
 }
@@ -197,6 +219,19 @@ submit{
     font-size: 14px;
 }
 
+
 .rightsidebar{
     padding-left: 30px;
+    padding-top: 40px;
+}
+
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; margin-top: 60px; }
+
+.add_from_file{
+    font-size: 30px;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    margin-right: 45px;
+
 }

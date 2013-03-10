@@ -1,3 +1,4 @@
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from apps.event.models import Event
@@ -32,10 +33,10 @@ def stream(request):
         save_comment(request, profile)
         return HttpResponseRedirect(reverse('stream'))
      
-    posts = Post.objects.filter(is_public=True).order_by('-date_created')
-    events = Event.objects.filter().order_by('-date_created')
+    posts = Post.objects.filter(is_public=True).order_by('date_created')
+    events = Event.objects.filter().order_by('date_created')
     comment_form = CommentForm()
-    result_list =  sorted(chain(posts, events), key=attrgetter('date_created'))
+    result_list =  sorted(chain(posts, events))
     #pagination
 
     page_list = pagination(request, result_list)
@@ -56,10 +57,10 @@ def pagination(request, list):
         page_list = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        page_list = paginator.page(len(paginator.page_range))
+        page_list = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        page_list = paginator.page(len(paginator.page_range))
+        page_list = paginator.page(1)
 
     return page_list
 

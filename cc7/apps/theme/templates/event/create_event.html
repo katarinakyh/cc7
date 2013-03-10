@@ -51,38 +51,29 @@
                 </div>
           
                 <div class="control-group" id="date_from">
-                    <label for="id_date_from" class="control-label">{% trans "From (date)" %}</label>
+                    <label for="id_datetime_from" class="control-label">{% trans "From (date)" %}</label>
                     <div class="controls">
-                        {{ form.date_from }}
+                        {{ form.datetime_from }}
                         <span class="label label-important">{{ form.date_from.errors }}</span>
                     </div>
                 </div>
-                <div class="control-group" id="time_from">
-                    <label for="id_time_from" class="control-label">{% trans "From (time)" %}</label>
-                    <div class="controls">
-                        {{ form.time_from }}
-                        <span class="label label-important">{{ form.time_from.errors }}</span>
-                    </div>
-                </div>
+
                 <div class="control-group" id="date_to">
-                    <label for="id_date_to" class="control-label">{% trans "To (date)" %}</label>
+                    <label for="id_timedate_to" class="control-label">{% trans "To (date)" %}</label>
                     <div class="controls">
-                        {{ form.date_to }}
+                        {{ form.datetime_to }}
                         <span class="label label-important">{{ form.date_to.errors }}</span>
                     </div>
                 </div>
-                <div class="control-group" id="time_to">
-                    <label for="id_time_to" class="control-label">{% trans "To (time)" %}</label>
-                    <div class="controls">
-                        {{ form.time_to }}
-                        <span class="label label-important">{{ form.time_to.errors }}</span>
-                    </div>
+
                 </div>
+
          </td>
         </tr>
       </table>
       <input type="submit" class="btn" value="{% trans "Create event" %}">
 
   </form>
+
 
 {%endblock%}

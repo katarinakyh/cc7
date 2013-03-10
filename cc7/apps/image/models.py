@@ -3,7 +3,7 @@ from sorl.thumbnail import ImageField
 from django.forms import ModelForm
 
 class Image(models.Model):
-    image = ImageField(upload_to='images')
+    image = models.ImageField(upload_to='images')
 
     def __unicode__(self):
         return u'%s' %self.image

@@ -8,10 +8,10 @@ class Event(models.Model):
     organiser = models.ForeignKey(Association)
     description = models.TextField(_("Description"))
     place = models.CharField(_("Place"), max_length= 255)
-    date_from = models.DateField(_("From date"))
-    time_from = models.TimeField(_("From time"))
-    date_to = models.DateField(_("To date"))
-    time_to = models.TimeField(_("To time"))
+    datetime_from = models.DateTimeField(_("From date and time"))
+    #time_from = models.TimeField(_("From time"))
+    datetime_to = models.DateTimeField(_("To date and time"))
+    #time_to = models.TimeField(_("To time"))
 
     def __unicode__(self):
         return unicode(self.title)

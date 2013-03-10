@@ -10,11 +10,10 @@ from django.utils.simplejson import dumps
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
-        print request.FILES
         if form.is_valid():
             form.save()
-
-            json = {"success"}
+            pk = form.instance.pk
+            json = {pk}
             return HttpResponse(json, content_type="application/json")
 
 

@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-<h4>Start new Discussion thread </h4>
+<h4>Share</h4>
 <hr/>
-<form action="" id="threadform" method="post" class="form-inline">
+<form action="" id="threadform" method="post" enctype="multipart/form-data" class="form-inline">
     {% csrf_token %}
     {{form.as_p}}
     <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
     <input type="hidden" value="1" name="is_public" id="id_is_public"/>
-    <input class="btn" type="submit" value="Create thread"/>
+
+    <input class="btn post_submit" type="submit" value="Post"/>
+    <br />
+    <i class="icon-picture add_from_file"></i>
 </form>
 
 

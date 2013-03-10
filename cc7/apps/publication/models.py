@@ -2,6 +2,7 @@ from django.db import models
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
 from apps.map.models import Place
+from apps.image.models import Image
 from django.core.validators import MaxLengthValidator
 
 
@@ -15,6 +16,7 @@ class Post(models.Model):
     association = models.ForeignKey(Association, null=True, blank=True)
     place = models.ForeignKey(Place, null=True, blank=True)
     is_public = models.BooleanField(default=True)
+    image = models.ForeignKey(Image, null=True)
 
     def __unicode__(self):
         return u'%s' %self.title
