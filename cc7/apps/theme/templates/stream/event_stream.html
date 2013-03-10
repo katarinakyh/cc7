@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block extra_head %}
+    
+{% endblock %}
+    {% block my_header %}
+    
+{% endblock %}
+
+{%block content%}
+        <div class="nav">
+            <ul class="lowernav">
+                <li>
+                     <h4> {% trans "All events" %} </h4>
+                </li>
+                <li>
+                    <a href="{% url add_event %}" class="menu_word"> {% trans "Create new event" %} <i class="icon-edit "></i> </a>
+                </li>
+            </ul>
+    <hr/>
+    {%include 'publication/fullstream.html'%}
+
+{%endblock%}

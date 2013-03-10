@@ -80,13 +80,8 @@ class PostResource(ModelResource):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
         mugshot = user.get_mugshot_url()
         bundle.data['mugshot'] = mugshot
-
-
+        
         comments = Comment.objects.filter(post = bundle.obj.pk)
-        for c in comments:
-            c.mugshot = c.author.mugshot
-
-
         i = 0
         commentsdict  = {  }
         for c in comments:
@@ -104,13 +99,6 @@ class PostResource(ModelResource):
         bundle.data['comment_count'] = len(comments)
         bundle.data['comments'] = commentsdict
         return bundle
-    """
-    def obj_create(self, bundle, request, **kwargs):
-        bundle.data['author'] = request.user
-        #bundle.data['place_id'] = null
-
-        return super(PostResource, self).obj_create(bundle, request, **kwargs)
-        """
     
 class CommentResource(ModelResource):
     author = fields.ToOneField(AuthorResource, 'author', full=True)

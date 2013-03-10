@@ -13,6 +13,9 @@ class Event(models.Model):
     date_to = models.DateField(_("To date"))
     time_to = models.TimeField(_("To time"))
 
+    #from = models.DateTimeField(_("From date and time"))
+    #to = models.DateTimeField(_("End date and time"))
+    
     def __unicode__(self):
         return unicode(self.title)
     

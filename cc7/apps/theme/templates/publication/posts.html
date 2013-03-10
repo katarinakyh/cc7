@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
+    <h4>All posts</h4>
+    <hr/>
 
     {% for p in object_list  %}
         <blockquote> <h4 style="display:inline">{{ p.title }} </h4>

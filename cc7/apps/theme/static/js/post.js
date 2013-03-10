@@ -181,7 +181,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
         "click #new_post": "new_post",
         'click .add_from_camera' : 'togglefield',
         'click .add_from_file' : 'togglefield',
-        'click #imageForm' : 'file_submit'
+        'click button.submitImageForm' : 'file_submit'
     },
 
     togglefield : function(e){
@@ -202,10 +202,11 @@ Apps.Views.NewPostView = Backbone.View.extend({
       console.log("your trying to change your location")
     },
 
-    file_submit: function (e) {
-        console.log("the form");
-        $('#imagetheForm').submit();
-        console.log("mjau");
+    file_submit: function () {
+            console.log("maju");
+            $('.imagetheForm').submit();
+        console.log("maju");
+
     },
 
     new_post:function (e) {
@@ -223,34 +224,33 @@ Apps.Views.NewPostView = Backbone.View.extend({
             
             alert(place_latitude);
 
-        var place = new Apps.Models.Place();
+            var place = new Apps.Models.Place();
             place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
                 {success: function(data){
                     console.log(data)
+                    var post = new Apps.Models.Post();
                     post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: data.id, is_public: true})
                 },error: function(data){
                     console.log(data);
                 }
             });    
-        }
-
-        var post = new Apps.Models.Post();
-        // we save this right to the server
-        var image;
+        }else{
+            var post = new Apps.Models.Post();
+            // we save this right to the server
+            var image;
             // bind 'myForm' and provide a simple callback function
-
-
-        post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: null, is_public: true},
-                    {success: function(data){
-                        console.log('success');
-                        console.log(data);
-                    },error: function(data){
-                        console.log('error');
-                        console.log(data);
-                    }
-                });
-        
-        this.render();
+    
+            post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: null, is_public: true},
+                        {success: function(data){
+                            console.log('success');
+                            console.log(data);
+                        },error: function(data){
+                            console.log('error');
+                            console.log(data);
+                        }
+                    });
+            this.render();
+        }
     },
 
 

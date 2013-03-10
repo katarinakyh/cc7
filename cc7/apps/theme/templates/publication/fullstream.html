@@ -39,7 +39,7 @@
             </h4>
 
 {%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}} </div> {%endcomment%}
-                <div class="postbody">{{ post.body|escape }} </div>
+                <div class="postbody">{{ post.body|oembed:"508x255"|escape }} </div>
 
             <ul class="commentfield">
                 {% include "publication/comment.html" %}

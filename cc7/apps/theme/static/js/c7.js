@@ -1,4 +1,3 @@
-
 $(function() {
     
     $(".addtitle").click(function(e){
@@ -43,12 +42,13 @@ $(function() {
     });
 
     //preparePage();
-
+    
+/* Katten: 130310 This function sends js into an infinity loop, not sure why
     $('body').html(function(i, html) {
         return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g,
         '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
     });
-
+*/
 });
 
 
