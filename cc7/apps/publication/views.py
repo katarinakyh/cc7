@@ -1,6 +1,7 @@
 from itertools import chain
 from operator import attrgetter
 from django.core.files.base import ContentFile
+from django.http import Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.views.generic.list import ListView
@@ -127,9 +128,6 @@ class AddPostView(FormView):
 
     def form_valid(self, form):
 
-        image = Image.objects.get(pk=1)
-
-        form.instance.image = image
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True
         form.instance.title = self.request.POST.get('title')
@@ -152,13 +150,12 @@ def post_detail(request, pk):
             'profile': profile,
         })
 
-
 def youtube_embed_url(value):
 
     match = re.search(r'^(http|https)\:\/\/www\.youtube\.com\/watch\?v\=(\w*)(\&(.*))?$', value)
     if match:
         embed_url = 'http://www.youtube.com/embed/%s' %(match.group(2))
-        res = "<iframe width=\"560\" height=\"315\" src=\"%s\" frameborder=\"0\" allowfullscreen></iframe>" %(embed_url)
+        res = '<iframe width="560" height="315" src="%s" frameborder="0" allowfullscreen></iframe>' %(embed_url)
         return res
     if match:
         pass
@@ -207,8 +204,12 @@ def view_message(request, pk):
                 f.save()
             else:
                 print form.errors
-    
+
+
         message_list = Message.objects.filter(thread=pk).order_by('-date_created')
+        if not message_list:
+            return HttpResponseRedirect("/")
+
         message_form = MessageForm()
 
         return render_to_response('publication/message_thread.html', {

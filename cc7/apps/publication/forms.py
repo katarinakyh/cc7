@@ -46,7 +46,6 @@ class MessageForm(ModelForm):
         return name
 
 class ThreadForm(ModelForm):
-    image = forms.FileField()
     class Meta:
         model= Post
         widgets = {

@@ -221,34 +221,33 @@ Apps.Views.NewPostView = Backbone.View.extend({
             
             alert(place_latitude);
 
-        var place = new Apps.Models.Place();
+            var place = new Apps.Models.Place();
             place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
                 {success: function(data){
                     console.log(data)
+                    var post = new Apps.Models.Post();
                     post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: data.id, is_public: true})
                 },error: function(data){
                     console.log(data);
                 }
             });    
-        }
-
-        var post = new Apps.Models.Post();
-        // we save this right to the server
-        var image;
+        }else{
+            var post = new Apps.Models.Post();
+            // we save this right to the server
+            var image;
             // bind 'myForm' and provide a simple callback function
-
-
-        post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: null, is_public: true},
-                    {success: function(data){
-                        console.log('success');
-                        console.log(data);
-                    },error: function(data){
-                        console.log('error');
-                        console.log(data);
-                    }
-                });
-        
-        this.render();
+    
+            post.save({author: '/mobile/api/v1/author/1/', body: post_body, event: null, title:null, place: null, is_public: true},
+                        {success: function(data){
+                            console.log('success');
+                            console.log(data);
+                        },error: function(data){
+                            console.log('error');
+                            console.log(data);
+                        }
+                    });
+            this.render();
+        }
     },
 
 
@@ -270,13 +269,18 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         "" : "list",
         "postrange/:from-:to" : "range",
         "detail_id?:id" : "PostDetails",
-        "add_post" : "AddPost"
+        "add_post" : "AddPost",
+        "image/upload_image" : "image"
 
     },
     initialize:function () {
         this.PageModel = new Apps.Models.Pages();
     },
 
+    image : function(){
+        alert('image')
+    },
+    
     list:function () {
         this.PostList = new Apps.Collections.PostCollection();
         //Apps.allLoadedPosts = new Apps.Collections.PostCollection();

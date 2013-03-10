@@ -1,5 +1,6 @@
 {% load i18n%}
 {%load micawber_tags %}
+{% load thumbnail %}
 
 {% for post in object_list|dictsortreversed:"date_created"  %}
     <div class="story" >
@@ -38,10 +39,17 @@
                 </span>
             </h4>
 
-{%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}} </div> {%endcomment%}
-                <div class="postbody">{{ post.body|escape }} </div>
+{%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
+                <div class="postbody">{{ post.body|oembed:"508x255"|escape }} <br/>
+                    {% if post.image %}
+                    {% thumbnail post.image "420x300" crop="center" as im %}
+                    <img src="{{ im.url }}">
+                    {% endif %}
 
-            <ul class="commentfield">
+                </div>
+
+
+        <ul class="commentfield">
                 {% include "publication/comment.html" %}
             </ul>
 

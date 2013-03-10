@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load thumbnail %}
 {%block content%}
 
         <div class="story">
             
             <h3 style="display:inline">{{ post.title }} </h3>
             <li> <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-            <div class="postbody"> {{ post.body|linebreaks|escape }} </div>
+            <div class="postbody"> {{ post.body|linebreaks|escape }}
+                {% if post.image %}
+                {% thumbnail post.image "500x400"  as im %}
+                <img src="{{ im.url }}">
+                {% endif %}
+            </div>
             <ul class="commentfield">
                 {%include 'publication/comment.html'%}
             </ul>

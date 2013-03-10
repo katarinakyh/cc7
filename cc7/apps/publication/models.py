@@ -1,11 +1,17 @@
 from django.db import models
+from django.core.validators import MaxLengthValidator
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
 from apps.map.models import Place
 from apps.image.models import Image
+
 from django.core.validators import MaxLengthValidator
 
-
+POST_TYPE = (
+    ('p', 'post'),
+    ('e', 'event'),
+    ('m', 'meeting'),
+)
 
 class Post(models.Model):
     author = models.ForeignKey(MyProfile, null=True, blank=True)
@@ -16,7 +22,14 @@ class Post(models.Model):
     association = models.ForeignKey(Association, null=True, blank=True)
     place = models.ForeignKey(Place, null=True, blank=True)
     is_public = models.BooleanField(default=True)
-    image = models.ForeignKey(Image, null=True)
+
+    image = models.ImageField(upload_to='images', null=True, blank=True)
+
+    """
+    image = model.ForeignKey(Image, null=True, blank=True)
+    date_changed = models.DateTimeField(auto_now = True)
+    type = models.CharField(max_length=20, choices = POST_TYPE)
+    """
 
     def __unicode__(self):
         return u'%s' %self.title

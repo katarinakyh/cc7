@@ -25,8 +25,6 @@
     <script src="{{ STATIC_URL }}js/maps.js" type="text/javascript" ></script>
     <script src="{{ STATIC_URL }}js/adress.js" type="text/javascript" ></script>
 
-    <!--script src="http://code.jquery.com/jquery-1.8.2.min.js"></script-->
-
     <style type="text/css">
         body {
             color: #333333;
@@ -256,7 +254,7 @@
                 </div>
 
                 <form>
-                    <input  id="id_image" type="file" name="image"/></br>
+                    <input  id="id_image" type="file" name="image" />
                     {% csrf_token %}
                     <input type="button" value="upload"
                            onClick="fileUpload(this.form,'/image/upload_file/','upload'); return false;" >
@@ -264,13 +262,6 @@
                 </form>
 
                 <button id="submitImageForm">Submit</button>
-
-                <div class="get_from_camera">
-                    <input type="file" accept="image/*" capture="camera">
-                </div>
-                <div class="get_from_file">
-                    <input type="file" accept="image/*" >
-                </div>
 
                 <div class="add_adress">
                     <label>Name this place</label>
@@ -406,7 +397,7 @@
 
 
 
-<script language="Javascript">
+<script language="javascript">
     function fileUpload(form, action_url, div_id) {
         // Create the iframe...
         var iframe = document.createElement("iframe");

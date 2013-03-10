@@ -76,7 +76,7 @@ def stream_posts(request):
 
     page_list = pagination(request, posts)
 
-    return render_to_response('stream/stream.html', {
+    return render_to_response('stream/post_stream.html', {
         'object_list': page_list,
         'comment_form': comment_form,
         'profile': profile,
@@ -93,7 +93,7 @@ def stream_events(request):
 
     page_list_events = pagination(request, events)
 
-    return render_to_response('stream/stream.html', {
+    return render_to_response('stream/event_stream.html', {
         'object_list': page_list_events ,
         'comment_form': comment_form,
         'profile': profile,

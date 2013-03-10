@@ -1,11 +1,21 @@
 .main {
-    margin-top: 40px;
+    margin-top: 80px;
 }
 .mainflow {
     margin-top: 44px;
     min-height: 500px;
     background: #ffffff;
-
+    margin-top: 60px;
+}
+.lowernav{
+    float:none;
+    
+}
+.lowernav li{
+    display: inline;
+}
+.lowernav h4{
+    display: inline;
 }
 .navbar-inverse .navbar-inner {
     background-color: #170223; /*#0f0117*/ 
@@ -28,16 +38,21 @@
 }
 
 .navbar-inverse .brand {
-    padding-right: 6%;
+   /* padding-right: 6%;*/
 }
 .navbar-inverse .nav{
     padding-left: 1%;
 }
+.navbar .nav{
+    margin: 0;
+    padding-right: 10px;
+    width: 320px;
+}
 .navbar .nav > li > a {
     display: block;
-    margin-left: 4%;
-    padding-left: 10%;
-    margin-right: 1%;
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 0;
 }
 .menu_word {
     margin-left: 8%;

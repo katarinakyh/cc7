@@ -37,17 +37,17 @@
                 <input type="hidden" value="{{profile.pk}}" name="author" />
                 <div class="titlefield"> Title: {{ post_form.title }} </div>
                 <input type="submit" id="new_post" class="btn" value="New post" />
+                <a href="#" class="addtitle">Add title</a>
 
             </form>
 <br>
 <br>
 <br>
-<a href="" class="addtitle">Add title</a>
     {%endif%}
 
     {%for post in object_list %}
         <h4>
-           <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+           <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Author mugshot" %}"/>
            <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
            <span class="small">
            {% if post.author %}

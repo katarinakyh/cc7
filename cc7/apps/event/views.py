@@ -9,9 +9,13 @@ from apps.publication.forms import CommentForm
 from apps.stream.views import save_comment
 
 class EventView(ListView):
-    template_name = 'stream/stream.html'
+    """
+    This is not used, stream/view stream_events
+    """
+    template_name = 'stream/event_stream.html'
     model = Event
     form_class = EventCommentForm
+
 
 class AddEventView(CreateView):
     template_name = 'event/create_event.html'
@@ -31,7 +35,8 @@ def event_detail(request, pk):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
-            
+            #return redirect, reverse, kolla syntax  
+        
     event = Event.objects.get(pk=pk)
     comment_form = CommentForm()
 
