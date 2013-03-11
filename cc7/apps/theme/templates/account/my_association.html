@@ -16,9 +16,10 @@
         
         
             {%if can_edit %}
-                <form action="" id="post_form" method="post" class="form-horizontal block-form">
+                <form action="" enctype="multipart/form-data" id="post_form" method="post" class="form-horizontal block-form">
                     {% csrf_token %}
-                    {{ post_form.body }}
+                    {{ post_form.body }} <br />
+                    {{ post_form.image }}
                     <input type="hidden" value="{{profile.pk}}" name="author"/>
                     <input type="hidden" value="{{pageprofile.pk}}" name="association"/>
                     <input type="hidden" value="1" name="is_public"/>

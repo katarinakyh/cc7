@@ -8,54 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Post'
-        db.create_table('publication_post', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.MyProfile'], null=True, blank=True)),
-            ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('body', self.gf('django.db.models.fields.TextField')()),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['event.Event'], null=True, blank=True)),
-            ('association', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Association'], null=True, blank=True)),
-            ('place', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['map.Place'], null=True, blank=True)),
-            ('is_public', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal('publication', ['Post'])
-
-        # Adding model 'Comment'
-        db.create_table('publication_comment', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.MyProfile'])),
-            ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('body', self.gf('django.db.models.fields.TextField')()),
-            ('post', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['publication.Post'], null=True, blank=True)),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['event.Event'], null=True, blank=True)),
-        ))
-        db.send_create_signal('publication', ['Comment'])
-
-        # Adding model 'Message'
-        db.create_table('publication_message', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='author', to=orm['account.MyProfile'])),
-            ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('body', self.gf('django.db.models.fields.TextField')()),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('to', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.MyProfile'])),
-            ('thread', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal('publication', ['Message'])
+        # Adding field 'Post.image'
+        db.add_column('publication_post', 'image',
+                      self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Post'
-        db.delete_table('publication_post')
-
-        # Deleting model 'Comment'
-        db.delete_table('publication_comment')
-
-        # Deleting model 'Message'
-        db.delete_table('publication_message')
+        # Deleting field 'Post.image'
+        db.delete_column('publication_post', 'image')
 
 
     models = {
