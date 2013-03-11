@@ -47,8 +47,8 @@
 {%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
                 <div class="postbody">{{ post.body|oembed:"508x255"|escape }} <br/>
                     {% if post.image %}
-                    {% thumbnail post.image "420x300" crop="center" as im %}
-                    <img src="{{ im.url }}">
+                        {% thumbnail post.image "420x300" crop="center" as im %}
+                        <img src="{{ im.url }}" />
                     {% endif %}
 
                 </div>

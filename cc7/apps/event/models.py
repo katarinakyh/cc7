@@ -10,7 +10,7 @@ class Event(models.Model):
     place = models.CharField(_("Place"), max_length= 255)
     datetime_from = models.DateTimeField(_("From date and time"))
     datetime_to = models.DateTimeField(_("To date and time"))
-    image = models.ImageField(upload_to='images/events', null=True, blank=True)
+    image = models.ImageField(upload_to='images/events/%Y/%m/%d', null=True, blank=True)
 
     def __unicode__(self):
         return unicode(self.title)

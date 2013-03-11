@@ -14,6 +14,7 @@ class PostForm(ModelForm):
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
             'author': HiddenInput()
         }
+        fields = ('title', 'body', 'image', 'author')
                 
 class CommentForm(ModelForm):
     class Meta:

@@ -1,5 +1,7 @@
 {% extends 'userena/profile_detail.html' %}
 {% load i18n %}
+{% load thumbnail %}
+
 {% block extra_head %}
     <style>
         textarea {
@@ -28,10 +30,10 @@
 {%block posts%}
     <br/>
     {%if pageprofile == profile %}
-            <form action="" id="post_form" method="post" class="form-horizontal block-form">
+            <form action="" enctype="multipart/form-data" id="post_form" method="post" class="form-horizontal block-form">
                 {% csrf_token %}
-                {{ post_form.body }}
-
+                {{ post_form.body }} <br />
+                {{ post_form.image }}
                 <span class="label label-important">{{ form.body.errors }}</span><br />
                 <input type="hidden" value="{{post.pk}}" name="post" />
                 <input type="hidden" value="{{profile.pk}}" name="author" />
@@ -60,6 +62,10 @@
            </span>
        </h4>    
         <div class="postbody"> {{ post.body|linebreaks}} </div>
+            {% if post.image %}
+                {% thumbnail post.image "420x300" crop="center" as im %}
+                <img src="{{ im.url }}" />
+            {% endif %}
         <ul class="commentfield">
             {%include 'publication/comment.html'%}
         </ul>

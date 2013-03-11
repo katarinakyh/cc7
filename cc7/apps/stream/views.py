@@ -70,6 +70,8 @@ def stream_posts(request):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
+            print 'I am here'
+            return HttpResponseRedirect(reverse('stream_posts'))
 
     posts = Post.objects.filter(is_public=True).order_by('-date_created')
     comment_form = CommentForm()
@@ -87,6 +89,7 @@ def stream_events(request):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
+            return HttpResponseRedirect(reverse('stream_events'))
 
     events = Event.objects.filter().order_by('-date_created')
     comment_form = CommentForm()

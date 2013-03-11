@@ -2,6 +2,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from models import Event
 from forms import EventForm, EventCommentForm
@@ -35,13 +36,14 @@ def event_detail(request, pk):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
-            #return redirect, reverse, kolla syntax  
-        
-    event = Event.objects.get(pk=pk)
-    comment_form = CommentForm()
-
-    return render(request, 'event/event_detail.html', {
-            'comment_form': comment_form,
-            'post': event,
-            'profile': profile,
-        })
+            return HttpResponseRedirect(reverse('show_event', args=(pk,)))
+    
+    else:    
+        event = Event.objects.get(pk=pk)
+        comment_form = CommentForm()
+    
+        return render(request, 'event/event_detail.html', {
+                'comment_form': comment_form,
+                'post': event,
+                'profile': profile,
+            })

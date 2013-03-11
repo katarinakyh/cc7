@@ -5,11 +5,12 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from models import Association
-from apps.publication.forms import PostForm, CommentForm
+from apps.publication.forms import PostForm, CommentForm, ThreadForm
 from apps.publication.models import Post
 from apps.event.models import Event
 from apps.account.models import MyProfile                                                             
@@ -24,7 +25,7 @@ def my_page(request, *args, **kwargs):
     
     profile = request.user.get_profile()
     associations = Association.objects.all()
-
+    
     for key in kwargs:
         model = key
         key = kwargs[key]
@@ -39,36 +40,41 @@ def my_page(request, *args, **kwargs):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
+            if model == 'username':
+                return HttpResponseRedirect(reverse('my_page', args=(pageuser.username,)))
+            else:
+                return HttpResponseRedirect(reverse('show_association', args=(pageprofile.slug,)))
 
-        elif 'association_post' in request.POST:
-            form = PostForm(request.POST)
+        elif 'association' in request.POST:
+            form = PostForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save(commit = False)
-                f = form
                 title =  request.POST.get('title')
                 if title:
                     pass
                 else:
                     form.instance.title = ">>"
-                f.author=profile
-                f.association_page=pageuser
-                f.is_public=True
-                f.save()            
+                form.instance.author = profile
+                form.instance.association = pageuser
+                form.instance.is_public = True
+                form.save()
+                return HttpResponseRedirect(reverse('show_association', args=(pageprofile.slug,)))
             else:
                 print form.errors
         else:
-            form = PostForm(request.POST)
+            form = PostForm(request.POST, request.FILES)
+            print request.FILES.get('image')
             if form.is_valid():
                 form.save(commit=False)
-                f = form
-                title =  request.POST.get('title')
+                title = request.POST.get('title')
                 if title:
                     pass
                 else:
                     form.instance.title = ">>"
-                f.author=profile
-                f.is_public=False
-                f.save()            
+                form.instance.author = profile
+                form.instance.is_public = False
+                form.save()            
+                return HttpResponseRedirect(reverse('my_page', args=(pageuser.username,)))
             else:
                 print form.errors
                 
