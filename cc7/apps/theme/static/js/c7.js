@@ -1,5 +1,5 @@
 $(function() {
-    
+    /*
     $(".addtitle").click(function(e){
         e.preventDefault();
         $(".titlefield").toggle(200,function(){
@@ -10,7 +10,7 @@ $(function() {
             }
         });
     });
-
+    */
 
     $('#id_username').blur(function(e){
         e.stopPropagation();

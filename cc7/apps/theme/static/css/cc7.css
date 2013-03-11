@@ -235,9 +235,6 @@ submit{
     font-size: 15px;
 }
 
-.titlefield {
-    display: none;
-}
 .titlefield input[type=text]{
     width: 440px;
     margin-top: 5px;
