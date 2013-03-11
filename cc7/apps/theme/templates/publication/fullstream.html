@@ -34,16 +34,16 @@
         {% endif %}
 
         {% if post.body %}
-            <h4>
+            <div>
                 <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a><br/>
+                <h4 style="display:inline;"><a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a></h4><br/>
                 <span class="small">
                 {% if post.author %} {{ post.date_created }}
                     {% trans "Posted by" %}:<strong><a href="{% url my_page post.author.user %}"> {{ post.author }} </a></strong>
                     {% if post.association %} in <strong><a href="{% url show_association post.association.slug %}">{{ post.association.association }}</a></strong>{% endif %}
                 {% endif %}
                 </span>
-            </h4>
+            </div>
 
 {%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
                 <div class="postbody">{{ post.body|oembed:"508x255"|escape }} <br/>
