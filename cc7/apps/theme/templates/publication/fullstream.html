@@ -19,8 +19,8 @@
                     <p class="eventdescription">
                         {% if post.image %}
                         {% thumbnail post.image "220x100" crop="center" as im %}
-                        <img src="{{ im.url }}"><br>
-                        <em>{{ post.description|safe|escape|truncatewords:10}}</em>
+                        <img src="{{ im.url }}"><br/><br/>
+                        <em>{{ post.description|safe|escape|truncatewords:100}}</em>
                         {% endif %}
                     </p>
                 </div>
