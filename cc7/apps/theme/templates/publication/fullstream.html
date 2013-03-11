@@ -12,20 +12,19 @@
                     <span class="small">
                         {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser|escape }}</a>
                     </span>
-                    <div> <i class="icon-time"></i> {{ post.datetime_from }}  <span class="small">  until </span>  {{ post.datetime_to }}    </div>
-
-                    <br/>
-
+                    <div> <i class="icon-time"></i> {{ post.datetime_from }}  <span class="small">  until </span>  {{ post.datetime_to }}</div>
+                </div>
+            </h4>
+            <div>
                     <p class="eventdescription">
                         {% if post.image %}
                         {% thumbnail post.image "220x100" crop="center" as im %}
                         <img src="{{ im.url }}"><br>
-                        <em>"{{ post.description|safe|escape|truncatewords:10}}"</em>
+                        <em>{{ post.description|safe|escape|truncatewords:10}}</em>
                         {% endif %}
-
                     </p>
                 </div>
-            </h4>
+            <hr>
             <ul class="commentfield">
                 {% include "publication/comment.html" %}
             </ul>
