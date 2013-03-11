@@ -1,4 +1,4 @@
-sfrom django.db import models
+from django.db import models
 from django.core.validators import MaxLengthValidator
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
