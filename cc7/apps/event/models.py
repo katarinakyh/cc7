@@ -9,13 +9,9 @@ class Event(models.Model):
     description = models.TextField(_("Description"))
     place = models.CharField(_("Place"), max_length= 255)
     datetime_from = models.DateTimeField(_("From date and time"))
-    #time_from = models.TimeField(_("From time"))
     datetime_to = models.DateTimeField(_("To date and time"))
-    #time_to = models.TimeField(_("To time"))
+    image = models.ImageField(upload_to='images/events', null=True, blank=True)
 
-    #from = models.DateTimeField(_("From date and time"))
-    #to = models.DateTimeField(_("End date and time"))
-    
     def __unicode__(self):
         return unicode(self.title)
     

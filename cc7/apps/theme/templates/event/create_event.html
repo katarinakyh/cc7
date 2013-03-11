@@ -6,15 +6,15 @@
 <h4>Create new event</h4>
 <hr/>
 
-<form action="" id="eventform" method="post" class="">
+<form action="" id="eventform" method="post" enctype="multipart/form-data" class="">
     {% csrf_token %}
-    <table id="" class="table table-striped table-bordered">
+    <table id="eventtableform" class="table table-striped table-bordered">
         <tr>
             <th>
                 {% trans "About" %}
             </th>
             <th>
-                {% trans "Time and Place" %}
+                {% trans "Place,Time and Image" %}
             </th>
         </tr>
         <tr>
@@ -51,27 +51,35 @@
                 </div>
           
                 <div class="control-group" id="date_from">
-                    <label for="id_datetime_from" class="control-label">{% trans "From (date)" %}</label>
+                    <label for="id_datetime_from" class="control-label">{% trans "From" %}</label>
                     <div class="controls">
                         {{ form.datetime_from }}
-                        <span class="label label-important">{{ form.date_from.errors }}</span>
+                        <span class="label label-important">{{ form.datetime_from.errors }}</span>
                     </div>
                 </div>
 
                 <div class="control-group" id="date_to">
-                    <label for="id_timedate_to" class="control-label">{% trans "To (date)" %}</label>
+                    <label for="id_timedate_to" class="control-label">{% trans "To" %}</label>
                     <div class="controls">
                         {{ form.datetime_to }}
-                        <span class="label label-important">{{ form.date_to.errors }}</span>
+                        <span class="label label-important">{{ form.datetime_to.errors }}</span>
                     </div>
                 </div>
 
+                <div class="control-group" id="id_image">
+                    <label for="id_image" class="control-label">{% trans "Image" %}</label>
+                    <div class="controls">
+                        {{ form.image }}
+                        <span class="label label-important">{{ form.image.errors }}</span>
+                    </div>
                 </div>
+
+
 
          </td>
         </tr>
       </table>
-      <input type="submit" class="btn" value="{% trans "Create event" %}">
+      <input type="submit" class="btn eventformsubmit" value="{% trans "Create event" %}">
 
   </form>
 

@@ -16,7 +16,12 @@
                         {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser|escape }}</a>
                     </span>
                     <p class="eventdescription">
+                        {% if post.image %}
+                        {% thumbnail post.image "220x100" crop="center" as im %}
+                        <img src="{{ im.url }}"><br>
                         <em>"{{ post.description|safe|escape|truncatewords:10}}"</em>
+                        {% endif %}
+
                     </p>
                 </div>
             </h4>

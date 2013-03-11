@@ -98,11 +98,12 @@
     text-align: center;
 }
 
-#threadform #id_title {
+#threadform #id_title,  {
     width: 300px;
     height: 30px;
     margin-left: 4px;
 }
+
 
 #threadform #id_body {
     width: 300px;
@@ -122,18 +123,31 @@ textarea {
     height: 20px;
 }
 
-#eventform textarea{
-    width: 200px;
+#eventform textarea, #eventtableform textarea{
+    width: 300px;
     height: 160px;
 }
 #threadform textarea, #messageform textarea{
     width: 500px;
     height: 300px;
 }
+
 #threadform .post_submit {
     margin-left: 280px;
 
 }
+
+
+#eventtableform input[type=text], #eventtableform input[type=image], #eventtableform select {
+    width: 260px;
+    height: 30px;
+    margin-left: 4px;
+}
+.eventformsubmit {
+    margin-left: 80%;
+}
+
+
 
 li{
     list-style-type: none;
