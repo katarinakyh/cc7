@@ -14,7 +14,7 @@
       <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
   
      <link href="{{ STATIC_URL }}css/jquery-timepicker-addon.css" type="text/css"  rel="stylesheet">
-      <link href="{{ STATIC_URL }}css/cc7.css" type="text/css" rel="stylesheet">
+
       <link href="{{ STATIC_URL }}css/jquery-ui.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}css/tipsy.css" type="text/css" rel="stylesheet" />
  <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
@@ -22,7 +22,7 @@
 
       <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fileupload-ui.css">
       <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.min.css">
-
+      <link href="{{ STATIC_URL }}css/cc7.css" type="text/css" rel="stylesheet">
 
       <script src="{{ STATIC_URL }}js/jquery-1.9.1.js" type="text/javascript" ></script>
       <script src="{{ STATIC_URL }}js/jquery-ui-1.9.2.custom.min.js" type="text/javascript" ></script>
@@ -102,7 +102,7 @@
         <div class="container">
             <a class="brand" href="/"><i class="icon-bullhorn "></i> c7 </a>
           <div class="nav">
-            <ul class="nav">
+            <ul class="nav  float_center">
             {% if user.is_authenticated %}
                 <li>
                     <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} <i class="icon-calendar "></i> </a>
@@ -114,8 +114,8 @@
                   <a href="/messages/" class="menu_word">{% trans "Messages" %} <i class="icon-envelope "></i></a>
                 </li>
             </div>
-                <div class="nav">
-                    <li class="float_left">
+                <div class="float_right nav">
+                    <li >
                         <a href="{% url my_page user.username %}"><i class="icon-user "></i> {{ user.username }}</a>
                     </li>
                     <li>
@@ -123,6 +123,7 @@
                     </li>
                 </div>
                 {% else %}
+
                 <li class="">
                     <a href="/accounts/signin/">{% trans "Please" %} {% trans "sign in" %} </a>
                 </li>
@@ -148,14 +149,13 @@
      <div class="span3 rightsidebar" style="min-height: 500px;background: #fff;margin: 0;">
 
          {% block rightsidebar %}
-             <div> &nbsp;</div>
+
              <a href="{%url list_associations%}">
                 <h4 class="rightinline black">{% trans "All associations" %}</h4>
-            </a>             
+            </a>
             {% list_associations %}
-             <div> &nbsp;</div>
              <br/>
-             <a href="{%url userena_profile_list%}">
+             <a href="{%url userena_profile_list%}"> <br/>
                 <h4 class="rightinline black">{% trans "Friends" %}</h4>
             </a>
             {% list_friends %}
