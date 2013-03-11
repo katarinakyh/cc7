@@ -61,11 +61,12 @@
            {% endif %}
            </span>
        </h4>    
-        <div class="postbody"> {{ post.body|linebreaks}} </div>
+        <div class="postbody"> {{ post.body|linebreaks}} 
             {% if post.image %}
                 {% thumbnail post.image "420x300" crop="center" as im %}
                 <img src="{{ im.url }}" />
             {% endif %}
+        </div>
         <ul class="commentfield">
             {%include 'publication/comment.html'%}
         </ul>
