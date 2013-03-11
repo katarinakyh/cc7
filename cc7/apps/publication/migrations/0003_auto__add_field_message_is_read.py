@@ -80,22 +80,33 @@ class Migration(SchemaMigration):
         'event.event': {
             'Meta': {'object_name': 'Event'},
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'date_from': ('django.db.models.fields.DateField', [], {}),
-            'date_to': ('django.db.models.fields.DateField', [], {}),
+            'datetime_from': ('django.db.models.fields.DateTimeField', [], {}),
+            'datetime_to': ('django.db.models.fields.DateTimeField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'organiser': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Association']"}),
             'place': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'time_from': ('django.db.models.fields.TimeField', [], {}),
-            'time_to': ('django.db.models.fields.TimeField', [], {}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
+        'map.place': {
+            'Meta': {'object_name': 'Place'},
+            'address': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
+            'date_changed': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'latitude': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'longitude': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'map_json': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'})
         },
         'publication.comment': {
             'Meta': {'object_name': 'Comment'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.MyProfile']"}),
             'body': ('django.db.models.fields.TextField', [], {}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['event.Event']", 'null': 'True', 'blank': 'True'}),
+            'event': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['event.Event']", 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'post': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['publication.Post']", 'null': 'True', 'blank': 'True'})
         },
@@ -118,7 +129,9 @@ class Migration(SchemaMigration):
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'event': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['event.Event']", 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'place': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['map.Place']", 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'})
         }
     }

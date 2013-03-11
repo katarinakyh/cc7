@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-    <h4>Your Messages</h4>
+        <div class="nav">
+            <ul class="lowernav">
+                <li>
+                     <h4> {% trans "Your Messages" %} </h4>
+                </li>
+                <li>
+                    <a href="{% url add_message %}" class="menu_word"> {% trans "New message" %} <i class="icon-edit "></i> </a>
+                </li>
+            </ul>
+        </div>
     <hr/>
     <ul class="nav-list">
         {%if m_list %}
@@ -9,8 +18,8 @@
             {%for message in m_list|dictsortreversed:"date_created"%}
                 <li>
                     <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-                    <h4 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title|escape}}</a></h4>
-                    <small>{% trans "Message from " %} {{message.author}} {%trans "to"%} {{message.to}} {{message.date_created}}</small>                           
+                    <h5 style="margin-bottom: 0;"><a href="{%url show_message_thread message.thread%}">{{message.title|escape}}</a></h5>
+                    <small> {% trans "Message from " %} <strong>{{message.author}}</strong> {%trans "to"%} <strong>{{message.to}} </strong>{{message.date_created}}</small>                           
                        
                 </li>
 

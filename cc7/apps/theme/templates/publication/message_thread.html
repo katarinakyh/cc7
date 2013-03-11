@@ -6,9 +6,10 @@
     {%for message in message_list|dictsort:"date_created"%}
         <li>
             <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
-            <h4 style="margin-top: 0">
+            
+            <h5 style="margin-top: 0">
                 <a href="{%url my_page message.author.user%}">{{message.author.user}}</a> <small>{{message.date_created}} </small>
-            </h4>
+            </h5>
             <div class="messagebody">
                 {{message.body|linebreaks|escape}}
             </div>
