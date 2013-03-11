@@ -202,9 +202,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
       console.log("your trying to change your location")
     },
 
-    file_submit: function () {
-        $('.imagetheForm').submit();
-    },
+
 
     new_post:function (e) {
         console.log(e.target);
