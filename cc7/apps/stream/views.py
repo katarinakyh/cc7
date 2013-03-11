@@ -71,7 +71,7 @@ def stream_posts(request):
         if 'new_comment' in request.POST:
             save_comment(request, profile)
 
-    posts = Post.objects.filter(is_public=True).order_by('date_created')
+    posts = Post.objects.filter(is_public=True).order_by('-date_created')
     comment_form = CommentForm()
 
     page_list = pagination(request, posts)

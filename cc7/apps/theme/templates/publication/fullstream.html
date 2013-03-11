@@ -8,8 +8,8 @@
         <div style="border:solid 1px #ccc; background: #f9f9f9;">
             <h4>
                 <div class="event">
-                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title|escape }}  </a> /
-                    <i class="icon-time"></i> {{ post.date_from }}
+                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title|escape }}  </a> <br/>
+                    <i class="icon-time"></i> {{ post.datetime_from }} to  {{ post.datetime_to }}
                     <i class="icon-map-marker"></i> {{ post.place|escape }} /
                     <br/>
                     <span class="small">

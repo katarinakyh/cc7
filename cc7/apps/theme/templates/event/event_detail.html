@@ -2,8 +2,8 @@
 {% load i18n %}
 {% load thumbnail %}
 {%block content%}
-        <div class="story"> <h3 style="display:inline"><i class="icon-calendar"></i> {{ post.title }} <span class="small"> <i class="icon-map-marker"></i>  {{ post.place }} </span></h3>
-            <div class="small">  <i class="icon-time"></i> {{ post.datetime_from }} >> {{ post.datetime_to }} <i class="icon-th"></i> <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a></div>
+        <div class="story"> <h3 style="display:inline"><i class="icon-calendar"></i> {{ post.title }} <span> <i class="icon-map-marker"></i>  {{ post.place }} </span></h3>
+            <div>  <i class="icon-time"></i> {{ post.datetime_from }} >> {{ post.datetime_to }} <i class="icon-th"></i> <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a></div>
             <div class="eventdescription">
                 {% if post.image %}
                 {% thumbnail post.image "320x200" crop="center" as im %}
