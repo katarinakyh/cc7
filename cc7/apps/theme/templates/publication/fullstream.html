@@ -8,9 +8,9 @@
         <div style="border:solid 1px #ccc; background: #f9f9f9;">
             <h4>
                 <div class="event">
-                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title|escape }}  </a> <br/>
-                    <i class="icon-time"></i> {{ post.datetime_from }} to  {{ post.datetime_to }}
-                    <i class="icon-map-marker"></i> {{ post.place|escape }} /
+                    <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title|escape }}  </a>      <i class="icon-map-marker"></i> at {{ post.place|escape }} <br/>
+                    <div> <i class="icon-time"></i> {{ post.datetime_from }}  <span class="small">  until </span>  {{ post.datetime_to }}    </div>
+
                     <br/>
                     <span class="small">
                         {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser|escape }}</a>
