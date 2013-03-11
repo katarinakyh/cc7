@@ -13,24 +13,30 @@
         {% endblock %}
         {%block posts%}
             <p>&nbsp;</p>
-        
-        
+
             {%if can_edit %}
+
+        <p> <div class="btn  btn-mini"><a href="{% url leave_association pageprofile.slug %}">Leave group</a> </div></p>
+<br />
+        <div class="story">
+            New Post
                 <form action="" enctype="multipart/form-data" id="post_form" method="post" class="form-horizontal block-form">
                     {% csrf_token %}
+                   <!-- <div class="titlefield"> Title: {{ post_form.title }} </div>-->
+
                     {{ post_form.body }} <br />
-                    {{ post_form.image }}
+                    {{ post_form.image }}<br />
                     <input type="hidden" value="{{profile.pk}}" name="author"/>
                     <input type="hidden" value="{{pageprofile.pk}}" name="association"/>
                     <input type="hidden" value="1" name="is_public"/>
                     <span class="label label-important">{{ form.body.errors }}</span><br />
-                    <div class="titlefield"> Title: {{ post_form.title }} </div>
-                    <input type="submit" id="new_post" class="btn" value="New post" />
-                    <a href="" class="addtitle">Add title</a>
+                   <input type="submit" id="new_post" class="btn" value="post" />
+                 <!--   <a href="" class="addtitle">Add title</a>-->
                 </form>
-                <p><a href="{% url leave_association pageprofile.slug %}">Lämna grupp</a></p>
+        </div>
+
             {% else %}
-                <p><a href="{% url join_association pageprofile.slug %}">Gå med i grupp</a></p>
+                <p><a href="{% url join_association pageprofile.slug %}">Join group</a></p>
             {%endif%}
         
             {%include 'publication/fullstream.html'%}
