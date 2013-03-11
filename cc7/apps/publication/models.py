@@ -1,4 +1,4 @@
-from django.db import models
+sfrom django.db import models
 from django.core.validators import MaxLengthValidator
 from apps.account.models import MyProfile, Association
 from apps.event.models import Event
@@ -23,7 +23,7 @@ class Post(models.Model):
     place = models.ForeignKey(Place, null=True, blank=True)
     is_public = models.BooleanField(default=True)
 
-    image = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)
+    image = models.ImageField(upload_to='images/posts/%Y/%m/%d', null=True, blank=True)
 
     """
     image = model.ForeignKey(Image, null=True, blank=True)
