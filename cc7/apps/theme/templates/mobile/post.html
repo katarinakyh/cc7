@@ -54,7 +54,7 @@
         </h6>
         <div class="postbody">
             <%= body %><br/>
-            <% if (typeof(image) != "undefined") { %>
+            <% if (image) { %>
             <img src="<%= image %>" style="">
             <% } %>
 
@@ -66,9 +66,9 @@
             <span class="right_nav"> <a href="#detail_id?<%= id %>">(<%= comment_count %>)</a><i class="icon-comment-alt icon-2x"></i></span>
         </div>
         <div class="hr_narrow"></div>
-        <div class="date_comment">
+        <div class="date_comment_details">
             <span class="left_date"> Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong></span>
-            <span class="right_nav_details"> <a href="#detail_id?<%= id %>">Details ></a></span>
+            <span class="right_nav_stream"> <a href="#detail_id?<%= id %>"><button class="btn  btn-primary detail_btn"> Details ></button></a> </span>
         </div>
     </div>
     <span class="btn more_post" style="display:none;"></span>

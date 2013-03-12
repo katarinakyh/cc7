@@ -28,6 +28,7 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
     },
 
     initialize: function(){
+
     },
 
     addComment : function(text){
@@ -122,6 +123,15 @@ Apps.Views.PostListView = Backbone.View.extend({
 Apps.Views.PostListItemView = Backbone.View.extend({
     tagName:"li",
 
+    initialize:function () {
+        body = this.model.get('body');
+        newbody = replaceLinks(body);
+        this.model.set('body', newbody);
+        function replaceLinks(body) {
+            var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+            return body.replace(exp,"<a href='$1'>$1</a>");
+        }
+    },
     template:_.template($('#post_list_template').html()),
     render:function (eventName) {
         $(this.el).html(this.template( this.model.toJSON() ));
