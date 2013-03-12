@@ -331,7 +331,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
             this.PostList.fetch({ url: '/mobile/api/v1/post/?id__exact='+ id}).then(function(){
                 this.DetailPost = _this.PostList.get('/mobile/api/v1/post/'+ id +'/');
                 this.PostView = new Apps.Views.PostView({model:this.DetailPost});
-                $('#post-data').html(this.PostView.render().el);
+                $('#allcontent').html(this.PostView.render().el);
             });
         }
     },

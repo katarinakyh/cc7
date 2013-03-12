@@ -88,7 +88,7 @@ class PostResource(ModelResource):
         for c in comments:
             commentsdict[i] = {  }
             commentsdict[i]['comment_id'] = c.id
-            commentsdict[i]['comment_date'] = c.date_created
+            commentsdict[i]['comment_date'] = c.date_created.strftime("%A %d %B %Y at %H:%M")
             commentsdict[i]['comment_body'] = c.body
             commentsdict[i]['author'] = c.author
             commentsdict[i]['author_id'] = c.author.id
