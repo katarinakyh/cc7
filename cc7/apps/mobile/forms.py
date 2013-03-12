@@ -12,7 +12,6 @@ class MobileForm(ModelForm):
         widgets = {
             'body': Textarea(attrs={'placeholder': 'body'}),
             'title': TextInput(attrs={'placeholder': 'title'}),
-            'image': FileInput(attrs={'placeholder': 'image', 'accept': 'image/*'})
 
         }
         exclude = ('author','event','association','is_public',)

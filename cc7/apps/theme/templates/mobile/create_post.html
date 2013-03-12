@@ -10,7 +10,8 @@
         {{form.title}} <br/><br/>
         <label>Body</label><br/>
         {{form.body}} <br/><br/>
-        {{form.image}} <br/><br/>
+        <input type="file" id="id_image" accept="image/*" name="image">
+         <br/><br/>
         <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
         <input type="hidden" value="1" name="is_public" id="id_is_public"/>
         <input class="btn" type="submit" value="Post"/>
