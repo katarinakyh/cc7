@@ -116,7 +116,6 @@ Apps.Views.PostListView = Backbone.View.extend({
         return this;
     }
 
-
 });
 
 // view for individual post items call for each item in the post list
