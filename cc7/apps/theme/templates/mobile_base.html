@@ -234,6 +234,11 @@
             background-color: black;
             color: white;
         }
+        textarea, input {
+            width: 100%;
+            min-height: 20px;
+            padding-right: 10px;
+        }
     </style>
 
     {% block extra_head %}{% endblock %}
@@ -271,6 +276,8 @@
     <script src="{{ STATIC_URL }}js/backbone.js"></script>
     <script src="{{ STATIC_URL }}js/backbone-tastypie.js"></script>
     <script src="{{ STATIC_URL }}js/post.js"></script>
+    <script src="{{ STATIC_URL }}js/maps.js"></script>
+
 
 </body>
 </html>

@@ -12,8 +12,8 @@ def upload_file(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            pk = form.instance.pk
-            json = {pk}
+            image = form.instance.image
+            json = {image}
             return HttpResponse(json, content_type="application/json")
 
 

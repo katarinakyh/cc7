@@ -181,7 +181,6 @@ Apps.Views.NewPostView = Backbone.View.extend({
         "click #new_post": "new_post",
         'click .add_from_camera' : 'togglefield',
         'click .add_from_file' : 'togglefield',
-        'click button.submitImageForm' : 'file_submit'
     },
 
     togglefield : function(e){
@@ -204,6 +203,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
 
 
+
     new_post:function (e) {
         console.log(e.target);
 
@@ -216,8 +216,12 @@ Apps.Views.NewPostView = Backbone.View.extend({
                 place_address = $('#adress').val(),
                 place_latitude = $('#latitude').val(),
                 place_longitude = $('#longitude').val();
-            
-            alert(place_latitude);
+
+
+
+
+
+        // send the image to server and get the relevant data form in respone
 
             var place = new Apps.Models.Place();
             place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
@@ -247,10 +251,6 @@ Apps.Views.NewPostView = Backbone.View.extend({
             this.render();
         }
     },
-
-
-
-
 
 
     render:function (eventName) {
@@ -310,7 +310,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     PostDetails:function (id) {
-
         if(Apps.allLoadedPosts != undefined){
             this.DetailPost = Apps.allLoadedPosts.get('/mobile/api/v1/post/'+ id +'/');
             this.PostView = new Apps.Views.PostView({model:this.DetailPost});
@@ -329,6 +328,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     AddPost: function() {
+        console.log("häst")
         this.NewPostView = new Apps.Views.NewPostView();
         $('#post-data').html(this.NewPostView.render().el);
         initmap();
