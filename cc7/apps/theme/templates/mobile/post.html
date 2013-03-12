@@ -24,7 +24,6 @@
                            onClick="fileUpload(this.form,'/image/upload_file/','upload'); return false;" >
                     <div id="upload"></div>
                 </form>
-n
 
                 <button id="submitImageForm">Submit</button>
 
@@ -56,7 +55,13 @@ n
         </h6>
         <div class="postbody">
             <%= body %>
+            <% if (typeof(image) != "undefined") { %>
+            <img src="<%= image %>" style="">
+            <% } %>
+
+
         </div>
+
         <div class="date_comment">
             <span class="left_date"> Posted at: <%= date_created %></span>
             <span class="right_nav"> <a href="#detail_id?<%= id %>">Comment (<%= comment_count %>)</a></span>
