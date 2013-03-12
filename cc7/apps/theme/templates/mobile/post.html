@@ -17,14 +17,12 @@
                     <button class="btn btn-primary" id="new_post">post</button>
                 </div>
 
-                <form>
                     <input  id="id_image" type="file" name="image" />
                     {% csrf_token %}
                     <input type="button" value="upload"
-                           onClick="fileUpload(this.form,'/image/upload_file/','upload'); return false;" >
+                           onClick="fileUpload(this.form,'/post/add/','upload'); return false;" >
                     <div id="upload"></div>
-                </form>
-
+                
                 <button id="submitImageForm">Submit</button>
 
                 <div class="add_adress">
@@ -104,6 +102,5 @@
         </div>
     </div>
 </script>
-
 
 {% endblock %}
