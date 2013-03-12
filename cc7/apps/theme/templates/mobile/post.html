@@ -48,26 +48,21 @@
         <h6>
             <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
             <a href="#detail_id?<%= id %>" > <%= title %> <span class="right_nav"> [<%= id %>]</span></a>
-                    <span class="small">
-
-                    </span>
         </h6>
         <div class="postbody">
-            <%= body %><br/>
+            <p><%= body %> </p>
             <% if (image) { %>
-            <img src="<%= image %>" style="">
+                <img src="<%= image %>" style="">
             <% } %>
-
-
         </div>
 
         <div class="date_comment">
-            <span class="left_date"> Posted at: <%= date_created %></span>
-            <span class="right_nav"> <a href="#detail_id?<%= id %>">(<%= comment_count %>)</a><i class="icon-comment-alt icon-2x"></i></span>
+            <span class="left_date"> <%= date_created %> </span>
+            <span class="right_nav"> <a href="#detail_id?<%= id %>"><%= comment_count %></a><i class="icon-comment-alt icon-2x"></i></span>
         </div>
         <div class="hr_narrow"></div>
         <div class="date_comment_details">
-            <span class="left_date"> Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong></span>
+            <span class="left_date"> Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong> </span>
             <span class="right_nav_stream"> <a href="#detail_id?<%= id %>"><button class="btn  btn-primary detail_btn"> Details ></button></a> </span>
         </div>
     </div>
@@ -76,16 +71,29 @@
 </script>
 <!-- template for list view -->
 <script id="single_post_template" type="text/template">
+<div class="new_mobile_post">
+    <h4>  <% if (title) { %>
+                <%= title %>
+            <% } else{%>
+            >> 
+            <% } %>
+
+  <span class="right_nav"> <a href="/mobile"><button class="btn btn-danger"> Back </button> </a></span></h4>
+    <hr/>
+
     <div class="story_detail">
 
         <img class="mugshot"  src="<%= mugshot %>" alt="Author"/>
         <h6><%= title %> </h6>
         <div class="postbody">
-            - <%= body %>
+            <p> <%= body %> </p>
+            <% if (image) { %>
+                <img src="<%= image %>" />
+            <% } %>
         </div>
         <div class="date_comment">
             <span class="left_date"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
-            <span class="right_nav"> Posted at: <%= date_created %></span>
+            <span class="left_nav"> <%= date_created %></span>
         </div>
 
         <div class="comment_body">
@@ -98,16 +106,18 @@
                 </div>
                 <div class="comment_text">
                     <span> <img id="mugshot_detail" src="<%= comment.author_mugshot %>" alt="Author"/> - <%= comment.comment_body %> </span>
-                </div>f
+                </div>
             </div>
             <% }); %>
             <h6>Post a new Comment</h6>
             <form>
                 <textarea id="commentbody"></textarea><br />
-                <button class="newcomment">comment</button>
+                <input type="submit" id="newcomment" class="btn btn-info newcomment" value="Comment"/>
             </form>
         </div>
     </div>
+    </div>
+
 </script>
 
 {% endblock %}

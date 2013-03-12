@@ -150,7 +150,7 @@ Apps.Views.PostView = Backbone.View.extend({
     },
 
     events: {
-        "click button.newcomment": "postcomment"
+        "click #newcomment": "postcomment"
     },
 
     postcomment: function(){
@@ -322,7 +322,7 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
         if(Apps.allLoadedPosts != undefined){
             this.DetailPost = Apps.allLoadedPosts.get('/mobile/api/v1/post/'+ id +'/');
             this.PostView = new Apps.Views.PostView({model:this.DetailPost});
-            $('#post-data').html(this.PostView.render().el);
+            $('#allcontent').html(this.PostView.render().el);
         } else {
             this.PostList = new Apps.Collections.PostCollection();
             this.PostListView = new Apps.Views.PostListView({model : this.PostList});

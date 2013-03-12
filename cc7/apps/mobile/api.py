@@ -80,6 +80,7 @@ class PostResource(ModelResource):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)
         mugshot = user.get_mugshot_url()
         bundle.data['mugshot'] = mugshot
+        bundle.data['date_created'] =  bundle.obj.date_created.strftime("%A %d %B %Y at %H:%M")
         
         comments = Comment.objects.filter(post = bundle.obj.pk)
         i = 0
