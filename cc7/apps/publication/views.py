@@ -165,6 +165,8 @@ def youtube_embed_url(value):
 
 
 class MessageView(ListView):
+
+
     template_name = 'publication/messages.html'
     model = Message
 
