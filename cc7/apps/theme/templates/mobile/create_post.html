@@ -6,9 +6,11 @@
     <hr/>
     <form action="" id="threadform" method="post" enctype="multipart/form-data" class="form-inline">
         {% csrf_token %}
-        {{form.title}} <br/>
-        {{form.body}} <br/>
-        {{form.image}} <br/>
+        <label>Title</label><br/>
+        {{form.title}} <br/><br/>
+        <label>Body</label><br/>
+        {{form.body}} <br/><br/>
+        {{form.image}} <br/><br/>
         <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
         <input type="hidden" value="1" name="is_public" id="id_is_public"/>
         <input class="btn" type="submit" value="Post"/>
