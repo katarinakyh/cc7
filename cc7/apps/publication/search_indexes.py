@@ -1,3 +1,4 @@
+"""
 import datetime
 from haystack.indexes import *
 from haystack import site
@@ -13,3 +14,5 @@ class PostIndex(SearchIndex):
 
 
 site.register(Post, PostIndex)
+
+"""

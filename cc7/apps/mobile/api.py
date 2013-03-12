@@ -12,10 +12,10 @@ from apps.event.models import Event
 from apps.account.models import MyProfile, Association
 from django.forms.models import model_to_dict
 from apps.map.models import Place
-from haystack.query import SearchQuerySet
+#from haystack.query import SearchQuerySet
 
 from django.http import Http404
-from tastypie.utils import trailing_slash
+#from tastypie.utils import trailing_slash
 from django.conf.urls.defaults import *
 
 class UserResource(ModelResource):
@@ -80,7 +80,7 @@ class PostResource(ModelResource):
         # insecure!: must be change to methods below when done testing
         authorization= Authorization()
 
-
+    """
     def prepend_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/search%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_search'), name="api_get_search"),
@@ -107,6 +107,7 @@ class PostResource(ModelResource):
 
         self.log_throttled_access(request)
         return self.create_response(request, object_list)
+    """
 
     def dehydrate(self, bundle):
         user = MyProfile.objects.get(pk = bundle.obj.author.pk)

@@ -24,11 +24,11 @@ DATABASES = {
     }
 }
 
-
+"""
 HAYSTACK_SITECONF = 'cc7.search_site'
 
-
 HAYSTACK_SEARCH_ENGINE = 'simple'
+"""
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -146,7 +146,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     #own apps,
-    'haystack',
+    #'haystack',
     'apps.theme',
     'apps.publication',
     'apps.event',
