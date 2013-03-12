@@ -55,10 +55,9 @@
         </h6>
         <div class="postbody">
             <%= body %><br/>
-            <% if (typeof(image) != "undefined") { %>
+            <%= typeof(image)!== 'undefined' ?  id : '' %>
             <img src="<%= image %>" style="">
-            <% } %>
-
+            
 
         </div>
 
