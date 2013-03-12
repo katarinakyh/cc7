@@ -264,6 +264,12 @@
             height: 40px;
             font-size: 20px;
         }
+        .right_nav_details a {
+            font-size: 13px;
+        }
+        .icon-comments-alt{
+            margin-bottom: 3px;
+        }
     </style>
 
     {% block extra_head %}{% endblock %}
@@ -274,20 +280,25 @@
 <body>
 
     <div>
+            {%block header%}
         <header class="menu">
-                <span class="left_nav"><a href="/mobile/"> <span class="thec">c</span>7 </a></span>
+                <span class="left_nav"><a href="/mobile/"> <span class="thec">c7</span> </a></span>
 
+            {%block new_post%}
               <span id="new_post" class="center_nav">
                    <a href="newpost" >
                       <button class="btn"> {% trans "New post" %}  <i class="icon-edit"></i><i class="icon-plus"></i></button>
                    </a>
                </span>
+              {%endblock%}
                 <span class="right_nav">
                     <i class="icon-envelope icon-white"></i>
                     <i class="icon-user icon-white"></i>
                 </span>
 
         </header>
+              {%endblock%}
+        
 
         <div id="post-data">
         </div>

@@ -252,10 +252,6 @@ Apps.Views.NewPostView = Backbone.View.extend({
         }
     },
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fe4ccf08322a6a1e5e7c8d1db0b71befecaa119c
     render:function (eventName) {
         $(this.el).html(this.template);
         return this;
