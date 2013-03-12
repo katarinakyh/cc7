@@ -178,7 +178,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
     events: {
         "click #add_local": "add_local",
-        "click #new_post": "new_post",
+        //"click #new_post": "new_post",
         'click .add_from_camera' : 'togglefield',
         'click .add_from_file' : 'togglefield',
     },
@@ -251,7 +251,6 @@ Apps.Views.NewPostView = Backbone.View.extend({
             this.render();
         }
     },
-
 
     render:function (eventName) {
         $(this.el).html(this.template);
@@ -328,7 +327,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     AddPost: function() {
-        console.log("häst")
         this.NewPostView = new Apps.Views.NewPostView();
         $('#post-data').html(this.NewPostView.render().el);
         initmap();

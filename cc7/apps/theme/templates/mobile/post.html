@@ -21,10 +21,9 @@
                     <input  id="id_image" type="file" name="image" />
                     {% csrf_token %}
                     <input type="button" value="upload"
-                           onClick="fileUpload(this.form,'/image/upload_file/','upload'); return false;" >
+                           onClick="fileUpload(this.form,'/post/add/','upload'); return false;" >
                     <div id="upload"></div>
-                </form>
-
+                
                 <button id="submitImageForm">Submit</button>
 
                 <div class="add_adress">
@@ -37,7 +36,7 @@
                 </div>
             </form>
             <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
-            <br>
+                <br>
         </div>
         <div id="map_canvas"> </div>
 
@@ -63,7 +62,7 @@
 
         <div class="date_comment">
             <span class="left_date"> Posted at: <%= date_created %></span>
-            <span class="right_nav"> <a href="#detail_id?<%= id %>">Comment (<%= comment_count %>)</a></span>
+            <span class="right_nav"> <a href="#detail_id?<%= id %>">(<%= comment_count %>)</a><i class="icon-comment-alt icon-2x"></i></span>
         </div>
         <div class="hr_narrow"></div>
         <div class="date_comment">
@@ -109,6 +108,5 @@
         </div>
     </div>
 </script>
-
 
 {% endblock %}

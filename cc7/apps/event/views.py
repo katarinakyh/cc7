@@ -24,7 +24,7 @@ class AddEventView(CreateView):
     form_class = EventForm
     
     def get_success_url(self):
-        return reverse('list_events')
+        return reverse('stream_events')
 
 class EventDetailView(DetailView):
     model = Event
