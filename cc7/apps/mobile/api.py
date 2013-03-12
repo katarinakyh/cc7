@@ -113,13 +113,15 @@ class PostResource(ModelResource):
         mugshot = user.get_mugshot_url()
         bundle.data['mugshot'] = mugshot
 
+        bundle.data['date_created'] =  bundle.obj.date_created.strftime("%A %d %B %Y at %H:%M")
+        
         comments = Comment.objects.filter(post = bundle.obj.pk)
         i = 0
         commentsdict  = {  }
         for c in comments:
             commentsdict[i] = {  }
             commentsdict[i]['comment_id'] = c.id
-            commentsdict[i]['comment_date'] = c.date_created
+            commentsdict[i]['comment_date'] = c.date_created.strftime("%A %d %B %Y at %H:%M")
             commentsdict[i]['comment_body'] = c.body
             commentsdict[i]['author'] = c.author
             commentsdict[i]['author_id'] = c.author.id

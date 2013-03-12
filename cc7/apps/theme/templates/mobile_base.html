@@ -26,6 +26,7 @@
 
     <style type="text/css">
         body {
+            background: #88899E;
             color: #333333;
             font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
             font-size: 14px;
@@ -50,6 +51,11 @@
 
 
         .right_nav, .right_nav_details {
+            float:right;
+            padding-right: 5%;
+            cursor: pointer;
+        }
+        .right_nav_post_button {
             float:right;
             padding-right: 5%;
             cursor: pointer;
@@ -98,7 +104,7 @@
             padding-bottom: 15px;
         }
 
-        .post_content, .new_post {
+        .post_content {
             margin-left: 12px;
         }
 
@@ -106,9 +112,7 @@
             margin-left: 15px;
         }
 
-        .story:hover {
-            cursor: pointer;
-        }
+        
         .new_mobile_post {
             margin-left: 10px;
         }
@@ -127,7 +131,7 @@
             background: #f3f3f3;
             margin-left: 4px;
             margin-right: 4px;
-            padding-bottom: 20px;
+            padding-bottom: 12px;
             padding-left: 1px;
             font-size: 12px;
 
@@ -238,16 +242,14 @@
         }
 
         .icon-bullhorn {
-            font-size: 21px;
-            margin-right: -3px;
-            color:#fff;
+            font-size: 20px;
         }
 
 
-
-        .icon-user, .icon-envelope {
+        .right_nav i{
             font-size: 20px;
-            margin-right: 10px;
+            margin-right: 16px;
+            
         }
 
 
@@ -256,7 +258,7 @@
         }
 
         .thec{
-            font-size: 36px;
+            font-size: 20px;
             margin-right: -6px;
             
         }
@@ -291,8 +293,9 @@
             font-size: 13px;
         }
         .icon-comments-alt{
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
+
     </style>
 
     {% block extra_head %}{% endblock %}
@@ -302,7 +305,7 @@
 </head>
 <body>
 
-    <div>
+    <div id="allcontent">
             {%block header%}
         <header class="menu">
                 <span class="left_nav"><a href="/mobile/"> <span class="thec">c7</span> </a></span>
@@ -326,6 +329,7 @@
 
         <div id="post-data">
         </div>
+
         {% block content %}
         {% endblock %}
 
