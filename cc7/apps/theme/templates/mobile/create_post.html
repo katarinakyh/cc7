@@ -2,14 +2,22 @@
 {% load i18n %}
 {%block content%}
 <div class="new_mobile_post">
-    <h4>Create new post</h4>
+    <h4>New post</h4>
     <hr/>
     <form action="" id="threadform" method="post" enctype="multipart/form-data" class="form-inline">
         {% csrf_token %}
-        {{form.as_p}}
+        <label>Title</label><br/>
+        {{form.title}} <br/><br/>
+        <label>Body</label><br/>
+        {{form.body}} <br/>
+        {{form.body.errors}} <br/>
+
+
+        <input type="file" id="id_image" accept="image/*" name="image">
+         <br/><br/>
         <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
         <input type="hidden" value="1" name="is_public" id="id_is_public"/>
-        <input class="btn btn-large btn-block post_submit" type="submit" value="Post"/>
+        <input class="btn" type="submit" value="Post"/>
 
     </form>
 </div>

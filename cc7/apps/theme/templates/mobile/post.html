@@ -17,6 +17,7 @@
                     <button class="btn btn-primary" id="new_post">post</button>
                 </div>
 
+                <form >
                     <input  id="id_image" type="file" name="image" />
                     {% csrf_token %}
                     <input type="button" value="upload"
@@ -35,7 +36,7 @@
                 </div>
             </form>
             <div id="googleMap" style=" padding:1px; border:1px solid; height:400px; width:300px;"></div>
-            <br>
+                <br>
         </div>
         <div id="map_canvas"> </div>
 
@@ -53,7 +54,13 @@
         </h6>
         <div class="postbody">
             <%= body %>
+            <% if (typeof(image) != "undefined") { %>
+            <img src="<%= image %>" style="">
+            <% } %>
+
+
         </div>
+
         <div class="date_comment">
             <span class="left_date"> Posted at: <%= date_created %></span>
             <span class="right_nav"> <a href="#detail_id?<%= id %>">Comment (<%= comment_count %>)</a></span>

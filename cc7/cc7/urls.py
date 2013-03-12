@@ -49,6 +49,7 @@ urlpatterns = patterns('',
 
     url(r'^association/', include('apps.account.urls')),
     url(r'^map/', TemplateView.as_view(template_name='map/index.html')),
+    #(r'^search/', include('haystack.urls')),
 
 )
 

@@ -2,7 +2,7 @@ from apps.publication.models import Post
 
 from django.forms import ModelForm
 from django.forms.widgets import HiddenInput
-from django.forms.widgets import Textarea, DateInput
+from django.forms.widgets import Textarea, TextInput, FileInput
 from apps.account.models import MyProfile
 
 
@@ -10,8 +10,10 @@ class MobileForm(ModelForm):
     class Meta:
         model= Post
         widgets = {
-            'body': Textarea(attrs={'cols': 200, 'rows': 10}),
-            }
+            'body': Textarea(attrs={'placeholder': 'body'}),
+            'title': TextInput(attrs={'placeholder': 'title'}),
+
+        }
         exclude = ('author','event','association','is_public',)
         fields = ('title', 'body', 'image',)
 

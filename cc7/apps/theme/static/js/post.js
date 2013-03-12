@@ -203,6 +203,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
 
 
 
+
     new_post:function (e) {
         console.log(e.target);
 
@@ -215,8 +216,12 @@ Apps.Views.NewPostView = Backbone.View.extend({
                 place_address = $('#adress').val(),
                 place_latitude = $('#latitude').val(),
                 place_longitude = $('#longitude').val();
-            
-            alert(place_latitude);
+
+
+
+
+
+        // send the image to server and get the relevant data form in respone
 
             var place = new Apps.Models.Place();
             place.save({title:place_title, latitude:place_latitude,  longitude: place_longitude, address:place_address},
@@ -247,6 +252,10 @@ Apps.Views.NewPostView = Backbone.View.extend({
         }
     },
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe4ccf08322a6a1e5e7c8d1db0b71befecaa119c
     render:function (eventName) {
         $(this.el).html(this.template);
         return this;
@@ -304,7 +313,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     PostDetails:function (id) {
-
         if(Apps.allLoadedPosts != undefined){
             this.DetailPost = Apps.allLoadedPosts.get('/mobile/api/v1/post/'+ id +'/');
             this.PostView = new Apps.Views.PostView({model:this.DetailPost});
@@ -323,7 +331,6 @@ Apps.Routers.PostRouter = Backbone.Router.extend({
     },
 
     AddPost: function() {
-        alert('hiekjnauohfbhjaafsgluailhsljnknlj§')
         this.NewPostView = new Apps.Views.NewPostView();
         $('#post-data').html(this.NewPostView.render().el);
         initmap();

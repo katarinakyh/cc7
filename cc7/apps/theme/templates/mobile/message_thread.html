@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+<ul>
+    <h3>{{message.title}}</h3>
+    {%for message in message_list|dictsort:"date_created"%}
+    <li>
+        <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+
+        <h5 style="margin-top: 0">
+            <a href="{%url my_page message.author.user%}">{{message.author.user}}</a> <small>{{message.date_created}} </small>
+        </h5>
+        <div class="messagebody">
+            {{message.body|linebreaks|escape}}
+        </div>
+    </li>
+    {%if forloop.last%}
+    <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Sender" %}" />
+    <form action="" id="message_form" method="post" class="form-horizontal block-form">
+        {% csrf_token %}
+        <div class="messagebody"> {{ message_form.body|escape }} </div>
+        <input type="hidden" value="{{message.thread}}" name="thread" />
+        <input type="hidden" value="{{profile.pk}}" name="author" />
+        <input type="hidden" value="{%if message.to.user == profile.user%}{{message.author.pk}}{%elif message.author.user == profile.user%}{{message.to.pk }}{%endif%}" name="to" />
+        <input type="hidden" value="{{message.title }}" name="title" />
+        <input type="submit" id="new_post" class="btn" value="reply" />
+    </form>
+    {%endif%}
+    {%endfor%}
+</ul>
+
+
+{%endblock%}
