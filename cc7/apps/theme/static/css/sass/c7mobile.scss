@@ -1,0 +1,189 @@
+$bodyback: #b7b9d5;
+$lightback: #f3f3f3;
+$headerback: #111111;
+
+$darkborder: 1px solid #666;
+
+$mugshot_h: 30px;
+$mugshot_w: 30px;
+
+$fontsize: .9em;
+$fontcolor: #333333;
+$headerfontcolor: #ffffff;
+$iconfontsize: 1em;
+
+$btnwidth : 110px;
+
+body {
+    background: $bodyback; 
+    color: $fontcolor;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: $fontsize;
+    line-height: 20px;
+}
+
+header {
+    background: $headerback;
+    border: $darkborder;
+    color: $headerfontcolor;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 #000000;
+    height: 20px;
+    padding: 10px;
+    
+    .thec{
+        font-size: $fontsize + .4em;
+        margin-right: -6px;        
+    }
+    i {
+        font-size: $iconfontsize + .2em;
+        margin-left: 20px;
+    }
+    i.icon-bullhorn{
+        margin-left: 0px;
+    }
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+i {
+    font-size: $iconfontsize;
+}
+
+.lowerheader{
+    background: $lightback;
+    padding: 5px;
+    margin-bottom:5px;
+    border-bottom: $darkborder;
+    height: 30px;
+    h4 {
+        display: inline;
+    }
+    .btn{
+        width: $btnwidth;
+        text-align: center;
+    }
+}
+.left_nav {
+    float:left;
+    cursor: pointer;
+}
+
+.right_nav {
+    float:right;
+    padding-right: 2%;
+    cursor: pointer;
+}
+
+.story {
+    background: #fff;
+    margin:3px;
+    padding: 4px;
+    border: $darkborder;
+    form{
+        label{
+            font-weight: bold;
+        }
+        i {
+            color: #000;
+        }
+        input[type=file]{
+            
+        }
+    }
+}
+
+.mugshot {
+    float: left;
+    margin-right: 10px;
+    margin-left: 14px;
+    height: $mugshot_h;
+    width: $mugshot_w;
+}
+
+#mugshot_detail {
+    height: $mugshot_h - 10px;
+    width: $mugshot_w - 10px;
+}
+
+
+.postbody {
+    p {
+      margin-top:3px;
+    }
+    margin-bottom: 20px;
+    margin-left: 4px;
+    margin-right: 10px;
+    padding:10px;
+}
+
+
+.comment_author  {
+    background: $lightback;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-bottom: 12px;
+    padding-left: 1px;
+    font-size: $fontsize - .05em;
+    height: 14px;
+}
+
+.comment_detail {
+
+    .comment_count{
+        font-size: $fontsize - .1em;
+        padding:6px;
+        margin-top: 3px;
+        display: inline-block;
+    }
+
+    .detail_btn {
+        cursor: pointer;
+        margin-top: 5px;
+        .btn{
+            text-align: center;
+            width: $btnwidth;
+        }
+    }
+    
+    background: $lightback;
+    height: 35px;
+    border-top: $darkborder;
+    margin: 0;
+    width: 100%;
+}
+
+.all_comments {
+    h3 {
+        padding-top: 20px;    
+    }
+    form {
+        padding-left: 5px;        
+    }
+    margin-left: 15px;
+}
+
+.comment {
+    p {
+        padding-left:24px;
+    }
+    margin-bottom: 20px;
+    font-size: $fontsize - .05em;
+    margin-right: 5px;
+}
+textarea, input {
+    width: 94%;
+    margin-bottom: 10px;
+}
+input[type=file] {
+    margin-top: -20px;
+    margin-left: 10px;
+}
+input[type=submit] {
+    width:96%;
+    height: 36px;
+    font-size: $fontsize + .1em;
+}

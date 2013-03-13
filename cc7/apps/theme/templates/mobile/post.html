@@ -1,33 +1,120 @@
 {% extends "mobile_base.html" %}
 {% load i18n %}
 {% block header %}
-    <header class="menu" style="height:20px;padding: 10px;">
-                <span class="left_nav"><a href="/mobile/"> <span class="thec"><i class="icon-bullhorn"></i>c7</span> </a></span>
-
-                <span class="right_nav">
-                    <i class="icon-search"></i>
-                    <i class="icon-envelope icon-white"></i>
-                    <i class="icon-user icon-white"></i>
-                </span>
-
-        </header>
-        <div style="background: #f3f3f3;padding: 5px;margin-bottom:5px; border-bottom: 1px solid #666; height: 30px;">
-            {%block new_post%}
-                <h4 style="display:inline;">All posts </h4>
-                <span id="new_post">
-                   <a href="newpost" >
-                      <button class="btn btn-primary right_nav_post_button"> {% trans "New post" %} <i class="icon-edit"></i></button>
-                   </a>
-               </span>
-            <hr/>
-            {%endblock%}
-        </div>
+    <header>
+        <span class="left_nav"><a href="/mobile/"> <span class="thec"><i class="icon-bullhorn"></i>c7</span> </a></span>
+        <span class="right_nav">
+            <i class="icon-search"></i>
+            <i class="icon-envelope icon-white"></i>
+            <i class="icon-user icon-white"></i>
+        </span>
+    </header>
+    <div class="lowerheader">
+        <h4>All posts </h4>
+            <span class="right_nav">
+            <a href="newpost" >
+               <button class="btn btn-primary"> {% trans "New post " %} <i class="icon-edit"></i></button>
+            </a>
+           </span>
+    <hr/>
+    </div>
 
 {%endblock%}
 
 {% block content %}
 
+<!-- template for list view -->
+<script id="post_list_template" type="text/template">
+    <div class="story">
+        <div>
+            <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
+            <strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong> 
+            <br/><small> <%= date_created %> 
+            <span class="right_nav"> [<%= id %>]</span></small>
+        </div>
+        <div class="postbody">
+            <% if (title) { %>
+                <% if (title != '>>'){ %>
+                    <a href="#detail_id?<%= id %>" > <h4><%= title %></h4></a>                    
+                <% } %> 
+             <% } %>
+        
+            <p> <%= body %> </p>
+            
+            <% if (image) { %>
+                <img src="<%= image %>" >
+            <% } %>
+        </div>
 
+        <div class="comment_detail">
+            <div class="comment_count"> <a href="#detail_id?<%= id %>"><%= comment_count %> comments</a></div>           
+            <span class="detail_btn right_nav"> <a href="#detail_id?<%= id %>"><button class="btn  btn-primary"> Details <i class="icon-double-angle-right"></i></button></a> </span>
+        </div>
+    </div>
+</script>
+
+<!-- template for postdetail view -->
+<script id="single_post_template" type="text/template">
+    <header>
+        <span class="left_nav"><a href="/mobile/"> <span class="thec"><i class="icon-bullhorn"></i>c7</span> </a></span>
+
+        <span class="right_nav">
+            <i class="icon-search"></i>
+            <i class="icon-envelope icon-white"></i>
+            <i class="icon-user icon-white"></i>
+        </span>
+
+    </header>
+    <div class="lowerheader">
+        <h4>  <% if (title) { %>
+            <%= title %>
+        <% } else{%>
+            View post 
+        <% } %>
+        </h4>
+        <span class="right_nav"> <a href="/mobile"><button class="btn btn-primary"><i class="icon-home"></i> Home </button> </a></span>
+    </div>
+
+    <div class="story" >
+        <div>
+            <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
+            <strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong> 
+            <br/><small> <%= date_created %> 
+            <span class="right_nav"> [<%= id %>]</span></small>
+        </div>
+        <div class="postbody">
+            <% if (title) { %>
+                <% if (title != '>>'){ %>
+                    <a href="#detail_id?<%= id %>" > <h4><%= title %></h4></a>                    
+                <% } %> 
+             <% } %>
+            
+            <p><%= body %> </p>
+            <% if (image) { %>
+                <img src="<%= image %>" />
+            <% } %>
+        </div>
+
+        <div class="all_comments">
+            <h6><%= comment_count %> Comments</h6>
+            <% _.each(comments, function(comment) { %>
+                <div class="comment">
+                    <img id="mugshot_detail" src="<%= comment.author_mugshot %>" alt="comment author" /> 
+                    <small><a href="/accounts/<%= comment.author_name %>/"><%= comment.author_name %> </a> on <%= comment.comment_date %></small>
+                    <p><%= comment.comment_body %></p>
+                </div>
+            <% }); %>
+            <h6>Post a new Comment</h6>
+            <form>
+                <textarea id="commentbody"></textarea><br />
+                <input type="submit" id="newcomment" class="btn btn-info newcomment" value="Comment"/>
+            </form>
+        </div>
+    </div>
+</script>
+
+
+<!------not used but post.js looks for it---->
 <script id="new_post_template" type="text/template">
     <div class="post_content">
         <h5>Share</h5>
@@ -66,193 +153,6 @@
         <div id="map_canvas"> </div>
 
     </div>
-</script>
-
-<!-- template for list view -->
-<script id="post_list_template222" type="text/template">
-    <div class="story">
-        <h5>
-            <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-            <a href="#detail_id?<%= id %>" > <%= title %> <span class="right_nav"> [<%= id %>]</span></a>
-        </h5>
-        <div class="postbody">
-            <p><%= body %> </p>
-            <% if (image) { %>
-                <img src="<%= image %>" style="">
-            <% } %>
-        </div>
-
-        <div class="date_comment">
-            <span class="left_date"> <%= date_created %> </span>
-            <span class="right_nav"> <a href="#detail_id?<%= id %>"><%= comment_count %></a><i class="icon-comment-alt icon-2x"></i></span>
-        </div>
-        <div class="hr_narrow"></div>
-        <div class="date_comment_details">
-            <span class="left_date"> Posted by:<strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong> </span>
-            <span class="right_nav_stream"> <a href="#detail_id?<%= id %>"><button class="btn  btn-primary detail_btn"> Details ></button></a> </span>
-        </div>
-    </div>
-    <span class="btn more_post" style="display:none;"></span>
-
-</script>
-
-<!-------new version---------->
-<script id="post_list_template" type="text/template">
-    <div class="story" style="background: #fff;margin:3px;padding: 2px;border: 1px solid #666">
-        <div style="">
-            <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-            <strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong> 
-            <br/><small> <%= date_created %> 
-            <span class="right_nav"> [<%= id %>]</span></small>
-        </div>
-        <div class="postbody" style="margin-left:4px;">
-        <% if (title) { %>
-            <% if (title != '>>'){ %>
-                <a href="#detail_id?<%= id %>" > <h4><%= title %></h4></a>                    
-            <% } %> 
-         <% } %>
-        
-            <p style="margin-top:3px;"><%= body %> </p>
-            <% if (image) { %>
-                <img src="<%= image %>" style="">
-            <% } %>
-        </div>
-
-        <div class="hr_narrow"></div>
-        <div class="date_comment_details" style="border:none;background: #f3f3f3;width:100%; margin:0;border-top:1px solid #999">
-            <span class="left_nav" style="padding-top:6px;"> <a href="#detail_id?<%= id %>"><%= comment_count %> comments</a></span>
-           
-            <span class="right_nav_stream"> <a href="#detail_id?<%= id %>"><button class="btn  btn-primary detail_btn"> Details ></button></a> </span>
-        </div>
-    </div>
-    <span class="btn more_post" style="display:none;"></span>
-
-</script>
-
-
-
-<!-- template for list view -->
-<script id="single_post_template2222" type="text/template">
-<div class="new_mobile_post">
-    <h4>  <% if (title) { %>
-                <%= title %>
-            <% } else{%>
-            >> 
-            <% } %>
-
-  <span class="right_nav"> <a href="/mobile"><button class="btn btn-danger"> Back </button> </a></span></h4>
-    <hr/>
-
-    <div class="story_detail">
-
-        <img class="mugshot"  src="<%= mugshot %>" alt="Author"/>
-        <h6><%= title %> </h6>
-        <div class="postbody">
-            <p> <%= body %> </p>
-            <% if (image) { %>
-                <img src="<%= image %>" />
-            <% } %>
-        </div>
-        <div class="date_comment">
-            <span class="left_date"> Posted by:<a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></span>
-            <span class="left_nav"> <%= date_created %></span>
-        </div>
-
-        <div class="comment_body">
-            <h6><%= comment_count %> Comments</h6>
-            <% _.each(comments, function(comment) { %>
-            <div>
-                <div class>
-                    <span class="small"><a href="/accounts/<%= comment.author_name %>/"><%= comment.author_name %> </a> </span> <span class="right_date" ><%= comment.comment_date %></span>
-                    <br/>
-                </div>
-                <div class="comment_text">
-                    <span> <img id="mugshot_detail" src="<%= comment.author_mugshot %>" alt="Author"/> - <%= comment.comment_body %> </span>
-                </div>
-            </div>
-            <% }); %>
-            <h6>Post a new Comment</h6>
-            <form>
-                <textarea id="commentbody"></textarea><br />
-                <input type="submit" id="newcomment" class="btn btn-info newcomment" value="Comment"/>
-            </form>
-        </div>
-    </div>
-    </div>
-
-</script>
-
-
-<!-- NEW TRY -->
-<script id="single_post_template" type="text/template">
-    <header class="menu" style="height:20px;padding: 10px;">
-                <span class="left_nav"><a href="/mobile/"> <span class="thec"><i class="icon-bullhorn"></i>c7</span> </a></span>
-
-                <span class="right_nav">
-                    <i class="icon-search"></i>
-                    <i class="icon-envelope icon-white"></i>
-                    <i class="icon-user icon-white"></i>
-                </span>
-
-        </header>
-        <div style="background: #f3f3f3;padding: 5px; padding-bottom: 15px;margin-bottom:1px; border-bottom: 1px solid #666;">
-            <h4 style="display:inline;">  <% if (title) { %>
-                <%= title %>
-            <% } else{%>
-                View post 
-            <% } %>
-            </h4>
-  <span class="right_nav"> <a href="/mobile"><button class="btn btn-primary"><i class="icon-home"></i> Home </button> </a></span>
-            
-        </div>
-
-
-<div class="new_mobile_post" style="background: #fff;margin:3px;padding: 3px;border: 1px solid #666">
-
-    <div class="story_detail" >
-
-        <div style="">
-            <img class="mugshot" src="<%= mugshot %>" alt="Author"/>
-            <strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong> 
-            <br/><small> <%= date_created %> 
-            <span class="right_nav"> [<%= id %>]</span></small>
-        </div>
-        <div class="postbody" style="margin-left:4px;">
-        <% if (title) { %>
-            <% if (title != '>>'){ %>
-                <a href="#detail_id?<%= id %>" > <h4><%= title %></h4></a>                    
-            <% } %> 
-         <% } %>
-        
-            <p style="margin-top:3px;"><%= body %> </p>
-            <% if (image) { %>
-                <img src="<%= image %>" style="">
-            <% } %>
-        </div>
-
-        <div class="comment_body">
-            <h6><%= comment_count %> Comments</h6>
-            <% _.each(comments, function(comment) { %>
-            <div>
-                <div class="comment_text" style="font-size:12px;">
-                    <img id="mugshot_detail" src="<%= comment.author_mugshot %>" alt="Author" style="float:left;"/> 
-                    <small><a href="/accounts/<%= comment.author_name %>/"><%= comment.author_name %> </a>
-                    on <%= comment.comment_date %></small>
-                    <p style="padding-left:24px;">
-                    <%= comment.comment_body %> </span>
-                    </p>
-                </div>
-            </div>
-            <% }); %>
-            <h6>Post a new Comment</h6>
-            <form>
-                <textarea id="commentbody"></textarea><br />
-                <input type="submit" id="newcomment" class="btn btn-info newcomment" value="Comment"/>
-            </form>
-        </div>
-    </div>
-    </div>
-
 </script>
 
 {% endblock %}

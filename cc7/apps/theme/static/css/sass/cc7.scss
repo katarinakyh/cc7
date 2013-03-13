@@ -1,0 +1,270 @@
+.main {
+    margin-top: 80px;
+}
+.mainflow {
+    margin-top: 44px;
+    min-height: 500px;
+    background: #ffffff;
+    margin-top: 60px;
+}
+.lowernav{
+    float:none;
+    
+}
+.lowernav li{
+    display: inline;
+}
+.lowernav h4{
+    display: inline;
+}
+.navbar-inverse .navbar-inner {
+    background-color: #170223; /*#0f0117*/ 
+    background-image: linear-gradient(to bottom, #000, #000);
+    background-repeat: repeat-x;
+    border-color: transparent;
+}
+.navbar .nav .myview  {
+    position:relative;
+    left:400px;
+}
+.small {
+    font-size: 10px;
+}
+.navbar-inner{
+    height: 52px;
+}
+.navbar .navbar-inner {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-inverse .brand {
+   /* padding-right: 6%;*/
+}
+.navbar-inverse .nav{
+    padding-left: 1%;
+}
+.navbar .nav{
+    margin: 0;
+    padding-right: 10px;
+    width: 320px;
+}
+.navbar .nav > li > a {
+    display: block;
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 0;
+}
+.menu_word {
+    margin-left: 8%;
+}
+
+.nav-list > li > a:hover {
+    background-color: #fff2f2;
+    color: #000b03;
+}
+
+.hide {
+    display: none;
+}
+
+.comment-button {
+    position: relative;
+    top: -10px;
+}
+
+.menuplus {
+    position: relative;
+    left: -6%;
+}
+.float_center {
+    padding-left: 20px;
+}
+.float_right {
+    text-align: right;
+    float: right;
+}
+
+.story {
+    color: #555555;
+    border-left: 5px solid #EEEEEE;
+    margin: 0 0 20px 10px;
+    padding: 0 0 0 15px;
+}
+
+.comment_btn {
+    background-color: #cccccc;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 10px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 2px 6px;
+    text-align: center;
+}
+
+#threadform #id_title  {
+    width: 300px;
+    height: 30px;
+    margin-left: 4px;
+}
+
+
+#threadform #id_body {
+    width: 300px;
+    height: 200px;
+}
+
+
+textarea {
+    width: 475px;
+    height: 30px;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    font-family: Tahoma, sans-serif;
+}
+
+#commentform textarea{
+    width: 400px;
+    height: 20px;
+}
+
+#eventform textarea, #eventtableform textarea{
+    width: 300px;
+    height: 160px;
+}
+#threadform textarea, #messageform textarea{
+    width: 500px;
+    height: 300px;
+}
+
+#threadform .post_submit {
+    margin-left: 280px;
+
+}
+
+
+#eventtableform input[type=text], #eventtableform input[type=image], #eventtableform select {
+    width: 260px;
+    height: 30px;
+    margin-left: 4px;
+}
+.eventformsubmit {
+    margin-left: 80%;
+}
+
+
+
+li{
+    list-style-type: none;
+}
+        
+submit{
+    float: right;
+}
+
+.mugshot_small {
+    float: left;
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.mugshot {
+    float: left;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+.mugshot_large{
+    float: left;
+    margin-right: 10px;
+    width:70px;
+    height:70px;
+}
+.comment_body{
+    margin-left: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.event{
+    background: #f9f9f9;
+    padding: 10px;
+}
+.sidemessage {
+    height: 200px;
+    padding: 5px;
+    width: 160px;
+}
+.mini {
+    font-size: 70%;
+}
+
+.editform{
+    font-size: 11px;
+}
+
+.postbody{
+    margin-left: 27px;
+    margin-bottom: 20px;
+    padding: 0px;
+    padding-left:10px;
+    border-left:solid 3px #effce1;
+}
+
+.commentfield{
+    background: #f9f9f9;
+    padding: 5px;
+    color:#333333;
+    width:500px;
+    
+}
+.commentbody{
+    margin-left: 30px;
+    font-size: 12px;
+    overflow: auto;
+}
+
+.eventdescription{
+    margin: 10px 0 10px 10px;
+    padding-right: 30px;
+    
+}
+.rightinline{
+    font-size: 15px;
+}
+
+.titlefield input[type=text]{
+    width: 440px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.addtitle{
+    font-size: 10px;
+    margin-left: 5px;
+}
+.messagebody{
+    margin-left: 40px;
+    margin-bottom: 40px;
+    font-size: 14px;
+}
+
+
+.rightsidebar{
+    padding-left: 30px;
+    padding-top: 40px;
+}
+
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; margin-top: 60px; }
+
+.add_from_file{
+    font-size: 30px;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    margin-right: 45px;
+
+}
