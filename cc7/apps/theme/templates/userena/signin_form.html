@@ -9,7 +9,55 @@
 
 {% block title %}{% trans "Signin" %}{% endblock %}
 {% block extra_head %}
+<<<<<<< HEAD
   <link href="{{STATIC_URL}}css/compiled/c7login.css"/>
+=======
+      <style>
+        body{
+          background: url('{{STATIC_URL}}img/gray_jean.png');
+        }
+
+        label{
+            font-size: 9px;
+            margin-left: 0;
+        }
+        #huge_text{
+          font-family: Roboto-Light;
+          font-size: 200px;
+          color: #DDD;
+          text-shadow: 0 1px 0 white;
+          margin-bottom: 60px;
+        }
+
+        #login{
+          width: 70%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .formback{
+          background: #fff;
+          padding-top: 20px;
+          padding-left: 20px;
+          padding-right: 20px;
+          border: solid 1px #ccc;
+          border-radius: 5px;
+          z-index: 100;
+        }
+
+        .forgot-password{
+          text-align: center;
+        }
+
+         input[type=submit]{
+             width: 95%;
+             background: #fff;
+             margin-top: 5px;
+             margin-bottom: 5px;
+             padding:3px;
+             border-radius: 5px;
+         }
+      </style>
+>>>>>>> f99d910ac4602019807c31ad7e0b37be49231b04
 {% endblock %}
 
 {% block allcontent %}
@@ -31,10 +79,9 @@
                     {{ field }}
                 </div>
             </div>
+
           {% else %}
-            </div>
-            <div class="">
-              <input type="submit" class="new-btn button" style="width: 100%; background: #fff;margin-top: 5px;margin-bottom: 5px;padding:3px;border-radius: 5px;   " value="{% trans "Signin" %}" />
+          <input type="submit" class="new-btn button"  value="{% trans "Signin" %}" />
             </div>
             <p class="checkbox">
               <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>

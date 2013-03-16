@@ -28,7 +28,8 @@ class UserResource(ModelResource):
             'user' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
-        authorization= Authorization()
+        authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
 
 class AuthorResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
@@ -42,7 +43,8 @@ class AuthorResource(ModelResource):
             'profile' : ALL_WITH_RELATIONS,
             'pk': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
-        authorization= Authorization()
+        authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
 
 class EventResource(ModelResource):
     class Meta:
@@ -77,9 +79,8 @@ class PostResource(ModelResource):
             'id': ['exact', 'range', 'gt', 'gte', 'lt', 'lte'],
         }
         always_return_data = True
-        # insecure!: must be change to methods below when done testing
-        authorization= Authorization()
-
+        authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
     """
     def prepend_urls(self):
         return [
@@ -144,7 +145,5 @@ class CommentResource(ModelResource):
         queryset = Comment.objects.all()
         resource_name = 'comment'
         allowed_methods = ['get', 'post']
-        # insecure!: must be change to methods below when done testing
-        authorization= Authorization()
-        #authentication = BasicAuthentication()
-        #authorization = DjangoAuthorization()
+        authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
