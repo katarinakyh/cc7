@@ -9,38 +9,7 @@
 
 {% block title %}{% trans "Signin" %}{% endblock %}
 {% block extra_head %}
-      <style>
-        body{
-          background: url('{{STATIC_URL}}img/gray_jean.png');
-        }
-
-        #huge_text{
-          font-family: Roboto-Light;
-          font-size: 200px;
-          color: #DDD;
-          text-shadow: 0 1px 0 white;
-          margin-bottom: 60px;
-        }
-        
-        #login{
-          width: 450px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-        .formback{
-          background: #fff;
-          padding-top: 20px;
-          padding-left: 20px;
-          padding-right: 20px;
-          border: solid 1px #ccc;
-          border-radius: 5px;
-          z-index: 100;
-        }
-
-        .forgot-password{
-          text-align: center;
-        }
-      </style>
+  <link href="{{STATIC_URL}}css/compiled/c7login.css"/>
 {% endblock %}
 
 {% block allcontent %}

@@ -78,13 +78,14 @@
 
         var i = 1;
         var more_posts = function(){
-                if($(document).height() == $(window).scrollTop()+$(window).height()){
-                    if(i == 1){
-                        i++;
-                        $('.more_post').eq(0).trigger('click');
-                    }
+            if($(document).height() == $(window).scrollTop()+$(window).height()){
+                alert('tjo');
+                if(i == 1){
+                    i++;
+                    $('.more_post').eq(0).trigger('click');
                 }
-            }   
+            }
+        }   
 
         $(function(){
             $(window).scroll(function(e){
