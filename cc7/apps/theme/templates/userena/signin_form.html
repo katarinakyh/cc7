@@ -14,6 +14,10 @@
           background: url('{{STATIC_URL}}img/gray_jean.png');
         }
 
+        label{
+            font-size: 9px;
+            margin-left: 0;
+        }
         #huge_text{
           font-family: Roboto-Light;
           font-size: 200px;
@@ -21,9 +25,9 @@
           text-shadow: 0 1px 0 white;
           margin-bottom: 60px;
         }
-        
+
         #login{
-          width: 450px;
+          width: 70%;
           margin-left: auto;
           margin-right: auto;
         }
@@ -40,6 +44,15 @@
         .forgot-password{
           text-align: center;
         }
+
+         input[type=submit]{
+             width: 95%;
+             background: #fff;
+             margin-top: 5px;
+             margin-bottom: 5px;
+             padding:3px;
+             border-radius: 5px;
+         }
       </style>
 {% endblock %}
 
@@ -62,10 +75,9 @@
                     {{ field }}
                 </div>
             </div>
+
           {% else %}
-            </div>
-            <div class="">
-              <input type="submit" class="new-btn button" style="width: 100%; background: #fff;margin-top: 5px;margin-bottom: 5px;padding:3px;border-radius: 5px;   " value="{% trans "Signin" %}" />
+          <input type="submit" class="new-btn button"  value="{% trans "Signin" %}" />
             </div>
             <p class="checkbox">
               <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
