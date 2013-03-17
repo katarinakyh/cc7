@@ -45,7 +45,8 @@ Apps.Models.Pages = Backbone.Model.extend({
             'item_count' : 10,
             'update_num' : 1,
             'next':'',
-            'previous':''
+            'previous':'',
+            'layout':'default'
         }
 });
 
@@ -86,9 +87,18 @@ Apps.Views.PostListView = Backbone.View.extend({
         this.render();
     },
 
+
     events : {
-        'click .more_post': 'more_posts'
+        'click .more_post': 'more_posts',
+        'click .change_layout': 'change_layout'
     },
+
+
+    change_layout:function () {
+        console.log("change template");
+        this.minorLayout = true;
+    },
+
     more_posts:function () {
         this.PostList = new Apps.Collections.PostCollection();
         this.PostListView = new Apps.Views.PostListView({model : this.PostList});
@@ -122,17 +132,46 @@ Apps.Views.PostListView = Backbone.View.extend({
 Apps.Views.PostListItemView = Backbone.View.extend({
     tagName:"li",
 
+    template : _.template($('#post_list_template').html()),
+
     initialize:function () {
         body = this.model.get('body');
+        body = truncate(body, 230);
+        this.model.set('body', body);
         newbody = replaceLinks(body);
         this.model.set('body', newbody);
+
+        function truncate(str, limit) {
+            var bits, i;
+            bits = str.split('');
+            if (bits.length > limit) {
+                for (i = bits.length - 1; i > -1; --i) {
+                    if (i > limit) {
+                        bits.length = i;
+                    }
+                    else if (' ' === bits[i]) {
+                        bits.length = i;
+                        break;
+                    }
+                }
+                bits.push('...');
+            }
+            return bits.join('');
+        };
+
         function replaceLinks(body) {
             var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
             return body.replace(exp,"<a href='$1'>$1</a>");
         }
     },
-    template:_.template($('#post_list_template').html()),
+
+
     render:function (eventName) {
+        Page = new Apps.Models.Pages();
+        layout = Page.get('layout');
+        if (layout == "minor") {
+            this.template = _.template($('#post_list_minor_template').html());
+        }
         $(this.el).html(this.template( this.model.toJSON() ));
         return this;
     }
@@ -225,10 +264,6 @@ Apps.Views.NewPostView = Backbone.View.extend({
                 place_address = $('#adress').val(),
                 place_latitude = $('#latitude').val(),
                 place_longitude = $('#longitude').val();
-
-
-
-
 
         // send the image to server and get the relevant data form in respone
 

@@ -53,6 +53,34 @@
         </div>
     </div>
 </script>
+<!-- template for minor list view -->
+<script id="post_list_minor_template" type="text/template">
+    <div class="story">
+        <div>
+            <strong><a href="/accounts/<%= author.user.username %>/"> <%= author.user.username %> </a></strong>
+            <small> (<%= date_created %>)
+            <span class="right_nav"> [<%= id %>]</span></small>
+        </div>
+        <div class="postbody">
+            <% if (title) { %>
+            <% if (title != '>>'){ %>
+            <a href="#detail_id?<%= id %>" > <h5 class="minor"><%= title %></h5></a>
+            <% } %>
+            <% } %>
+            <%= body %>
+            <% if (image) { %>
+            <a href="<%= image %>" >image link</a>
+            <% } %>
+
+            </div>
+
+        <div class="comment_detail">
+            <div class="comment_count"> <a href="#detail_id?<%= id %>"><%= comment_count %> comments</a></div>
+            <span class="detail_btn right_nav"> <a href="#detail_id?<%= id %>"><button class="btn  btn-primary"> Details <i class="icon-double-angle-right"></i></button></a> </span>
+        </div>
+    </div>
+</script>
+
 
 <!-- template for postdetail view -->
 <script id="single_post_template" type="text/template">
@@ -70,8 +98,9 @@
         <h4>  <% if (title) { %>
             <%= title %>
         <% } else{%>
-            View post 
+            View post
         <% } %>
+
         </h4>
         <span class="right_nav"> <a href="/mobile"><button class="btn btn-primary"><i class="icon-home"></i> Home </button> </a></span>
     </div>
