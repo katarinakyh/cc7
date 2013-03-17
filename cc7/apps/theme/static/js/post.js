@@ -140,8 +140,9 @@ Apps.Views.PostListItemView = Backbone.View.extend({
     initialize:function () {
         body = this.model.get('body');
         body = truncate(body, 230);
-        this.model.set('body', body);
+        this.model.set('flowbody', body);
         newbody = replaceLinks(body);
+        this.model.set('flowbody', newbody);
         this.model.set('body', newbody);
 
         function truncate(str, limit) {
@@ -231,7 +232,7 @@ Apps.Views.NewPostView = Backbone.View.extend({
         "click #add_local": "add_local",
         //"click #new_post": "new_post",
         'click .add_from_camera' : 'togglefield',
-        'click .add_from_file' : 'togglefield',
+        'click .add_from_file' : 'togglefield'
     },
 
     togglefield : function(e){
