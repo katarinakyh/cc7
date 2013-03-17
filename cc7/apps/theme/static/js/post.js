@@ -139,11 +139,12 @@ Apps.Views.PostListItemView = Backbone.View.extend({
 
     initialize:function () {
         body = this.model.get('body');
+        linkbody = replaceLinks(body);
+        this.model.set('flowbody', linkbody);
+        this.model.set('body', linkbody);
         body = truncate(body, 230);
         this.model.set('flowbody', body);
-        newbody = replaceLinks(body);
-        this.model.set('flowbody', newbody);
-        this.model.set('body', newbody);
+
 
         function truncate(str, limit) {
             var bits, i;
