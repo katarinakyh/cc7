@@ -38,7 +38,7 @@
 
       <script>
           $(function() {
-              
+              /*
               var checkSize = function(){
                 if ($(window).width() <= 700) {
                   window.location = "/mobile/";
@@ -46,7 +46,7 @@
               }
               
               window.onresize = checkSize;
-              
+              */
               $('textarea').autosize();
 
               $('img[rel=tipsy]').tipsy({title: 'alt', gravity:$.fn.tipsy.autoNS});
@@ -84,18 +84,7 @@
           });
       </script>
 
-    <style type="text/css">
-      #id_identification, #id_password {
-          height: 100%;
-      }
-      #login{
-          width: 90%;
-      }
-      .formback {
-          width: 90%;
-      }
-
-    </style>
+   
   
     {% block extra_head %}{% endblock %}
     

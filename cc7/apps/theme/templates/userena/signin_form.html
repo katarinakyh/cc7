@@ -18,6 +18,10 @@
             font-size: 9px;
             margin-left: 0;
         }
+        .controls{
+          width: 80%;
+        }
+        
         #huge_text{
           font-family: Roboto-Light;
           font-size: 200px;
@@ -26,8 +30,12 @@
           margin-bottom: 60px;
         }
 
+      #id_identification, #id_password {
+          height: 30px;
+      }
+
         #login{
-          width: 70%;
+          width: 320px;
           margin-left: auto;
           margin-right: auto;
         }
@@ -50,7 +58,6 @@
              background: #fff;
              margin-top: 5px;
              margin-bottom: 5px;
-             padding:3px;
              border-radius: 5px;
          }
       </style>
@@ -63,7 +70,6 @@
       {% csrf_token %}
       <fieldset>
       <div class="formback">
-        
         {{ form.non_field_errors }}
         {% for field in form %}
           {{ field.errors }}
@@ -71,14 +77,15 @@
           {% if field.name != 'remember_me' %}
             <div class="control-group">
                  <label for="id_{{ field.name }}" class="control-label" style="width: 40%; text-align: center; padding: 10px 0; overflow: hidden">{{ field.label }} </label>
-                <div class="controls" style="width: 60%;">
+                <div class="controls">
                     {{ field }}
                 </div>
             </div>
 
           {% else %}
+        
           <input type="submit" class="new-btn button"  value="{% trans "Signin" %}" />
-            </div>
+            
             <p class="checkbox">
               <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
             </p>

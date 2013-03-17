@@ -76,7 +76,7 @@ Apps.Collections.AllLoadedPosts = Backbone.Collection.extend({
 Apps.Views.AllLoadedPosts = Backbone.View.extend({
 })
 
-// the stream post view wapping postitems
+// the stream post view wrapping postitems
 Apps.Views.PostListView = Backbone.View.extend({
 
     tagName:'ul',
@@ -100,6 +100,8 @@ Apps.Views.PostListView = Backbone.View.extend({
     },
 
     more_posts:function () {
+        
+        $('#ajax').show();
         this.PostList = new Apps.Collections.PostCollection();
         this.PostListView = new Apps.Views.PostListView({model : this.PostList});
         this.PostList.fetch({
@@ -107,6 +109,7 @@ Apps.Views.PostListView = Backbone.View.extend({
             success: function(coll){
                 Apps.meta = coll.meta;
                 i = 1; //allow scrolling again, code is in maps.js
+                //$('#ajax').hide();
             }
         });
         Apps.allLoadedPosts.fetch({
