@@ -16,51 +16,17 @@
 .lowernav h4 {
   display: inline; }
 
-.navbar-inverse
-
-.navbar-inner {
-  background-color: #170223;
-  /*#0f0117*/
-  background-image: linear-gradient(to bottom, black, black);
-  background-repeat: repeat-x;
-  border-color: transparent; }
-
-.navbar .nav .myview {
-  position: relative;
-  left: 400px; }
-
 .small {
   font-size: 10px; }
 
-.navbar-inner {
-  height: 52px; }
+.c7_navbar {
+  height: 40px; }
 
-.navbar .navbar-inner {
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1); }
+input[type='text'] {
+  height: 20px; }
 
-.navbar-inverse .brand {
-  /* padding-right: 6%;*/ }
-
-.navbar-inverse .nav {
-  padding-left: 1%; }
-
-.navbar .nav {
-  margin: 0;
-  padding-right: 10px;
-  width: 320px; }
-
-.navbar .nav > li > a {
-  display: block;
-  margin-left: 0;
-  padding-left: 0;
-  margin-right: 0; }
-
-.menu_word {
-  margin-left: 8%; }
-
-.nav-list > li > a:hover {
-  background-color: #fff2f2;
-  color: #000b03; }
+.search-query {
+  margin-top: 4px; }
 
 .hide {
   display: none; }

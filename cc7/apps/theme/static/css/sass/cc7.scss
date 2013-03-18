@@ -1,3 +1,20 @@
+$bodyback: #b7b9d5;
+$lightback: #f3f3f3;
+$headerback: #111111;
+
+$darkborder: 1px solid #666;
+
+$mugshot_h: 30px;
+$mugshot_w: 30px;
+
+$fontsize: .9em;
+$fontcolor: #333333;
+$headerfontcolor: #ffffff;
+$iconfontsize: 1em;
+
+$btnwidth : 110px;
+
+
 .main {
   margin-top: 80px; }
 
@@ -16,52 +33,28 @@
 .lowernav h4 {
   display: inline; }
 
-.navbar-inverse .navbar-inner {
-  background-color: #170223;
-  /*#0f0117*/
-  background-image: linear-gradient(to bottom, black, black);
-  background-repeat: repeat-x;
-  border-color: transparent; }
-
-.navbar .nav .myview {
-  position: relative;
-  left: 400px; }
-
 .small {
   font-size: 10px; }
 
-.navbar-inner {
-  height: 52px; }
+// nav menu  navbar navbar.inner nav_home  -------------------------
 
-.navbar .navbar-inner {
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1); }
+.c7_navbar {
+  height: 40px;
+}
 
-.navbar-inverse .brand {
-  /* padding-right: 6%;*/ }
+input[type='text'] {
+  height: 20px;
+}
 
-.navbar-inverse .nav {
-  padding-left: 1%; }
+.search-query {
+  margin-top: 4px;
 
-.navbar .nav {
-  margin: 0;
-  padding-right: 10px;
-  width: 320px; }
 
-.navbar .nav > li > a {
-  display: block;
-  margin-left: 0;
-  padding-left: 0;
-  margin-right: 0; }
-
-.menu_word {
-  margin-left: 8%; }
-
-.nav-list > li > a:hover {
-  background-color: #fff2f2;
-  color: #000b03; }
+}
 
 .hide {
-  display: none; }
+  display: none;
+}
 
 .comment-button {
   position: relative;
@@ -135,10 +128,12 @@ textarea {
   margin-left: 80%; }
 
 li {
-  list-style-type: none; }
+  list-style-type: none;
+}
 
 submit {
-  float: right; }
+  float: right;
+}
 
 .mugshot_small {
   float: left;
@@ -231,4 +226,5 @@ submit {
   cursor: pointer;
   width: 12px;
   height: 12px;
-  margin-right: 45px; }
+  margin-right: 45px;
+}
