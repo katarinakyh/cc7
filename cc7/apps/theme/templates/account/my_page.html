@@ -10,20 +10,22 @@
 
     {%if pageprofile == profile %}
     <h4> New wall Post</h4>
+        <div class="form_bound">
             <form action="" enctype="multipart/form-data" id="post_form" method="post" class="form-horizontal block-form">
                 {% csrf_token %}
                 {{ post_form.body }} <br />
-                <span class="label label-important">{{ form.body.errors }}</span><br />
+                <span class="label label-important">{{ form.body.errors }}</span>
                 <input type="hidden" value="{{post.pk}}" name="post" />
                 <input type="hidden" value="{{profile.pk}}" name="author" />
-                <span>
-                <input class="btn btn-primary" type="submit" id="new_post" class="btn" value="Post" />
-                </span>
+                <div class="pull-right">
+                    <input class="btn btn-primary" type="submit" id="new_post" class="btn" value="Post" />
+                </div>
             </form>
-    </div>
+        </div>
+        <br />
     {%endif%}
 
-<hr/>
+    <hr/>
     {%for post in object_list %}
         <h4>
            <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Author mugshot" %}"/>

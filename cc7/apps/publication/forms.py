@@ -11,7 +11,6 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         widgets = {
-            'body': Textarea(attrs={'cols': 200, 'rows': 10}),
             'author': HiddenInput()
         }
         fields = ('title', 'body', 'image', 'author')

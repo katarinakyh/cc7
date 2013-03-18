@@ -154,6 +154,10 @@ submit {
   padding-left: 10px;
   border-left: solid 3px #effce1; }
 
+.form_bound {
+  min-width: 360px;
+  max-width: 60%; }
+
 .commentfield {
   background: #fdfdfd;
   color: #333333;

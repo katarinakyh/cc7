@@ -6,7 +6,15 @@
     <div class="navbar-inner">
         <div class="container">
 
-            <div class="brand"> <a href="/messages/" class="menu_word">{% trans "Your messages" %} </a>/ {{thread.title}}   </div>
+            <div class="brand"> <a href="/messages/" class="menu_word">{% trans "Your messages" %} </a>/ {{thread.title}}
+            {%for message in message_list%}
+                {%if forloop.first %}
+                 {{message.title}}
+                {%endif%}
+            {%endfor%}
+
+
+            </div>
         </div>
     </div>
 </div>

@@ -7,8 +7,7 @@
             <div class="brand"><a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} </a> / Create post  </div>
         </div>
     </div>
-</div>
-
+</div
 <form action="" id="threadform" method="post" enctype="multipart/form-data" class="form-inline">
     {% csrf_token %}
     {{form.as_p}}
