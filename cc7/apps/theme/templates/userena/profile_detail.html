@@ -17,20 +17,27 @@
           <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
           {% block profile_definition_list %}
             {% if pageprofile.user.get_full_name %}
-              <p class="lead">{{ pageprofile.user.get_full_name }}</p>
-            {%elif pageprofile == profile%}
-              <p class="lead">Welcome to c7, {{profile.user.username}}!</p>
-            {%else%}
-              <p class="lead">Welcome to {{pageprofile.user.username}}s personal page!</p>
-            {% endif %}
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                    <h3>  {{ pageprofile.user.get_full_name }} </h3>
+                    {%elif pageprofile == profile%}
+                    <p class="lead">Welcome to c7, {{profile.user.username}}!</p>
+                    {%else%}
+                    <p class="lead">Welcome to {{pageprofile.user.username}}s personal page!</p>
+                    {% endif %}
 
-            {% if pageprofile.description %}
-              <p><em>"{{ pageprofile.description|safe }}"</em></p>
-            {%elif pageprofile == profile%}
-              <p><em>"This is your personal page, please <a href='{% url userena_profile_edit user.username %}'>{% trans "edit your profile" %}</a>"</em></p>
-            {%else%}
-                <p><em>&nbsp;</em></p>
-            {% endif %}
+                    {% if pageprofile.description %}
+                    <p><em>"{{ pageprofile.description|safe }}"</em></p>
+                    {%elif pageprofile == profile%}
+                    <p><em>"This is your personal page, please <a href='{% url userena_profile_edit user.username %}'>{% trans "edit your profile" %}</a>"</em></p>
+                    {%else%}
+                    <p><em>&nbsp;</em></p>
+                    {% endif %}
+
+                </div>
+
+            </div>
 
             {% if profile.has_new_messages %}
               <dt>{% trans "You have new messages" %}</dt>

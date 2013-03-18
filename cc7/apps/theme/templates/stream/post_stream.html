@@ -8,13 +8,14 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="#">{% trans "All Posts" %} </a>
-
-                <li class="pull-right">
-                    <a href="{% url add_post %}" class="btn"> {% trans "New post" %} <i class="icon-edit "></i> </a>
-                </li>
-            </ul>
-                </div>   </div>   </div>
-    <hr/>
+                    <a class="brand" href="#">{% trans "Posts" %} </a>
+                    <ul>
+                        <li class="pull-right">
+                            <a href="{% url add_post %}" class="btn btn-primary"> {% trans "New post" %} <i class="icon-edit "></i> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     {%include 'publication/fullstream.html'%}
 {%endblock%}

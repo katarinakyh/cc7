@@ -3,8 +3,14 @@
 
 
 {%block content%}
-<h4>Create new event</h4>
-<hr/>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"><a href="{% url stream_events %}" > {% trans "Events" %} </a> / Create event  </div>
+        </div>
+    </div>
+</div>
+
 
 <form action="" id="eventform" method="post" enctype="multipart/form-data" class="">
     {% csrf_token %}

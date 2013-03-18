@@ -5,19 +5,17 @@
 {% endblock %}
 
 {%block content%}
-<div class="nav">
-    <ul class="lowernav">
-        <li>
-            <h4> {% trans "All Posts and Events" %} </h4>
-        </li>
-        <li>
-            <a href="{% url add_post %}" class="menu_word"> {% trans "New post" %} <i class="icon-EDIT "></i> </a>
-        </li>
-        <li>
-            <a href="{% url add_event %}" class="menu_word"> {% trans "Create new event" %} <i class="icon-edit "></i> </a>
-        </li>
-    </ul>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">{% trans "Posts" %} </a>
+            <ul>
+                <li class="pull-right">
+                    <a href="{% url add_post %}" class="btn btn-primary"> {% trans "New post" %} <i class="icon-edit "></i> </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-    <hr/>
     {%include 'publication/fullstream.html'%}
 {%endblock%}

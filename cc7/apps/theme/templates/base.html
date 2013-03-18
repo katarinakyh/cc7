@@ -104,13 +104,13 @@
 
                     <ul class="nav span4">
                         <a class="brand" href="/"><i class="icon-bullhorn "></i> c7 </a>
-
-                        <li>
-                            <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} <i class="icon-calendar "></i> </a>
-                        </li>
                         <li>
                             <a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} <i class="icon-list-alt"></i></a>
                         </li>
+                        <li>
+                            <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} <i class="icon-calendar "></i> </a>
+                        </li>
+
                     </ul>
                     <form class="navbar-search" action="">
                         <input class="search-query span2" type="text" placeholder="Search">
@@ -146,7 +146,7 @@
     </div>
 <!--=========================================-->
 
-<div class="container main pull-right">
+<div class="container main">
 
     <div class="span8 mainflow" style="min-height: 500px;background: #ffffff;margin: 0;">
         {% block my_header %} {% endblock %}

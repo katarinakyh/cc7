@@ -4,8 +4,20 @@
 {% block title %}{% trans "Signed out" %}{% endblock %}
 {% block content_title %}<h2>{% trans "You have been signed out" %}.</h2>{% endblock %}
 
-{% block allcontent %}  
-    <h1 class="huge_text">CC7</h1>
-<p>{% trans "You have been signed out. Till we meet again." %}</p>
-<a href="/">Hem</a>
+{% block allcontent %}
+<div class="navbar">
+    <div class="navbar-inner">
+        <br/>        <br/>
+        <div class="container">
+            <div class="label label-info">{% trans "You have been signed out." %}</div><br/><br/>
+            <span class="btn">
+                <a href="/">{% trans "Sign in" %}</a>
+            </span>
+        </div>
+        <br/>        <br/>
+
+    </div>
+</div>
+
+
 {% endblock %}

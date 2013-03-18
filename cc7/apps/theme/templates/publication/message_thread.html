@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <div class="brand"> <a href="/messages/" class="menu_word">{% trans "Your messages" %} </a>/ {{thread.title}}   </div>
+        </div>
+    </div>
+</div>
+
 <ul>
-    <h3>{{message.title}}</h3>
+    <h3></h3>
     {%for message in message_list|dictsort:"date_created"%}
         <li>
             <img class="mugshot" src="{{ message.author.get_mugshot_url }}" alt="{% trans "Sender" %}" />

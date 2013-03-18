@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-        <div class="nav">
-            <ul class="lowernav">
-                <li>
-                     <h4> {% trans "Your Messages" %} </h4>
-                </li>
-                <li>
-                    <a href="{% url add_message %}" class="menu_word"> {% trans "New message" %} <i class="icon-edit "></i> </a>
-                </li>
-            </ul>
+<div class="navbar">
+<div class="navbar-inner">
+    <div class="container">
+        <div class="brand"> {% trans "Your Messages" %}   </div>
+        <ul>
+            <li class="pull-right">
+                <a href="{% url add_message %}" class="btn"> {% trans "New message" %} <i class="icon-edit "></i> </a>
+            </li>
+        </ul>
         </div>
-    <hr/>
+    </div>
+</div>
+<div>
     <ul class="nav-list">
         {%if m_list %}
            
@@ -30,4 +32,5 @@
         {%endif%}
 
     </ul>
+</div>
 {%endblock%}

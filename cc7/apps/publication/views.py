@@ -189,6 +189,7 @@ class MessageView(ListView):
         context = {
             'profile':profile,
             'm_list':m_list,
+            'thread': message_list,
         }
 
         context.update(kwargs)

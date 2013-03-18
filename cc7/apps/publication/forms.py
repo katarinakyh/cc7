@@ -25,6 +25,7 @@ class CommentEditForm(ModelForm):
     class Meta:
         model = Comment
         widgets = {
+            'body': Textarea(attrs={'cols': 200, 'rows': 10}),
             'author': HiddenInput()
         }
 

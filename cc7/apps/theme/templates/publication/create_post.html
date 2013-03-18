@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-<h4>Create new post</h4>
-<hr/>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"><a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} </a> / Create post  </div>
+        </div>
+    </div>
+</div>
+
 <form action="" id="threadform" method="post" enctype="multipart/form-data" class="form-inline">
     {% csrf_token %}
     {{form.as_p}}

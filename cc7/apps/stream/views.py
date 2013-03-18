@@ -34,12 +34,12 @@ def stream(request):
         return HttpResponseRedirect(reverse('stream'))
      
     posts = Post.objects.filter(is_public=True).order_by('date_created')
-    events = Event.objects.filter().order_by('date_created')
+    #events = Event.objects.filter().order_by('date_created')
     comment_form = CommentForm()
-    result_list =  sorted(chain(posts, events))
+    #result_list =  sorted(chain(posts, events))
     #pagination
 
-    page_list = pagination(request, result_list)
+    page_list = pagination(request, posts)
 
     return render_to_response('stream/stream.html', {
             'object_list': page_list,

@@ -14,7 +14,6 @@ $iconfontsize: 1em;
 
 $btnwidth : 110px;
 
-
 .main {
   margin-top: 80px; }
 
@@ -48,8 +47,6 @@ input[type='text'] {
 
 .search-query {
   margin-top: 4px;
-
-
 }
 
 .hide {
@@ -58,18 +55,22 @@ input[type='text'] {
 
 .comment-button {
   position: relative;
-  top: -10px; }
+  top: -10px;
+}
 
 .menuplus {
   position: relative;
-  left: -6%; }
+  left: -6%;
+}
 
 .float_center {
-  padding-left: 20px; }
+  padding-left: 20px;
+}
 
 .float_right {
   text-align: right;
-  float: right; }
+  float: right;
+}
 
 .story {
   color: #555555;
@@ -150,8 +151,10 @@ submit {
 .mugshot_large {
   float: left;
   margin-right: 10px;
-  width: 70px;
-  height: 70px; }
+  width: 100px;
+  height: 100px;
+  margin: 2px 10px 2px 2px;
+}
 
 .comment_body {
   margin-left: 30px;
@@ -178,13 +181,19 @@ submit {
   margin-bottom: 20px;
   padding: 0px;
   padding-left: 10px;
-  border-left: solid 3px #effce1; }
+  border-left: solid 3px #effce1;
+}
 
 .commentfield {
-  background: #f9f9f9;
-  padding: 5px;
+  background: #fdfdfd;
   color: #333333;
-  width: 500px; }
+  margin-left: 40px;
+
+  textarea {
+    width: 80%;
+    height: 100px;
+  }
+}
 
 .commentbody {
   margin-left: 30px;
