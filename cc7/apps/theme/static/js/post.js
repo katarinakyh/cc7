@@ -36,7 +36,7 @@ Apps.Models.Post  = Backbone.Tastypie.Model.extend({
     }
 
 });
-// keep track for pages
+// keep track for pages, this will be uses later
 Apps.Models.Pages = Backbone.Model.extend({
     defaults:
         {

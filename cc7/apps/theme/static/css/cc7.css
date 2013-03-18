@@ -16,7 +16,9 @@
 .lowernav h4 {
   display: inline; }
 
-.navbar-inverse .navbar-inner {
+.navbar-inverse
+
+.navbar-inner {
   background-color: #170223;
   /*#0f0117*/
   background-image: linear-gradient(to bottom, black, black);
@@ -80,7 +82,7 @@
 
 .story {
   color: #555555;
-  border-left: 5px solid #EEEEEE;
+  border-left: 5px solid #eeeeee;
   margin: 0 0 20px 10px;
   padding: 0 0 0 15px; }
 
@@ -223,7 +225,7 @@ submit {
 
 .ui-datepicker .ui-datepicker-header {
   position: relative;
-  padding: .2em 0;
+  padding: 0.2em 0;
   margin-top: 60px; }
 
 .add_from_file {

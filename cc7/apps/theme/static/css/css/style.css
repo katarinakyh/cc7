@@ -2,18 +2,17 @@
   margin-top: 80px; }
 
 .mainflow {
-  margin-top: 44px;
   min-height: 500px;
   background: #ffffff;
   margin-top: 60px; }
 
+li {
+  list-style-type: none; }
+
 .lowernav {
   float: none; }
 
-.lowernav li {
-  display: inline; }
-
-.lowernav h4 {
+.lowernav li, .lowernav h4 {
   display: inline; }
 
 .navbar-inverse .navbar-inner {
@@ -26,9 +25,6 @@
 .navbar .nav .myview {
   position: relative;
   left: 400px; }
-
-.small {
-  font-size: 10px; }
 
 .navbar-inner {
   height: 52px; }
@@ -67,6 +63,17 @@
   position: relative;
   top: -10px; }
 
+.comment_btn {
+  background-color: #cccccc;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 10px;
+  line-height: 20px;
+  margin-bottom: 0;
+  padding: 2px 6px;
+  text-align: center; }
+
 .menuplus {
   position: relative;
   left: -6%; }
@@ -80,20 +87,39 @@
 
 .story {
   color: #555555;
-  border-left: 5px solid #EEEEEE;
+  border-left: 5px solid #eeeeee;
   margin: 0 0 20px 10px;
   padding: 0 0 0 15px; }
 
-.comment_btn {
-  background-color: #cccccc;
-  color: black;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 10px;
-  line-height: 20px;
-  margin-bottom: 0;
-  padding: 2px 6px;
-  text-align: center; }
+.mugshot_small {
+  float: left;
+  margin-right: 10px;
+  height: 20px;
+  width: 20px; }
+
+.mugshot {
+  float: left;
+  margin-right: 10px;
+  height: 30px;
+  width: 30px; }
+
+.mugshot_large {
+  float: left;
+  margin-right: 10px;
+  width: 70px;
+  height: 70px; }
+
+.comment_body {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px; }
+
+.event {
+  background: #f9f9f9;
+  padding: 10px; }
+
+.small {
+  font-size: 10px; }
 
 #threadform #id_title {
   width: 300px;
@@ -134,38 +160,8 @@ textarea {
 .eventformsubmit {
   margin-left: 80%; }
 
-li {
-  list-style-type: none; }
-
 submit {
   float: right; }
-
-.mugshot_small {
-  float: left;
-  margin-right: 10px;
-  height: 20px;
-  width: 20px; }
-
-.mugshot {
-  float: left;
-  margin-right: 10px;
-  height: 30px;
-  width: 30px; }
-
-.mugshot_large {
-  float: left;
-  margin-right: 10px;
-  width: 70px;
-  height: 70px; }
-
-.comment_body {
-  margin-left: 30px;
-  margin-bottom: 10px;
-  margin-top: 10px; }
-
-.event {
-  background: #f9f9f9;
-  padding: 10px; }
 
 .sidemessage {
   height: 200px;
@@ -223,7 +219,7 @@ submit {
 
 .ui-datepicker .ui-datepicker-header {
   position: relative;
-  padding: .2em 0;
+  padding: 0.2em 0;
   margin-top: 60px; }
 
 .add_from_file {
