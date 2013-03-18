@@ -73,19 +73,22 @@
                 </div>
 
                 <div class="control-group" id="id_image">
-                    <label for="id_image" class="control-label">{% trans "Image" %}</label>
+                    <label for="id_image" class="control-label">{% trans "Event Image" %}</label>
                     <div class="controls">
                         {{ form.image }}
                         <span class="label label-important">{{ form.image.errors }}</span>
                     </div>
                 </div>
-
-
-
          </td>
         </tr>
-      </table>
-      <input type="submit" class="btn eventformsubmit" value="{% trans "Create event" %}">
+        <tr>
+            <th  colspan="2">
+                <input type="submit" class="btn btn-primary eventformsubmit" value="{% trans "Create event" %}">
+            </th>
+
+        </tr>
+
+    </table>
 
   </form>
 

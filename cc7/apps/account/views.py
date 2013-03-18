@@ -119,7 +119,7 @@ class AssociationActivityBase(RedirectView):
     def get(self, request, *args, **kwargs):
         association = Association.objects.get(slug=kwargs.get('slug'))
         self.update_action(request, association, request.user.get_profile())
-        success_url = request.META.get('referer') or '/'
+        success_url = request.META.get('referer') or '/association//'
 
         print 'groups', request.user.get_profile().association.all()
         return HttpResponseRedirect(success_url)

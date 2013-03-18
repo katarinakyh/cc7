@@ -162,8 +162,8 @@ submit {
   margin-top: 10px; }
 
 .event {
-  background: #f9f9f9;
-  padding: 10px; }
+  padding: 10px;
+}
 
 .sidemessage {
   height: 200px;
@@ -185,9 +185,10 @@ submit {
 }
 
 .form_bound {
-  min-width: 360px;
-  max-width: 60%;
+  min-width: 100px;
+
 }
+
 
 .commentfield {
   background: #fdfdfd;
@@ -200,6 +201,12 @@ submit {
   }
 }
 
+.float_left {
+  float: left;
+}
+.ending {
+
+}
 .commentbody {
   margin-left: 30px;
   font-size: 12px;
@@ -228,7 +235,7 @@ submit {
 
 .rightsidebar {
   padding-left: 30px;
-  padding-top: 40px; }
+  padding-top: 0px; }
 
 .ui-datepicker .ui-datepicker-header {
   position: relative;

@@ -2,42 +2,56 @@
 {% load i18n %}
 {% block extra_head %}
 {% endblock %}
-        {% block profile_details %}
-            <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
-            {% if pageprofile.association %}
-              <p class="lead">{{ pageprofile.association }}</p>
-            {% endif %}
-            {% if pageprofile.description %}
-              <p><em>"{{ pageprofile.description }}"</em></p>
-            {% endif %}
-        {% endblock %}
-        {%block posts%}
-            <p>&nbsp;</p>
-
-            {%if can_edit %}
-
-        <p> <div class="btn  btn-mini"><a href="{% url leave_association pageprofile.slug %}">Leave group</a> </div></p>
-<br />
+    {% block profile_details %}
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <img class="mugshot_large" src="{{ pageprofile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
+                {% if pageprofile.association %}
+                  <p class="lead">{{ pageprofile.association }}</p>
+                {% endif %}
+                {% if pageprofile.description %}
+                  <p><em>"{{ pageprofile.description }}"</em></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {%block posts%}
+        {%if can_edit %}
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                         <div class="btn pull_right"><a href="{% url leave_association pageprofile.slug %}">Leave group</a> </div>
+                </div>
+            </div>
+        </div>
         <div class="story">
             New Post
                 <form action="" enctype="multipart/form-data" id="post_form" method="post" class="form-horizontal block-form">
                     {% csrf_token %}
                    <!-- <div class="titlefield"> Title: {{ post_form.title }} </div>-->
-
                     {{ post_form.body }} <br />
-                    {{ post_form.image }}<br />
-                    <input type="hidden" value="{{profile.pk}}" name="author"/>
-                    <input type="hidden" value="{{pageprofile.pk}}" name="association"/>
-                    <input type="hidden" value="1" name="is_public"/>
-                    <span class="label label-important">{{ form.body.errors }}</span><br />
-                   <input type="submit" id="new_post" class="btn" value="post" />
-                 <!--   <a href="" class="addtitle">Add title</a>-->
+                    <!--  {{ post_form.image }}<br /> -->
+                     <input type="hidden" value="{{profile.pk}}" name="author"/>
+                     <input type="hidden" value="{{pageprofile.pk}}" name="association"/>
+                     <input type="hidden" value="1" name="is_public"/>
+                     <span class="label label-important">{{ form.body.errors }}</span><br />
+                    <input type="submit" id="new_post" class="btn" value="post" />
+                  <!--   <a href="" class="addtitle">Add title</a>-->
                 </form>
         </div>
 
-            {% else %}
-                <p><a href="{% url join_association pageprofile.slug %}">Join group</a></p>
-            {%endif%}
+        {% else %}
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <div class="btn pull_right"><a href="{% url join_association pageprofile.slug %}">Join group</a></div>
+                    </div>
+                </div>
+            </div>
+
+        {%endif%}
         
             {%include 'publication/fullstream.html'%}
         

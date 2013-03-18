@@ -7,28 +7,30 @@
 {% endblock %}
 {%block posts%}
 <hr/>
-
     {%if pageprofile == profile %}
     <h4> New wall Post</h4>
-        <div class="form_bound">
-            <form action="" enctype="multipart/form-data" id="post_form" method="post" class="form-horizontal block-form">
-                {% csrf_token %}
+    <img class="mugshot" src="{{ profile.get_mugshot_url }}" style="float:left;" alt="{% trans "Your mugshot" %}"  />
+    <div class="form_bound" style="overflow: hidden;">
+    <form action="" enctype="multipart/form-data" id="post_form" method="post">
+        {% csrf_token %}
                 {{ post_form.body }} <br />
                 <span class="label label-important">{{ form.body.errors }}</span>
+                <span class="label label-info small">Posts on personal walls will not show in public stream</span>
                 <input type="hidden" value="{{post.pk}}" name="post" />
                 <input type="hidden" value="{{profile.pk}}" name="author" />
-                <div class="pull-right">
+                <div class="pull-right form_bound">
                     <input class="btn btn-primary" type="submit" id="new_post" class="btn" value="Post" />
                 </div>
             </form>
         </div>
         <br />
-    {%endif%}
+     {%endif%}
 
     <hr/>
     {%for post in object_list %}
         <h4>
-           <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Author mugshot" %}"/>
+
+           <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
            <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
            <span class="small">
            {% if post.author %}

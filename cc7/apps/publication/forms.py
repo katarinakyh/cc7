@@ -1,8 +1,8 @@
 from models import Post, Comment, Message
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import ModelForm, DateField, forms
-from django.forms.widgets import HiddenInput
-from django.forms.widgets import Textarea, DateInput
+from django.forms.widgets import HiddenInput, CheckboxInput
+from django.forms.widgets import Textarea, TextInput, DateInput
 from models import Post, Comment
 from apps.account.models import MyProfile
 
@@ -11,7 +11,7 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         widgets = {
-            'author': HiddenInput()
+            'title': HiddenInput(),
         }
         fields = ('title', 'body', 'image', 'author')
                 
@@ -46,12 +46,14 @@ class MessageForm(ModelForm):
 
         return name
 
+
 class ThreadForm(ModelForm):
     class Meta:
         model= Post
         widgets = {
+            'title':  TextInput(attrs={'cols': 200, 'class': 'input-xlarge'}),
             'body': Textarea(attrs={'cols': 200, 'rows': 10}),
         }
         exclude = ('author','event','association','is_public',)
-        fields = ('title', 'body', 'image',)
+        fields = ('title', 'body', 'image','is_public')
 

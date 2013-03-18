@@ -7,16 +7,17 @@
             <div class="brand"><a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} </a> / Create post  </div>
         </div>
     </div>
-</div
+</div>
+
+<div>
 <form action="" id="threadform" method="post" enctype="multipart/form-data" class="form-inline">
     {% csrf_token %}
     {{form.as_p}}
     <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
     <input type="hidden" value="1" name="is_public" id="id_is_public"/>
-
-    <input class="btn post_submit" type="submit" value="Post"/>
+    <input class="btn btn-primary" type="submit" value="Post"/>
     <br />
 </form>
-
+</div>
 
 {%endblock%}

@@ -59,6 +59,7 @@
 {%block rightinline%}
     {%if pageprofile == profile %}
         {% if profile.association.all %}
+
             <br/>
             <h4 class="rightinline">My associations</h4>
             {%for a in profile.association.all %}
