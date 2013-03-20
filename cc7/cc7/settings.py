@@ -154,6 +154,8 @@ INSTALLED_APPS = (
     'apps.account',
     'apps.map',
     'apps.image',
+    'apps.group',
+    'apps.list',
     #installed apps,
     'south',
     'gunicorn',

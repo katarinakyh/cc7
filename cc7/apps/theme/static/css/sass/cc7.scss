@@ -38,11 +38,15 @@ $btnwidth : 110px;
 // nav menu  navbar navbar.inner nav_home  -------------------------
 
 .c7_navbar {
-  height: 40px;
+  height: 50px;
 }
 
 input[type='text'] {
-  height: 20px;
+  height: 32px;
+}
+
+.textarea_small {
+  height: 40px;
 }
 
 .search-query {
@@ -99,7 +103,6 @@ input[type='text'] {
   height: 200px; }
 
 textarea {
-  width: 475px;
   height: 30px;
   border: 1px solid #cccccc;
   padding: 5px;
@@ -118,7 +121,8 @@ textarea {
   height: 300px; }
 
 #threadform .post_submit {
-  margin-left: 280px; }
+  margin-left: 280px;
+}
 
 #eventtableform input[type=text], #eventtableform input[type=image], #eventtableform select {
   width: 260px;

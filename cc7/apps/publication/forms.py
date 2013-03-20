@@ -14,7 +14,9 @@ class PostForm(ModelForm):
             'title': HiddenInput(),
         }
         fields = ('title', 'body', 'image', 'author')
-                
+
+
+
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
@@ -43,7 +45,6 @@ class MessageForm(ModelForm):
         friends = MyProfile.objects.all()
         if name not in friends:
             raise forms.ValidationError("This profile does not exist")
-
         return name
 
 
@@ -52,8 +53,9 @@ class ThreadForm(ModelForm):
         model= Post
         widgets = {
             'title':  TextInput(attrs={'cols': 200, 'class': 'input-xlarge'}),
-            'body': Textarea(attrs={'cols': 200, 'rows': 10}),
         }
         exclude = ('author','event','association','is_public',)
         fields = ('title', 'body', 'image','is_public')
+
+
 

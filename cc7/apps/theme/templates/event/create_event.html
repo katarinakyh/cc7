@@ -16,80 +16,55 @@
     {% csrf_token %}
     <table id="eventtableform" class="table table-striped table-bordered">
         <tr>
-            <th>
-                {% trans "About" %}
-            </th>
-            <th>
-                {% trans "Place,Time and Image" %}
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <div class="control-group" id="title">
-                    <label for="id_title" class="control-label">{% trans "Title" %}</label>
-                    <div class="controls">
-                        {{ form.title }}
-                        <span class="label label-important">{{ form.title.errors }}</span>
-                    </div>
-                </div>
-                <div class="control-group" id="organiser">
-                    <label for="id_organiser" class="control-label">{% trans "Organizer" %}</label>
-                    <div class="controls">
-                        {{ form.organiser }}
-                        <span class="label label-important">{{ form.organiser.errors }}</span>
-                    </div>
-                </div>
-                <div class="control-group" id="description">
-                    <label for="id_description" class="control-label">{% trans "Description" %}</label>
-                    <div class="controls">
-                        {{ form.description }}
-                        <span class="label label-important">{{ form.description.errors }}</span>
-                    </div>
-                </div>
+            <th>{% trans "Title" %}</th>
+            <td> {{ form.title }}
+                <span class="label label-important">{{ form.title.errors }}</span>
             </td>
-            <td>
-                <div class="control-group" id="place">
-                    <label for="id_place" class="control-label">{% trans "Place" %}</label>
-                    <div class="controls">
-                        {{ form.place }}
-                        <span class="label label-important">{{ form.place.errors }}</span>
-                    </div>
-                </div>
-          
-                <div class="control-group" id="date_from">
-                    <label for="id_datetime_from" class="control-label">{% trans "From" %}</label>
-                    <div class="controls">
-                        {{ form.datetime_from }}
-                        <span class="label label-important">{{ form.datetime_from.errors }}</span>
-                    </div>
-                </div>
-
-                <div class="control-group" id="date_to">
-                    <label for="id_timedate_to" class="control-label">{% trans "To" %}</label>
-                    <div class="controls">
-                        {{ form.datetime_to }}
-                        <span class="label label-important">{{ form.datetime_to.errors }}</span>
-                    </div>
-                </div>
-
-                <div class="control-group" id="id_image">
-                    <label for="id_image" class="control-label">{% trans "Event Image" %}</label>
-                    <div class="controls">
-                        {{ form.image }}
-                        <span class="label label-important">{{ form.image.errors }}</span>
-                    </div>
-                </div>
-         </td>
         </tr>
         <tr>
-            <th  colspan="2">
+            <th>{% trans "Organizer" %}</th>
+            <td>  {{ form.organiser }}
+                <span class="label label-important">{{ form.organiser.errors }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans "Description" %}</th>
+            <td>  {{ form.description }}
+                <span class="label label-important">{{ form.description.errors }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans "Place" %}</th>
+            <td>  {{ form.place }}
+                <span class="label label-important">{{ form.place.errors }}</span>
+            </td>
+        </tr>
+        <tr>
+        <th>{% trans "From" %}</th>
+            <td> {{ form.datetime_from }}
+            <span class="label label-important">{{ form.datetime_from.errors }}</span>
+            </td>
+        </tr>
+        <tr>
+
+            <th>{% trans "To" %}</th>
+            <td>{{ form.datetime_to }}
+                <span class="label label-important">{{ form.datetime_to.errors }}</span>
+
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans "Event Image" %}</th>
+            <td>{{ form.image }}
+                <span class="label label-important">{{ form.image.errors }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">
                 <input type="submit" class="btn btn-primary eventformsubmit" value="{% trans "Create event" %}">
             </th>
-
         </tr>
-
     </table>
-
   </form>
 
 

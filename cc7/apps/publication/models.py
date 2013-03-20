@@ -5,7 +5,6 @@ from apps.event.models import Event
 from apps.map.models import Place
 from apps.image.models import Image
 
-from django.core.validators import MaxLengthValidator
 
 POST_TYPE = (
     ('p', 'post'),

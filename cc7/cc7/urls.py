@@ -46,6 +46,8 @@ urlpatterns = patterns('',
     url(r'^messages/', login_required(MessageView.as_view()), name='show_messages'),
     url(r'^message/(?P<pk>[a-zA-Z0-9_.-]+)/$', 'apps.publication.views.view_message', name='show_message_thread'),
     url(r'^event/', include('apps.event.urls')),
+    url(r'^list/', include('apps.list.urls')),
+    url(r'^group/', include('apps.group.urls')),
 
     url(r'^association/', include('apps.account.urls')),
     url(r'^map/', TemplateView.as_view(template_name='map/index.html')),

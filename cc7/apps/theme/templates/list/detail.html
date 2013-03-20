@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block content%}
+
+    {% for post in object_list  %}
+        <blockquote> <h4 style="display:inline">{{ post.title }} </h4>
+            <span class="small">  >> {{ post.date_from }},  {{ post.time_from }} >> {{ post.date_to }}, {{ post.time_to }}</span>
+            <div> {% trans "Where" %}: {{ post.place }} </div>
+            <div> {% trans "Who" %}: {{ post.organiser }} </div>
+            <div> {% trans "Details" %}: {{ post.description }} </div>
+            {%include 'publication/comment.html'%}
+        </blockquote>
+    {% endfor %}
+
+{%endblock%}

@@ -101,16 +101,20 @@
             <a class="btn btn-navbar" data-target=".navbar-inverse-collapse" data-toggle="collapse">
                 <div class="nav-collapse collapse navbar-inverse-collapse">
                     {% if user.is_authenticated %}
-
-                    <ul class="nav span4">
+                    <ul class="nav">
                         <a class="brand" href="/"><i class="icon-bullhorn "></i> c7 </a>
                         <li>
                             <a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} <i class="icon-list-alt"></i></a>
                         </li>
                         <li>
-                            <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} <i class="icon-calendar "></i> </a>
+                            <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} <i class="icon-calendar"></i> </a>
                         </li>
-
+                        <li>
+                            <a href="{% url list_lists %}" class="menu_word"> {% trans "Lists" %} <i class="icon-list"></i> </a>
+                        </li>
+                        <li>
+                            <a href="{% url list_groups %}" class="menu_word"> {% trans "Groups" %} <i class="icon-group"></i> </a>
+                        </li>
                     </ul>
                     <form class="navbar-search" action="">
                         <input class="search-query span2" type="text" placeholder="Search">

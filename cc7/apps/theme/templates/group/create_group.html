@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{%block content%}
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"><a href="{% url list_groups %}" > {% trans "Groups" %} </a> / Create group  </div>
+        </div>
+    </div>
+</div>
+
+
+<form action="" id="eventform" method="post" enctype="multipart/form-data" class="">
+    {% csrf_token %}
+<table id="" class="table table-striped table-bordered">
+    <tbody>
+    <tr>
+        <th>Name</th>
+        <td><input id="id_title" type="text" maxlength="120" name="title" placeholder="Name"></td>
+    </tr>
+    <tr>
+        <th>
+            Description <span class="small">(optional)</span>
+        </th>
+        <td>
+            <textarea id="id_description" class="textarea_small" name="description" cols="40" rows="10" placeholder="description"></textarea>
+
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            Group image <span class="small">(optional)</span>
+        </th>
+        <td>
+            <input id="id_mugshot" type="file" name="mugshot" placeholder="image">
+        </td>
+    </tr>
+    <tr>
+        <th >
+           <span class="small">Is this a private group</span>
+            <input id="id_is_restricted" type="checkbox" name="is_restricted">
+
+        </th>
+        <td>
+            <input type="hidden" value="1" name="initiator" id="id_initiator"/>
+            <input type="submit" class="btn btn-primary" value="{% trans "Create group" %}">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</form>
+{%endblock%}

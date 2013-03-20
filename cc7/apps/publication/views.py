@@ -127,8 +127,6 @@ class AddPostView(FormView):
 
 
     def form_valid(self, form):
-        print self.request.POST
-        #print form.instance.image
         self.request.POST.get('image')
         form.instance.author = self.request.user.get_profile()
         form.instance.is_public = True

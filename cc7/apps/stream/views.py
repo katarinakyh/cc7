@@ -33,7 +33,7 @@ def stream(request):
         save_comment(request, profile)
         return HttpResponseRedirect(reverse('stream'))
      
-    posts = Post.objects.filter(is_public=True).order_by('date_created')
+    posts = Post.objects.filter(is_public=True).order_by('-date_created')
     #events = Event.objects.filter().order_by('date_created')
     comment_form = CommentForm()
     #result_list =  sorted(chain(posts, events))

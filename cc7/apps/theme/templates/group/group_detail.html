@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load thumbnail %}
+{%block content%}
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand">
+                <a href="{% url list_groups %}" class="menu_word"> {% trans "Groups" %} </a> / {{ group_object.title }}
+            </div>
+            <div class="pull-right">
+
+            {% if can_request_membership %}
+                <a href="{% url create_group %}" id="{{group_object.pk}}" name="{{user_id}}" class="btn btn-primary add_me">
+                {% if group_object.is_restricted %}
+                        {% trans "Ask to Join Group" %}
+                    {% else %}
+                        {% trans "Join Group" %}
+                    {% endif%}
+                <i class="icon-edit"></i> </a>
+            {% else %}
+            {% endif%}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-striped table-bordered">
+    <tbody>
+    <tr>
+        <td width="100px" > <a href="/list/{{ list.pk }}">
+            {% if group_object.mugshot %}
+            {% thumbnail group_object.mugshot "200x200"  as im %}
+            <img src="{{ im.url }}">
+            {% endif %}</a>
+        </td>
+        <td>
+            <h4><a href="/group/{{ group.pk }}">{{ group_object.title }}</a><br/></h4>
+            - {{ group_object.description }}
+        </td>
+        <td width="120px">
+            {% if group_object.is_restricted %}
+            {% trans "Secret group" %}
+            {% else %}
+            {% trans "Open group" %}
+            {% endif%}
+            {% if membership_pending %}
+            <span class="label label-important">Your: pending</span>
+            {% elif membership_active %}
+            <div><a class="btn btn-small" href="../update_group/">
+            <i class="icon-cog"></i> Settings</a></div><br/>
+            <div class="label label-info">Your: member</div>
+
+
+            {% endif%}
+        </td>
+    </tr>
+    </tbody>
+</table>
+{% if membership_active %}
+
+<div>
+    Pending Members <br/>
+    <ul>
+        {% for p in pending %}
+        <li id="pending_{{ p.pk }}">
+            <a href="{% url my_page p.member.user %}">{{ p.member.user }}</a></strong>
+            <span class="hidden" id="group_id">{{ p.pk }}</span>
+            <button id="{{ p.member.id }}" name="{{p.group.pk}}"  class="btn btn-small btn-primary add_member"> Add </button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div>
+    Members <br/>
+    <ul>
+        {% for member in members %}
+        <li>
+            <a href="{% url my_page member.member.user %}">{{ member.member.user }}</a></strong>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% else %}
+<span class="label label-info">You are not a member of this group.</span>
+{% endif%}
+
+<script src="{{ STATIC_URL }}js/group.js"></script>
+{%endblock%}

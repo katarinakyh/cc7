@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load thumbnail %}
+{%block content%}
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"><a href="{% url list_groups %}" class="menu_word"> {% trans "Groups" %} </a>
+            </div>
+            <div class="pull-right">
+                <a href="{% url create_group %}" class="btn btn-primary"> {% trans "New Group" %} <i class="icon-edit "></i> </a>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-striped table-bordered">
+    <tbody>
+    <tr>
+        <th> <i class="icon-picture"></th>
+        <th>Group Name</th>
+        <th>About Group</th>
+    </tr>
+    {% for group in object_list  %}
+    <tr>
+        <td> <a href="/list/{{ list.pk }}">
+            {% if group.mugshot %}
+            {% thumbnail group.mugshot "50x30"  as im %}
+            <img src="{{ im.url }}">
+            {% endif %}</a>
+        </td>
+        <td> <a href="/group/{{ group.pk }}">{{ group.title }}</a></td>
+        <td>
+            {{ group.description }}
+        </td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{%endblock%}
