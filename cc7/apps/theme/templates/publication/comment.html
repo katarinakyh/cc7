@@ -2,7 +2,7 @@
 {% if post.comment_set.all %}
     {% for c in post.comment_set.all %}
         <li>
-            <img class="mugshot_small" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+            <img class="mugshot" src="{{ c.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
             {% if profile.user == c.author.user %}
                 <em><a href="{%url my_page c.author%}"> {{c.author}} </a> on</em><small> {{c.date_created}}</small>
                 <a href="{% url edit_comment c.pk %}" rel="{{c.pk}}"><small>edit </small></a> |
@@ -13,19 +13,27 @@
             <div class="commentbody">
                 {{c.body|oembed:"508x255"|linebreaks|escape}}
             </div>
-            <hr/>
         </li>
+        <br/>
     {% endfor %}
 {% endif %}
 
 <form action="" id="commentform" method="post">{% csrf_token %}
-     
-    <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-    
-    {{ comment_form.body|escape }}
-    <input type="hidden" value="{{post.pk}}" {%if post.description %} name="event" {%else%} name="post" {% endif %}/>
-    {%comment%}<input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>{%endcomment%}
-    <input type="hidden" value="{{profile.pk}}" name="author"/>
-    <dd class="pull-right"><input type="submit" class="btn" name="new_comment" value="Comment" /></dd>
-    <span class="label label-important">{{ form.body.errors }}</span><br />
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>
+                <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+                <textarea id="id_body" name="body" cols="40" rows="10"></textarea>
+                <span class="label label-important">{{ form.body.errors }}</span>
+                <input type="hidden" value="{{post.pk}}" {%if post.description %} name="event" {%else%} name="post" {% endif %}/>
+                {%comment%}<input type="hidden" value="1" {%if post.description %} name="post" {%else%} name="event" {%  endif %}/>{%endcomment%}
+                <input type="hidden" value="{{profile.pk}}" name="author"/>
+                <input type="submit" class="btn btn-lift" name="new_comment" value="Comment" />
+            </td>
+            <td width-max="400px">
+
+            </td>
+        </tbody>
+    </table>
 </form>

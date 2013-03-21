@@ -1,0 +1,5 @@
+{%for group in group_list%}
+<a href="{% url list_groups %}" name="{{group}}">
+    <img src="{{ group.get_mugshot_url }}" rel="tipsy" alt="{{group}}" style="width:40px; height:40px;float: left;"/>
+</a>
+{%endfor%}

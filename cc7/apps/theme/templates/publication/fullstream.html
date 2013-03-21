@@ -6,34 +6,34 @@
 {% for post in object_list|dictsortreversed:"date_created"  %}
     <div class="story" >
         {% if post.description %}
-        <div style="border:solid 1px #ccc; ">
+        <div>
             <h4>
                 <div class="event">
                     <i class="icon-calendar"></i>  <a href="{% url show_event post.pk %}"> {{ post.title|escape }} </a><br/>
-                    <i class="icon-map-marker"></i> at {{ post.place|escape }} <br/>
+                    <hr/>
+                    <div> <i class="icon-time"></i> {{ post.datetime_from }}  <span class="small">  until </span>  {{ post.datetime_to }}</div>
+                    <i class="icon-map-marker"></i> at {{ post.place|escape }}
                     <span class="small">
                         {% trans "By" %}: <a href="{% url show_association post.organiser.slug %}">{{ post.organiser|escape }}</a>
                     </span>
-                    <div> <i class="icon-time"></i> {{ post.datetime_from }}  <span class="small">  until </span>  {{ post.datetime_to }}</div>
+
                 </div>
             </h4>
             <div>
-                    <p class="eventdescription">
-                        {% if post.image %}
-                        {% thumbnail post.image "220x100" crop="center" as im %}
-                        <img src="{{ im.url }}"><br/><br/>
-                        <em>{{ post.description|safe|escape|truncatewords:100}}</em>
-                        {% endif %}
-                    </p>
-                </div>
-            <hr>
+                <p class="eventdescription">
+                    {% if post.image %}
+                    {% thumbnail post.image "220x100" crop="center" as im %}
+                    <img src="{{ im.url }}"  style="float:left;margin:0 10px 2px  0;">
+                    {{ post.description|safe|escape|truncatewords:100}}
+                    {% endif %}
+                </p>
+            </div>
             <ul class="commentfield">
                 {% include "publication/comment.html" %}
             </ul>
         </div>
         <br/>
         {% endif %}
-
         {% if post.body %}
             <div>
                 <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
@@ -46,7 +46,8 @@
                 </span>
             </div>
 
-{%comment%}            <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
+    {%comment%}
+    <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
                 <div class="postbody"><p>{{ post.body|oembed:"508x255"|escape }} </p>
                     {% if post.image %}
                         {% thumbnail post.image "420x300" crop="center" as im %}
@@ -58,9 +59,8 @@
 
         <ul class="commentfield">
                 {% include "publication/comment.html" %}
-            </ul>
+        </ul>
 
-            <hr/>
         {% endif %}
     </div>
 {% endfor %}

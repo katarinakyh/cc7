@@ -8,48 +8,59 @@
 {%block posts%}
 <hr/>
     {%if pageprofile == profile %}
-    <h4> New wall Post</h4>
+
     <img class="mugshot" src="{{ profile.get_mugshot_url }}" style="float:left;" alt="{% trans "Your mugshot" %}"  />
     <div class="form_bound" style="overflow: hidden;">
-    <form action="" enctype="multipart/form-data" id="post_form" method="post">
-        {% csrf_token %}
-                {{ post_form.body }} <br />
-                <span class="label label-important">{{ form.body.errors }}</span>
-                <span class="label label-info small">Posts on personal walls will not show in public stream</span>
-                <input type="hidden" value="{{post.pk}}" name="post" />
-                <input type="hidden" value="{{profile.pk}}" name="author" />
-                <div class="pull-right form_bound">
-                    <input class="btn btn-primary" type="submit" id="new_post" class="btn" value="Post" />
-                </div>
-            </form>
-        </div>
-        <br />
-     {%endif%}
-
+        <form action="" enctype="multipart/form-data" id="post_form" method="post">
+            <table>
+                <tr>
+                    <td>
+                        {% csrf_token %}
+                        {{ post_form.body }} <br />
+                        <span class="label label-important">{{ form.body.errors }}</span>
+                        <input type="hidden" value="{{post.pk}}" name="post" />
+                        <input type="hidden" value="{{profile.pk}}" name="author" />
+                    </td>
+                    <td>
+                        <input class="btn btn-lift" type="submit" id="new_post" class="btn" value="Post" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
     <hr/>
+    <br />
+    {%endif%}
     {%for post in object_list %}
-        <h4>
+    <h4>
 
-           <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-           <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
-           <span class="small">
-           {% if post.author %}
-               {{ post.date_created }}
-               {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
-               {%if post.association%}
-                   in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>
-               {%endif%}
+       <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+       <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
+       <span class="small">
+       {% if post.author %}
+           {{ post.date_created }}
+           {% trans "Posted by" %}:<strong><a href="{%url my_page post.author.user%}"> {{ post.author }} </a></strong>
+           {% if post.is_public %}
+                 in public
+           {% else %}
+                 in private
            {% endif %}
-           </span>
-       </h4>    
-        <div class="postbody"> {{ post.body|linebreaks}} 
-            {% if post.image %}
-                {% thumbnail post.image "420x300" crop="center" as im %}
-                <img src="{{ im.url }}" />
-            {% endif %}
-        </div>
-        <ul class="commentfield">
-            {%include 'publication/comment.html'%}
-        </ul>
+
+           {%if post.association%}
+               in <strong><a href="{%url show_association post.association.slug%}">{{post.association.association}}</a></strong>
+           {%endif%}
+       {% endif %}
+       </span>
+   </h4>
+    <hr/>
+    <div class="postbody"> {{ post.body|linebreaks}}
+        {% if post.image %}
+            {% thumbnail post.image "420x300" crop="center" as im %}
+            <img src="{{ im.url }}" />
+        {% endif %}
+    </div>
+    <ul class="commentfield">
+        {%include 'publication/comment.html'%}
+    </ul>
     {%endfor%}    
 {%endblock%}

@@ -25,7 +25,7 @@ class Group(models.Model):
     description = models.TextField(validators=[MaxLengthValidator(5000)],null=True, blank=True)
     initiator = models.ForeignKey(MyProfile, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, blank=True)
     MUGSHOT_SETTINGS = {'size': (userena_settings.USERENA_MUGSHOT_SIZE,
                                  userena_settings.USERENA_MUGSHOT_SIZE),
                         'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}

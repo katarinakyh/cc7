@@ -1,5 +1,5 @@
 {% load i18n %}
-{%load account_extras%}
+{% load account_extras %}
 
 <html lang="en">
 <head>
@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS Toolkit styles -->
     <link href="{{ STATIC_URL }}css/bootstrap.css" type="text/css" rel="stylesheet">
     <!-- Bootstrap styles for responsive website layout, supporting different screen sizes -->
-    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+    <!--<link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">-->
 
     <link href="{{ STATIC_URL }}css/jquery-timepicker-addon.css" type="text/css"  rel="stylesheet">
 
@@ -95,7 +95,7 @@
 {%block allcontent%}
 <!-- Navbarheig
 ================================================== -->
-<div class="navbar navbar-inverse navbar navbar-fixed-top" >
+<div class="navbar navbar-fixed-top" >
     <div class="navbar-inner c7_navbar">
         <div class="container">
             <a class="btn btn-navbar" data-target=".navbar-inverse-collapse" data-toggle="collapse">
@@ -104,16 +104,16 @@
                     <ul class="nav">
                         <a class="brand" href="/"><i class="icon-bullhorn "></i> c7 </a>
                         <li>
-                            <a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} <i class="icon-list-alt"></i></a>
+                         <a href="{% url stream_posts %}" class="menu_word"> <i class="icon-list-alt"></i> {% trans "Posts" %} </a>
                         </li>
                         <li>
-                            <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} <i class="icon-calendar"></i> </a>
+                            <a href="{% url stream_events %}" class="menu_word"><i class="icon-calendar"></i> {% trans "Events" %} </a>
                         </li>
                         <li>
-                            <a href="{% url list_lists %}" class="menu_word"> {% trans "Lists" %} <i class="icon-list"></i> </a>
+                           <a href="{% url list_lists %}" class="menu_word">  <i class="icon-list"></i> {% trans "Lists" %} </a>
                         </li>
                         <li>
-                            <a href="{% url list_groups %}" class="menu_word"> {% trans "Groups" %} <i class="icon-group"></i> </a>
+                            <a href="{% url list_groups %}" class="menu_word"> <i class="icon-group"></i> {% trans "Groups" %}  </a>
                         </li>
                     </ul>
                     <form class="navbar-search" action="">
@@ -157,19 +157,44 @@
         {% block content %} {% endblock %}
     </div>
     <div class="span3 rightsidebar" style="min-height: 500px;background: #fff;margin: 0;">
-
+        {% block rightsidebartop %}
+        {% endblock %}
         {% block rightsidebar %}
 
-        <a href="{%url list_associations%}">
-            <h4 class="rightinline black">{% trans "Associations" %}</h4>
-        </a>
+        <div class="navbar-inner">
+            <div class="container">
+                <a href="{%url list_associations%}">
+                    <h4 class="rightinline black">{% trans "Associations" %}</h4>
+                </a>
+            </div>
+        </div>
+        <div class="right_bar_entites">
         {% list_associations %}
-        <br/>
-        <a href="{%url userena_profile_list%}"> <br/>
-            <h4 class="rightinline black">{% trans "Users" %}</h4>
-        </a>
-        {% list_friends %}
-        <div style="clear: both;margin-top: 10px;"> </div>
+            <br/><br/>
+        </div>
+        <div class="navbar-inner right_bar_nav">
+            <div class="container">
+                <a href="{%url userena_profile_list%}">
+                    <h4 class="rightinline black">{% trans "Users" %}</h4>
+                </a>
+            </div>
+        </div>
+        <div class="right_bar_entites">
+            {% list_friends %}
+            <br/><br/>
+        </div>
+        <div class="navbar-inner">
+            <div class="container">
+                <a href="{% url list_groups %}">
+                    <h4 class="rightinline black">{% trans "Groups" %}</h4>
+                </a>
+            </div>
+        </div>
+
+        <div class="right_bar_entites">
+            {% list_groups %}
+            <br/><br/>
+        </div>
 
         {%block rightinline%}
         {% endblock %}

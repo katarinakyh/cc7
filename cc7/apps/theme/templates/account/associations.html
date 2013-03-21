@@ -4,17 +4,24 @@
 {% block content_title %}<h2>{% trans 'Associations' %}</h2>{% endblock %}
 
 {% block content %}
-<h3>Associations</h3>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand">
+                Associations
+            </div>
+        </div>
+    </div>
+</div>
 <ul id="profile_list">
   {% for association in object_list %}
-    <a href="{%url show_association association.slug%}">{{ association.association }}</a>
 
     <li>
-      <a href="{%url show_association association.slug%}"><img src="{{ association.get_mugshot_url }}" style="width:30px; height:30px;"/></a>
-      <small>{{association.description|linebreaks|truncatewords:10}}</small>
-
+        <a href="{%url show_association association.slug%}"><img src="{{ association.get_mugshot_url }}" class="mugshot_list"/></a>
+        <a href="{%url show_association association.slug%}">{{ association.association }}</a>
+        {{association.description|linebreaks|truncatewords:10}}
+        <hr/>
     </li>
-
   {% endfor %}
 </ul>
 

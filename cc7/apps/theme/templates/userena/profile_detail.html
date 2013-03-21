@@ -2,11 +2,15 @@
 {% load i18n %}
 
 {% block title %}
-    {%if pageprofile.user.username%}
+
+
+        {%if pageprofile.user.username%}
+
         {% blocktrans with pageprofile.user.username as username %}{{ username }}'s profile.{% endblocktrans %}
     {%elif pageprofile.association%}
         {% blocktrans with pageprofile.association as association %}{{ association }}'s profile.{% endblocktrans %}
     {%endif%}
+
 {% endblock %}
 {% block content_title %}<h2>{{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>{% endblock %}
 
@@ -59,7 +63,6 @@
 {%block rightinline%}
     {%if pageprofile == profile %}
         {% if profile.association.all %}
-
             <br/>
             <h4 class="rightinline">My associations</h4>
             {%for a in profile.association.all %}

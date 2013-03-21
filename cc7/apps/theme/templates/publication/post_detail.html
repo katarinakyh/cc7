@@ -5,7 +5,7 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container">
-                <div class="brand"><a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} </a> / {{ post.id }} | {{ post.title }}  </div>
+                <div class="brand"><a href="{% url stream_posts %}" class="menu_word"> {% trans "Posts" %} </a> / {{ post.id }} | {{ post.title|truncatechars:30 }}  </div>
                 <ul>
                     <li class="pull-right">
                        <h6>{{ post.date_created }} by  {{ post.author }}</h6>
@@ -17,6 +17,8 @@
     </div>
     <div class="story">
        <li> <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+           <h4> {{ post.title|escape|truncatechars:60  }} </h4>
+           <br/>
         <div class="postbody"> {{ post.body|linebreaks|escape }}
             {% if post.image %}
             {% thumbnail post.image "500x400"  as im %}
@@ -28,6 +30,4 @@
             {%include 'publication/comment.html'%}
         </ul>
     </div>
-
-
 {%endblock%}

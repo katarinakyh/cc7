@@ -1,4 +1,5 @@
 from models import Group, ActiveMember
+from forms import GroupForm
 from django.views.generic import TemplateView, RedirectView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -49,6 +50,8 @@ class GroupDetailView(DetailView):
 class GroupCreateView(CreateView):
     template_name = 'group/create_group.html'
     model = Group
+    #form_class = GroupForm
+    success_url = '/group/'
 
 class GroupUpdateView(UpdateView):
     model = Group

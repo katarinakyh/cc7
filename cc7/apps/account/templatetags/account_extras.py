@@ -1,5 +1,7 @@
 from django import template
 from apps.account.models import Association, MyProfile
+from apps.group.models import Group
+
 
 register = template.Library()
 
@@ -12,3 +14,10 @@ def list_associations():
 def list_friends():
     f = MyProfile.objects.all()
     return {'friend_list':f,}
+
+
+def list_groups():
+    a = Group.objects.all()[:16]
+    return {'group_list':a,}
+
+register.inclusion_tag('group/group_list.html')(list_groups)

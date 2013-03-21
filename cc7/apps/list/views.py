@@ -37,6 +37,7 @@ class ListViewCreate(CreateView):
     model = ItemList
     #form_class = ItemListForm
 
+
     def get_success_url(self):
         return reverse('list_lists')
 
