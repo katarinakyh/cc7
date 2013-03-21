@@ -4,12 +4,15 @@ from apps.account.models import MyProfile, Association
 from apps.event.models import Event
 from apps.map.models import Place
 from apps.image.models import Image
-
+from apps.group.models import Group
 
 POST_TYPE = (
-    ('p', 'post'),
-    ('e', 'event'),
-    ('m', 'meeting'),
+    ('1', 'Post'),
+    ('2', 'Event'),
+    ('3', 'Accociation'),
+    ('4', 'Group'),
+    ('5', 'List'),
+    ('6', 'Meeting'),
 )
 
 class Post(models.Model):
@@ -19,6 +22,10 @@ class Post(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
     event = models.ForeignKey(Event, null=True, blank=True)
     association = models.ForeignKey(Association, null=True, blank=True)
+    group = models.ForeignKey(Group, null=True, blank=True)
+    # list = models.ForeignKey(ItemList, null=True, blank=True)
+    # posted_type = models.IntegerField(choices=POST_TYPE, null=True, blank=True)
+
     place = models.ForeignKey(Place, null=True, blank=True)
     is_public = models.BooleanField(default=True, help_text="publish on stream")
 

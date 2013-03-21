@@ -8,6 +8,9 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
+from forms import GroupPostForm
+from apps.account.models import MyProfile
+from apps.publication.models import Post
 
 class GroupListView(ListView):
     template_name = 'group/groups.html'
@@ -33,7 +36,8 @@ class GroupDetailView(DetailView):
             can_request_membership = False
         else:
             can_request_membership = True
-
+        form = GroupPostForm()
+        group_post = Post.objects.filter(group=group_pk)
         context = {
             'group_object': group,
             'members': active_members,
@@ -41,11 +45,28 @@ class GroupDetailView(DetailView):
             'membership_active':membership_active,
             'membership_pending':membership_pending,
             'can_request_membership': can_request_membership,
-            'user_id':user_id
+            'user_id':user_id,
+            'form': form,
+            'group_post': group_post,
+            'profile':user
         }
         context.update(kwargs)
         return super(GroupDetailView, self).get_context_data(**context)
 
+    def post(self, request, *args, **kwargs):
+        body = request.POST.get('body')
+        author = request.POST.get('author')
+        group = request.POST.get('group')
+        form = GroupPostForm()
+        author = MyProfile.objects.get(pk=author)
+        group = Group.objects.get(pk=group)
+        form.instance.body = body
+        form.instance.author = author
+        form.instance.group = group
+        form.instance.is_public = False
+        form.cleaned_data = True # TODO this is very bad make a real clean
+        form.save()
+        return HttpResponseRedirect( request.path )
 
 class GroupCreateView(CreateView):
     template_name = 'group/create_group.html'

@@ -60,7 +60,46 @@
     </tbody>
 </table>
     {% if membership_active %}
-        start interaction
+    <div class="story">
+        New Post
+        <form action="" method="post" class="form-horizontal block-form">
+            {% csrf_token %}
+            <!-- <div class="titlefield"> Title: {{ post_form.title }} </div>-->
+            {{ form.body }} <br />
+            <!--  {{ post_form.image }}<br /> -->
+            <input type="hidden" value="{{user_id}}" name="author"/>
+            <input type="hidden" value="{{group_object.pk}}" name="group"/>
+            <input type="hidden" value="0" name="is_public"/>
+            <span class="label label-important">{{ body.errors }}</span><br />
+            <input type="submit" id="new_post" class="btn" value="post" />
+            <!--   <a href="" class="addtitle">Add title</a>-->
+        </form>
+    </div>
+    {{t}}
+
+    {% for post in group_post %}
+        <div class="story">
+            <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+                <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a>
+                <span class="small">
+                {% if post.author %}
+                    {{ post.date_created }}
+                    {% trans "Posted by" %}:<a href="{% url my_page post.author.user %}"> {{ post.author }}</a>
+                {% endif %}
+                </span>
+            <div>
+                {% if post.body %}
+                    {{ post.body|escape }}
+                {% else %}
+            {% endif %}
+            </div>
+        </div>
+    <ul class="commentfield">
+            {% include "publication/comment.html" %}
+        </ul>
+    {% endfor %}
+
+
     {% else %}
         <span class="label label-info">You are not a member of this group.</span>
     {% endif %}

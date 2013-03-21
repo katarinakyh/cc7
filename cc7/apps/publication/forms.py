@@ -38,7 +38,7 @@ class MessageForm(ModelForm):
         model = Message
         widgets = {
             'body': Textarea(attrs={'cols': 300, 'rows': 10}),
-        }
+            }
 
     def clean_to(self):
         name  = self.cleaned_data['to']
@@ -50,10 +50,10 @@ class MessageForm(ModelForm):
 
 class ThreadForm(ModelForm):
     class Meta:
-        model= Post
+        model = Post
         widgets = {
             'title':  TextInput(attrs={'cols': 200, 'class': 'input-xlarge'}),
-        }
+            }
         exclude = ('author','event','association','is_public',)
         fields = ('title', 'body', 'image','is_public')
 

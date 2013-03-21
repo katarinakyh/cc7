@@ -30,7 +30,6 @@ class EventDetailView(DetailView):
     model = Event
     form_class = CommentForm
 
-
 def event_detail(request, pk):
     profile = request.user.get_profile()
     if request.POST:
