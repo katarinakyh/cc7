@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from forms import GroupPostForm
 from apps.account.models import MyProfile
 from apps.publication.models import Post
+from apps.publication.forms import CommentForm
 
 class GroupListView(ListView):
     template_name = 'group/groups.html'
@@ -32,6 +33,8 @@ class GroupDetailView(DetailView):
         pending_members = ActiveMember.objects.filter(group=group_pk, is_member = False)
         membership_active = ActiveMember.objects.filter(group=group_pk, is_member = True, member = user )
         membership_pending = ActiveMember.objects.filter(group=group_pk,  is_member = False, member = user)
+        comment_form = CommentForm()
+
         if (membership_active or membership_pending):
             can_request_membership = False
         else:
@@ -48,23 +51,37 @@ class GroupDetailView(DetailView):
             'user_id':user_id,
             'form': form,
             'group_post': group_post,
-            'profile':user
+            'profile':user,
+            'comment_form':comment_form
         }
         context.update(kwargs)
         return super(GroupDetailView, self).get_context_data(**context)
 
     def post(self, request, *args, **kwargs):
-        body = request.POST.get('body')
+        if 'new_comment' in request.POST:
+            post = request.POST.get('post')
+            post = Post.objects.get(pk=post)
+
+            form = CommentForm()
+            form.instance.post = post
+
+        else:
+            group = request.POST.get('group')
+            group = Group.objects.get(pk=group)
+
+            form = GroupPostForm()
+            form.instance.group = group
+            form.instance.is_public = False
+
         author = request.POST.get('author')
-        group = request.POST.get('group')
-        form = GroupPostForm()
         author = MyProfile.objects.get(pk=author)
-        group = Group.objects.get(pk=group)
-        form.instance.body = body
         form.instance.author = author
-        form.instance.group = group
-        form.instance.is_public = False
+
+        body = request.POST.get('body')
+        form.instance.body = body
+
         form.cleaned_data = True # TODO this is very bad make a real clean
+
         form.save()
         return HttpResponseRedirect( request.path )
 
