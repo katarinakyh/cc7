@@ -8,12 +8,9 @@ class ItemListForm(ModelForm):
 
     def form_valid(self, form):
         form.instance.inititator = self.request.user.get_profile()
-        form.instance.collaborators_only = False
-        form
         form.save()
 
     def get_success_url(self):
-
         return '/list/'
 
 class ListItemForm(ModelForm):

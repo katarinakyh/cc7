@@ -12,6 +12,10 @@ class EventForm(ModelForm):
             'description': Textarea(attrs={'cols': 180, 'rows': 7}),
         }
 
+    def form_valid(self, form):
+        form.instance.inititator = self.request.user.get_profile()
+        form.instance.collaborators_only = True
+        form.save()
 
 class EventCommentForm(ModelForm):
     class Meta:

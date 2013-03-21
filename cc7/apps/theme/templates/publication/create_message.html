@@ -27,34 +27,56 @@
 </script>
 {% endblock %}
 {%block content%}
-    <label for="id_to"><h4>{% trans "Send message to" %}:</h4></label>
-    <div class="controls ui-widget">
-        <form action="" id="messageform" method="post" class="form-inline">
-            {% csrf_token %}
-            <input name="name" type="text" id="to" class="tags" />
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"> {% trans "New message" %}</div>
+        </div>
+    </div>
+</div>
+<table id="" class="table table-striped table-bordered">
+    <form action="" id="messageform" method="post" class="form-inline">
+        {% csrf_token %}
+    <tbody>
+    <tr>
+        <th>{% trans "To" %}</th>
+        <td><input name="name" type="text" id="to" class="tags"  />
             <input name="to" type="hidden" id="id_to" value="1" />
             <span class="label label-important">{{ form.to.errors }}</span>
-            <hr/>
-
-            <label for="id_title">{% trans "Title" %}:</label>
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans "Title" %}</th>
+        <td>
             <div class="controls">
                 <input type="text" maxlength="50" name="title" id="id_title">
                 <span class="label label-important">{{ form.title.errors }}</span>
             </div>
-
-            <br/>
-            <div class="control-group" id="body">
-               <label for="id_body">{% trans "Message" %}:</label>
-                <div class="controls">
-                    <textarea name="body" cols="400" rows="3" id="id_body" class="input-xlarge"></textarea>
-                    <span class="label label-important">{{ form.body.errors }}</span>
-                </div>
+        </td>
+    </tr>
+    <tr>
+        <th>{% trans "Message" %}</th>
+        <td> <div class="control-group" id="body">
+            <div class="controls">
+                <textarea name="body" cols="400" rows="3" id="id_body"></textarea>
+                <span class="label label-important">{{ form.body.errors }}</span>
+                <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
+                <input type="hidden" value="0" name="is_public" id="id_is_public"/>
+                <input type="hidden" value="0" name="thread" id="id_thread"/>
             </div>
-            <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
-            <input type="hidden" value="0" name="is_public" id="id_is_public"/>
-            <input type="hidden" value="0" name="thread" id="id_thread"/>
-            <br />
+        </div>
+        </td>
+    </tr>
+    <tr>
+        <th><span class="small">{% trans "Send message" %}</span></th>
+        <td>
             <input class="btn" type="submit" value="{% trans "Send message" %}"/>
-        </form>
-    </div>
+        </td>
+    </tr>
+    </tbody>
+
+
+    </form>
+
+ </table>
 {%endblock%}

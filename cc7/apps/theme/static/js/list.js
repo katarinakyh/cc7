@@ -2,6 +2,7 @@
 $("#add_to_list").click(function(event){
     event.preventDefault()
     var data = JSON.stringify({
+        "csrftoken": csrftoken,
         "title": $('#id_title').val(),
         "description": $('#id_description').val(),
         "item_list": '/list/api/v1/itemlist/'+ $('#id_item_list').val()+'/',
@@ -62,10 +63,12 @@ $(".edit").click(function(event){
         var order = $(this).parents('tr').find('#id_order').val();
 
         var data = JSON.stringify({
+            "csrftoken": csrftoken,
             "title": title,
             "description": description,
             "item_list": '/list/api/v1/itemlist/'+ $('.the_list_id').text()+'/',
             "order": order
+
         });
         $.ajax({
             url: '/list/api/v1/listitem/'+id +'/',

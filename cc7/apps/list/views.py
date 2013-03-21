@@ -23,11 +23,17 @@ class ListItemsView(ListView):
 
         list = ItemList.objects.get(title=pk)
         list_items = ListItem.objects.filter(item_list=pk).order_by('id')
-
+        restricted = list.is_restricted
+        user = self.request.user.pk
+        your_list = False
+        if (list.initiator.pk == user):
+            your_list = True
 
         context = {
             'list_items': list_items,
-            'list': list
+            'list': list,
+            'restricted' : restricted,
+            'your_list': your_list
         }
         context.update(kwargs)
         return super(ListItemsView, self).get_context_data(**context)
