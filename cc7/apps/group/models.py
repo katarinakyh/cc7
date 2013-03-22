@@ -6,6 +6,8 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from userena.utils import get_gravatar
 from django.utils.translation import ugettext as _
 from userena.models import upload_to_mugshot
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class MemberManager(models.Manager):
@@ -36,7 +38,7 @@ class Group(models.Model):
         upload_to=upload_to_mugshot,
         resize_source=MUGSHOT_SETTINGS,
         help_text=_('Your group image, avatar.'))
-
+    # TODO must have a default
     def get_mugshot_url(self):
         """
         Returns the image containing the mugshot for the user.
@@ -85,6 +87,7 @@ class Group(models.Model):
 
     def __unicode__(self):
         return unicode(self.title)
+
 
 # if member is in the list but not is_member member is pending
 class ActiveMember(models.Model):

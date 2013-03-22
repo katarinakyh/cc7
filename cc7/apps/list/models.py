@@ -59,6 +59,7 @@ class ListMember(models.Model):
     member = models.ForeignKey(MyProfile)
     list = models.ForeignKey(ItemList, null=True, blank=True)
     is_member = models.BooleanField(default=False, help_text=_("If this user is a member."))
+    key = models.FloatField()
 
     def __unicode__(self):
         return unicode('%s' % self.member).decode('utf8')

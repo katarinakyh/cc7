@@ -11,13 +11,11 @@
             </div>
             <div class="pull-right">
             {% if can_request_membership %}
-                <a href="{% url create_group %}" id="{{group_object.pk}}" name="{{user_id}}" class="btn btn-primary add_me">
-                {% if group_object.is_restricted %}
-                        {% trans "Ask to Join Group" %}
-                    {% else %}
-                        {% trans "Join Group" %}
-                    {% endif%}
-                <i class="icon-edit"></i> </a>
+                <form action="" method="post">
+                    <input type="hidden" value="{{user_id}}" name="user"/>
+                    <input type="hidden" value="{{group_object.pk}}" name="group"/>
+                    <input type="submit" name="join_group" value="{% if group_object.is_restricted %} {% trans "Ask to Join Group" %} {% else %}{% trans "Join Group" %} {% endif%}" class="btn btn-primary add_me">
+                </form>
             {% else %}
             {% endif%}
             </div>
@@ -38,9 +36,7 @@
             <h4><a href="/group/{{ group.pk }}">{{ group_object.title }}</a><br/></h4>
             - {{ group_object.description }}
         </td>
-
         <td width="120px">
-
             {% if group_object.is_restricted %}
                 {% trans "Secret group" %}
             {% else %}
@@ -51,10 +47,8 @@
                 <span class="label label-important">Your are pending</span>
             {% elif membership_active %}
                 <div>
-
                 <div class="label label-info">Your are member</div>
             {% endif %}
-
         </td>
     </tr>
     </tbody>
@@ -64,19 +58,14 @@
         New Post
         <form action="" method="post" class="form-horizontal block-form">
             {% csrf_token %}
-            <!-- <div class="titlefield"> Title: {{ post_form.title }} </div>-->
             {{ form.body }} <br />
-            <!--  {{ post_form.image }}<br /> -->
             <input type="hidden" value="{{user_id}}" name="author"/>
             <input type="hidden" value="{{group_object.pk}}" name="group"/>
             <input type="hidden" value="0" name="is_public"/>
             <span class="label label-important">{{ body.errors }}</span><br />
-            <input type="submit" id="new_post" class="btn" value="post" />
-            <!--   <a href="" class="addtitle">Add title</a>-->
+            <input type="submit" id="new_post" name="new_post" class="btn" value="post" />
         </form>
     </div>
-    {{t}}
-
     {% for post in group_post %}
         <div class="story">
             <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
@@ -99,7 +88,6 @@
         </ul>
     {% endfor %}
 
-
     {% else %}
         <span class="label label-info">You are not a member of this group.</span>
     {% endif %}
@@ -111,21 +99,27 @@
 <div class="navbar-inner">
     <div class="container">
             <h4 class="rightinline black">{{ group_object.title }}</h4>
-
     </div>
 </div>
 <div class="right_bar_entites">
+
     {% if group_object.is_restricted %}
-    Pending Members <br/>
-    <ul>
-        {% for p in pending %}
-        <li id="pending_{{ p.pk }}">
-            <a href="{% url my_page p.member.user %}">{{ p.member.user }}</a></strong>
-            <span class="hidden" id="group_id">{{ p.pk }}</span>
-            <button id="{{ p.member.id }}" name="{{p.group.pk}}"  class="btn btn-small btn-primary add_member"> Add </button>
-        </li>
-        {% endfor %}
-    </ul>
+        {% if pending %}
+        Pending Members <br/>
+        <ul>
+            {% for p in pending %}
+            <li id="pending_{{ p.pk }}">
+                <a href="{% url my_page p.member.user %}">{{ p.member.user }}</a></strong>
+                <form action="" method="post" class="form-horizontal block-form">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ p.member.id }}" name="user"/>
+                    <input type="hidden" value="{{group_object.pk}}" name="group"/>
+                    <input type="submit" name="add_pending" value="{% trans "Add" %}">
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     {% endif %}
 
     Group Members <br/>
@@ -139,7 +133,5 @@
 </div>
 {% endif %}
 
-
-<script src="{{ STATIC_URL }}js/group.js"></script>
 
 {% endblock %}

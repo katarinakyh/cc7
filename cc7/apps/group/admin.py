@@ -6,7 +6,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 class ActiveMemberAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('pk', 'member', 'group', 'is_member')
 
 admin.site.register(Group,GroupAdmin)
 admin.site.register(ActiveMember, ActiveMemberAdmin)

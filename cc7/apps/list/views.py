@@ -8,15 +8,18 @@ from django.http import HttpResponseRedirect
 from forms import ItemListForm
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
-
+from forms import ListItemForm
 class ListView(ListView):
     template_name = 'list/lists.html'
     model = ItemList
 
-class ListItemsView(ListView):
+
+class ListItemsView(CreateView):
     template_name = 'list/list_items.html'
-    model = ItemList
-    #form_class = CommentForm
+    model = ListItem
+
+    def get_success_url(self):
+        return reverse('list_lists')
 
     def get_context_data(self, *args, **kwargs):
         pk = get_object_or_404(ItemList, pk=self.kwargs['pk'])
@@ -29,14 +32,69 @@ class ListItemsView(ListView):
         if (list.initiator.pk == user):
             your_list = True
 
+        itemform = "katten"
+        listform = ItemListForm()
+
+        a_number = 1337
+
         context = {
             'list_items': list_items,
             'list': list,
             'restricted' : restricted,
-            'your_list': your_list
+            'your_list': your_list,
+            'item_from': itemform,
+            'list_form': listform,
+            'number': a_number
         }
         context.update(kwargs)
         return super(ListItemsView, self).get_context_data(**context)
+
+    def post(self, request, *args, **kwargs):
+
+        # if create
+        if 'create_item' in request.POST:
+            list = request.POST.get('item_list')
+            order = request.POST.get('order')
+            description = request.POST.get('description')
+            title = request.POST.get('title')
+            list = ItemList.objects.get(pk=list)
+
+            item = ListItem.objects.create(item_list = list)
+            item.order = order
+            item.description = description
+            item.title = title
+            item.save()
+            return HttpResponseRedirect( request.path )
+
+        # if update
+        if 'update_item' in request.POST:
+            is_in_list = False
+            list = request.POST.get('item_list')
+            item = request.POST.get('list_item')
+            order = request.POST.get('order')
+            description = request.POST.get('description')
+            title = request.POST.get('title')
+
+            item = ListItem.objects.get(pk=item)
+            list = ListItem.objects.filter(item_list=list)
+
+            #if check / 10 = extra:
+
+            if item in list:
+                is_in_list = True
+
+            if is_in_list:
+                item.order = order
+                item.description = description
+                item.title = title
+                item.save()
+            else:
+                return HttpResponseRedirect( request.path )
+
+
+        return HttpResponseRedirect( request.path )
+
+
 
 class ListViewCreate(CreateView):
     template_name = 'list/create_list.html'

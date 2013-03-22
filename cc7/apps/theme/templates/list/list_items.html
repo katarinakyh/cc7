@@ -36,9 +36,11 @@
             {% if restricted %}
                {% if your_list %}
             <th>Edit</th>
-            <th>-</th>
+            <th>Remove</th>
             {% endif%}
                 {% else %}
+            <th>Edit</th>
+            <th>-</th>
             {% endif%}
 
         </tr>
@@ -48,22 +50,33 @@
         {% else  %}
         <tr>
         {% endif  %}
-            <td class="item_title" width="206px">{{ item.title }}</td>
+            <td class="item_title"  width="206px">{{ item.title }}</td>
             <td class="item_description"><span class="small" >{{ item.description }}</span></td>
             {% if restricted %}
                 {% if your_list %}
-            <td>
-                <button class="edit" id="{{ item.id }}">
+            <td class="small_icon_td">
+                <button class="edit" id="{{ item.id }}"  value="{{ list.id }}">
                     <i class="icon-edit"></i>
                 </button>
             </td>
-            <td>
-                <button class="remove" id="{{ item.id }}">
+            <td class="small_icon_td">
+                <button class="remove" id="{{ item.id }}" value="{{ list.id }}">
                     <i class="icon-minus-sign"></i>
                 </button>
             </td>
             {% endif%}
             {% else %}
+            <td class="small_icon_td">
+                <button class="edit" id="{{ item.id }}"  value="{{ list.id }}">
+                    <i class="icon-edit"></i>
+                </button>
+            </td>
+            <td class="small_icon_td">
+                <button class="remove" id="{{ item.id }}" value="{{ list.id }}">
+                    <i class="icon-minus-sign"></i>
+                </button>
+            </td>
+
             {% endif%}
         </tr>
     {% endfor %}
@@ -71,10 +84,11 @@
 </table>
 {% if restricted %}
      {% if your_list %}
+    <form action="" method="post" >
+
     <table  class="table table-striped table-bordered">
         <tbody>
 
-        <form action="" method="post" >
             {% csrf_token %}
                 <tr >
                     <td width="80px"><input id="id_title" type="text" maxlength="120" name="title" placeholder="item"></td>
@@ -85,19 +99,21 @@
                     <td>
                     <input type="hidden" id="id_item_list" value="{{ list.pk }}" name="item_list">
                     <input type="hidden" id="id_order" value="1" name="order">
-                    <input type="submit" id="add_to_list" class="btn btn-primary pull_right" value="{% trans "Add item to list" %}">
+                    <input type="hidden" id="id_create_item" value="1" name="create_item">
+                    <input type="submit" id="add_to_list" name="add_to_list" class="btn btn-primary pull_right" value="{% trans "Add item to list" %}">
                     </td>
                 </tr>
-        </form>
         </tbody>
     </table>
-    - This is your list
+</form>
+
+- This is your list
     {% endif%}
 {% else %}
     <table  class="table table-striped table-bordered">
         <tbody>
 
-        <form action="" method="post" >
+        <form action="" method="post">
             {% csrf_token %}
             <tr >
                 <td width="80px"><input id="id_title" type="text" maxlength="120" name="title" placeholder="item"></td>
@@ -108,6 +124,7 @@
                 <td>
                     <input type="hidden" id="id_item_list" value="{{ list.pk }}" name="item_list">
                     <input type="hidden" id="id_order" value="1" name="order">
+                    <input type="hidden" id="id_create_item" value="1" name="create_item">
                     <input type="submit" id="add_to_list" class="btn btn-primary pull_right" value="{% trans "Add item to list" %}">
                 </td>
             </tr>
@@ -119,4 +136,5 @@
 
 <script src="{{ STATIC_URL }}js/csrf.js"></script>
 <script src="{{ STATIC_URL }}js/list.js"></script>
+
 {%endblock%}

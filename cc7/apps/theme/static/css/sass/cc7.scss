@@ -113,9 +113,11 @@ input[type='text'] {
 
 textarea {
   height: 30px;
+  width: 80%;
   border: 1px solid #cccccc;
   padding: 5px;
   font-family: Tahoma, sans-serif;
+  font-size:10px;
 }
 
 #eventform textarea, #eventtableform textarea {
@@ -261,4 +263,20 @@ submit {
 }
 .btn-lift {
   margin-top: -14px;
+}
+
+#overlay {
+  width: 60%;
+  height: 60px;
+  padding: 5px ;
+  background-color: #00ae2f;
+  z-index: 10000;
+}
+
+.now_editing {
+  margin-left:auto;
+  margin-right:auto;
+}
+.small_icon_td {
+  width: 70px;
 }

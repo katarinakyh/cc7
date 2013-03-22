@@ -1,4 +1,4 @@
-from models import Group
+from models import Group, ActiveMember
 from django.forms import ModelForm
 from apps.account.models import MyProfile
 from apps.publication.models import Post
@@ -25,7 +25,9 @@ class GroupPostForm(ModelForm):
         #form.instance.author = self.request.user.get_profile()
         form.save()
 
-
-
     def get_success_url(self):
         return '/group/'
+
+class JoinGroupForm(ModelForm):
+    class Meta:
+        model = ActiveMember

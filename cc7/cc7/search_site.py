@@ -1,4 +1,3 @@
-'''
+
 import haystack
 haystack.autodiscover()
-'''
