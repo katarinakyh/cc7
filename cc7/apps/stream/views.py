@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from apps.event.models import Event
 from apps.publication.models import Post
+from apps.list.models import ItemList
 from apps.publication.forms import CommentForm, MessageForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -32,12 +33,14 @@ def stream(request):
     if request.POST and 'new_comment' in request.POST:
         save_comment(request, profile)
         return HttpResponseRedirect(reverse('stream'))
-     
+
     posts = Post.objects.filter(is_public=True).order_by('-date_created')
-    events = Event.objects.filter().order_by('date_created')
+    events = Event.objects.filter().order_by('-date_created')
+    lists = ItemList.objects.filter().order_by('-date_created')
+
     comment_form = CommentForm()
-    result_list =  sorted(chain(posts, events))
-    pagination
+    result_list =  sorted(chain(posts, events, lists))
+    #pagination
 
     page_list = pagination(request, posts)
 
@@ -45,6 +48,7 @@ def stream(request):
             'object_list': result_list,
             'comment_form': comment_form,
             'profile': profile,
+            'lists' : lists
         }, context_instance=RequestContext(request))
 
 

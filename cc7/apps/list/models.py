@@ -10,6 +10,8 @@ class ItemList(models.Model):
     initiator = models.ForeignKey(MyProfile, null=True, blank=True)
     image = models.ImageField(upload_to = 'listimages/',null=True, blank=True)
     is_restricted = models.BooleanField(default=True, help_text="restricted")
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now = True)
 
     def __unicode__(self):
         return unicode('%s' %self.title)

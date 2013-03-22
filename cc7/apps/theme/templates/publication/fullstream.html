@@ -5,7 +5,7 @@
 
 {% for post in object_list|dictsortreversed:"date_created"  %}
     <div class="story" >
-        {% if post.description %}
+        {% if post.organiser %}
         <div>
             <h4>
                 <div class="event">
@@ -52,7 +52,6 @@
                         {% thumbnail post.image "420x300" crop="center" as im %}
                         <img src="{{ im.url }}" />
                     {% endif %}
-
                 </div>
 
 
@@ -61,6 +60,13 @@
         </ul>
 
         {% endif %}
+        {% if post.initiator %}
+        <div class="postbody">
+            <img class="mugshot" src="{{ post.initiator.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+            <small><a href="{% url my_page post.initiator.user %}"> {{ post.initiator.user }} </small> </a>{% trans "created a list" %}: <a href="list/{{ post.pk }}">{{ post.title|escape }} </a> on <small>{{ post.date_created }}</small>
+        </div>
+        {% endif %}
+
     </div>
 {% endfor %}
 
