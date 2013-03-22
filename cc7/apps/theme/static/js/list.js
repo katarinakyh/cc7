@@ -2,7 +2,7 @@
 $(".edit").click(function(event){
     var id = this.id;
     var list =  $(this).attr('value');
-    var extra =
+
 
     var title = $(this).closest('td').siblings('.item_title').text();
     var description = $(this).closest('td').siblings('.item_description').text();

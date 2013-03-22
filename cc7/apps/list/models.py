@@ -29,6 +29,7 @@ class ListItem(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now = True)
     order = models.PositiveSmallIntegerField(null=True, blank=True)
+    key = models.FloatField()
 
     objects = ListItemManager()
 
@@ -59,7 +60,6 @@ class ListMember(models.Model):
     member = models.ForeignKey(MyProfile)
     list = models.ForeignKey(ItemList, null=True, blank=True)
     is_member = models.BooleanField(default=False, help_text=_("If this user is a member."))
-    key = models.FloatField()
 
     def __unicode__(self):
         return unicode('%s' % self.member).decode('utf8')

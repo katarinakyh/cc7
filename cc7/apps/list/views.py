@@ -35,8 +35,6 @@ class ListItemsView(CreateView):
         itemform = "katten"
         listform = ItemListForm()
 
-        a_number = 1337
-
         context = {
             'list_items': list_items,
             'list': list,
@@ -44,7 +42,6 @@ class ListItemsView(CreateView):
             'your_list': your_list,
             'item_from': itemform,
             'list_form': listform,
-            'number': a_number
         }
         context.update(kwargs)
         return super(ListItemsView, self).get_context_data(**context)
@@ -59,37 +56,43 @@ class ListItemsView(CreateView):
             title = request.POST.get('title')
             list = ItemList.objects.get(pk=list)
 
-            item = ListItem.objects.create(item_list = list)
+            item = ListItem.objects.create(item_list = list, key = 1)
             item.order = order
             item.description = description
             item.title = title
+            # make a simple key some we can check it is the right item when change *
+            key = (int(list.pk)*2*int(item.pk)*1337)
+            item.key = key
             item.save()
             return HttpResponseRedirect( request.path )
 
         # if update
         if 'update_item' in request.POST:
             is_in_list = False
-            list = request.POST.get('item_list')
-            item = request.POST.get('list_item')
+            list_f = request.POST.get('item_list')
+            item_f = request.POST.get('list_item')
             order = request.POST.get('order')
             description = request.POST.get('description')
             title = request.POST.get('title')
 
-            item = ListItem.objects.get(pk=item)
-            list = ListItem.objects.filter(item_list=list)
+            item = ListItem.objects.get(pk=item_f)
+            list = ListItem.objects.filter(item_list=list_f)
 
             #if check / 10 = extra:
 
             if item in list:
                 is_in_list = True
 
-            if is_in_list:
-                item.order = order
-                item.description = description
-                item.title = title
-                item.save()
-            else:
-                return HttpResponseRedirect( request.path )
+            key = item.key
+            # * check that the data was not changed in from
+            if key ==  (int(list_f)*2*int(item_f)*1337):
+                if is_in_list:
+                    item.order = order
+                    item.description = description
+                    item.title = title
+                    item.save()
+                else:
+                    return HttpResponseRedirect( request.path )
 
 
         return HttpResponseRedirect( request.path )
