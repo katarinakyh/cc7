@@ -121,7 +121,6 @@ class AssociationActivityBase(RedirectView):
         self.update_action(request, association, request.user.get_profile())
         success_url = request.META.get('referer') or '/association//'
 
-        print 'groups', request.user.get_profile().association.all()
         return HttpResponseRedirect(success_url)
 
 class AssociationJoinView(AssociationActivityBase):

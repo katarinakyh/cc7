@@ -130,7 +130,6 @@ class GroupDetailView(DetailView):
 class GroupCreateView(CreateView):
     template_name = 'group/create_group.html'
     model = Group
-    #form_class = GroupForm
     success_url = '/group/'
 
 class GroupUpdateView(UpdateView):

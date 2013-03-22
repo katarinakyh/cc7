@@ -1,4 +1,3 @@
-
 $(".edit").click(function(event){
     var id = this.id;
     var list =  $(this).attr('value');
@@ -40,11 +39,7 @@ $(".edit").click(function(event){
     '</form>' +
     '</div>');
 
-    //var overlay = $('<div id=\"overlay\"> </div>')
     overlay.appendTo(document.body);
-
-    //$('#'+id).parents('tr').after(insertform);
-    //$('#'+id).parents('tr').fadeOut();
 
     $('button.editing').click(function(event){
         $('.update_form').submit(
@@ -57,32 +52,6 @@ $(".edit").click(function(event){
                 error: function(data, status, error){
                 }
             }
-
         );
-
-
     });
-});
-
-
-
-$(".remove").click(function(event){
-    id = this.id;
-
-
-$.ajax({
-    url: '/list/api/v1/listitem/'+ id + '/',
-    type: 'DELETE',
-    contentType: 'application/json',
-    dataType: 'json',
-    processData: false,
-    success: function(data, textStatus, jqXHR) {
-    $('#'+id).parents('tr').fadeOut();
-    },
-error: function(data, status, error){
-    alert('Oooops!');
-    }
-
-});
-
 });

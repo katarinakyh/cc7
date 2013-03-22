@@ -32,7 +32,6 @@ class ListItemsView(CreateView):
         if (list.initiator.pk == user):
             your_list = True
 
-        itemform = "katten"
         listform = ItemListForm()
 
         context = {
@@ -40,7 +39,6 @@ class ListItemsView(CreateView):
             'list': list,
             'restricted' : restricted,
             'your_list': your_list,
-            'item_from': itemform,
             'list_form': listform,
         }
         context.update(kwargs)
@@ -78,8 +76,6 @@ class ListItemsView(CreateView):
             item = ListItem.objects.get(pk=item_f)
             list = ListItem.objects.filter(item_list=list_f)
 
-            #if check / 10 = extra:
-
             if item in list:
                 is_in_list = True
 
@@ -91,6 +87,27 @@ class ListItemsView(CreateView):
                     item.description = description
                     item.title = title
                     item.save()
+                else:
+                    return HttpResponseRedirect( request.path )
+                # if update
+
+        if 'delete_item' in request.POST:
+            is_in_list = False
+            list_f = request.POST.get('item_list')
+            item_f = request.POST.get('list_item')
+
+            item = ListItem.objects.get(pk=item_f)
+            list = ListItem.objects.filter(item_list=list_f)
+
+
+            if item in list:
+                is_in_list = True
+
+            key = item.key
+            # * check that the data was not changed in from
+            if key ==  (int(list_f)*2*int(item_f)*1337):
+                if is_in_list:
+                    item.delete()
                 else:
                     return HttpResponseRedirect( request.path )
 
