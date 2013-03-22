@@ -4,7 +4,7 @@
 {% load thumbnail %}
 
 {% for post in object_list|dictsortreversed:"date_created"  %}
-    <div class="story" >
+<div class="story" xmlns="http://www.w3.org/1999/html">
         {% if post.organiser %}
         <div>
             <h4>
@@ -36,8 +36,8 @@
         {% if post.body %}
             <div>
                 <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <h4 style="display:inline;"><a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a></h4><br/>
-                <span class="small">
+                <label style="display:inline;"><i class="icon-file-alt"></i> <a href="{% url show_post post.pk %}">{% if post.title %}  {{ post.title|escape }}{% else %} >> {% endif %}</a></label>
+                <span class="small pull_right">
                 {% if post.author %} {{ post.date_created }}
                     {% trans "Posted by" %}:<strong><a href="{% url my_page post.author.user %}"> {{ post.author }} </a></strong>
                     {% if post.association %} in <strong><a href="{% url show_association post.association.slug %}">{{ post.association.association }}</a></strong>{% endif %}
@@ -46,7 +46,7 @@
             </div>
 
     {%comment%}
-    <div class="postbody"> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
+    <div class="postbody"> <i class="icon-comment"></i> {{ post.body|linebreaks|escape|truncatewords:60}}  </div> {%endcomment%}
                 <div class="postbody"><p>{{ post.body|oembed:"508x255"|escape }} </p>
                     {% if post.image %}
                         {% thumbnail post.image "420x300" crop="center" as im %}
@@ -63,7 +63,7 @@
         {% if post.initiator %}
         <div class="postbody">
             <img class="mugshot" src="{{ post.initiator.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-            <small><a href="{% url my_page post.initiator.user %}"> {{ post.initiator.user }} </small> </a>{% trans "created a list" %}: <a href="list/{{ post.pk }}">{{ post.title|escape }} </a> on <small>{{ post.date_created }}</small>
+            <small><i class="icon-list"></i> <a href="{% url my_page post.initiator.user %}"> {{ post.initiator.user }} </small> </a>{% trans "created a list" %}: <a href="list/{{ post.pk }}">{{ post.title|escape }} </a> on <small>{{ post.date_created }}</small>
         </div>
         {% endif %}
 

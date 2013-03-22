@@ -31,8 +31,8 @@
 <table class="table table-striped table-bordered" id="list_table">
     <tbody>
         <tr>
-            <th width="206px">Item</th>
-            <th>Info</th>
+            <th width="206px">Title</th>
+            <th>Body</th>
             {% if restricted %}
                {% if your_list %}
             <th>Edit</th>
@@ -42,7 +42,6 @@
             <th>Edit</th>
             <th>-</th>
             {% endif%}
-
         </tr>
     {% for item in list_items  %}
         {% if forloop.last  %}

@@ -11,28 +11,36 @@ $(".edit").click(function(event){
     var overlay = $(insertform =
     '<div id="overlay" style="position: fixed; top: '+ top +'px; left: 4%;">' +
         '<form action="" method="post" class="update_form" >'+
-        '<table class="table table-striped table-bordered">' +
-        '<tr class="now_editing">' +
-            '<td>' +
-            '<input id="id_title" class="editing_title" type="text" value="' + title + '" name="title" maxlength="120">' +
-            '</td>' +
-            '<td>' +
-                '<textarea id="id_description" name="description" >' + description +'</textarea>' +
-            '</td>' +
-            '<td class="small_icon_td">' +
+        '<table class="table table-striped table-bordered overlay_table">' +
+        '<tr>' +
+            '<th class="small_icon_td">Title</th>' +
+                '<td>' +
+                '<input id="id_title" class="editing_title" type="text" value="' + title + '" name="title" maxlength="120">' +
+                '</td>' +
+
+        '</tr>' +
+        '<tr>' +
+            '<th>Body</th>' +
+                '<td class="textarea_edit_td">' +
+                    '<textarea contenteditable="true" id="id_description" name="description" style="overflow: hidden; word-wrap: break-word; resize: both; height: 120px;">' + description +'</textarea>' +
+                '</td>' +
+        '</tr>' +
+        '<tr>' +
+            '<th>Edit</th>' +
+            '<td >' +
                 '<a href=""><button id="+id+" class="btn btn-primary editing">Update</button></a>' +
             '</td>' +
+        '</tr>' +
+        '<tr>' +
+            '<th>Cancel</th>' +
             '<td class="small_icon_td">' +
                 '<a href=""><button class="btn btn-danger">Cancel</button></a>' +
-            '</td>' +
-            '<td>' +
-            '<input id="id_item_list" type="hidden" name="item_list" value="'+list+'">' +
-            '<input id="id_list_item" type="hidden" name="list_item" value="'+id+'">' +
-            '<input type="hidden" value="'+csrftoken +'" name="csrfmiddlewaretoken">' +
-            '<input id="id_order" type="hidden" name="order" value="1">' +
-            '<input id="extra" type="hidden" name="order" value="1">' +
-
-            '<input id="update_item" type="hidden" name="update_item" value="post" >' +
+                '<input id="id_item_list" type="hidden" name="item_list" value="'+list+'">' +
+                '<input id="id_list_item" type="hidden" name="list_item" value="'+id+'">' +
+                '<input type="hidden" value="'+csrftoken +'" name="csrfmiddlewaretoken">' +
+                '<input id="id_order" type="hidden" name="order" value="1">' +
+                '<input id="extra" type="hidden" name="order" value="1">' +
+                '<input id="update_item" type="hidden" name="update_item" value="post" >' +
             '</td>' +
         '</tr>' +
     '</table>' +
@@ -40,6 +48,7 @@ $(".edit").click(function(event){
     '</div>');
 
     overlay.appendTo(document.body);
+
 
     $('button.editing').click(function(event){
         $('.update_form').submit(

@@ -14,7 +14,6 @@ class AddPostView(FormView):
     success_url = '/mobile/'
     template_name = 'mobile/create_post.html'
 
-
     def form_valid(self, form):
         self.request.POST.get('image')
         form.instance.author = self.request.user.get_profile()

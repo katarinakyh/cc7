@@ -6,8 +6,6 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from userena.utils import get_gravatar
 from django.utils.translation import ugettext as _
 from userena.models import upload_to_mugshot
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
 class MemberManager(models.Manager):
@@ -84,9 +82,9 @@ class Group(models.Model):
         member = ActiveMember.objects.get(member = member)
         return member
 
-
     def __unicode__(self):
         return unicode(self.title)
+
 
 
 # if member is in the list but not is_member member is pending
@@ -99,3 +97,5 @@ class ActiveMember(models.Model):
 
     def __unicode__(self):
         return unicode('%s' % self.member).decode('utf8')
+
+

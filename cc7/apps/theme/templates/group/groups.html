@@ -19,6 +19,7 @@
         <th> <i class="icon-picture"></th>
         <th>Group Name</th>
         <th>About Group</th>
+        <th>Status</th>
     </tr>
     {% for group in object_list  %}
     <tr>
@@ -31,6 +32,17 @@
         <td> <a href="/group/{{ group.pk }}">{{ group.title }}</a></td>
         <td>
             {{ group.description }}
+        </td>
+        <td>
+            {% if group.is_restricted %}
+            <label class="label label-info">
+                Private
+            </label>
+            {% else%}
+            <label class="label label-info">
+                Open
+            </label>
+            {% endif%}
         </td>
     </tr>
 

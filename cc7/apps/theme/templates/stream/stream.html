@@ -5,17 +5,12 @@
 {% endblock %}
 
 {%block content%}
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="brand" href="#">{% trans "Posts" %} </a>
-            <ul>
-                <li class="pull-right">
-                    <a href="{% url add_post %}" class="btn btn-primary"> {% trans "New post" %} <i class="icon-edit "></i> </a>
-                </li>
-            </ul>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">{% trans "c7" %} </a>
+            </div>
         </div>
     </div>
-</div>
     {%include 'publication/fullstream.html'%}
 {%endblock%}

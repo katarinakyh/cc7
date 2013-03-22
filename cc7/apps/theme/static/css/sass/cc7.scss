@@ -120,6 +120,12 @@ textarea {
   font-size:10px;
 }
 
+textarea #id_description {
+  height: 100%;
+  width: 260px;
+
+}
+
 #eventform textarea, #eventtableform textarea {
   width: 300px;
   height: 160px; }
@@ -266,16 +272,14 @@ submit {
 }
 
 #overlay {
-  width: 60%;
-  height: 60px;
-  padding: 5px ;
-  background-color: #00ae2f;
+  width: 80%;
+  padding: 25px ;
+  background-color: #000b03;
+  opacity: 0.95;
   z-index: 10000;
 }
-
-.now_editing {
-  margin-left:auto;
-  margin-right:auto;
+.overlay_table {
+  background-color: #d3d3d3;
 }
 .small_icon_td {
   width: 70px;

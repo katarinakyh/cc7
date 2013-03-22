@@ -131,6 +131,22 @@ class GroupCreateView(CreateView):
     template_name = 'group/create_group.html'
     model = Group
     success_url = '/group/'
+    form_class = GroupForm
+
+    def form_valid(self, form):
+        form.instance.inititator = self.request.user.get_profile()
+        form.instance.title = self.request.POST.get('title')
+        form.save()
+
+        # make the initiator of the group member of the group
+        group = Group.objects.get(pk=form.instance.pk)
+        user = self.request.user.get_profile()
+        new_member = ActiveMember(member=user)
+        new_member.group = group
+        new_member.is_member = True
+        new_member.save()
+        return HttpResponseRedirect( self.success_url )
+
 
 class GroupUpdateView(UpdateView):
     model = Group

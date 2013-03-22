@@ -19,6 +19,7 @@
         <th> <i class="icon-picture"></th>
         <th>List Name</th>
         <th>About List</th>
+        <th>Status</th>
     </tr>
     {% for list in object_list  %}
     <tr>
@@ -31,6 +32,17 @@
         <td> <a href="/list/{{ list.pk }}">{{ list.title }}</a></td>
         <td>
             {{ list.description }}
+        </td>
+        <td>
+            {% if list.is_restricted %}
+                <label class="label label-info">
+                    Private
+                </label>
+            {% else%}
+            <label class="label label-info">
+                Open
+            </label>
+            {% endif%}
         </td>
     </tr>
 

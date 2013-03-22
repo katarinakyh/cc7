@@ -2,33 +2,37 @@
 {% load i18n %}
 {% load thumbnail %}
 {%block content%}
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="container">
-            <div class="brand">
-                <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} </a> / <i class="icon-calendar"></i> {{ post.title|truncatechars:40 }}
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="brand">
+                    <a href="{% url stream_events %}" class="menu_word"> {% trans "Events" %} </a> /
+                    <i class="icon-calendar"></i> {{ post.title|truncatechars:40 }}
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div>
-    {% if post.image %}
-    {% thumbnail post.image "600x200" crop="top" as im %}
-    <img src="{{ im.url }}">
-    <hr/>
-    <i class="icon-time"></i> {{ post.datetime_from }} <span class="small">  until  </span> {{ post.datetime_to }} <br/>
-    <i class="icon-map-marker"></i>  {{ post.place }}
-    <label> <i class="icon-th"></i> by <a href="{%url show_association post.organiser.slug%}">{{ post.organiser }}</a></label>
-    <hr/>
     <div>
-        {% endif %}{{post.description|safe|linebreaks}}
+        {% if post.image %}
+        {% thumbnail post.image "600x160" crop="center" as im %}
+        <img src="{{ im.url }}" width="100%">
+        <hr/>
+        <blockquote>
+            <i class="icon-time"></i> {{ post.datetime_from }} <span class="small">  until  </span> {{ post.datetime_to }}
+            <br/>
+            <i class="icon-map-marker"></i> {{ post.place }}
+            <label> <i class="icon-th"></i> by <a href="{%url show_association post.organiser.slug%}"> {{ post.organiser }} </a></label>
+        </blockquote>
+        <hr/>
+        <blockquote>
+            <div>
+                {% endif %}
+                {{post.description|safe|linebreaks}}
+            </div>
+        </blockquote>
     </div>
-</div>
-<hr/>
+    <hr/>
     <ul class="commentfield">
-    {%include 'publication/comment.html'%}
-</ul>
-
-
-
+        {%include 'publication/comment.html'%}
+    </ul>
 {%endblock%}
