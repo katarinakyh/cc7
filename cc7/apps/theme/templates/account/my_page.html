@@ -3,12 +3,11 @@
 {% load thumbnail %}
 
 {% block extra_head %}
-
 {% endblock %}
+
 {%block posts%}
 <hr/>
     {%if pageprofile == profile %}
-
     <img class="mugshot" src="{{ profile.get_mugshot_url }}" style="float:left;" alt="{% trans "Your mugshot" %}"  />
     <div class="form_bound" style="overflow: hidden;">
         <form action="" enctype="multipart/form-data" id="post_form" method="post">
@@ -33,7 +32,6 @@
     {%endif%}
     {%for post in object_list %}
     <h4>
-
        <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
        <a href="/post/detail/{{ post.pk }}"> {{ post.title }}</a><br/>
        <span class="small">

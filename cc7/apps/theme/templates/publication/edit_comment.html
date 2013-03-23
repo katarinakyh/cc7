@@ -1,13 +1,34 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {%block content%}
-    <h4>Edit comment </h4>
-    <hr/>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"><a href="{% url list_lists %}" > {% trans "Edit comment" %} </a> </div>
+        </div>
+    </div>
+</div>
+
+<table id="" class="table table-striped table-bordered">
     <form action="" id="threadform" method="post" class="form-inline">
         {% csrf_token %}
-        {{form.as_p}}
-        <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
-        <input type="hidden" value="1" name="is_public" id="id_is_public"/>
-        <input class="btn" type="submit" value="Save"/>
+        <tbody>
+        <tr>
+            <th>{% trans "Comment" %}</th>
+            <td>
+                {{ form.body }}
+            </td>
+                {{ field.body.errors }}
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans "Save" %}</th>
+            <td>
+                <input type="hidden" value="{{user.pk}}" name="author" id="id_author"/>
+                <input type="hidden" value="1" name="is_public" id="id_is_public"/>
+                <input class="btn" type="submit" value="Save"/>
+            </td>
+        </tr>
     </form>
+</table>
 {%endblock%}

@@ -1,7 +1,5 @@
 from itertools import chain
 from operator import attrgetter
-from django.core.files.base import ContentFile
-from django.http import Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.views.generic.list import ListView
@@ -13,8 +11,6 @@ from forms import ThreadForm, CommentForm, MessageForm, CommentEditForm
 from apps.account.models import MyProfile
 from apps.stream.views import save_comment
 from apps.image.models import Image
-from itertools import chain
-from operator import attrgetter, itemgetter
 import re
 
 class EditCommentView(UpdateView):

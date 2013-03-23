@@ -8,17 +8,6 @@ class GroupForm(ModelForm):
         model = Group
         template_name = 'list/create_list.html'
 
-    def form_valid(self, form):
-        form.instance.inititator = self.request.user.get_profile()
-        print "lao"
-        group = form.save(commit=False)
-        print group.pk
-
-
-        form.instance.collaborators_only = True
-        form.save()
-        print "after save"
-
     def get_success_url(self):
         return '/group/1'
 

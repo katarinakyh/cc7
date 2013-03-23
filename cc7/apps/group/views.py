@@ -1,12 +1,10 @@
 from models import Group, ActiveMember
 from forms import GroupForm
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import RedirectView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from forms import GroupPostForm, JoinGroupForm
 from apps.account.models import MyProfile
@@ -25,7 +23,6 @@ class GroupDetailView(DetailView):
         pk = get_object_or_404(Group, pk=self.kwargs['pk'])
 
         group = Group.objects.get(title=pk)
-        is_member =  ActiveMember.objects.mygroups(self.request, group)
         user = self.request.user.get_profile()
         user_id = user.pk
         group_pk = group.pk
@@ -41,7 +38,7 @@ class GroupDetailView(DetailView):
         else:
             can_request_membership = True
         form = GroupPostForm()
-        group_post = Post.objects.filter(group=group_pk)
+        group_post = Post.objects.filter(group=group_pk).order_by('-date_created')
         context = {
             'group_object': group,
             'members': active_members,
@@ -123,7 +120,7 @@ class GroupDetailView(DetailView):
         else:
             return HttpResponseRedirect( request.path )
 
-        form.cleaned_data = True # TODO this is very bad make a real clean
+        form.cleaned_data = True # TODO this is can be bad
         form.save()
         return HttpResponseRedirect( request.path )
 

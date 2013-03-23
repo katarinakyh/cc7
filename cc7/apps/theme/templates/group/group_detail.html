@@ -25,32 +25,32 @@
 
 <table class="table table-striped table-bordered">
     <tbody>
-    <tr>
-        <td width="100px" > <a href="/list/{{ list.pk }}">
-            {% if group_object.mugshot %}
-            {% thumbnail group_object.mugshot "200x200"  as im %}
-            <img src="{{ im.url }}">
-            {% endif %}</a>
-        </td>
-        <td>
-            <h4><a href="/group/{{ group.pk }}">{{ group_object.title }}</a><br/></h4>
-            - {{ group_object.description }}
-        </td>
-        <td width="120px">
-            {% if group_object.is_restricted %}
-                {% trans "Secret group" %}
-            {% else %}
-                {% trans "Open group" %}
-            {% endif%}
-            <br/>  <br/>
-            {% if membership_pending %}
-                <span class="label label-important">Your are pending</span>
-            {% elif membership_active %}
-                <div>
-                <div class="label label-info">Your are member</div>
-            {% endif %}
-        </td>
-    </tr>
+        <tr>
+            <td width="100px" > <a href="/list/{{ list.pk }}">
+                {% if group_object.mugshot %}
+                {% thumbnail group_object.mugshot "200x200"  as im %}
+                <img src="{{ im.url }}">
+                {% endif %}</a>
+            </td>
+            <td>
+                <h4><a href="/group/{{ group.pk }}">{{ group_object.title }}</a><br/></h4>
+                - {{ group_object.description }}
+            </td>
+            <td width="120px">
+                {% if group_object.is_restricted %}
+                    {% trans "Secret group" %}
+                {% else %}
+                    {% trans "Open group" %}
+                {% endif%}
+                <br/>
+                <br/>
+                {% if membership_pending %}
+                    <span class="label label-important">Your are pending</span>
+                {% elif membership_active %}
+                    <div class="label label-info">Your are member</div>
+                {% endif %}
+            </td>
+        </tr>
     </tbody>
 </table>
     {% if membership_active %}
@@ -67,42 +67,40 @@
         </form>
     </div>
     {% for post in group_post %}
-        <div class="story">
-            <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
-                <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a>
-                <span class="small">
-                {% if post.author %}
-                    {{ post.date_created }}
-                    {% trans "Posted by" %}:<a href="{% url my_page post.author.user %}"> {{ post.author }}</a>
-                {% endif %}
-                </span>
-            <div>
-                {% if post.body %}
-                    {{ post.body|escape }}
-                {% else %}
+    <div class="story">
+        <img class="mugshot" src="{{ post.author.get_mugshot_url }}" alt="{% trans "Your mugshot" %}"/>
+            <a href="{% url show_post post.pk %}">{% if post.title %} {{ post.title|escape }} {% else %} >> {% endif %}</a>
+            <span class="small">
+            {% if post.author %}
+                {{ post.date_created }}
+                {% trans "Posted by" %}:<a href="{% url my_page post.author.user %}"> {{ post.author }}</a>
             {% endif %}
-            </div>
+            </span>
+        <div>
+            {% if post.body %}
+                {{ post.body|escape }}
+            {% else %}
+        {% endif %}
         </div>
+    </div>
     <ul class="commentfield">
-            {% include "publication/comment.html" %}
-        </ul>
+        {% include "publication/comment.html" %}
+    </ul>
     {% endfor %}
 
     {% else %}
         <span class="label label-info">You are not a member of this group.</span>
     {% endif %}
-
 {%endblock%}
 {% block rightsidebartop %}
 {% if membership_active %}
 
 <div class="navbar-inner">
     <div class="container">
-            <h4 class="rightinline black">{{ group_object.title }}</h4>
+        <h4 class="rightinline black">{{ group_object.title }}</h4>
     </div>
 </div>
 <div class="right_bar_entites">
-
     {% if group_object.is_restricted %}
         {% if pending %}
         Pending Members <br/>
@@ -132,6 +130,4 @@
     </ul>
 </div>
 {% endif %}
-
-
 {% endblock %}

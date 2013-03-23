@@ -1,4 +1,3 @@
-
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from apps.event.models import Event
@@ -8,7 +7,6 @@ from apps.publication.forms import CommentForm, MessageForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from itertools import chain
-from operator import attrgetter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def save_comment(request, profile):
@@ -42,10 +40,10 @@ def stream(request):
     result_list =  sorted(chain(posts, events, lists))
     #pagination
 
-    page_list = pagination(request, posts)
+    page_list = pagination(request, result_list)
 
     return render_to_response('stream/stream.html', {
-            'object_list': result_list,
+            'object_list': page_list,
             'comment_form': comment_form,
             'profile': profile,
             'lists' : lists
@@ -74,7 +72,6 @@ def stream_posts(request):
     if request.POST:
         if 'new_comment' in request.POST:
             save_comment(request, profile)
-            print 'I am here'
             return HttpResponseRedirect(reverse('stream_posts'))
 
     posts = Post.objects.filter(is_public=True).order_by('-date_created')
@@ -105,5 +102,3 @@ def stream_events(request):
         'comment_form': comment_form,
         'profile': profile,
         }, context_instance=RequestContext(request))
-
-
