@@ -1,7 +1,7 @@
 cc7
 ===
 
-Deploying with mysql, nginx and gun_corn
+Deploying with mysql, nginx and guni_corn
 ========================================
 * : install virtual env
 =======================
